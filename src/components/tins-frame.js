@@ -1,17 +1,9 @@
+import './tins-header.js';
+import './tins-sidebar.js';
+
 import { LitElement, html, css } from 'lit-element';
 
-customElements.define('tins-frontpage', class extends LitElement {
-
-	static get properties() {
-		return {
-			name: { type: String },
-		};
-	}
-
-	constructor() {
-		super();
-		this.name = "Unnamed";
-	}
+export class TinsFrame extends LitElement {
 
 	static get styles() {
 		return css`
@@ -117,15 +109,14 @@ customElements.define('tins-frontpage', class extends LitElement {
 			<div id="leftcontent"></div>
 			
 			<div id="maincontent">
-
 				<tins-header></tins-header>
-				<tins-newsfeed></tins-newsfeed>
-			
+				<slot/>
 			</div>
 
 			<tins-sidebar id="rightcontent"></tins-sidebar>
-
 		</div>
 		`;
 	}
-});
+}
+
+customElements.define('tins-frame', TinsFrame);

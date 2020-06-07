@@ -10,10 +10,14 @@ function postSuccess(posts) {
 	return { type: 'POST_SUCCESS', posts };
 }
 
-export const refreshPosts = () => async (dispatch) => {
-	dispatch(postLoading());
+export const refreshPosts = (id) => async (dispatch) => {
+	dispatch(postLoading(id));
 
-	const response = await fetch('/api/v1/news');
+	let url;
+	if (id) url = `/api/v1/news/${id}`;
+	else url = '/api/v1/news'
+
+	const response = await fetch(url);
 	if (response.status < 200 || response.status > 299) {
 		dispatch(postError(await response.text()));
 	}

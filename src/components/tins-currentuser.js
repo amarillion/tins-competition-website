@@ -2,7 +2,7 @@ import { LitElement, html, css } from 'lit-element';
 import { dispatch, subscribe } from '../store.js';
 import { refreshCurrentUser } from '../data/currentUser.js';
 
-customElements.define('tins-currentuser', class extends LitElement {
+export class TinsCurrentUser extends LitElement {
 
 	static get properties() {
 		return {
@@ -50,5 +50,6 @@ customElements.define('tins-currentuser', class extends LitElement {
 		html`Welcome, new user. Please <a href="/accounts/login">log in</a> or <a href="/accounts/register">register</a>.`}
 	</p>`;
 	}
-});
+}
 
+customElements.define('tins-currentuser', TinsCurrentUser);

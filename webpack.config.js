@@ -34,7 +34,13 @@ const config = {
 	devServer: {
 		/** following two lines allow (less-secure) access from the Local network. */
 		disableHostCheck: true,
-		host: "0.0.0.0"
+		host: "0.0.0.0",
+		/** any non-found static file falls back to index.html  */
+		historyApiFallback: {
+			rewrites: [
+				{ from: /./, to: '/static/index.html' }
+			]
+		},
 	}
 };
 

@@ -2,7 +2,7 @@ import { LitElement, html, css } from 'lit-element';
 
 import './tins-currentuser.js';
 
-customElements.define('tins-header', class extends LitElement {
+export class TinsHeader extends LitElement {
 
 	static get properties() {
 		return {
@@ -27,5 +27,6 @@ customElements.define('tins-header', class extends LitElement {
 		<tins-currentuser></tins-currentuser>
 		`;
 	}
-});
+}
 
+customElements.define('tins-header', TinsHeader);

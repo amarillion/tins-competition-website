@@ -1,10 +1,9 @@
 import { LitElement, html, css } from 'lit-element';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';
 import { repeat } from 'lit-html/directives/repeat.js';
-import { dispatch, subscribe } from '../store';
-import { refreshPosts } from '../data/news.js';
+import { subscribe } from '../store';
 
-customElements.define('tins-newsfeed', class extends LitElement {
+export class TinsNewsFeed extends LitElement {
 
 	static get properties() {
 		return {
@@ -21,10 +20,9 @@ customElements.define('tins-newsfeed', class extends LitElement {
 
 	connectedCallback() {
 		super.connectedCallback();
-		dispatch(refreshPosts());
 
 		this.unsubscribe = [
-			subscribe(s => s.news.posts, posts => { this.posts = posts; }),
+			subscribe(s => s.news.posts, posts => { this.posts = posts || []; }),
 			subscribe(s => s.news.loading, loading => { this.loading = loading; }),
 			subscribe(s => s.news.error, error => { this.error = error; }),
 		];
@@ -98,4 +96,7 @@ customElements.define('tins-newsfeed', class extends LitElement {
 		${repeat(this.posts, p => p.id, p => this.renderPost(p))}
 	`;
 	}
-});
+}
+
+
+customElements.define('tins-newsfeed', TinsNewsFeed);
