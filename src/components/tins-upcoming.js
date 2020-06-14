@@ -1,0 +1,52 @@
+import { LitElement, html, css } from 'lit-element';
+import { repeat } from 'lit-html/directives/repeat.js';
+import { subscribe } from '../store';
+
+export class TinsUpcoming extends LitElement {
+
+	static get properties() {
+		return {
+			loading: { type: Boolean },
+			error: { type: String },
+			upcoming: { type: Array },
+		};
+	}
+
+	static get styles() {
+		return css`
+			:host {
+				border: 2px dashed grey;
+				padding: 10px;
+				color: black;
+				background: lightgrey;
+			}
+
+			h1 {
+				margin: 0;
+				color: teal;
+			}
+		`;
+	}
+
+	connectedCallback() {
+		super.connectedCallback();
+
+		this.unsubscribe = [
+			subscribe(s => s.currentEvent.data && s.currentEvent.data.upcoming, upcoming => { this.upcoming = upcoming || []; }),
+			subscribe(s => s.currentEvent.loading, loading => { this.loading = loading || []; }),
+			subscribe(s => s.currentEvent.error, error => { this.error = error || []; }),
+		];
+	}
+
+	disconnectedCallback() {
+		this.unsubscribe.forEach(unsub => unsub());
+	}
+
+	render() {
+		return html`
+			<h1>Coming up</h1>
+			<p><i>Mark these events in your calendar! More news will follow...</i></p>
+			${repeat(this.upcoming, u => html`<b>${u.dateStr}</b> <span>${u.title}</span><br>`)}
+		`;
+	}
+}

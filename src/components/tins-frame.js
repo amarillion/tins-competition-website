@@ -118,5 +118,3 @@ export class TinsFrame extends LitElement {
 		`;
 	}
 }
-
-customElements.define('tins-frame', TinsFrame);

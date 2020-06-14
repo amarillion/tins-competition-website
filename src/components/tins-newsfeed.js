@@ -69,7 +69,9 @@ export class TinsNewsFeed extends LitElement {
 		pre {
 			white-space: pre-wrap;
 		}
-
+		h1 {
+			margin: 0;
+		}
 		`;
 	}
 
@@ -92,11 +94,8 @@ export class TinsNewsFeed extends LitElement {
 
 	render() {
 		return html`
-		<h1>news</h1>
+		<h1>News</h1>
 		${repeat(this.posts, p => p.id, p => this.renderPost(p))}
 	`;
 	}
 }
-
-
-customElements.define('tins-newsfeed', TinsNewsFeed);
