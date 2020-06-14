@@ -32,14 +32,27 @@ export class TinsNewsPage extends ScopedElementsMixin(LitElement) {
 	}
 
 	static get styles() {
+		/* 
+			NOTE: advantage of flex over grid: 
+			flex can deal with tins-upcoming setting itself hidden.
+			With grid, you'd always have an empty column there.
+			With flex, the remaining space goes to the newsfeed.
+		*/
 		return css`
-
 			@media (min-width: 1024px) {
 				.twocol {
-					display: grid;
-					grid-template-columns: 3fr 1fr;
-					column-gap: 1rem;
-					align-items: start;
+					display: flex;
+					flex-direction: row;
+					align-items: flex-start;
+				}
+				.tins-newsfeed {
+					flex-basis: 0;
+					flex-grow: 3;
+				}
+				.tins-upcoming {
+					flex-basis: 0;
+					flex-grow: 1;
+					margin-left: 1rem;
 				}
 			}
 			@media (max-width: 1023px) {
@@ -58,7 +71,7 @@ export class TinsNewsPage extends ScopedElementsMixin(LitElement) {
 		return html`
 		<tins-frame>
 			<div class="twocol">
-				<tins-newsfeed></tins-newsfeed>	
+				<tins-newsfeed class="tins-newsfeed"></tins-newsfeed>	
 				<tins-upcoming class="tins-upcoming"></tins-upcoming>
 			</div>
 		</tins-frame>

@@ -9,7 +9,14 @@ export class TinsUpcoming extends LitElement {
 			loading: { type: Boolean },
 			error: { type: String },
 			upcoming: { type: Array },
+			hidden: { type: Boolean, reflect: true },
 		};
+	}
+
+	constructor() {
+		super();
+		this.hidden = true;
+		this.upcoming = [];
 	}
 
 	static get styles() {
@@ -19,6 +26,10 @@ export class TinsUpcoming extends LitElement {
 				padding: 10px;
 				color: black;
 				background: lightgrey;
+			}
+
+			:host([hidden]) {
+				display: none;
 			}
 
 			h1 {
@@ -32,7 +43,10 @@ export class TinsUpcoming extends LitElement {
 		super.connectedCallback();
 
 		this.unsubscribe = [
-			subscribe(s => s.currentEvent.data && s.currentEvent.data.upcoming, upcoming => { this.upcoming = upcoming || []; }),
+			subscribe(s => s.currentEvent.data && s.currentEvent.data.upcoming, upcoming => { 
+				this.upcoming = upcoming || [];
+				this.hidden = this.upcoming.length == 0;
+			}),
 			subscribe(s => s.currentEvent.loading, loading => { this.loading = loading || []; }),
 			subscribe(s => s.currentEvent.error, error => { this.error = error || []; }),
 		];
