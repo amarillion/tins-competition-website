@@ -79,4 +79,3 @@ export class TinsNewsPage extends ScopedElementsMixin(LitElement) {
 	}
 }
 
-customElements.define('tins-newspage', TinsNewsPage);
