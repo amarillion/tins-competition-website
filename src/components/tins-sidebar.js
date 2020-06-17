@@ -24,7 +24,7 @@ customElements.define('tins-sidebar', class extends LitElement {
 
 		this.unsubscribe = [
 			subscribe(s => s.currentUser.data && s.currentUser.data.isStaff, val => { this.isStaff = val; }),
-			subscribe(s => s.currentEvent.data && s.currentEvent.data.events, val => { this.events = val; })
+			subscribe(s => s.currentEvent.data && s.currentEvent.data.events, val => { this.events = val || []; })
 		];
 	}
 

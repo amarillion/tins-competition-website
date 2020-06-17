@@ -19,7 +19,7 @@ export class TinsCurrentUser extends LitElement {
 		dispatch(refreshCurrentUser());
 
 		this.unsubscribe = [
-			subscribe(s => s.currentUser.data && s.currentUser.data.login, login => { console.log({login}); this.username = login; })
+			subscribe(s => s.currentUser.data && s.currentUser.data.login, login => { this.username = login; })
 		];
 	}
 
