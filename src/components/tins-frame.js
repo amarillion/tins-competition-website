@@ -7,17 +7,18 @@ export class TinsFrame extends LitElement {
 
 	static get styles() {
 		return css`
-		#body {
+		:host {
 			display: flex;
+			min-height: 100vh;
 		}
 		
 		@media (min-width: 1024px) {
-			#body {
+			:host {
 				flex-direction: row;
 			}
 		
 			#leftcontent {
-				flex: 1 1 200px;
+				flex: 0 0 15%;
 			}
 		
 			#maincontent {
@@ -30,13 +31,13 @@ export class TinsFrame extends LitElement {
 			}
 		
 			#rightcontent {
-				flex: 1 1 200px;
+				flex: 0 1 25%;
 			}
 		}
 		
 		@media (max-width: 1023px) {
 		
-			#body {
+			:host {
 				flex-direction: column-reverse;
 			}
 		
@@ -103,18 +104,15 @@ export class TinsFrame extends LitElement {
 	}
 
 	render() {
-		return html`
-		<div id="body">
+		return html`	
+		<div id="leftcontent"></div>
 		
-			<div id="leftcontent"></div>
-			
-			<div id="maincontent">
-				<tins-header></tins-header>
-				<slot/>
-			</div>
-
-			<tins-sidebar id="rightcontent"></tins-sidebar>
+		<div id="maincontent">
+			<tins-header></tins-header>
+			<slot/>
 		</div>
+
+		<tins-sidebar id="rightcontent"></tins-sidebar>
 		`;
 	}
 }
