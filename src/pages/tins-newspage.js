@@ -17,13 +17,9 @@ export class TinsNewsPage extends ScopedElementsMixin(LitElement) {
 		};
 	}
 
-	set newsId(val) {
-		this._id = val;
-	}
-
 	connectedCallback() {
 		super.connectedCallback();
-		dispatch(refreshPosts(this._id));
+		dispatch(refreshPosts(this.location.params.newsId));
 	}
 
 	constructor() {
