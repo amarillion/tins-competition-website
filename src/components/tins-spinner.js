@@ -22,6 +22,11 @@ export class TinsSpinner extends LitElement {
 
 	static get styles() {
 		return css`
+		:host {
+			display: block;
+			margin: auto;
+		}
+
 		svg {
 			animation: 2s linear infinite svg-animation;
 			max-width: 100px;

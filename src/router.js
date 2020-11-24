@@ -8,7 +8,7 @@ import { TinsFaq } from './pages/tins-faq';
 import { TinsHistory } from './pages/tins-history';
 import { TinsSecretSanta } from './pages/tins-my-secret-santa';
 import { TinsSupport } from './pages/tins-support.js';
-
+import { TinsEntry } from './pages/tins-entry.js';
 
 const outlet = document.getElementById('outlet');
 const router = new Router(outlet);
@@ -20,6 +20,7 @@ customElements.define('tins-history', TinsHistory);
 customElements.define('tins-secret-santa', TinsSecretSanta);
 customElements.define('tins-fa-icon', TinsFaIcon);
 customElements.define('tins-support', TinsSupport);
+customElements.define('tins-entry', TinsEntry);
 				
 router.setRoutes([
 	{ path: '/news', component: 'tins-newspage' },
@@ -33,4 +34,6 @@ router.setRoutes([
 	// { path: '(.*)', action: ( { pathname }) => { 
 	// 	//TODO: 404 page
 	// }},
+	//TODO: possibly add game name at end of url
+	{ path: '/entry/:entryId', component: 'tins-entry' },	
 ]);

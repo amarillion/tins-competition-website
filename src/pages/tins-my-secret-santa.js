@@ -4,7 +4,7 @@ import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { TinsFrame } from '../components/tins-frame';
 import { TinsSpinner } from '../components/tins-spinner';
 import { TinsInlineCountDown } from '../components/tins-inline-count-down';
-import registerEventListener from '../util';
+import { registerEventListener, asyncFetchJSON } from '../util.js';
 
 export class TinsSecretSanta extends ScopedElementsMixin(LitElement) {
 
@@ -45,28 +45,12 @@ export class TinsSecretSanta extends ScopedElementsMixin(LitElement) {
 
 	async refresh() {
 		this.reset();
-		this.loading = true;
-		const response = await fetch('/api/v1/mySecretSanta');
-		if (response.ok) {
-			// parse json only if response is OK. Error state may contain invalid json.
-			const data = await response.json(); 
-
-			// clear loading flag AFTER awaiting data.
-			this.loading = false; 
-
+		const data = await asyncFetchJSON('/api/v1/mySecretSanta', this);
+		if (data) {
 			this.competitionStarted = data.competitionStarted;
 			this.secretSanta = data.secretSanta;
 			this.competition = data.competition;
 			this.joinedCompetition = data.joinedCompetition;
-		}
-		else {
-			this.loading = false;
-			if (response.status === 401) {
-				this.error = 'Access denied: you must be logged in';
-			}
-			else {
-				this.error = 'Error: could not fetch data';
-			}
 		}
 	}
 
