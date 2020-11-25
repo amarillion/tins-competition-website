@@ -4,6 +4,7 @@ import { refreshPosts } from '../data/news.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
 import { TinsUpcoming } from '../components/tins-upcoming.js';
+import { TinsCurrentEvent } from '../components/tins-current-event.js';
 import { TinsFrame } from '../components/tins-frame';
 import { TinsNewsFeed } from '../components/tins-newsfeed';
 
@@ -14,6 +15,7 @@ export class TinsNewsPage extends ScopedElementsMixin(LitElement) {
 			'tins-frame': TinsFrame,
 			'tins-newsfeed': TinsNewsFeed,
 			'tins-upcoming': TinsUpcoming,
+			'tins-current-event': TinsCurrentEvent,
 		};
 	}
 
@@ -42,10 +44,10 @@ export class TinsNewsPage extends ScopedElementsMixin(LitElement) {
 					align-items: flex-start;
 				}
 				.tins-newsfeed {
+					flex-grow: 2;
 					flex-basis: 0;
-					flex-grow: 3;
 				}
-				.tins-upcoming {
+				.rightcol {
 					flex-basis: 0;
 					flex-grow: 1;
 					margin-left: 1rem;
@@ -56,10 +58,9 @@ export class TinsNewsPage extends ScopedElementsMixin(LitElement) {
 					display: flex;
     				flex-direction: column-reverse;
 				}
-				.tins-upcoming {
+				.rightcol {
 					margin-bottom: 1rem;
 				}
-			}
 		`;
 	}
 
@@ -68,7 +69,10 @@ export class TinsNewsPage extends ScopedElementsMixin(LitElement) {
 		<tins-frame>
 			<div class="twocol">
 				<tins-newsfeed class="tins-newsfeed"></tins-newsfeed>	
-				<tins-upcoming class="tins-upcoming"></tins-upcoming>
+				<div class="rightcol">
+					<tins-current-event class="tins-current-event"></tins-current-event>
+					<tins-upcoming class="tins-upcoming"></tins-upcoming>
+				</div>
 			</div>
 		</tins-frame>
 		`;

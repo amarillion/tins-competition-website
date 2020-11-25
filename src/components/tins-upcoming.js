@@ -22,6 +22,7 @@ export class TinsUpcoming extends LitElement {
 	static get styles() {
 		return css`
 			:host {
+				display: block;
 				border: 2px dashed grey;
 				padding: 10px;
 				color: black;
