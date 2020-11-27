@@ -99,9 +99,9 @@ customElements.define('tins-sidebar', class extends LitElement {
 				<a href="/history">History</a>
 		
 			
-				<a href="/profile">Profile</a>
-				<a href="/join">Join a competition</a>
-				<a href="/accounts/password/change">Change password</a>
+				<a href="/profile" router-ignore>Profile</a>
+				<a href="/join" router-ignore>Join a competition</a>
+				<a href="/accounts/password/change" router-ignore>Change password</a>
 			
 			</div>
 		
@@ -109,12 +109,12 @@ customElements.define('tins-sidebar', class extends LitElement {
 		
 			
 			<div class="toc">
-				${repeat(this.events, e => e.short, e => html`<a href="/${e.short}/">${e.title}</a>`)}
+				${repeat(this.events, e => e.short, e => html`<a href="/${e.short}/" router-ignore>${e.title}</a>`)}
 			</div>
 			
 			${this.isStaff ? 
 		html`<div class="toc">
-				<a href="/admin/">admin<br>
+				<a href="/admin/" router-ignore>admin<br>
 			</div>` : '' }
 		</nav>
 		

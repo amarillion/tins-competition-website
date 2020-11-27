@@ -79,7 +79,7 @@ export class TinsCurrentEvent extends LitElement {
 			${this.renderIfFuture("Finish", this.currentEvent.competitionEnd)}
 			${this.renderIfFuture("Voting ends", this.currentEvent.votingEnd)}
 			</div>
-			Already ${this.currentEvent.numEntrants} signed up. <a href="/join/">Click to join</a>!
+			Already ${this.currentEvent.numEntrants} signed up. <a href="/join/" router-ignore>Click to join</a>!
 		`;
 	}
 
