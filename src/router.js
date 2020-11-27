@@ -19,10 +19,7 @@ router.setRoutes([
 	{ path: '/about', component: 'tins-about' },
 	{ path: '/history', component: 'tins-history' },
 
-	// fallback to server routing
-	{ path: '(.*)', action: ( { pathname }) => { 
-		console.log(`Fallback handler: ${pathname}`);
-		// window.history.pushState(null, document.title, window.location.href);
-		window.location.href = pathname; 
-	}},
+	// { path: '(.*)', action: ( { pathname }) => { 
+	// 	//TODO: 404 page
+	// }},
 ]);
