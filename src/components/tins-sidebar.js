@@ -112,8 +112,7 @@ customElements.define('tins-sidebar', class extends LitElement {
 				${repeat(this.events, e => e.short, e => html`<a href="/${e.short}/" router-ignore>${e.title}</a>`)}
 			</div>
 			
-			${this.isStaff ? 
-		html`<div class="toc">
+			${this.isStaff ? html`<div class="toc">
 				<a href="/admin/" router-ignore>admin<br>
 			</div>` : '' }
 		</nav>

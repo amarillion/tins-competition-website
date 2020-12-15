@@ -44,10 +44,10 @@ export class TinsCurrentUser extends LitElement {
 
 	render() {
 		return html`
-	<p id="status">		
+	<p id="status">
 	${this.username ? 
-		html`You are logged in as: <b>${this.username}</b> <a href="/accounts/logout">log out</a>` : 
-		html`Welcome, new user. Please <a href="/accounts/login">log in</a> or <a href="/accounts/register">register</a>.`}
+			html`You are logged in as: <b>${this.username}</b> <a href="/accounts/logout">log out</a>` : 
+			html`Welcome, new user. Please <a href="/accounts/login">log in</a> or <a href="/accounts/register">register</a>.`}
 	</p>`;
 	}
 }

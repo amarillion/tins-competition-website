@@ -1,15 +1,15 @@
 module.exports = {
-	// parser: "babel-eslint",
+	parser: "babel-eslint",
 	parserOptions: {
-		ecmaVersion: 6,
-		sourceType: "module"
+		sourceType: "module",
+		ecmaVersion: 10
 	},
 	env: {
 		"browser": true,
 	},
 	extends: "eslint:recommended",
 	rules: {
-		"indent": [2, "tab"],
+		'indent': [ 'error', 'tab', { 'ignoredNodes': ['TemplateLiteral'] } ],
 		"semi": [2, "always"],
 		"no-console": [0]
 	},

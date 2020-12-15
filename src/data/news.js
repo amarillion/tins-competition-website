@@ -15,7 +15,7 @@ export const refreshPosts = (id) => async (dispatch) => {
 
 	let url;
 	if (id) url = `/api/v1/news/${id}`;
-	else url = '/api/v1/news'
+	else url = '/api/v1/news';
 
 	const response = await fetch(url);
 	if (response.status < 200 || response.status > 299) {
@@ -25,7 +25,7 @@ export const refreshPosts = (id) => async (dispatch) => {
 		const posts = (await response.json()).posts;
 		dispatch(postSuccess(posts));
 	}
-}
+};
 
 export default function reducer(state = { loading: false, error: null, posts: [] }, action) {
 	switch (action.type) {

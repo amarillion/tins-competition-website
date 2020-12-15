@@ -21,7 +21,7 @@ export const refreshCurrentEvent = () => async (dispatch) => {
 		const data = (await response.json());
 		dispatch(currentEventSuccess(data));
 	}
-}
+};
 
 export default function reducer(state = { loading: false, error: null, data: null }, action) {
 	switch (action.type) {
