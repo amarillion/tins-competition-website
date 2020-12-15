@@ -57,6 +57,9 @@ export class TinsNewsFeed extends LitElement {
 			border-width: 1px;
 			line-height: 24px;
 		}
+		div.window img {
+			max-width: 100%;
+		}
 		div.header {
 			display: block;
 			border-style: solid;
