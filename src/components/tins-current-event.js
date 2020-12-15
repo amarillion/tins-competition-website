@@ -47,7 +47,12 @@ export class TinsCurrentEvent extends LitElement {
 			<tins-count-down label="Finish"      epochMillis=${this.currentEvent.competitionEnd}></tins-count-down>
 			<tins-count-down label="Voting ends" epochMillis=${this.currentEvent.votingEnd}></tins-count-down>
 			</div>
-			Already ${this.currentEvent.numEntrants} signed up. <a href="/join/" router-ignore>Click to join</a>!
+			${this.currentEvent.canJoin
+			? html`Already ${this.currentEvent.numEntrants} signed up. <a href="/join/" router-ignore>Click to join</a>!` 
+			: ''}
+			${this.currentEvent.canPost
+				? html`<br><a href="/${this.currentEvent.short}/log/" router-ignore>View the latest logs</a>.`
+				: ''}
 		`;
 	}
 
