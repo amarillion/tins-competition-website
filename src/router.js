@@ -4,6 +4,7 @@ import { TinsAbout } from './pages/tins-about';
 import { TinsFaq } from './pages/tins-faq';
 import { TinsHistory } from './pages/tins-history';
 import { TinsSecretSanta } from './pages/tins-my-secret-santa';
+import { TinsFaIcon } from './components/tins-fa-icon.js';
 
 const outlet = document.getElementById('outlet');
 const router = new Router(outlet);
@@ -13,6 +14,7 @@ customElements.define('tins-about', TinsAbout);
 customElements.define('tins-faq', TinsFaq);
 customElements.define('tins-history', TinsHistory);
 customElements.define('tins-secret-santa', TinsSecretSanta);
+customElements.define('tins-fa-icon', TinsFaIcon);
 				
 router.setRoutes([
 	{ path: '/news', component: 'tins-newspage' },

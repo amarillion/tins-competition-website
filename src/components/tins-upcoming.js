@@ -1,7 +1,8 @@
 import { LitElement, html, css } from 'lit-element';
 import { repeat } from 'lit-html/directives/repeat.js';
 import { subscribe } from '../store';
-
+import twitterIcon from '@fortawesome/fontawesome-free/svgs/brands/twitter.svg';
+ 
 export class TinsUpcoming extends LitElement {
 
 	static get properties() {
@@ -69,7 +70,7 @@ export class TinsUpcoming extends LitElement {
 			${repeat(this.upcoming, u => html`<b>${u.dateStr}</b> <span>${u.title}</span><br>`)}
 			<hr>
 			Stay informed! To get notified of upcoming events, <a href="https://groups.google.com/d/forum/tinscompetition">join our google group</a><br> 
-			You can also find me on twitter: <a href="https://twitter.com/mpvaniersel">@mpvaniersel</a>
+			<tins-fa-icon src="${twitterIcon}" size="1rem" style="vertical-align: middle;"></tins-fa-icon><a href="https://twitter.com/mpvaniersel">@mpvaniersel</a>
 		`;
 	}
 }

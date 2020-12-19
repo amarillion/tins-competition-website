@@ -19,6 +19,19 @@ const config = {
 		
 	},
 
+	module: {
+		rules: [{
+			/* `import y from 'x.svg'` -> copy x.svg to the output folder and assign the name of the file to y. */
+			test: /\.svg$/,
+			use: [{ 
+				loader: 'file-loader',
+				options: {
+					outputPath: 'assets'
+				}
+			}]
+		}]
+	},
+
 	// customize the webpack build process.
 	plugins: [
 		new HtmlWebpackPlugin({
