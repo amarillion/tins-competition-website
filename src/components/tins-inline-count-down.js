@@ -14,6 +14,7 @@ export class TinsInlineCountDown extends LitElement {
 		this.label = "";
 		this.hidden = false;
 		this.epochMillis = 0;
+		this.zeroEventSent = false;
 	}
 
 	render() {
@@ -24,7 +25,14 @@ export class TinsInlineCountDown extends LitElement {
 
 		const deltaSec = Math.floor((d - now) / 1000);
 		
-		if (deltaSec < 0) return ''; // time in past is not displayed
+		if (deltaSec < 0) {
+			if (!this.zeroEventSent) {
+				const event = new CustomEvent ('countdownZero', { bubbles: true });
+				this.dispatchEvent(event);
+				this.zeroEventSent = true;
+			}
+			return '0 min 0 sec'; // timer just stays at 0
+		}
 
 		const sec = deltaSec % 60;
 		const min = Math.floor(deltaSec / 60) % 60;
@@ -45,13 +53,7 @@ export class TinsInlineCountDown extends LitElement {
 		else {
 			numbers = [ min, sec ];
 			labels = [ "min", "sec" ];
-			if (deltaSec > 1) {
-				setTimeout(() => this.requestUpdate(), 1000);
-			}
-			else {
-				console.log("Refreshing in 2 sec");
-				setTimeout(() => location.reload(), 2000);
-			}
+			setTimeout(() => this.requestUpdate(), 1000);
 		}
 		
 		return html`${numbers[0]} ${labels[0]} ${numbers[1]} ${labels[1]}`;

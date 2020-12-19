@@ -4,6 +4,7 @@ import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { TinsFrame } from '../components/tins-frame';
 import { TinsSpinner } from '../components/tins-spinner';
 import { TinsInlineCountDown } from '../components/tins-inline-count-down';
+import registerEventListener from '../util';
 
 export class TinsSecretSanta extends ScopedElementsMixin(LitElement) {
 
@@ -28,6 +29,7 @@ export class TinsSecretSanta extends ScopedElementsMixin(LitElement) {
 
 	constructor() {
 		super();
+		this.unsubscribe = () => {};
 		this.reset();
 	}
 
@@ -51,7 +53,7 @@ export class TinsSecretSanta extends ScopedElementsMixin(LitElement) {
 
 			// clear loading flag AFTER awaiting data.
 			this.loading = false; 
-			
+
 			this.competitionStarted = data.competitionStarted;
 			this.secretSanta = data.secretSanta;
 			this.competition = data.competition;
@@ -70,7 +72,16 @@ export class TinsSecretSanta extends ScopedElementsMixin(LitElement) {
 
 	connectedCallback() {
 		super.connectedCallback();
-		this.refresh();	
+		this.refresh();
+
+		this.unsubscribe = registerEventListener(this.shadowRoot, 'countdownZero',
+			() => setTimeout(() => this.refresh(), 2000)
+		);
+	}
+
+	disconnectedCallback() {
+		super.disconnectedCallback();
+		this.unsubscribe();
 	}
 
 	static get styles() {
