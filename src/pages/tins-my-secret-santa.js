@@ -126,7 +126,6 @@ export class TinsSecretSanta extends ScopedElementsMixin(LitElement) {
 			}
 			else {
 				return html`
-				${this.renderTitle()}
 				<p>Hello ${this.secretSanta.giver.name},</p>
 				<p>
 				Santa has decided that you will give a gift to ${this.secretSanta.receiver.name}!
