@@ -95,6 +95,7 @@ customElements.define('tins-sidebar', class extends LitElement {
 		
 				<a href="/news">News</a>
 				<a href="/about">About</a>
+				<a href="/support">Support TINS</a>
 				<a href="/faq">FAQ</a>
 				<a href="/history">History</a>
 		
