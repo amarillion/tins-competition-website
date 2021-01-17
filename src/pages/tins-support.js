@@ -26,7 +26,7 @@ export class TinsSupport extends ScopedElementsMixin(LitElement) {
 
 	<h1>Support the TINS Game Jams!</h1>
 
-	<p>Do you enjoy TINS or KrampusHack? Do you want to see more high quality compo's in the future? 
+	<p>Do you enjoy TINS or KrampusHack? Do you want to see more events in the future, and help me make them extra cool and shiny? 
 	Then why not donate and support the event financially?
 	</p>
 
