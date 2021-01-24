@@ -29,7 +29,9 @@ export class TinsSupport extends ScopedElementsMixin(LitElement) {
 	<p>Do you enjoy TINS or KrampusHack? Do you want to see more events in the future, and help me make them extra cool and shiny? 
 	Then why not donate and support the event financially?
 	</p>
-
+	<p>
+	Suggested donation: <b>€10.00</b>
+	</p>
 	<form action="https://www.paypal.com/donate" method="post" target="_top">
 		<input type="hidden" name="cmd" value="_donations" />
 		<input type="hidden" name="business" value="XK9DV8JHM3UBN" />
