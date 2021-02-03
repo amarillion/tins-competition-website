@@ -49,13 +49,15 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 	renderContents() {
 		return html`
 			<div class="icons">
-				${repeat(this.entry.tags, t => html`<img src="${t.url} title="${t.desc}/>`)}
+				${repeat(this.entry.tags, t => html`<img src="/upload/${t.icon}" title="${t.desc}"/>`)}
 			</div>
+
 			<h1><tins-fa-icon src="${gamepadIcon}" size="2rem"></tins-fa-icon> ${this.entry.title}</h1>
-			
+
 			<p class="authorbox">Game by: ${repeat(this.entry.entrants, e => html`${e.name} <a href='${this.entry.competition}/log/${e.id}' router-ignore>log (${e.logCount})</a>`)}</p>
 
 			${this.entry.imagefile ? html`<img src="/upload/${this.entry.imagefile}"/>` : html`<hr>`}
+
 			<p>
 				<tins-richtext class="richtext" .submitCallback=${(data) => this.submitText(data)} ?readOnly=${!this.entry.editable} text="${this.entry.text}"></tins-richtext>
 			</p>
@@ -125,6 +127,10 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 				background: lightgrey;
 				border: 2px dashed grey;
 				padding: 10px;
+			}
+
+			.icons {
+				float: right;
 			}
 
 			.color {

@@ -74,7 +74,7 @@ export class TinsRichText extends ScopedElementsMixin(LitElement) {
 			}
 			else {
 				return html`${this.renderEditButton()}
-				<div>${this.safeText ? unsafeHTML(this.renderRichText(this.safeText)) : this.placeHolder}</div>
+				<div>${this.safeText ? unsafeHTML(this.renderRichText(this.safeText)) : html`<i>${this.placeHolder}</i>`}</div>
 				`;
 			}
 		}
@@ -143,8 +143,9 @@ export class TinsRichText extends ScopedElementsMixin(LitElement) {
 	static get styles() {
 		return css`
 
-		host: {
+		:host {
 			display: block;
+			min-height: 3rem;
 		}
 
 		.buttons {
