@@ -11,6 +11,7 @@ export class TinsRichText extends ScopedElementsMixin(LitElement) {
 			editMode: { type: Boolean, reflect: true },
 			readOnly: { type: Boolean },
 			text: { type: String },
+			placeholder: { type: String },
 
 			// internal use:
 			loading: { type: Boolean },
@@ -36,6 +37,7 @@ export class TinsRichText extends ScopedElementsMixin(LitElement) {
 
 		this.unsafeText = "";
 		this.safeText = "";
+		this.placeHolder = "(no description)";
 		this._submitCallback = () => { console.log("WARN: submitCallback not set"); };
 	}
 
@@ -64,12 +66,15 @@ export class TinsRichText extends ScopedElementsMixin(LitElement) {
 		else {
 			if (this.editMode) {
 				return html`${this.renderError()}
-				<div class="buttons"><button @click=${() => this.clickSave()}>Save</button></div>
+				<div class="buttons">
+					<button @click=${() => this.clickSave()}>Save</button>
+					<button @click=${() => this.clickCancel()}>Cancel</button>
+				</div>
 				<textarea class="editor">${this.unsafeText}</textarea>`;
 			}
 			else {
 				return html`${this.renderEditButton()}
-				<div>${unsafeHTML(this.renderRichText(this.safeText))}</div>
+				<div>${this.safeText ? unsafeHTML(this.renderRichText(this.safeText)) : this.placeHolder}</div>
 				`;
 			}
 		}
@@ -78,7 +83,8 @@ export class TinsRichText extends ScopedElementsMixin(LitElement) {
 	transformYoutubeLinks(text) {
 		if (!text) return text;
 		const youtubeLink = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([^& \n<]+)(?:[^ \n<]+)?/gm;
-		const replacement = '<iframe width="420" height="345" src="https://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe><br/>'
+		// trick for responsive aspect ratio in iframe: https://www.ankursheel.com/blog/full-width-you-tube-video-embed
+		const replacement = '<div class="video-container"><iframe class="video" src="https://www.youtube.com/embed/$1" allowfullscreen></iframe><br/></div>';
 		return text.replaceAll(youtubeLink, replacement);
 	}
 
@@ -119,7 +125,13 @@ export class TinsRichText extends ScopedElementsMixin(LitElement) {
 			this.editMode = true;
 			this.error = e.toString();
 		}
-		
+	}
+
+	clickCancel() {
+		// discard edited text
+		this.unsafeText = this.safeText;
+		this.loading = false;
+		this.editMode = false;
 	}
 
 	clickEdit() {
@@ -139,6 +151,19 @@ export class TinsRichText extends ScopedElementsMixin(LitElement) {
 			float: right;
 		}
 
+		button {
+			padding: 0.5rem;
+			border: 2px solid black;
+			width: 4rem;
+			background: #FF8;
+			color: black;
+		}
+
+		button:hover {
+			background: #CC0;
+			transition: 0.1s
+		}
+
 		.error {
 			width: 100%;
 			color: red;
@@ -146,6 +171,21 @@ export class TinsRichText extends ScopedElementsMixin(LitElement) {
 
 		.editor {
 			min-height: 20rem;
+		}
+
+		.video-container {
+			position: relative;
+			width: 100%;
+			padding-bottom: 56.25%;
+		}
+
+		.video {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			border: 0;
 		}
 
 		textarea {

@@ -3,10 +3,13 @@ import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
 import { TinsFrame } from '../components/tins-frame';
 import { TinsRichText } from '../components/tins-richtext';
-import { asyncFetchJSON } from '../util';
+import { asyncFetchJSON, formatBytes, formatErrorResponse } from '../util';
 import { repeat } from 'lit-html/directives/repeat.js';
 import { TinsSpinner } from '../components/tins-spinner';
 import Cookies from 'js-cookie';
+import gamepadIcon from '@fortawesome/fontawesome-free/svgs/solid/gamepad.svg';
+import downloadIcon from '@fortawesome/fontawesome-free/svgs/solid/download.svg';
+import { TinsFaIcon } from '../components/tins-fa-icon.js';
 
 export class TinsEntry extends ScopedElementsMixin(LitElement) {
 
@@ -14,7 +17,8 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 		return {
 			'tins-frame': TinsFrame,
 			'tins-richtext': TinsRichText,
-			'tins-spinner': TinsSpinner
+			'tins-spinner': TinsSpinner,
+			'tins-fa-icon': TinsFaIcon,
 		};
 	}
 
@@ -47,14 +51,21 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 			<div class="icons">
 				${repeat(this.entry.tags, t => html`<img src="${t.url} title="${t.desc}/>`)}
 			</div>
-			<h1>Entry Detail for: ${this.entry.title}</h1>
-			<p>Author(s): ${repeat(this.entry.entrants, e => html`${e.name} (<a href='${this.entry.competition}/log/${e.id}' router-ignore>log</a>)`)}</p>
-			<tins-richtext class="richtext" .submitCallback=${(data) => this.submitText(data)} ?readOnly=${!this.entry.editable} text="${this.entry.text}"></tins-richtext>
-			<p>Download: <a href="/upload/${this.entry.lastSubmission.url}" router-ignore>${this.entry.title}<a>
+			<h1><tins-fa-icon src="${gamepadIcon}" size="2rem"></tins-fa-icon> ${this.entry.title}</h1>
+			
+			<p class="authorbox">Game by: ${repeat(this.entry.entrants, e => html`${e.name} <a href='${this.entry.competition}/log/${e.id}' router-ignore>log (${e.logCount})</a>`)}</p>
+
+			${this.entry.imagefile ? html`<img src="/upload/${this.entry.imagefile}"/>` : html`<hr>`}
 			<p>
-			<img src="/upload/${this.entry.imagefile}"/>
+				<tins-richtext class="richtext" .submitCallback=${(data) => this.submitText(data)} ?readOnly=${!this.entry.editable} text="${this.entry.text}"></tins-richtext>
 			</p>
-			<p><a href="/${this.entry.competition}/reviews/entry/${this.entry.id}/" router-ignore>Reviews</a>
+			<div class="downloadbox">
+				<tins-fa-icon src="${downloadIcon}" color="gray" size="2rem"></tins-fa-icon>
+				<a href="/upload/${this.entry.lastSubmission.url}" router-ignore>${this.entry.title}<a>
+				${formatBytes(this.entry.lastSubmission.size)}
+			</div>
+
+			<p><a href="/${this.entry.competition}/reviews/entry/${this.entry.id}/" router-ignore>Reviews (${this.entry.reviewCount})</a>
 		`;
 	}
 	
@@ -75,7 +86,7 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 			// clear loading flag AFTER awaiting data.
 			return data.text;
 		}
-		else throw new Error((await response.text()).substr(0, 250));
+		else throw new Error(await formatErrorResponse(response));
 	}
 
 	renderError() {
@@ -99,6 +110,21 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 
 			.icons {
 					
+			}
+
+			.error {
+				width: 100%;
+				color: red;
+			}
+
+			.authorbox {
+				color: grey;
+			}
+
+			.downloadbox {
+				background: lightgrey;
+				border: 2px dashed grey;
+				padding: 10px;
 			}
 
 			.color {

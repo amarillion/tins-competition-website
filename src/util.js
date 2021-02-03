@@ -9,7 +9,35 @@ export default function registerEventListener(elt, type, func, capture = false) 
 	};
 }
 
-/** gets data from URL. Sets loading and error flags on self. */
+export function formatBytes(bytes) {
+	const GB = 1 << 30;
+	const MB = 1 << 20;
+	const KB = 1 << 10;
+	if (bytes > GB / 2) {
+		return `${(bytes/GB).toFixed(2)} Gb`;
+	}
+	else if (bytes > MB / 2) {
+		return `${(bytes/MB).toFixed(2)} Mb`;
+	}
+	else if (bytes > KB / 2) {
+		return `${(bytes/KB).toFixed(2)} Kb`;
+	}
+	else {
+		return `${bytes} b`;
+	}
+}
+
+export async function formatErrorResponse(response) {
+	const message = (await response.text()).split("\n")[0];
+	switch(response.status) {
+	case 401: return `Access denied: ${message}`;
+	case 403: return `Unauthorized: ${message}`;
+	case 404: return `Not found: ${message}`;
+	default: return `Error: ${message}`;
+	}
+}
+
+/** gets data from URL and parses json. Sets loading and error flags on self. */
 export async function asyncFetchJSON(url, self) {
 	self.loading = true;
 	const response = await fetch(url);
@@ -22,16 +50,7 @@ export async function asyncFetchJSON(url, self) {
 	}
 	else {
 		self.loading = false;
-		const message = await response.text();
-		if (response.status === 401) {
-			self.error = `Access denied: ${message}`;
-		}
-		else if (response.status === 403) {
-			self.error = `Unauthorized: ${message}`;
-		}
-		else {
-			self.error = `Error: ${message}`;
-		}
+		self.error = await formatErrorResponse(response);
 		return null;
 	}
 }

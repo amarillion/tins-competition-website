@@ -13,6 +13,7 @@ export class TinsFaIcon extends LitElement {
 		return css`
 	  :host {
 		display: inline-block;
+		vertical-align: middle;
 		padding: 0;
 		margin: 0;
 		--size: 24px;
