@@ -1,3 +1,5 @@
+import linkifyHtml from 'linkifyjs/html';
+
 /*
 	Adds an event listener on a DOM element, and returns a function that 
 	removes it again when called.
@@ -53,4 +55,32 @@ export async function asyncFetchJSON(url, self) {
 		self.error = await formatErrorResponse(response);
 		return null;
 	}
+}
+
+function transformYoutubeLinks(text) {
+	if (!text) return text;
+	const youtubeLink = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([^& \n<]+)(?:[^ \n<]+)?/gm;
+	// trick for responsive aspect ratio in iframe: https://www.ankursheel.com/blog/full-width-you-tube-video-embed
+	const replacement = '<div class="video-container"><iframe class="video" src="https://www.youtube.com/embed/$1" allowfullscreen></iframe><br/></div>';
+	return text.replaceAll(youtubeLink, replacement);
+}
+
+export function renderRichText(text) {
+	// convert youtube links
+	// must be done before linkifying and converting newlines
+	text = transformYoutubeLinks(text);
+
+	// convert urls
+	text = linkifyHtml(text, {
+		validate: {
+			// only linkify URLs that start with a protocol
+			// http://www.google.com but not google.com
+			url: (value) => /^(http|ftp)s?:\/\//.test(value)
+		}
+	});
+
+	// replace double newlines with paragraph breaks
+	text = `<p>${text.replaceAll("\n\n", "</p><p>")}</p>`;
+	// insert line breaks
+	return text.replaceAll("\n", "<br>");
 }

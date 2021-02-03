@@ -1,10 +1,9 @@
 import { LitElement, html, css } from 'lit-element';
-import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';
-import linkifyHtml from 'linkifyjs/html';
 import { TinsSpinner } from './tins-spinner';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
+import { TinsRichTextView } from './tins-richtext-view';
 
-export class TinsRichText extends ScopedElementsMixin(LitElement) {
+export class TinsRichTextControl extends ScopedElementsMixin(LitElement) {
 
 	static get properties() {
 		return {
@@ -24,7 +23,8 @@ export class TinsRichText extends ScopedElementsMixin(LitElement) {
 
 	static get scopedElements() {
 		return {
-			'tins-spinner': TinsSpinner
+			'tins-spinner': TinsSpinner,
+			'tins-richtext-view': TinsRichTextView
 		};
 	}
 
@@ -74,38 +74,10 @@ export class TinsRichText extends ScopedElementsMixin(LitElement) {
 			}
 			else {
 				return html`${this.renderEditButton()}
-				<div>${this.safeText ? unsafeHTML(this.renderRichText(this.safeText)) : html`<i>${this.placeHolder}</i>`}</div>
+				<tins-richtext-view text="${this.safeText || `<i>${this.placeHolder}</i>`}"></tins-richtext-view>
 				`;
 			}
 		}
-	}
-
-	transformYoutubeLinks(text) {
-		if (!text) return text;
-		const youtubeLink = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([^& \n<]+)(?:[^ \n<]+)?/gm;
-		// trick for responsive aspect ratio in iframe: https://www.ankursheel.com/blog/full-width-you-tube-video-embed
-		const replacement = '<div class="video-container"><iframe class="video" src="https://www.youtube.com/embed/$1" allowfullscreen></iframe><br/></div>';
-		return text.replaceAll(youtubeLink, replacement);
-	}
-
-	renderRichText(text) {
-		// convert youtube links
-		// must be done before linkifying and converting newlines
-		text = this.transformYoutubeLinks(text);
-
-		// convert urls
-		text = linkifyHtml(text, {
-			validate: {
-				// only linkify URLs that start with a protocol
-				// http://www.google.com but not google.com
-				url: (value) => /^(http|ftp)s?:\/\//.test(value)
-			}
-		});
-	
-		// replace double newlines with paragraph breaks
-		text = `<p>${text.replaceAll("\n\n", "</p><p>")}</p>`;
-		// insert line breaks
-		return text.replaceAll("\n", "<br>");
 	}
 
 	async clickSave() {
@@ -172,21 +144,6 @@ export class TinsRichText extends ScopedElementsMixin(LitElement) {
 
 		.editor {
 			min-height: 20rem;
-		}
-
-		.video-container {
-			position: relative;
-			width: 100%;
-			padding-bottom: 56.25%;
-		}
-
-		.video {
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			border: 0;
 		}
 
 		textarea {

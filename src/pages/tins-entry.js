@@ -2,7 +2,7 @@ import { LitElement, html, css } from 'lit-element';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
 import { TinsFrame } from '../components/tins-frame';
-import { TinsRichText } from '../components/tins-richtext';
+import { TinsRichTextControl } from '../components/tins-richtext-control.js';
 import { asyncFetchJSON, formatBytes, formatErrorResponse } from '../util';
 import { repeat } from 'lit-html/directives/repeat.js';
 import { TinsSpinner } from '../components/tins-spinner';
@@ -16,7 +16,7 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 	static get scopedElements() {
 		return {
 			'tins-frame': TinsFrame,
-			'tins-richtext': TinsRichText,
+			'tins-richtext': TinsRichTextControl,
 			'tins-spinner': TinsSpinner,
 			'tins-fa-icon': TinsFaIcon,
 		};
@@ -140,6 +140,10 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 
 			.richtext {
 				width: 100%;
+			}
+
+			img {
+				max-width: 100%;
 			}
 		`;
 	}

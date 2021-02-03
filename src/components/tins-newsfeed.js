@@ -1,15 +1,22 @@
+import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { LitElement, html, css } from 'lit-element';
-import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';
 import { repeat } from 'lit-html/directives/repeat.js';
 import { subscribe } from '../store';
+import { TinsRichTextView } from './tins-richtext-view';
 
-export class TinsNewsFeed extends LitElement {
+export class TinsNewsFeed extends ScopedElementsMixin(LitElement) {
 
 	static get properties() {
 		return {
 			loading: { type: Boolean },
 			error: { type: String },
 			posts: { type: Array },
+		};
+	}
+
+	static get scopedElements() {
+		return {
+			'tins-richtext-view': TinsRichTextView
 		};
 	}
 
@@ -87,9 +94,7 @@ export class TinsNewsFeed extends LitElement {
 			${day} ${month} ${year}
 		</div>
 		<div class="window">
-			<p>
-				${unsafeHTML(post.text)}
-			</p>
+			<tins-richtext-view text="${post.text}"></tins-richtext-view">
 			${post.img ? html`<img src='/upload/${post.img}'/>` : ''}
 		</div>
 		`;
