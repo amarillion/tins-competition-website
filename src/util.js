@@ -14,13 +14,13 @@ export function formatBytes(bytes) {
 	const MB = 1 << 20;
 	const KB = 1 << 10;
 	if (bytes > GB / 2) {
-		return `${(bytes/GB).toFixed(2)} Gb`;
+		return `${(bytes/GB).toFixed(2)} GiB`;
 	}
 	else if (bytes > MB / 2) {
-		return `${(bytes/MB).toFixed(2)} Mb`;
+		return `${(bytes/MB).toFixed(2)} MiB`;
 	}
 	else if (bytes > KB / 2) {
-		return `${(bytes/KB).toFixed(2)} Kb`;
+		return `${(bytes/KB).toFixed(2)} KiB`;
 	}
 	else {
 		return `${bytes} b`;
