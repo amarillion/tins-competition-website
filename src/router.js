@@ -9,6 +9,7 @@ import { TinsHistory } from './pages/tins-history';
 import { TinsSecretSanta } from './pages/tins-my-secret-santa';
 import { TinsSupport } from './pages/tins-support.js';
 import { TinsEntry } from './pages/tins-entry.js';
+import { TinsAllEntries } from './pages/tins-all-entries.js';
 
 const outlet = document.getElementById('outlet');
 const router = new Router(outlet);
@@ -21,6 +22,7 @@ customElements.define('tins-secret-santa', TinsSecretSanta);
 customElements.define('tins-fa-icon', TinsFaIcon);
 customElements.define('tins-support', TinsSupport);
 customElements.define('tins-entry', TinsEntry);
+customElements.define('tins-all-entries', TinsAllEntries);
 				
 router.setRoutes([
 	{ path: '/news', component: 'tins-newspage' },
@@ -30,6 +32,7 @@ router.setRoutes([
 	{ path: '/history', component: 'tins-history' },
 	{ path: '/secretSanta', component: 'tins-secret-santa' },
 	{ path: '/support', component: 'tins-support' },
+	{ path: '/all/entries', component: 'tins-all-entries' },
 
 	// { path: '(.*)', action: ( { pathname }) => { 
 	// 	//TODO: 404 page
