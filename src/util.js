@@ -1,4 +1,5 @@
 import linkifyHtml from 'linkifyjs/html';
+import './polyfills.js'; // need replaceAll
 
 /*
 	Adds an event listener on a DOM element, and returns a function that 

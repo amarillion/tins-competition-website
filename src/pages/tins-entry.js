@@ -61,12 +61,12 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 			<p>
 				<tins-richtext class="richtext" .submitCallback=${(data) => this.submitText(data)} ?readOnly=${!this.entry.editable} text="${this.entry.text}"></tins-richtext>
 			</p>
+			${this.entry.lastSubmission ? html`
 			<div class="downloadbox">
 				<tins-fa-icon src="${downloadIcon}" color="gray" size="2rem"></tins-fa-icon>
 				<a href="/upload/${this.entry.lastSubmission.url}" router-ignore>${this.entry.title}<a>
 				${formatBytes(this.entry.lastSubmission.size)}
-			</div>
-
+			</div>` : ''}
 			<p><a href="/${this.entry.competition}/reviews/entry/${this.entry.id}/" router-ignore>Reviews (${this.entry.reviewCount})</a>
 		`;
 	}
