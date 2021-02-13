@@ -3,12 +3,13 @@
 	"version": "1.0.0",
 	"description": "Front-end code for 'TINS is not Speedhack', a 72h Game Jam by and for the allegro community.",
 	"main": "index.js",
+	"type": "module",
 	"scripts": {
 		"clean": "rm -r dist/*",
 		"build": "webpack --mode production",
 		"dev": "webpack --watch --mode development",
 		"lint": "eslint \"src/**/*.js\"",
-		"test": "ava"
+		"test": "npx jest --verbose --coverage --collectCoverageFrom=\"src/**/*.js\""
 	},
 	"author": "Martijn 'Amarillion' van Iersel",
 	"license": "MIT",
@@ -23,13 +24,18 @@
 		"lit-element": "2.4.0"
 	},
 	"devDependencies": {
-		"ava": "3.15.0",
+		"@babel/core": "^7.13.8",
+		"@babel/preset-env": "^7.13.9",
 		"babel-eslint": "10.1.0",
 		"copy-webpack-plugin": "7.0.0",
+		"cross-env": "^7.0.3",
 		"eslint": "7.19.0",
 		"esm": "3.2.25",
 		"file-loader": "6.2.0",
 		"html-webpack-plugin": "5.0.0",
+		"jest": "^26.6.3",
+		"jest-canvas-mock": "^2.3.1",
+		"jest-environment-jsdom-sixteen": "^1.0.3",
 		"webpack": "5.20.1",
 		"webpack-cli": "4.5.0"
 	}
