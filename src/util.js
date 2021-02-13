@@ -42,18 +42,34 @@ export async function formatErrorResponse(response) {
 
 /** gets data from URL and parses json. Sets loading and error flags on self. */
 export async function asyncFetchJSON(url, self) {
-	self.loading = true;
+	return asyncStateFlags(async () => fetchJSONOrThrow(url), self);
+}
+
+export async function fetchJSONOrThrow(url) {
 	const response = await fetch(url);
 	if (response.ok) {
 		// parse json only if response is OK. Error state may contain invalid json.
 		const data = await response.json(); 
+		return data;
+	}
+	else {
+		throw new Error(await formatErrorResponse(response));
+	}
+}
+
+/** Sets loading flag while promise executes. Sets error flag if promise fails. */
+export async function asyncStateFlags(promise, self) {
+	self.loading = true;
+	self.error = "";
+	try {
+		const data = await promise();
 		// clear loading flag AFTER awaiting data.
 		self.loading = false; 
 		return data;
 	}
-	else {
+	catch (e) {
 		self.loading = false;
-		self.error = await formatErrorResponse(response);
+		self.error = e.message;
 		return null;
 	}
 }

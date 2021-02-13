@@ -8,6 +8,7 @@ customElements.define('tins-sidebar', class extends LitElement {
 	static get properties() {
 		return {
 			isStaff: { type: Boolean },
+			username: { type: String },
 			events: { type: Array },
 		};
 	}
@@ -15,6 +16,7 @@ customElements.define('tins-sidebar', class extends LitElement {
 	constructor() {
 		super();
 		this.isStaff = false;
+		this.username = null;
 		this.events = [];
 	}
 
@@ -24,6 +26,7 @@ customElements.define('tins-sidebar', class extends LitElement {
 
 		this.unsubscribe = [
 			subscribe(s => s.currentUser.data && s.currentUser.data.isStaff, val => { this.isStaff = val; }),
+			subscribe(s => s.currentUser.data && s.currentUser.data.login, login => { this.username = login; }),
 			subscribe(s => s.currentEvent.data && s.currentEvent.data.events, val => { this.events = val || []; })
 		];
 	}
@@ -99,11 +102,11 @@ customElements.define('tins-sidebar', class extends LitElement {
 				<a href="/faq">FAQ</a>
 				<a href="/history">History</a>
 		
-			
-				<a href="/profile" router-ignore>Profile</a>
+			${this.username ? html`
+				<a href="/user/${this.username}">My Profile</a>
 				<a href="/join" router-ignore>Join a competition</a>
 				<a href="/accounts/password/change" router-ignore>Change password</a>
-			
+			` : ''}
 			</div>
 		
 			

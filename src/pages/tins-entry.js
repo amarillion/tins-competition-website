@@ -32,8 +32,8 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 
 	constructor() {
 		super();
-		this.entry = "";
-		this.error = "";
+		this.entry = {};
+		this.error = {};
 		this.loading = false;
 	}
 
@@ -47,14 +47,18 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 	}
 
 	renderContents() {
+		const { entrants, tags, competition } = this.entry;
 		return html`
 			<div class="icons">
-				${repeat(this.entry.tags, t => html`<img src="/upload/${t.icon}" title="${t.desc}"/>`)}
+				${repeat(tags, t => html`<img src="/upload/${t.icon}" title="${t.desc}"/>`)}
 			</div>
 
 			<h1><tins-fa-icon src="${gamepadIcon}" size="2rem"></tins-fa-icon> ${this.entry.title}</h1>
-
-			<p class="authorbox">Game by: ${repeat(this.entry.entrants, e => html`${e.name} <a href='${this.entry.competition}/log/${e.id}' router-ignore>log (${e.logCount})</a>`)}</p>
+			
+			<p class="authorbox">
+				Event: <a href="/${competition.short}" router-ignore>${competition.title}</a><br>
+				Game by: ${repeat(entrants, e => html`${e.name} <a href='${competition.short}/log/${e.id}' router-ignore>log (${e.logCount})</a>`)}
+			</p>
 
 			${this.entry.imagefile ? html`<img src="/upload/${this.entry.imagefile}"/>` : html`<hr>`}
 
@@ -67,7 +71,7 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 				<a href="/upload/${this.entry.lastSubmission.url}" router-ignore>${this.entry.title}<a>
 				${formatBytes(this.entry.lastSubmission.size)}
 			</div>` : ''}
-			<p><a href="/${this.entry.competition}/reviews/entry/${this.entry.id}/" router-ignore>Reviews (${this.entry.reviewCount})</a>
+			<p><a href="/${competition.short}/reviews/entry/${this.entry.id}/" router-ignore>Reviews (${this.entry.reviewCount})</a>
 		`;
 	}
 	

@@ -6,7 +6,14 @@ export class TinsEntryThumbnail extends ScopedElementsMixin(LitElement) {
 	static get properties() {
 		return {
 			entry: { type: Object },
+			footer: { type: String }
 		};
+	}
+
+	constructor() {
+		super();
+		this.entry = {};
+		this.footer = "";
 	}
 
 	render() {
@@ -15,7 +22,7 @@ export class TinsEntryThumbnail extends ScopedElementsMixin(LitElement) {
 		return html`
 		<div class="top">${this.entry.title}</div>
 		<img src="${imgUrl}">
-		<div class="bottom">${this.entry.team}</div>
+		<div class="bottom">${this.footer}</div>
 		`;
 	}
 
