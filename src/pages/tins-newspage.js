@@ -1,6 +1,4 @@
-import { dispatch } from '../store';
 import { LitElement, html, css } from 'lit-element';
-import { refreshPosts } from '../data/news.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
 import { TinsUpcoming } from '../components/tins-upcoming.js';
@@ -17,11 +15,6 @@ export class TinsNewsPage extends ScopedElementsMixin(LitElement) {
 			'tins-upcoming': TinsUpcoming,
 			'tins-current-event': TinsCurrentEvent,
 		};
-	}
-
-	connectedCallback() {
-		super.connectedCallback();
-		dispatch(refreshPosts(this.location.params.newsId));
 	}
 
 	constructor() {
@@ -68,7 +61,7 @@ export class TinsNewsPage extends ScopedElementsMixin(LitElement) {
 		return html`
 		<tins-frame>
 			<div class="twocol">
-				<tins-newsfeed class="tins-newsfeed"></tins-newsfeed>	
+				<tins-newsfeed class="tins-newsfeed" .newsId=${this.location.params.newsId}></tins-newsfeed>	
 				<div class="rightcol">
 					<tins-current-event class="tins-current-event"></tins-current-event>
 					<tins-upcoming class="tins-upcoming"></tins-upcoming>

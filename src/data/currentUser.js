@@ -10,7 +10,15 @@ function success(data) {
 	return { type: 'CURRUSER_SUCCESS', data };
 }
 
-export const refreshCurrentUser = () => async (dispatch) => {
+export function clearCurrentUser() {
+	return { type: 'CURRUSER_CLEAR' };
+}
+
+export const refreshCurrentUser = () => async (dispatch, getState) => {
+	const { currentUser } = getState();
+	const ageInMinutes = (Date.now() - currentUser.timestamp) / 1000 / 60;
+	if (ageInMinutes < 15) { return; }
+
 	dispatch(loading());
 
 	const response = await fetch('/api/v1/currentUser');
@@ -25,12 +33,14 @@ export const refreshCurrentUser = () => async (dispatch) => {
 
 export default function reducer(state = { loading: false, error: null, data: null }, action) {
 	switch (action.type) {
+	case 'CURRUSER_CLEAR':
+		return { ...state, timestamp: null };
 	case 'CURRUSER_LOADING':
-		return { ...state, loading: true, error: null, data: null };
+		return { ...state, loading: true, error: null, data: null, timestamp: null };
 	case 'CURRUSER_ERROR':
-		return { ...state, loading: false, error: action.error, data: null };
+		return { ...state, loading: false, error: action.error, data: null, timestamp: null };
 	case 'CURRUSER_SUCCESS':
-		return { ...state, loading: false, error: null, data: action.data };
+		return { ...state, loading: false, error: null, data: action.data, timestamp: Date.now() };
 	default:
 		return state;
 	}

@@ -10,7 +10,11 @@ function currentEventSuccess(data) {
 	return { type: 'CURREVENT_SUCCESS', data };
 }
 
-export const refreshCurrentEvent = () => async (dispatch) => {
+export const refreshCurrentEvent = () => async (dispatch, getState) => {
+	const { currentEvent } = getState();
+	const ageInHours = (Date.now() - currentEvent.timestamp) / 1000 / 3600;
+	if (ageInHours < 8) { return; }
+
 	dispatch(currentEventLoading());
 
 	const response = await fetch('/api/v1/currentEvent');
@@ -26,11 +30,11 @@ export const refreshCurrentEvent = () => async (dispatch) => {
 export default function reducer(state = { loading: false, error: null, data: null }, action) {
 	switch (action.type) {
 	case 'CURREVENT_LOADING':
-		return { ...state, loading: true, error: null, data: null };
+		return { ...state, loading: true, error: null, data: null, timestamp: null };
 	case 'CURREVENT_ERROR':
-		return { ...state, loading: false, error: action.error, data: null };
+		return { ...state, loading: false, error: action.error, data: null, timestamp: null };
 	case 'CURREVENT_SUCCESS':
-		return { ...state, loading: false, error: null, data: action.data };
+		return { ...state, loading: false, error: null, data: action.data, timestamp: Date.now() };
 	default:
 		return state;
 	}

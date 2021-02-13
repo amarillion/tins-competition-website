@@ -10,6 +10,8 @@ import Cookies from 'js-cookie';
 import gamepadIcon from '@fortawesome/fontawesome-free/svgs/solid/gamepad.svg';
 import downloadIcon from '@fortawesome/fontawesome-free/svgs/solid/download.svg';
 import { TinsFaIcon } from '../components/tins-fa-icon.js';
+import { clearCurrentUser } from '../data/currentUser';
+import { dispatch } from '../store';
 
 export class TinsEntry extends ScopedElementsMixin(LitElement) {
 
@@ -92,7 +94,12 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 			// clear loading flag AFTER awaiting data.
 			return data.text;
 		}
-		else throw new Error(await formatErrorResponse(response));
+		else {
+			if (response.status === 401) {
+				dispatch(clearCurrentUser());
+			}
+			throw new Error(await formatErrorResponse(response));
+		}
 	}
 
 	renderError() {

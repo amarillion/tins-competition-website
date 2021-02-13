@@ -10,6 +10,13 @@
 			margin: 0px 0px 0px 0px;
 			font-family: "Century Gothic", Arial, sans-serif;
 		}
+
+		html {
+			/* avoid layout jumps when scrollbar (dis)appears, 
+			   see: https://aykevl.nl/2014/09/fix-jumping-scrollbar */
+			width: 100vw;
+			overflow-x: hidden;
+		}
 	</style>
 	<link rel="icon" type="image/png" href="/static/favico16t.png" />
 	<!-- Load the polyfills first -->

@@ -1,7 +1,7 @@
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { LitElement, html, css } from 'lit-element';
 import { repeat } from 'lit-html/directives/repeat.js';
-import { subscribe } from '../store';
+import { asyncFetchJSON } from '../util';
 import { TinsRichTextView } from './tins-richtext-view';
 
 export class TinsNewsFeed extends ScopedElementsMixin(LitElement) {
@@ -11,6 +11,7 @@ export class TinsNewsFeed extends ScopedElementsMixin(LitElement) {
 			loading: { type: Boolean },
 			error: { type: String },
 			posts: { type: Array },
+			newsId: { type: Number },
 		};
 	}
 
@@ -25,18 +26,13 @@ export class TinsNewsFeed extends ScopedElementsMixin(LitElement) {
 		this.posts = [];
 	}
 
-	connectedCallback() {
+	async connectedCallback() {
 		super.connectedCallback();
-
-		this.unsubscribe = [
-			subscribe(s => s.news.posts, posts => { this.posts = posts || []; }),
-			subscribe(s => s.news.loading, loading => { this.loading = loading; }),
-			subscribe(s => s.news.error, error => { this.error = error; }),
-		];
-	}
-
-	disconnectedCallback() {
-		this.unsubscribe.forEach(unsub => unsub());
+		const url  = this.newsId ? `/api/v1/news/${this.newsId}` : '/api/v1/news';
+		const data = await asyncFetchJSON(url, this);
+		if (data) {
+			this.posts = data.posts;
+		}	
 	}
 
 	static get styles() {

@@ -22,7 +22,7 @@ export class TinsFrame extends LitElement {
 			}
 		
 			#maincontent {
-				flex: 4 4 auto;
+				flex: 4 4 0;
 		
 				z-index: 2; /* to make sure shadow is cast over rightcontent */
 				box-shadow:20px 0px 40px black;	

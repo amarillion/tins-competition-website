@@ -1,5 +1,7 @@
 import linkifyHtml from 'linkifyjs/html';
+import { clearCurrentUser } from './data/currentUser.js';
 import './polyfills.js'; // need replaceAll
+import { dispatch } from './store.js';
 
 /*
 	Adds an event listener on a DOM element, and returns a function that 
@@ -53,6 +55,9 @@ export async function fetchJSONOrThrow(url) {
 		return data;
 	}
 	else {
+		if (response.status === 401) {
+			dispatch(clearCurrentUser());
+		}
 		throw new Error(await formatErrorResponse(response));
 	}
 }
