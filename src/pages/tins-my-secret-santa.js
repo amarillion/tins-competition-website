@@ -101,34 +101,34 @@ export class TinsSecretSanta extends ScopedElementsMixin(LitElement) {
 	}
 
 	renderContents() {
+		if (!this.competition) {
+			return html`<p>There is no competition going on today. Come back later!</p>`;
+		}
 		if (!this.joinedCompetition) {
 			return this.renderNotJoined();
 		}
-		if (this.competitionStarted) {
-			if (!this.secretSanta) {
-				return html`<p>There is no secret santa information available for the current competition.</p>`;
-			}
-			else {
-				return html`
-				<p>Hello ${this.secretSanta.giver.name},</p>
-				<p>
-				Santa has decided that you will give a gift to ${this.secretSanta.receiver.name}!
-				</p>
-				<p>
-				You can find their wishlist on 
-				<a href="/${this.competition.short}/log/${this.secretSanta.receiver.entrantId}/" router-ignore >their log</a>
-				</p>
-				`;
-			}
-		}
-		else {
+		if (!this.competitionStarted) {
 			return html`
 				Please be patient! 
 				Your secret santa will be revealed in 
 				<tins-inline-count-down epochMillis="${this.competition.competitionStart}"></tins-inline-count-down>
 			`;
 		}
+		if (!this.secretSanta) {
+			// NOTE that absence of secretSanta info is only a problem after start of competition!
+			return html`<p>There is no secret santa information available for the current competition.</p>`;
+		}
 
+		return html`
+			<p>Hello ${this.secretSanta.giver.name},</p>
+			<p>
+			Santa has decided that you will give a gift to ${this.secretSanta.receiver.name}!
+			</p>
+			<p>
+			You can find their wishlist on 
+			<a href="/${this.competition.short}/log/${this.secretSanta.receiver.entrantId}/" router-ignore >their log</a>
+			</p>
+			`;
 	}
 
 	render() {
