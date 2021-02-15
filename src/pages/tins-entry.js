@@ -3,15 +3,15 @@ import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
 import { TinsFrame } from '../components/tins-frame';
 import { TinsRichTextControl } from '../components/tins-richtext-control.js';
-import { asyncFetchJSON, formatBytes, formatErrorResponse } from '../util';
+import { asyncFetchJSON, formatBytes, formatErrorResponse, IMAGE_UPLOAD_SIZE_LIMIT, postOrThrow } from '../util';
 import { repeat } from 'lit-html/directives/repeat.js';
 import { TinsSpinner } from '../components/tins-spinner';
-import Cookies from 'js-cookie';
 import gamepadIcon from '@fortawesome/fontawesome-free/svgs/solid/gamepad.svg';
 import downloadIcon from '@fortawesome/fontawesome-free/svgs/solid/download.svg';
 import { TinsFaIcon } from '../components/tins-fa-icon.js';
 import { clearCurrentUser } from '../data/currentUser';
 import { dispatch } from '../store';
+import { TinsImageUpload } from '../components/tins-image-upload';
 
 export class TinsEntry extends ScopedElementsMixin(LitElement) {
 
@@ -21,6 +21,7 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 			'tins-richtext': TinsRichTextControl,
 			'tins-spinner': TinsSpinner,
 			'tins-fa-icon': TinsFaIcon,
+			'tins-image-upload': TinsImageUpload,
 		};
 	}
 
@@ -48,10 +49,38 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 		}
 	}
 
+	async submitImage(data) {
+		const entryId = this.location.params.entryId;
+		// https://medium.com/@adamking0126/asynchronous-file-uploads-with-django-forms-b741720dc952
+		let formData = new FormData();
+		formData.append("image", data);
+		
+		const response = await postOrThrow(`/api/v1/entry/${entryId}/image`, formData);
+		this.entry = await response.json();
+	}
+
+	async submitText(unsafeText) {
+		const entryId = this.location.params.entryId;
+		const response = await postOrThrow(
+			`/api/v1/entry/${entryId}/text`, 
+			JSON.stringify({ text: unsafeText })
+		);
+		const data = await response.json(); 
+		return data.text;
+	}
+
+	renderEditImage() {
+		if (!this.entry.editable) return '';
+		return html`<tins-image-upload 
+				.submitCallback=${(data) => this.submitImage(data)} 
+				sizeLimit="${IMAGE_UPLOAD_SIZE_LIMIT}">
+			</tins-image-upload>`;
+	}
+
 	renderContents() {
 		const { entrants, tags, competition } = this.entry;
 		return html`
-			<div class="icons">
+			<div class="floatright">
 				${repeat(tags, t => html`<img src="/upload/${t.icon}" title="${t.desc}"/>`)}
 			</div>
 
@@ -63,6 +92,7 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 			</p>
 
 			${this.entry.imagefile ? html`<img src="/upload/${this.entry.imagefile}"/>` : html`<hr>`}
+			${this.renderEditImage()}
 
 			<p>
 				<tins-richtext class="richtext" .submitCallback=${(data) => this.submitText(data)} ?readOnly=${!this.entry.editable} text="${this.entry.text}"></tins-richtext>
@@ -75,31 +105,6 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 			</div>` : ''}
 			<p><a href="/${competition.short}/reviews/entry/${this.entry.id}/" router-ignore>Reviews (${this.entry.reviewCount})</a>
 		`;
-	}
-	
-	async submitText(unsafeText) {
-		const entryId = this.location.params.entryId;
-		// being able to access the cookie proves that this code is running in the proper domain
-		const csrftoken = Cookies.get('csrftoken');
-		const response = await fetch(
-			`/api/v1/entry/${entryId}/text`, { 
-				method: 'POST', 
-				body: JSON.stringify({ text: unsafeText }),
-				headers: { 'X-CSRFToken': csrftoken }
-			}
-		);
-		if (response.ok) {
-			// parse json only if response is OK. Error state may contain invalid json.
-			const data = await response.json(); 
-			// clear loading flag AFTER awaiting data.
-			return data.text;
-		}
-		else {
-			if (response.status === 401) {
-				dispatch(clearCurrentUser());
-			}
-			throw new Error(await formatErrorResponse(response));
-		}
 	}
 
 	renderError() {
@@ -121,10 +126,6 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 			:host {
 			}
 
-			.icons {
-					
-			}
-
 			.error {
 				width: 100%;
 				color: red;
@@ -139,8 +140,13 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 				border: 2px dashed grey;
 				padding: 10px;
 			}
+	
+			.edit-image {
+				width: 100%;
+				background: lightgrey;
+			}
 
-			.icons {
+			.floatright {
 				float: right;
 			}
 

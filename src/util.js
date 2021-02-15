@@ -1,7 +1,10 @@
 import linkifyHtml from 'linkifyjs/html';
 import { clearCurrentUser } from './data/currentUser.js';
-import './polyfills.js'; // need replaceAll
 import { dispatch } from './store.js';
+import Cookies from 'js-cookie';
+import './polyfills.js'; // need replaceAll
+
+export const IMAGE_UPLOAD_SIZE_LIMIT = 1 << 20;
 
 /*
 	Adds an event listener on a DOM element, and returns a function that 
@@ -58,6 +61,29 @@ export async function fetchJSONOrThrow(url) {
 		if (response.status === 401) {
 			dispatch(clearCurrentUser());
 		}
+		throw new Error(await formatErrorResponse(response));
+	}
+}
+
+export async function postOrThrow(url, body) {
+	// being able to access the cookie proves that this code is running in the proper domain
+	const csrftoken = Cookies.get('csrftoken');
+
+	const response = await fetch(url, {
+		method: 'POST', 
+		credentials: 'same-origin',
+		headers: { 'X-CSRFToken': csrftoken }, 
+		body
+	});
+
+	if (response.ok) {
+		return response;
+	}
+	else {
+		if (response.status === 401) {
+			dispatch(clearCurrentUser());
+		}
+
 		throw new Error(await formatErrorResponse(response));
 	}
 }
