@@ -76,34 +76,39 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 				sizeLimit="${IMAGE_UPLOAD_SIZE_LIMIT}">
 			</tins-image-upload>`;
 	}
-
+	
 	renderContents() {
-		const { entrants, tags, competition } = this.entry;
+		const { entrants, tags, competition, logCounts, id, 
+			title, imagefile, editable, text, lastSubmission, reviewCount } = this.entry;
 		return html`
 			<div class="floatright">
 				${repeat(tags, t => html`<img src="/upload/${t.icon}" title="${t.desc}"/>`)}
 			</div>
 
-			<h1><tins-fa-icon src="${gamepadIcon}" size="2rem"></tins-fa-icon> ${this.entry.title}</h1>
+			<h1><tins-fa-icon src="${gamepadIcon}" size="2rem"></tins-fa-icon> ${title}</h1>
 			
 			<p class="authorbox">
 				Event: <a href="/${competition.short}" router-ignore>${competition.title}</a><br>
-				Game by: ${repeat(entrants, e => html`${e.name} <a href='${competition.short}/log/${e.id}' router-ignore>log (${e.logCount})</a>`)}
+				Game by: ${repeat(
+					entrants, 
+					e => e.id, 
+					e => html`${e.name} <a href='${competition.short}/log/${e.id}' router-ignore>log (${logCounts[e.id]})</a>`
+				)}
 			</p>
 
-			${this.entry.imagefile ? html`<img src="/upload/${this.entry.imagefile}"/>` : html`<hr>`}
+			${imagefile ? html`<img src="/upload/${imagefile}"/>` : html`<hr>`}
 			${this.renderEditImage()}
 
 			<p>
-				<tins-richtext class="richtext" .submitCallback=${(data) => this.submitText(data)} ?readOnly=${!this.entry.editable} text="${this.entry.text}"></tins-richtext>
+				<tins-richtext class="richtext" .submitCallback=${(data) => this.submitText(data)} ?readOnly=${!editable} text="${text}"></tins-richtext>
 			</p>
-			${this.entry.lastSubmission ? html`
+			${lastSubmission ? html`
 			<div class="downloadbox">
 				<tins-fa-icon src="${downloadIcon}" color="gray" size="2rem"></tins-fa-icon>
-				<a href="/upload/${this.entry.lastSubmission.url}" router-ignore>${this.entry.title}<a>
-				${formatBytes(this.entry.lastSubmission.size)}
+				<a href="/upload/${lastSubmission.url}" router-ignore>${title}<a>
+				${formatBytes(lastSubmission.size)}
 			</div>` : ''}
-			<p><a href="/${competition.short}/reviews/entry/${this.entry.id}/" router-ignore>Reviews (${this.entry.reviewCount})</a>
+			<p><a href="/${competition.short}/reviews/entry/${id}/" router-ignore>Reviews (${reviewCount})</a>
 		`;
 	}
 
