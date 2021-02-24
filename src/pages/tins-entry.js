@@ -3,14 +3,12 @@ import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
 import { TinsFrame } from '../components/tins-frame';
 import { TinsRichTextControl } from '../components/tins-richtext-control.js';
-import { asyncFetchJSON, formatBytes, formatErrorResponse, IMAGE_UPLOAD_SIZE_LIMIT, postOrThrow } from '../util';
+import { asyncFetchJSON, formatBytes, IMAGE_UPLOAD_SIZE_LIMIT, postOrThrow } from '../util';
 import { repeat } from 'lit-html/directives/repeat.js';
 import { TinsSpinner } from '../components/tins-spinner';
 import gamepadIcon from '@fortawesome/fontawesome-free/svgs/solid/gamepad.svg';
 import downloadIcon from '@fortawesome/fontawesome-free/svgs/solid/download.svg';
 import { TinsFaIcon } from '../components/tins-fa-icon.js';
-import { clearCurrentUser } from '../data/currentUser';
-import { dispatch } from '../store';
 import { TinsImageUpload } from '../components/tins-image-upload';
 
 export class TinsEntry extends ScopedElementsMixin(LitElement) {
@@ -90,10 +88,10 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 			<p class="authorbox">
 				Event: <a href="/${competition.short}" router-ignore>${competition.title}</a><br>
 				Game by: ${repeat(
-					entrants, 
-					e => e.id, 
-					e => html`${e.name} <a href='${competition.short}/log/${e.id}' router-ignore>log (${logCounts[e.id]})</a>`
-				)}
+			entrants, 
+			e => e.id, 
+			e => html`${e.name} <a href='${competition.short}/log/${e.id}' router-ignore>log (${logCounts[e.id]})</a>`
+		)}
 			</p>
 
 			${imagefile ? html`<img src="/upload/${imagefile}"/>` : html`<hr>`}
