@@ -25,8 +25,8 @@ export class TinsImageUpload extends LitElement {
 		this._submitCallback = value;
 	}
 
-	async upload(e) {
-		const elt = this.shadowRoot.querySelector("#image-upload")
+	async upload() {
+		const elt = this.shadowRoot.querySelector("#image-upload");
 
 		const fileNum = elt.files.length;
 		if (fileNum != 1) {
