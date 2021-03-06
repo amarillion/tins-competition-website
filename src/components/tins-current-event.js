@@ -51,7 +51,7 @@ export class TinsCurrentEvent extends LitElement {
 			? html`Already ${this.currentEvent.numEntrants} signed up. <a href="/join/" router-ignore>Click to join</a>!` 
 			: ''}
 			${this.currentEvent.canPost
-				? html`<br><a href="/${this.currentEvent.short}/log/" router-ignore>View the latest logs</a>.`
+				? html`<br><a href="/${this.currentEvent.short}/log/">View the latest logs</a>.`
 				: ''}
 		`;
 	}

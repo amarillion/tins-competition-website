@@ -11,6 +11,8 @@ import { TinsSupport } from './pages/tins-support.js';
 import { TinsEntry } from './pages/tins-entry.js';
 import { TinsAllEntries } from './pages/tins-all-entries.js';
 import { TinsUser } from './pages/tins-user.js';
+import { TinsLogs } from './pages/tins-logs.js';
+import { TinsLogEdit } from './pages/tins-log-edit.js';
 
 const outlet = document.getElementById('outlet');
 const router = new Router(outlet);
@@ -25,7 +27,9 @@ customElements.define('tins-support', TinsSupport);
 customElements.define('tins-entry', TinsEntry);
 customElements.define('tins-all-entries', TinsAllEntries);
 customElements.define('tins-user', TinsUser);
-				
+customElements.define('tins-logs', TinsLogs);
+customElements.define('tins-log-edit', TinsLogEdit);
+
 router.setRoutes([
 	{ path: '/news', component: 'tins-newspage' },
 	{ path: '/news/:newsId', component: 'tins-newspage' },
@@ -41,5 +45,11 @@ router.setRoutes([
 	// 	//TODO: 404 page
 	// }},
 	//TODO: possibly add game name at end of url
-	{ path: '/entry/:entryId', component: 'tins-entry' },	
+	{ path: '/entry/:entryId', component: 'tins-entry' },
+
+	{ path: '/:compoId/log/edit', component: 'tins-log-edit' },
+	{ path: '/:compoId/log', component: 'tins-logs' },
+	{ path: '/:compoId/log/id/:postId', component: 'tins-logs' },
+	{ path: '/:compoId/log/:entrantId', component: 'tins-logs' },
+
 ]);
