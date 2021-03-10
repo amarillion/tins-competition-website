@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
 import { repeat } from 'lit-html/directives/repeat.js';
-import { subscribe } from '../store';
+import { subscribe } from '../store.js';
 import twitterIcon from '@fortawesome/fontawesome-free/svgs/brands/twitter.svg';
  
 export class TinsUpcoming extends LitElement {

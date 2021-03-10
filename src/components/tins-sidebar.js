@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit-element';
-import { subscribe, dispatch } from '../store';
+import { subscribe, dispatch } from '../store.js';
 import { repeat } from 'lit-html/directives/repeat.js';
 import { refreshCurrentEvent } from '../data/currentEvent.js';
 

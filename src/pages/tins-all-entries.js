@@ -1,19 +1,17 @@
 import { LitElement, html, css } from 'lit-element';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
-import { TinsFrame } from '../components/tins-frame';
-import { TinsRichText } from '../components/tins-richtext-control';
-import { asyncFetchJSON } from '../util';
+import { TinsFrame } from '../components/tins-frame.js';
+import { asyncFetchJSON } from '../util.js';
 import { repeat } from 'lit-html/directives/repeat.js';
-import { TinsSpinner } from '../components/tins-spinner';
-import { TinsEntryThumbnail } from '../components/tins-entry-thumbnail';
+import { TinsSpinner } from '../components/tins-spinner.js';
+import { TinsEntryThumbnail } from '../components/tins-entry-thumbnail.js';
 
 export class TinsAllEntries extends ScopedElementsMixin(LitElement) {
 
 	static get scopedElements() {
 		return {
 			'tins-frame': TinsFrame,
-			'tins-richtext': TinsRichText,
 			'tins-spinner': TinsSpinner,
 			'tins-entry-thumbnail': TinsEntryThumbnail,
 		};

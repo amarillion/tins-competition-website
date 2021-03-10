@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
 import infoIcon from '@fortawesome/fontawesome-free/svgs/solid/info-circle.svg';
-import { formatBytes, IMAGE_UPLOAD_SIZE_LIMIT } from '../util';
+import { formatBytes, IMAGE_UPLOAD_SIZE_LIMIT } from '../util.js';
  
 export class TinsLogForm extends LitElement {
 

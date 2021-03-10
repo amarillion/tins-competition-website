@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit-element';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
-import { renderRichText } from '../util';
+import { renderRichText } from '../util.js';
 
 export class TinsRichTextView extends ScopedElementsMixin(LitElement) {
 

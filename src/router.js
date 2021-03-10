@@ -2,11 +2,11 @@ import { Router } from '@vaadin/router';
 
 import { TinsFaIcon } from './components/tins-fa-icon.js';
 
-import { TinsNewsPage } from './pages/tins-newspage';
-import { TinsAbout } from './pages/tins-about';
-import { TinsFaq } from './pages/tins-faq';
-import { TinsHistory } from './pages/tins-history';
-import { TinsSecretSanta } from './pages/tins-my-secret-santa';
+import { TinsNewsPage } from './pages/tins-newspage.js';
+import { TinsAbout } from './pages/tins-about.js';
+import { TinsFaq } from './pages/tins-faq.js';
+import { TinsHistory } from './pages/tins-history.js';
+import { TinsSecretSanta } from './pages/tins-my-secret-santa.js';
 import { TinsSupport } from './pages/tins-support.js';
 import { TinsEntry } from './pages/tins-entry.js';
 import { TinsAllEntries } from './pages/tins-all-entries.js';
@@ -48,8 +48,12 @@ router.setRoutes([
 	{ path: '/entry/:entryId', component: 'tins-entry' },
 
 	{ path: '/:compoId/log/edit', component: 'tins-log-edit' },
-	{ path: '/:compoId/log', component: 'tins-logs' },
 	{ path: '/:compoId/log/id/:postId', component: 'tins-logs' },
-	{ path: '/:compoId/log/:entrantId', component: 'tins-logs' },
+
+	{ path: '/:compoId/log', component: 'tins-logs' }, 
+	{ path: '/:compoId/log/entrant/:entrantId', component: 'tins-logs' },
+
+	{ path: '/:compoId/log/page/:page', component: 'tins-logs' }, 
+	{ path: '/:compoId/log/entrant/:entrantId/page/:page', component: 'tins-logs' },
 
 ]);

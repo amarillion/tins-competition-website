@@ -3,8 +3,8 @@ import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
 import { TinsUpcoming } from '../components/tins-upcoming.js';
 import { TinsCurrentEvent } from '../components/tins-current-event.js';
-import { TinsFrame } from '../components/tins-frame';
-import { TinsNewsFeed } from '../components/tins-newsfeed';
+import { TinsFrame } from '../components/tins-frame.js';
+import { TinsNewsFeed } from '../components/tins-newsfeed.js';
 
 export class TinsNewsPage extends ScopedElementsMixin(LitElement) {
 

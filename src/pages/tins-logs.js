@@ -1,13 +1,14 @@
 import { LitElement, html, css } from 'lit-element';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
-import { TinsFrame } from '../components/tins-frame';
+import { TinsFrame } from '../components/tins-frame.js';
 import { TinsRichTextView } from '../components/tins-richtext-view.js';
-import { asyncFetchJSON, postOrThrow } from '../util';
+import { asyncFetchJSON, postOrThrow } from '../util.js';
 import { repeat } from 'lit-html/directives/repeat.js';
-import { TinsSpinner } from '../components/tins-spinner';
+import { TinsSpinner } from '../components/tins-spinner.js';
 import { TinsFaIcon } from '../components/tins-fa-icon.js';
-import { TinsLogForm } from '../components/tins-log-form';
+import { TinsLogForm } from '../components/tins-log-form.js';
+import { TinsLogPost } from '../components/tins-log-post.js';
 
 export class TinsLogs extends ScopedElementsMixin(LitElement) {
 
@@ -18,6 +19,7 @@ export class TinsLogs extends ScopedElementsMixin(LitElement) {
 			'tins-spinner': TinsSpinner,
 			'tins-fa-icon': TinsFaIcon,
 			'tins-log-form': TinsLogForm,
+			'tins-log-post': TinsLogPost,
 		};
 	}
 
@@ -26,33 +28,42 @@ export class TinsLogs extends ScopedElementsMixin(LitElement) {
 			loading: { type: Boolean },
 			error: { type: String },
 			data: { type: Object },
+			page: { type: Number },
 		};
 	}
 
 	constructor() {
 		super();
 		this.data = {};
-		this.error = {};
+		this.error = '';
 		this.loading = false;
+		this.page = 1;
 	}
 
-	async connectedCallback() {
-		super.connectedCallback();
+	async refreshData() {
 		const { postId, compoId, entrantId }  = this.location.params;
+		this.page = this.location.params.page || 1;
+		
 		let data;
 		if (postId) {
 			data = await asyncFetchJSON(`/api/v1/log/id/${postId}`, this);
 		}
 		else if (entrantId) {
-			data = await asyncFetchJSON(`/api/v1/log/entrant/${entrantId}`, this);
+			data = await asyncFetchJSON(`/api/v1/log/entrant/${entrantId}?page=${this.page}`, this);
 		}
 		else if (compoId) { 
-			data = await asyncFetchJSON(`/api/v1/log/event/${compoId}`, this);
+			data = await asyncFetchJSON(`/api/v1/log/event/${compoId}?page=${this.page}`, this);
 		}
 		
 		if (data) {
 			this.data = data;
+			this.requestUpdateInternal();
 		}
+	}
+
+	connectedCallback() {
+		super.connectedCallback();
+		this.refreshData();
 	}
 	
 	async submit(formData) {
@@ -82,33 +93,37 @@ export class TinsLogs extends ScopedElementsMixin(LitElement) {
 	}
 
 	renderPost(post, competition) {
-		return html`
-<tr id="${post.id}">
-	<td>
-		<a href="/${competition.short}/log/${post.entrant.id}">${post.entrant.name}</a>
-		${new Date(post.date).toLocaleString([], { dateStyle:'full', timeStyle: 'short'})}
-	</td>
-</tr>
-<tr>
-	<td>
-		<tins-richtext-view text="${post.text}"></tins-richtext-view>
-	</td>
-</tr>
-	${post.image ? html`
-<tr>
-	<td>
-		<img src="/upload/${post.image}">
-	</td>
-</tr>` : ''}`;
+		return html`<tins-log-post .post=${post} .competition=${competition}></tins-log-post>`;
+	}
+
+	renderPageNav() {
+		const { numPages } = this.data;
+		const { postId, compoId, entrantId }  = this.location.params;
+		if (postId) { return ''; /* no nav bar needed */ }
+		
+		let url;
+		if (entrantId) {
+			url = `/${compoId}/log/entrant/${entrantId}`
+		}
+		else {
+			url = `/${compoId}/log`;
+		}
+
+		const page = Number(this.page);
+		return html`${page > 1 ? html`<a href="${url}/page/${page-1}">previous</a>` : ''}
+		<span class="current">
+			Page ${page} of ${numPages}
+		</span>
+		${this.page < numPages ? html`<a href="${url}/page/${page+1}">next</a>` : ''}`;
 	}
 
 	renderContents() {
 		const { posts, competition, msgPostEnabled } = this.data;
 		return html`
 			${msgPostEnabled ? this.renderForm(competition) : ''}
-			<table border="1" width="100%">
-				${repeat(posts || [], p => this.renderPost(p, competition))}
-			</table>
+			${this.renderPageNav()}
+			${repeat(posts || [], p => p.id, p => this.renderPost(p, competition))}
+			${this.renderPageNav()}
 		`;
 	}
 
@@ -158,16 +173,7 @@ export class TinsLogs extends ScopedElementsMixin(LitElement) {
 			.color {
 				width: 100%;
 				background: red;
-			}
-
-			.richtext {
-				width: 100%;
-			}
-
-			img {
-				max-width: 100%;
-			}
-	
+			}	
 		`;
 	}
 

@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit-element';
-import { TinsSpinner } from './tins-spinner';
+import { TinsSpinner } from './tins-spinner.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
-import { TinsRichTextView } from './tins-richtext-view';
+import { TinsRichTextView } from './tins-richtext-view.js';
 
 export class TinsRichTextControl extends ScopedElementsMixin(LitElement) {
 

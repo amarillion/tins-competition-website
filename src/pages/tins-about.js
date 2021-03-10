@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit-element';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
-import { TinsFrame } from '../components/tins-frame';
+import { TinsFrame } from '../components/tins-frame.js';
 
 export class TinsAbout extends ScopedElementsMixin(LitElement) {
 

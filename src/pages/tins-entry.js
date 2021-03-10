@@ -1,15 +1,15 @@
 import { LitElement, html, css } from 'lit-element';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
-import { TinsFrame } from '../components/tins-frame';
+import { TinsFrame } from '../components/tins-frame.js';
 import { TinsRichTextControl } from '../components/tins-richtext-control.js';
-import { asyncFetchJSON, formatBytes, IMAGE_UPLOAD_SIZE_LIMIT, postOrThrow } from '../util';
+import { asyncFetchJSON, formatBytes, IMAGE_UPLOAD_SIZE_LIMIT, postOrThrow } from '../util.js';
 import { repeat } from 'lit-html/directives/repeat.js';
-import { TinsSpinner } from '../components/tins-spinner';
+import { TinsSpinner } from '../components/tins-spinner.js';
 import gamepadIcon from '@fortawesome/fontawesome-free/svgs/solid/gamepad.svg';
 import downloadIcon from '@fortawesome/fontawesome-free/svgs/solid/download.svg';
 import { TinsFaIcon } from '../components/tins-fa-icon.js';
-import { TinsImageUpload } from '../components/tins-image-upload';
+import { TinsImageUpload } from '../components/tins-image-upload.js';
 
 export class TinsEntry extends ScopedElementsMixin(LitElement) {
 

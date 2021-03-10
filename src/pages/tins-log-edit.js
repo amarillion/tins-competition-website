@@ -1,19 +1,20 @@
 import { LitElement, html, css } from 'lit-element';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
-import { TinsFrame } from '../components/tins-frame';
+import { TinsFrame } from '../components/tins-frame.js';
 import { TinsRichTextView } from '../components/tins-richtext-view.js';
-import { asyncFetchJSON, postOrThrow } from '../util';
-import { TinsSpinner } from '../components/tins-spinner';
+import { asyncFetchJSON, postOrThrow } from '../util.js';
+import { TinsSpinner } from '../components/tins-spinner.js';
 import { TinsFaIcon } from '../components/tins-fa-icon.js';
-import { TinsLogForm } from '../components/tins-log-form';
+import { TinsLogForm } from '../components/tins-log-form.js';
+import { TinsLogPost } from '../components/tins-log-post.js';
 
 export class TinsLogEdit extends ScopedElementsMixin(LitElement) {
 
 	static get scopedElements() {
 		return {
 			'tins-frame': TinsFrame,
-			'tins-richtext-view': TinsRichTextView,
+			'tins-log-post': TinsLogPost,
 			'tins-spinner': TinsSpinner,
 			'tins-fa-icon': TinsFaIcon,
 			'tins-log-form': TinsLogForm,
@@ -76,24 +77,7 @@ export class TinsLogEdit extends ScopedElementsMixin(LitElement) {
 	}
 
 	renderPost(post, competition) {
-		return html`
-<tr id="${post.id}">
-	<td>
-		<a href="/${competition.short}/log/${post.entrant.id}">${post.entrant.name}</a>
-		${new Date(post.date).toLocaleString([], { dateStyle:'full', timeStyle: 'short'})}
-	</td>
-</tr>
-<tr>
-	<td>
-		<tins-richtext-view text="${post.text}"></tins-richtext-view>
-	</td>
-</tr>
-	${post.image ? html`
-<tr>
-	<td>
-		<img src="/upload/${post.image}">
-	</td>
-</tr>` : ''}`;
+		return html`<tins-log-post .post=${post} .competition=${competition}></tins-log-post>`;
 	}
 
 	renderContents() {

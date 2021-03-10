@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit-element';
-import { subscribe } from '../store';
+import { subscribe } from '../store.js';
 
 import { TinsCountDown } from './tins-count-down.js';
 customElements.define('tins-count-down', TinsCountDown);

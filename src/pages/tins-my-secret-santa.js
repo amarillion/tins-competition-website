@@ -1,9 +1,9 @@
 import { LitElement, html, css } from 'lit-element';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
-import { TinsFrame } from '../components/tins-frame';
-import { TinsSpinner } from '../components/tins-spinner';
-import { TinsInlineCountDown } from '../components/tins-inline-count-down';
+import { TinsFrame } from '../components/tins-frame.js';
+import { TinsSpinner } from '../components/tins-spinner.js';
+import { TinsInlineCountDown } from '../components/tins-inline-count-down.js';
 import { registerEventListener, asyncFetchJSON } from '../util.js';
 
 export class TinsSecretSanta extends ScopedElementsMixin(LitElement) {
