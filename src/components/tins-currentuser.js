@@ -1,8 +1,9 @@
 import { LitElement, html, css } from 'lit-element';
-import { dispatch, subscribe } from '../store.js';
-import { refreshCurrentUser } from '../data/currentUser.js';
+import { dispatch } from '../store.js';
+import { currentUserSelector, refreshCurrentUser } from '../data/currentUser.js';
+import { StoreSubscriberMixin } from '../data/storeSubscriberMixin.js';
 
-export class TinsCurrentUser extends LitElement {
+export class TinsCurrentUser extends StoreSubscriberMixin(LitElement) {
 
 	static get properties() {
 		return {
@@ -14,18 +15,15 @@ export class TinsCurrentUser extends LitElement {
 		super();
 	}
 
+	get selectors() {
+		return {
+			username: currentUserSelector
+		};
+	}
+
 	connectedCallback() {
 		super.connectedCallback();
 		dispatch(refreshCurrentUser());
-
-		this.unsubscribe = [
-			subscribe(s => s.currentUser.data && s.currentUser.data.login, login => { this.username = login; })
-		];
-	}
-
-	disconnectedCallback() {
-		this.unsubscribe.forEach(unsub => unsub());
-		super.disconnectedCallback();
 	}
 
 	static get styles() {

@@ -2,8 +2,10 @@ import { LitElement, html, css } from 'lit-element';
 import { subscribe, dispatch } from '../store.js';
 import { repeat } from 'lit-html/directives/repeat.js';
 import { refreshCurrentEvent } from '../data/currentEvent.js';
+import { StoreSubscriberMixin } from '../data/storeSubscriberMixin.js';
+import { currentUserSelector } from '../data/currentUser.js';
 
-customElements.define('tins-sidebar', class extends LitElement {
+export class TinsSideBar extends StoreSubscriberMixin(LitElement) {
 
 	static get properties() {
 		return {
@@ -20,20 +22,17 @@ customElements.define('tins-sidebar', class extends LitElement {
 		this.events = [];
 	}
 
+	get selectors() {
+		return {
+			isStaff: s => s.currentUser.data && s.currentUser.data.isStaff,
+			username: currentUserSelector,
+			events: s => s.currentEvent.data && s.currentEvent.data.events
+		};
+	}
+	
 	connectedCallback() {
 		super.connectedCallback();
 		dispatch(refreshCurrentEvent());
-
-		this.unsubscribe = [
-			subscribe(s => s.currentUser.data && s.currentUser.data.isStaff, val => { this.isStaff = val; }),
-			subscribe(s => s.currentUser.data && s.currentUser.data.login, login => { this.username = login; }),
-			subscribe(s => s.currentEvent.data && s.currentEvent.data.events, val => { this.events = val || []; })
-		];
-	}
-
-	disconnectedCallback() {
-		this.unsubscribe.forEach(unsub => unsub());
-		super.disconnectedCallback();
 	}
 	
 	static get styles() {
@@ -91,6 +90,7 @@ customElements.define('tins-sidebar', class extends LitElement {
 	}
 
 	render() {
+		const events = this.events || [];
 		return html`
 		<nav id="rightcontent">
 
@@ -109,12 +109,9 @@ customElements.define('tins-sidebar', class extends LitElement {
 				<a href="/accounts/password/change" router-ignore>Change password</a>
 			` : ''}
 			</div>
-		
-			
-		
 			
 			<div class="toc">
-				${repeat(this.events, e => e.short, e => html`<a href="/${e.short}/" router-ignore>${e.title}</a>`)}
+				${repeat(events, e => e.short, e => html`<a href="/${e.short}/" router-ignore>${e.title}</a>`)}
 			</div>
 			
 			${this.isStaff ? html`<div class="toc">
@@ -124,4 +121,6 @@ customElements.define('tins-sidebar', class extends LitElement {
 		
 		`;
 	}
-});
+}
+
+customElements.define('tins-sidebar', TinsSideBar);

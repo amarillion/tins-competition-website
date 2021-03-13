@@ -1,10 +1,10 @@
 import { LitElement, html, css } from 'lit-element';
-import { subscribe } from '../store.js';
+import { StoreSubscriberMixin } from '../data/storeSubscriberMixin.js';
 
 import { TinsCountDown } from './tins-count-down.js';
 customElements.define('tins-count-down', TinsCountDown);
 
-export class TinsCurrentEvent extends LitElement {
+export class TinsCurrentEvent extends StoreSubscriberMixin(LitElement) {
 
 	static get properties() {
 		return {
@@ -15,44 +15,42 @@ export class TinsCurrentEvent extends LitElement {
 		};
 	}
 
+	get selectors() {
+		return {
+			currentEvent: s => s.currentEvent.data && s.currentEvent.data.currentEvent,
+			loading: s => s.currentEvent.loading,
+			error: s => s.currentEvent.error
+		}
+	}
+
 	constructor() {
 		super();
 		this.hidden = true;
 		this.currentEvent = {};
 	}
 
-	connectedCallback() {
-		super.connectedCallback();
-
-		this.unsubscribe = [
-			subscribe(s => s.currentEvent.data && s.currentEvent.data.currentEvent, currentEvent => { 
-				this.currentEvent = currentEvent || {};
-				this.hidden = !currentEvent;
-			}),
-			subscribe(s => s.currentEvent.loading, loading => { this.loading = loading || []; }),
-			subscribe(s => s.currentEvent.error, error => { this.error = error || []; }),
-		];
-	}
-
-	disconnectedCallback() {
-		this.unsubscribe.forEach(unsub => unsub());
-		super.disconnectedCallback();
+	updated(changedProperties) {
+		if (changedProperties.has('currentEvent')) {
+			this.hidden = !currentEvent;
+		}
 	}
 
 	render() {
+		if (!this.currentEvent) return '';
+		const { title, competitionStart, competitionEnd, votingEnd, canJoin, numEntrants, canPost, short } = this.currentEvent;
 		return html`
 			Current event:
-			<h1>${this.currentEvent.title}</h1>
+			<h1>${title}</h1>
 			<div class="datelist">
-			<tins-count-down label="Start"       epochMillis=${this.currentEvent.competitionStart}></tins-count-down>
-			<tins-count-down label="Finish"      epochMillis=${this.currentEvent.competitionEnd}></tins-count-down>
-			<tins-count-down label="Voting ends" epochMillis=${this.currentEvent.votingEnd}></tins-count-down>
+			<tins-count-down label="Start"       epochMillis=${competitionStart}></tins-count-down>
+			<tins-count-down label="Finish"      epochMillis=${competitionEnd}></tins-count-down>
+			<tins-count-down label="Voting ends" epochMillis=${votingEnd}></tins-count-down>
 			</div>
-			${this.currentEvent.canJoin
-			? html`Already ${this.currentEvent.numEntrants} signed up. <a href="/join/" router-ignore>Click to join</a>!` 
+			${canJoin
+			? html`Already ${numEntrants} signed up. <a href="/join/" router-ignore>Click to join</a>!` 
 			: ''}
-			${this.currentEvent.canPost
-				? html`<br><a href="/${this.currentEvent.short}/log/">View the latest logs</a>.`
+			${canPost
+				? html`<br><a href="/${short}/log/">View the latest logs</a>.`
 				: ''}
 		`;
 	}

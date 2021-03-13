@@ -1,9 +1,9 @@
 import { LitElement, html, css } from 'lit-element';
 import { repeat } from 'lit-html/directives/repeat.js';
-import { subscribe } from '../store.js';
 import twitterIcon from '@fortawesome/fontawesome-free/svgs/brands/twitter.svg';
+import { StoreSubscriberMixin } from '../data/storeSubscriberMixin.js';
  
-export class TinsUpcoming extends LitElement {
+export class TinsUpcoming extends StoreSubscriberMixin(LitElement) {
 
 	static get properties() {
 		return {
@@ -46,29 +46,26 @@ export class TinsUpcoming extends LitElement {
 		`;
 	}
 
-	connectedCallback() {
-		super.connectedCallback();
-
-		this.unsubscribe = [
-			subscribe(s => s.currentEvent.data && s.currentEvent.data.upcoming, upcoming => { 
-				this.upcoming = upcoming || [];
-				this.hidden = this.upcoming.length == 0;
-			}),
-			subscribe(s => s.currentEvent.loading, loading => { this.loading = loading || []; }),
-			subscribe(s => s.currentEvent.error, error => { this.error = error || []; }),
-		];
+	get selectors() {
+		return {
+			upcoming: s => s.currentEvent.data && s.currentEvent.data.upcoming,
+			loading: s => s.currentEvent.loading,
+			error: s => s.currentEvent.error
+		}
 	}
 
-	disconnectedCallback() {
-		this.unsubscribe.forEach(unsub => unsub());
-		super.disconnectedCallback();
+	updated(changedProperties) {
+		if (changedProperties.has('upcoming')) {
+			this.hidden = this.upcoming ? this.upcoming.length === 0 : false;
+		}
 	}
 
 	render() {
+		const upcoming = this.upcoming || [];
 		return html`
 			<h1>Coming up</h1>
 			<p><i>Mark these events in your calendar!</i></p>
-			${repeat(this.upcoming, u => html`<b>${u.dateStr}</b> <span>${u.title}</span><br>`)}
+			${repeat(upcoming, u => html`<b>${u.dateStr}</b> <span>${u.title}</span><br>`)}
 			<hr>
 			Stay informed! To get notified of upcoming events, <a href="https://groups.google.com/d/forum/tinscompetition">join our google group</a><br> 
 			<tins-fa-icon src="${twitterIcon}" size="1rem"></tins-fa-icon><a href="https://twitter.com/mpvaniersel">@mpvaniersel</a>

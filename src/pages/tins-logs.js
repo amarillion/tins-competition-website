@@ -9,11 +9,11 @@ import { TinsSpinner } from '../components/tins-spinner.js';
 import { TinsFaIcon } from '../components/tins-fa-icon.js';
 import { TinsLogForm } from '../components/tins-log-form.js';
 import { TinsLogPost } from '../components/tins-log-post.js';
-import { subscribe } from '../store.js';
 import { canPostSelector } from '../data/currentEvent.js';
 import { currentUserSelector } from '../data/currentUser.js';
+import { StoreSubscriberMixin } from '../data/storeSubscriberMixin.js';
 
-export class TinsLogs extends ScopedElementsMixin(LitElement) {
+export class TinsLogs extends StoreSubscriberMixin(ScopedElementsMixin(LitElement)) {
 
 	static get scopedElements() {
 		return {
@@ -26,13 +26,21 @@ export class TinsLogs extends ScopedElementsMixin(LitElement) {
 		};
 	}
 
+	get selectors() {
+		const { compoId }  = this.location.params;
+		return {
+			canPost: canPostSelector(compoId),
+			username: currentUserSelector
+		}
+	}
+
 	static get properties() {
 		return {
 			loading: { type: Boolean },
 			error: { type: String },
 			data: { type: Object },
 			page: { type: Number },
-			canVote: { type: Boolean },
+			canPost: { type: Boolean },
 			username: { type: String },
 		};
 	}
@@ -43,7 +51,6 @@ export class TinsLogs extends ScopedElementsMixin(LitElement) {
 		this.error = '';
 		this.loading = false;
 		this.page = 1;
-		this.unsubscribe = [];
 		this.canVote = false;
 		this.username = null;
 	}
@@ -70,20 +77,10 @@ export class TinsLogs extends ScopedElementsMixin(LitElement) {
 	}
 
 	connectedCallback() {
-		const { compoId }  = this.location.params;
 		super.connectedCallback();
 		this.refreshData();
-		this.unsubscribe = [ 
-			subscribe(canPostSelector(compoId), canPost => this.canPost = canPost),
-			subscribe(currentUserSelector, username => this.username = username)
-		]
 	}
 
-	disconnectedCallback() {
-		this.unsubscribe.forEach(unsub => unsub());
-		super.disconnectedCallback();
-	}
-	
 	async submit(formData) {
 		const { competition } = this.data;
 		try {

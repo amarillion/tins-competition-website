@@ -29,7 +29,7 @@ export class TinsSecretSanta extends ScopedElementsMixin(LitElement) {
 
 	constructor() {
 		super();
-		this.unsubscribe = () => {};
+		this.unsubscribe = [];
 		this.reset();
 	}
 
@@ -58,14 +58,14 @@ export class TinsSecretSanta extends ScopedElementsMixin(LitElement) {
 		super.connectedCallback();
 		this.refresh();
 
-		this.unsubscribe = registerEventListener(this.shadowRoot, 'countdownZero',
+		this.unsubscribe = [ registerEventListener(this.shadowRoot, 'countdownZero',
 			() => setTimeout(() => this.refresh(), 2000)
-		);
+		) ];
 	}
 
 	disconnectedCallback() {
 		super.disconnectedCallback();
-		this.unsubscribe();
+		this.unsubscribe.forEach(unsub => unsub());
 	}
 
 	static get styles() {
