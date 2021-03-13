@@ -2,7 +2,6 @@ import { LitElement, html, css } from 'lit-element';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
 import { TinsFrame } from '../components/tins-frame.js';
-import { TinsRichTextView } from '../components/tins-richtext-view.js';
 import { asyncFetchJSON, postOrThrow } from '../util.js';
 import { TinsSpinner } from '../components/tins-spinner.js';
 import { TinsFaIcon } from '../components/tins-fa-icon.js';
@@ -81,9 +80,9 @@ export class TinsLogEdit extends ScopedElementsMixin(LitElement) {
 	}
 
 	renderContents() {
-		const { post, competition, msgPostEnabled } = this.data;
+		const { post, competition, canPostAndAuthenticated } = this.data;
 		return html`
-			${msgPostEnabled ? this.renderForm(competition) : ''}
+			${canPostAndAuthenticated ? this.renderForm(competition) : ''}
 			<table border="1" width="100%">
 				${this.renderPost(post, competition)}
 			</table>

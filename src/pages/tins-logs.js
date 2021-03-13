@@ -9,6 +9,9 @@ import { TinsSpinner } from '../components/tins-spinner.js';
 import { TinsFaIcon } from '../components/tins-fa-icon.js';
 import { TinsLogForm } from '../components/tins-log-form.js';
 import { TinsLogPost } from '../components/tins-log-post.js';
+import { subscribe } from '../store.js';
+import { canPostSelector } from '../data/currentEvent.js';
+import { currentUserSelector } from '../data/currentUser.js';
 
 export class TinsLogs extends ScopedElementsMixin(LitElement) {
 
@@ -29,6 +32,8 @@ export class TinsLogs extends ScopedElementsMixin(LitElement) {
 			error: { type: String },
 			data: { type: Object },
 			page: { type: Number },
+			canVote: { type: Boolean },
+			username: { type: String },
 		};
 	}
 
@@ -38,6 +43,9 @@ export class TinsLogs extends ScopedElementsMixin(LitElement) {
 		this.error = '';
 		this.loading = false;
 		this.page = 1;
+		this.unsubscribe = [];
+		this.canVote = false;
+		this.username = null;
 	}
 
 	async refreshData() {
@@ -62,13 +70,22 @@ export class TinsLogs extends ScopedElementsMixin(LitElement) {
 	}
 
 	connectedCallback() {
+		const { compoId }  = this.location.params;
 		super.connectedCallback();
 		this.refreshData();
+		this.unsubscribe = [ 
+			subscribe(canPostSelector(compoId), canPost => this.canPost = canPost),
+			subscribe(currentUserSelector, username => this.username = username)
+		]
+	}
+
+	disconnectedCallback() {
+		this.unsubscribe.forEach(unsub => unsub());
+		super.disconnectedCallback();
 	}
 	
 	async submit(formData) {
 		const { competition } = this.data;
-		
 		try {
 			this.loading = true;
 			const response = await postOrThrow(`/api/v1/log/event/${competition.short}`, formData);
@@ -83,8 +100,8 @@ export class TinsLogs extends ScopedElementsMixin(LitElement) {
 	}
 
 	renderForm(competition) {
-		
-		return html`<hr>
+		if (!(this.canVote || this.username)) return '';
+		return html`
 <p>Add a message to your log <a href="${competition.short}/log/edit">(click here to edit your previous post)</a>
 <p>
 <tins-log-form .submitCallback=${(formData) => this.submit(formData)}></tins-log-form>
@@ -118,11 +135,14 @@ export class TinsLogs extends ScopedElementsMixin(LitElement) {
 	}
 
 	renderContents() {
-		const { posts, competition, msgPostEnabled } = this.data;
+		const { posts, competition } = this.data;
+		
 		return html`
-			${msgPostEnabled ? this.renderForm(competition) : ''}
+			${this.renderForm(competition)}
 			${this.renderPageNav()}
-			${repeat(posts || [], p => p.id, p => this.renderPost(p, competition))}
+			<table>
+			${repeat(posts || [], p => p.id, p => html`<tr><td>${this.renderPost(p, competition)}</td></tr>`)}
+			</table>
 			${this.renderPageNav()}
 		`;
 	}
@@ -173,7 +193,12 @@ export class TinsLogs extends ScopedElementsMixin(LitElement) {
 			.color {
 				width: 100%;
 				background: red;
-			}	
+			}
+
+			table, tr, td {
+				border-collapse: collapse;
+				border: 1px solid grey;
+			}
 		`;
 	}
 

@@ -61,6 +61,7 @@ export class TinsUpcoming extends LitElement {
 
 	disconnectedCallback() {
 		this.unsubscribe.forEach(unsub => unsub());
+		super.disconnectedCallback();
 	}
 
 	render() {

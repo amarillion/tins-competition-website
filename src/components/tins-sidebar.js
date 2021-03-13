@@ -33,6 +33,7 @@ customElements.define('tins-sidebar', class extends LitElement {
 
 	disconnectedCallback() {
 		this.unsubscribe.forEach(unsub => unsub());
+		super.disconnectedCallback();
 	}
 	
 	static get styles() {

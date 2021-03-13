@@ -25,6 +25,7 @@ export class TinsCurrentUser extends LitElement {
 
 	disconnectedCallback() {
 		this.unsubscribe.forEach(unsub => unsub());
+		super.disconnectedCallback();
 	}
 
 	static get styles() {

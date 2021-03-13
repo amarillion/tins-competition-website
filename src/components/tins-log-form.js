@@ -64,7 +64,7 @@ export class TinsLogForm extends LitElement {
 	renderScreenshotSelector() {
 		const { image } = this._prefill;
 
-		return image ? html`
+		return html`${image ? html`
 		<div>
 			<label><input @input=${() => this.imgDisabled = true } 
 				type="radio" name="img_option" value="as_is" checked>Leave image as is</label><br>
@@ -73,9 +73,8 @@ export class TinsLogForm extends LitElement {
 			<label><input @input=${() => this.imgDisabled = false } 
 				type="radio" name="img_option" value="add_or_replace">Replace image</label><br>
 		</div>`
-			: html`<input type="hidden" name="img_option" value="add_or_replace">`
-		+
-		html`
+			: html`<input type="hidden" name="img_option" value="add_or_replace">`}
+		
 		<div class="screenshot" ?hidden=${this.imgDisabled} title="note: screenshots should be GIF, JPG or PNG files of less than ${formatBytes(IMAGE_UPLOAD_SIZE_LIMIT)}">
 			<label>Screenshot: <tins-fa-icon src="${infoIcon}" color="blue" size="1rem"></tins-fa-icon>
 				<input type="file" name="screenshot" accept="image/*">

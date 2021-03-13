@@ -10,6 +10,8 @@ function success(data) {
 	return { type: 'CURRUSER_SUCCESS', data };
 }
 
+export const currentUserSelector = s => s.currentUser.data && s.currentUser.data.login;
+
 export function clearCurrentUser() {
 	return { type: 'CURRUSER_CLEAR' };
 }

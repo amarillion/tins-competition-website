@@ -48,9 +48,7 @@ export class TinsLogPost extends ScopedElementsMixin(LitElement) {
 	static get styles() {
 		return css`
 			:host {
-				margin-bottom: 1rem;
 				display: block;
-				border: 1px solid black;
 				padding: 0.5rem;
 			}
 

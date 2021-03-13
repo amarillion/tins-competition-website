@@ -10,10 +10,22 @@ function currentEventSuccess(data) {
 	return { type: 'CURREVENT_SUCCESS', data };
 }
 
+export const canPostSelector = (compoId) => 
+	s => s.currentEvent.data && s.currentEvent.data.byShort[compoId].canPost;
+
+function transformResponse(data) {
+	const { events, upcoming } = data;
+	const byShort = {};
+	for (const e of events) {
+		byShort[e.short] = e;
+	}
+	return { events, upcoming, byShort };
+}
+
 export const refreshCurrentEvent = () => async (dispatch, getState) => {
 	const { currentEvent } = getState();
-	const ageInHours = (Date.now() - currentEvent.timestamp) / 1000 / 3600;
-	if (ageInHours < 8) { return; }
+	const ageInMinutes = (Date.now() - currentEvent.timestamp) / 1000 / 60;
+	if (ageInMinutes < 60) { return; }
 
 	dispatch(currentEventLoading());
 
@@ -22,7 +34,7 @@ export const refreshCurrentEvent = () => async (dispatch, getState) => {
 		dispatch(currentEventError(await response.text()));
 	}
 	else {
-		const data = (await response.json());
+		const data = transformResponse(await response.json());
 		dispatch(currentEventSuccess(data));
 	}
 };

@@ -36,6 +36,7 @@ export class TinsCurrentEvent extends LitElement {
 
 	disconnectedCallback() {
 		this.unsubscribe.forEach(unsub => unsub());
+		super.disconnectedCallback();
 	}
 
 	render() {
