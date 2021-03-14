@@ -68,15 +68,6 @@ export class TinsSecretSanta extends ScopedElementsMixin(LitElement) {
 		this.unsubscribe.forEach(unsub => unsub());
 	}
 
-	static get styles() {
-		return css`
-			a 			{ font-weight: bold; text-decoration: none; }
-			a:link 		{ color: #600; }
-			a:hover 	{ text-decoration: underline; }
-			a:active 	{ text-decoration: underline; }
-		`;
-	}
-
 	renderTitle() {
 		return this.competition
 			? html`<h2>Your Secret Santa for ${this.competition.title}</h2>`
@@ -110,15 +101,24 @@ export class TinsSecretSanta extends ScopedElementsMixin(LitElement) {
 			return html`<p>There is no secret santa information available for the current competition.</p>`;
 		}
 
+		const formattedDate = new Date(this.competition.competitionStart)
+			.toLocaleDateString([], { dateStyle:'long' });
+
 		return html`
+		<div class="letter">
+			<p class="right">North Pole, ${formattedDate}</p>
 			<p>Hello ${this.secretSanta.giver.name},</p>
 			<p>
-			Santa has decided that you will give a gift to ${this.secretSanta.receiver.name}!
+			I have decided that you will give a gift to ${this.secretSanta.receiver.name}!
 			</p>
 			<p>
 			You can find their wishlist on 
 			<a href="/${this.competition.short}/log/${this.secretSanta.receiver.entrantId}/">their log</a>
 			</p>
+			<br>
+			<p>Best wishes, </p>
+			<p class="indent">Santa.</p>
+		</div>
 			`;
 	}
 
@@ -126,5 +126,29 @@ export class TinsSecretSanta extends ScopedElementsMixin(LitElement) {
 		return html`<tins-status-helper 
 				error="${this.error}" ?loading=${this.loading}
 			>${this.renderTitle()}${this.renderContents()}</tins-status-helper>`;
+	}
+
+	static get styles() {
+		return css`
+			a 			{ font-weight: bold; text-decoration: none; }
+			a:link 		{ color: #600; }
+			a:hover 	{ text-decoration: underline; }
+			a:active 	{ text-decoration: underline; }
+
+			.letter {
+				margin: 3rem;
+				padding: 3rem;
+				border: 1px solid black;
+				box-shadow: 10px 10px 10px black;
+			}
+
+			.right {
+				text-align: right;
+			}
+
+			.indent {
+				padding-left: 6rem;
+			}
+		`;
 	}
 }
