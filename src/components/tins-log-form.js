@@ -1,7 +1,19 @@
 import { LitElement, html, css } from 'lit-element';
 import infoIcon from '@fortawesome/fontawesome-free/svgs/solid/info-circle.svg';
 import { formatBytes, IMAGE_UPLOAD_SIZE_LIMIT } from '../util.js';
- 
+
+export const spoilerExplanation = `\
+Posts marked spoiler will be hidden from the public until the competition is over. 
+For secret-santa competitions, they're hidden from your giftee as well.`
+
+export const markupMessage = `\
+Certain html tags are allowed: <a> <abbr> <b> <i> <s> <li> <ul> <ol> <pre> <code> <blockquote>
+URLs are automatically linkified. 
+Youtube links on a line by themselves are converted to embedded videos.
+Newlines are preserved.
+You can edit the text of your last post only.
+`;
+
 export class TinsLogForm extends LitElement {
 
 	static get properties() {
@@ -84,14 +96,6 @@ export class TinsLogForm extends LitElement {
 	render() {
 		const { text, spoiler } = this._prefill;
 
-		const markupMessage = `\
-Certain html tags are allowed: <a> <abbr> <b> <i> <s> <li> <ul> <ol> <pre> <code> <blockquote>
-URLs are automatically linkified. 
-Youtube links on a line by themselves are converted to embedded videos.
-Newlines are preserved.
-You can edit the text of your last post only.
-`;
-
 		return html`
 		<form name="msglog" @submit=${(e) => this.submit(e)} enctype="multipart/form-data">
 		
@@ -100,7 +104,7 @@ You can edit the text of your last post only.
 		</div>
 		<textarea name="message" cols="40" rows="10" required id="id_message">${text}</textarea>
 		
-		<div title="If checked, this post will be hidden from the public until the competition is over. For secret-santa competitions, it will be hidden from your giftee as well.">
+		<div title="${spoilerExplanation}">
 			<label>Spoiler:
 			<input type="checkbox" name="spoiler" id="id_spoiler" ?checked=${spoiler}>
 			<tins-fa-icon src="${infoIcon}" color="blue" size="1rem"></tins-fa-icon>
