@@ -82,18 +82,10 @@ export class TinsUser extends ScopedElementsMixin(LitElement) {
 		`;
 	}
 
-	renderError() {
-		return this.error ? html`<div class="error">${this.error}</div>`:'';
-	}
-	
 	render() {
-		return html`
-			${this.loading 
-			? html`<tins-spinner class="spinner"></tins-spinner>` 
-			: this.error 
-				? html`${this.renderError()}`
-				: html`${this.renderContents()}`
-			}`;
+		return html`<tins-status-helper 
+				error="${this.error}" ?loading=${this.loading}
+			>${this.renderContents()}</tins-status-helper>`;
 	}
 
 	static get styles() {

@@ -4,18 +4,18 @@ import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { TinsRichTextControl } from '../components/tins-richtext-control.js';
 import { asyncFetchJSON, formatBytes, IMAGE_UPLOAD_SIZE_LIMIT, postOrThrow } from '../util.js';
 import { repeat } from 'lit-html/directives/repeat.js';
-import { TinsSpinner } from '../components/tins-spinner.js';
 import gamepadIcon from '@fortawesome/fontawesome-free/svgs/solid/gamepad.svg';
 import downloadIcon from '@fortawesome/fontawesome-free/svgs/solid/download.svg';
 import { TinsFaIcon } from '../components/tins-fa-icon.js';
 import { TinsImageUpload } from '../components/tins-image-upload.js';
+import { TinsStatusHelper } from '../components/tins-status-helper.js';
 
 export class TinsEntry extends ScopedElementsMixin(LitElement) {
 
 	static get scopedElements() {
 		return {
 			'tins-richtext': TinsRichTextControl,
-			'tins-spinner': TinsSpinner,
+			'tins-status-helper': TinsStatusHelper,
 			'tins-fa-icon': TinsFaIcon,
 			'tins-image-upload': TinsImageUpload,
 		};
@@ -108,28 +108,16 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 		`;
 	}
 
-	renderError() {
-		return this.error ? html`<div class="error">${this.error}</div>`:'';
-	}
-	
+
 	render() {
-		return html`
-			${this.loading 
-			? html`<tins-spinner class="spinner"></tins-spinner>` 
-			: this.error 
-				? html`${this.renderError()}`
-				: html`${this.renderContents()}`
-			}`;
+		return html`<tins-status-helper 
+				error="${this.error}" ?loading=${this.loading}
+			>${this.renderContents()}</tins-status-helper>`;
 	}
 
 	static get styles() {
 		return css`
 			:host {
-			}
-
-			.error {
-				width: 100%;
-				color: red;
 			}
 
 			.authorbox {

@@ -2,17 +2,17 @@ import { LitElement, html, css } from 'lit-element';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
 import { asyncFetchJSON, postOrThrow } from '../util.js';
-import { TinsSpinner } from '../components/tins-spinner.js';
 import { TinsFaIcon } from '../components/tins-fa-icon.js';
 import { TinsLogForm } from '../components/tins-log-form.js';
 import { TinsLogPost } from '../components/tins-log-post.js';
+import { TinsStatusHelper } from '../components/tins-status-helper.js';
 
 export class TinsLogEdit extends ScopedElementsMixin(LitElement) {
 
 	static get scopedElements() {
 		return {
 			'tins-log-post': TinsLogPost,
-			'tins-spinner': TinsSpinner,
+			'tins-status-helper': TinsStatusHelper,
 			'tins-fa-icon': TinsFaIcon,
 			'tins-log-form': TinsLogForm,
 		};
@@ -60,8 +60,7 @@ export class TinsLogEdit extends ScopedElementsMixin(LitElement) {
 	}
 	
 	renderForm(competition) {
-		return html`<hr>
-
+		return html`
 <p>You are now editing your most recent post. <a href="/${competition.short}/log/">Click here to add a new post instead</a>
 	</p>
 
@@ -79,6 +78,7 @@ export class TinsLogEdit extends ScopedElementsMixin(LitElement) {
 
 	renderContents() {
 		const { post, competition, canPostAndAuthenticated } = this.data;
+		if (!(post || competition)) { return ''; }
 		return html`
 			${canPostAndAuthenticated ? this.renderForm(competition) : ''}
 			<table border="1" width="100%">
@@ -87,28 +87,15 @@ export class TinsLogEdit extends ScopedElementsMixin(LitElement) {
 		`;
 	}
 
-	renderError() {
-		return this.error ? html`<div class="error">${this.error}</div>`:'';
-	}
-	
 	render() {
-		return html`
-			${this.loading 
-			? html`<tins-spinner class="spinner"></tins-spinner>` 
-			: this.error 
-				? html`${this.renderError()}`
-				: html`${this.renderContents()}`
-			}`;
+		return html`<tins-status-helper 
+				error="${this.error}" ?loading=${this.loading}
+			>${this.renderContents()}</tins-status-helper>`;
 	}
 
 	static get styles() {
 		return css`
 			:host {
-			}
-
-			.error {
-				width: 100%;
-				color: red;
 			}
 
 			.authorbox {

@@ -3,14 +3,14 @@ import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
 import { asyncFetchJSON } from '../util.js';
 import { repeat } from 'lit-html/directives/repeat.js';
-import { TinsSpinner } from '../components/tins-spinner.js';
 import { TinsEntryThumbnail } from '../components/tins-entry-thumbnail.js';
+import { TinsStatusHelper } from '../components/tins-status-helper.js';
 
 export class TinsAllEntries extends ScopedElementsMixin(LitElement) {
 
 	static get scopedElements() {
 		return {
-			'tins-spinner': TinsSpinner,
+			'tins-status-helper': TinsStatusHelper,
 			'tins-entry-thumbnail': TinsEntryThumbnail,
 		};
 	}
@@ -95,7 +95,14 @@ export class TinsAllEntries extends ScopedElementsMixin(LitElement) {
 			></tins-entry-thumbnail></a>`;
 	}
 
+	updated(changedMap) {
+		if (changedMap.has('loading')) {
+			console.log('TINS-ALL-ENTRIES', this.loading);
+		}
+	}
+
 	renderContents() {
+		if (!this.data.result) return '';
 		return html`
 		<div class="buttons">
 			<button @click=${() => this.groupBy = 'byEvent'}>by&nbsp;event</button>
@@ -113,19 +120,12 @@ export class TinsAllEntries extends ScopedElementsMixin(LitElement) {
 			)}`
 		}`;
 	}
-
-	renderError() {
-		return this.error ? html`<div class="error">${this.error}</div>`:'';
-	}
 	
 	render() {
 		return html`
-			${this.loading 
-			? html`<tins-spinner class="spinner"></tins-spinner>` 
-			: this.error 
-				? html`${this.renderError()}`
-				: html`${this.renderContents()}`
-			}`;
+<tins-status-helper 
+	error="${this.error}" ?loading=${this.loading}
+>${this.renderContents()}</tins-status-helper>`;
 	}
 
 	static get styles() {

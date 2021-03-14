@@ -4,20 +4,20 @@ import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { TinsRichTextView } from '../components/tins-richtext-view.js';
 import { asyncFetchJSON, postOrThrow } from '../util.js';
 import { repeat } from 'lit-html/directives/repeat.js';
-import { TinsSpinner } from '../components/tins-spinner.js';
 import { TinsFaIcon } from '../components/tins-fa-icon.js';
 import { TinsLogForm } from '../components/tins-log-form.js';
 import { TinsLogPost } from '../components/tins-log-post.js';
 import { canPostSelector } from '../data/currentEvent.js';
 import { currentUserSelector } from '../data/currentUser.js';
 import { StoreSubscriberMixin } from '../data/storeSubscriberMixin.js';
+import { TinsStatusHelper } from '../components/tins-status-helper.js';
 
 export class TinsLogs extends StoreSubscriberMixin(ScopedElementsMixin(LitElement)) {
 
 	static get scopedElements() {
 		return {
 			'tins-richtext-view': TinsRichTextView,
-			'tins-spinner': TinsSpinner,
+			'tins-status-helper': TinsStatusHelper,
 			'tins-fa-icon': TinsFaIcon,
 			'tins-log-form': TinsLogForm,
 			'tins-log-post': TinsLogPost,
@@ -95,7 +95,9 @@ export class TinsLogs extends StoreSubscriberMixin(ScopedElementsMixin(LitElemen
 	}
 
 	renderForm(competition) {
-		if (!(this.canVote || this.username)) return '';
+		const loggedIn = !!this.username;
+		const canPost = loggedIn && this.canPost;
+		if (!(competition && canPost)) { return ''; }
 		return html`
 <p>Add a message to your log <a href="${competition.short}/log/edit">(click here to edit your previous post)</a>
 <p>
@@ -142,18 +144,10 @@ export class TinsLogs extends StoreSubscriberMixin(ScopedElementsMixin(LitElemen
 		`;
 	}
 
-	renderError() {
-		return this.error ? html`<div class="error">${this.error}</div>`:'';
-	}
-	
 	render() {
-		return html`
-			${this.loading 
-			? html`<tins-spinner class="spinner"></tins-spinner>` 
-			: this.error 
-				? html`${this.renderError()}`
-				: html`${this.renderContents()}`
-			}`;
+		return html`<tins-status-helper 
+				error="${this.error}" ?loading=${this.loading}
+			>${this.renderContents()}</tins-status-helper>`;
 	}
 
 	static get styles() {

@@ -2,16 +2,16 @@ import { LitElement, html, css } from 'lit-element';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
 import { TinsFrame } from '../components/tins-frame.js';
-import { TinsSpinner } from '../components/tins-spinner.js';
 import { TinsInlineCountDown } from '../components/tins-inline-count-down.js';
 import { registerEventListener, asyncFetchJSON } from '../util.js';
+import { TinsStatusHelper } from '../components/tins-status-helper.js';
 
 export class TinsSecretSanta extends ScopedElementsMixin(LitElement) {
 
 	static get scopedElements() {
 		return {
 			'tins-frame': TinsFrame,
-			'tins-spinner': TinsSpinner,
+			'tins-status-helper': TinsStatusHelper,
 			'tins-inline-count-down': TinsInlineCountDown
 		};
 	}
@@ -74,16 +74,7 @@ export class TinsSecretSanta extends ScopedElementsMixin(LitElement) {
 			a:link 		{ color: #600; }
 			a:hover 	{ text-decoration: underline; }
 			a:active 	{ text-decoration: underline; }
-
-			.spinner {
-				width: 100%;
-				height: 100%;
-			}
 		`;
-	}
-
-	renderError() {
-		return this.error ? html`<div background="red">${this.error}</div>`:'';
 	}
 
 	renderTitle() {
@@ -132,13 +123,8 @@ export class TinsSecretSanta extends ScopedElementsMixin(LitElement) {
 	}
 
 	render() {
-		return html`
-			${this.loading 
-			? html`<tins-spinner class="spinner"></tins-spinner>` 
-			: this.error 
-				? html`${this.renderError()}`
-				: html`${this.renderTitle()}${this.renderContents()}`
-			}`;
-
+		return html`<tins-status-helper 
+				error="${this.error}" ?loading=${this.loading}
+			>${this.renderTitle()}${this.renderContents()}</tins-status-helper>`;
 	}
 }
