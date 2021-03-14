@@ -1,7 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
-import { TinsFrame } from '../components/tins-frame.js';
 import { TinsRichTextControl } from '../components/tins-richtext-control.js';
 import { asyncStateFlags, fetchJSONOrThrow } from '../util.js';
 import { repeat } from 'lit-html/directives/repeat.js';
@@ -15,7 +14,6 @@ export class TinsUser extends ScopedElementsMixin(LitElement) {
 
 	static get scopedElements() {
 		return {
-			'tins-frame': TinsFrame,
 			'tins-richtext': TinsRichTextControl,
 			'tins-spinner': TinsSpinner,
 			'tins-entry-thumbnail': TinsEntryThumbnail,
@@ -89,13 +87,13 @@ export class TinsUser extends ScopedElementsMixin(LitElement) {
 	}
 	
 	render() {
-		return html`<tins-frame>
+		return html`
 			${this.loading 
 			? html`<tins-spinner class="spinner"></tins-spinner>` 
 			: this.error 
 				? html`${this.renderError()}`
 				: html`${this.renderContents()}`
-			}</tins-frame>`;
+			}`;
 	}
 
 	static get styles() {

@@ -1,15 +1,7 @@
 import { LitElement, html, css } from 'lit-element';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
-import { TinsFrame } from '../components/tins-frame.js';
-
 export class TinsSupport extends ScopedElementsMixin(LitElement) {
-
-	static get scopedElements() {
-		return {
-			'tins-frame': TinsFrame,
-		};
-	}
 
 	static get styles() {
 		return css`
@@ -22,8 +14,6 @@ export class TinsSupport extends ScopedElementsMixin(LitElement) {
 
 	render() {
 		return html`
-<tins-frame>
-
 	<h1>Support the TINS Game Jams!</h1>
 
 	<p>Do you enjoy TINS or KrampusHack? Do you want to see more events in the future, and help me make them extra cool and shiny? 
@@ -53,7 +43,6 @@ export class TinsSupport extends ScopedElementsMixin(LitElement) {
 	Only donate what you can easily miss yourself.
 	I promise that the TINS events will always remain free and open for everybody.
 	</p>
-	</tins-frame>
 		`;
 	}
 }

@@ -3,14 +3,12 @@ import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
 import { TinsUpcoming } from '../components/tins-upcoming.js';
 import { TinsCurrentEvent } from '../components/tins-current-event.js';
-import { TinsFrame } from '../components/tins-frame.js';
 import { TinsNewsFeed } from '../components/tins-newsfeed.js';
 
 export class TinsNewsPage extends ScopedElementsMixin(LitElement) {
 
 	static get scopedElements() {
 		return {
-			'tins-frame': TinsFrame,
 			'tins-newsfeed': TinsNewsFeed,
 			'tins-upcoming': TinsUpcoming,
 			'tins-current-event': TinsCurrentEvent,
@@ -59,7 +57,6 @@ export class TinsNewsPage extends ScopedElementsMixin(LitElement) {
 
 	render() {
 		return html`
-		<tins-frame>
 			<div class="twocol">
 				<tins-newsfeed class="tins-newsfeed" .newsId=${this.location.params.newsId}></tins-newsfeed>	
 				<div class="rightcol">
@@ -67,7 +64,6 @@ export class TinsNewsPage extends ScopedElementsMixin(LitElement) {
 					<tins-upcoming class="tins-upcoming"></tins-upcoming>
 				</div>
 			</div>
-		</tins-frame>
 		`;
 	}
 }

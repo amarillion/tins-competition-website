@@ -1,15 +1,7 @@
 import { LitElement, html, css } from 'lit-element';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
-import { TinsFrame } from '../components/tins-frame.js';
-
 export class TinsHistory extends ScopedElementsMixin(LitElement) {
-
-	static get scopedElements() {
-		return {
-			'tins-frame': TinsFrame,
-		};
-	}
 
 	static get styles() {
 		return css`
@@ -22,7 +14,6 @@ export class TinsHistory extends ScopedElementsMixin(LitElement) {
 
 	render() {
 		return html`
-<tins-frame>
 	<h1>History</h1>
 
 
@@ -88,7 +79,6 @@ export class TinsHistory extends ScopedElementsMixin(LitElement) {
 	<p>
 	<a href="http://amarillion.bafsoft.net/tins08/">TINS 2008</a>
 	</p>
-</tins-frame>
 		`;
 	}
 }

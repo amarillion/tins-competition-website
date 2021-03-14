@@ -1,15 +1,7 @@
 import { LitElement, html, css } from 'lit-element';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
-import { TinsFrame } from '../components/tins-frame.js';
-
 export class TinsAbout extends ScopedElementsMixin(LitElement) {
-
-	static get scopedElements() {
-		return {
-			'tins-frame': TinsFrame,
-		};
-	}
 
 	static get styles() {
 		return css`
@@ -22,8 +14,6 @@ export class TinsAbout extends ScopedElementsMixin(LitElement) {
 
 	render() {
 		return html`
-<tins-frame>
-
 	<h1>About TINS - Game Jam</h1>
 
 	<h2>Do you have what it takes?</h2>
@@ -62,8 +52,6 @@ export class TinsAbout extends ScopedElementsMixin(LitElement) {
 	<p>
 	TINS is organized by <a href="http://www.helixsoft.nl">Amarillion</a>, who has been doing this kind of thing since 2001.
 	</p>
-		
-</tins-frame>
 		`;
 	}
 }

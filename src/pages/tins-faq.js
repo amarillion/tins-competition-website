@@ -1,15 +1,7 @@
 import { LitElement, html, css } from 'lit-element';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
-import { TinsFrame } from '../components/tins-frame.js';
-
 export class TinsFaq extends ScopedElementsMixin(LitElement) {
-
-	static get scopedElements() {
-		return {
-			'tins-frame': TinsFrame,
-		};
-	}
 
 	static get styles() {
 		return css`
@@ -22,8 +14,6 @@ export class TinsFaq extends ScopedElementsMixin(LitElement) {
 
 	render() {
 		return html`
-<tins-frame>
-
 	<h1>FAQ</h1>
 
 	<h3>
@@ -195,7 +185,6 @@ export class TinsFaq extends ScopedElementsMixin(LitElement) {
 	through them and if you've got a good set of ideas, there is bound to be one that suits 
 	the additional rules without too much modification.
 	</p>
-</tins-frame>
 		`;
 	}
 }

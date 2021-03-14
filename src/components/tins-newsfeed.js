@@ -69,7 +69,7 @@ export class TinsNewsFeed extends ScopedElementsMixin(LitElement) {
 			border-color: #000000;
 			background: #c0c0c0;
 			padding: 5px;
-			border-width: 1 1 0 1px;
+			border-width: 1px 1px 0 1px;
 			font-weight: bold;
 		}
 		pre {

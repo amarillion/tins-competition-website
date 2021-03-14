@@ -132,13 +132,13 @@ export class TinsSecretSanta extends ScopedElementsMixin(LitElement) {
 	}
 
 	render() {
-		return html`<tins-frame>
+		return html`
 			${this.loading 
 			? html`<tins-spinner class="spinner"></tins-spinner>` 
 			: this.error 
 				? html`${this.renderError()}`
 				: html`${this.renderTitle()}${this.renderContents()}`
-			}</tins-frame>`;
+			}`;
 
 	}
 }

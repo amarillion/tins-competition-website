@@ -36,7 +36,7 @@ export class TinsEntryThumbnail extends ScopedElementsMixin(LitElement) {
 			position: relative;
 			background: #444;
 			color: white;
-			font-height: 16px;
+			font-size: 16px;
 		}
 
 		.top {
