@@ -29,10 +29,8 @@ export class TinsCurrentEvent extends StoreSubscriberMixin(LitElement) {
 		this.currentEvent = {};
 	}
 
-	updated(changedProperties) {
-		if (changedProperties.has('currentEvent')) {
-			this.hidden = !currentEvent;
-		}
+	updated(/* changedProperties */) {
+		this.hidden = !this.currentEvent;
 	}
 
 	render() {

@@ -14,12 +14,12 @@ export const canPostSelector = (compoId) =>
 	s => s.currentEvent.data && s.currentEvent.data.byShort[compoId].canPost;
 
 function transformResponse(data) {
-	const { events, upcoming } = data;
+	const { events, upcoming, currentEvent } = data;
 	const byShort = {};
 	for (const e of events) {
 		byShort[e.short] = e;
 	}
-	return { events, upcoming, byShort };
+	return { events, upcoming, byShort, currentEvent };
 }
 
 export const refreshCurrentEvent = () => async (dispatch, getState) => {
