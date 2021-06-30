@@ -13,15 +13,24 @@ export class TinsCountDown extends LitElement {
 	constructor() {
 		super();
 		this.label = "";
-		this.hidden = false;
+		this.hidden = true;
 		this.epochMillis = 0;
 	}
 
-	render() {
+	getDeltaSec() {
 		const d = new Date(this.epochMillis);
 		const now = Date.now();
 
 		const deltaSec = Math.floor((d - now) / 1000);
+		return deltaSec;
+	}
+
+	updated(/* changedProperties */) {
+		this.hidden = !(this.epochMillis && this.getDeltaSec() >= 0);
+	}
+
+	render() {
+		const deltaSec = this.getDeltaSec();
 		if (deltaSec < 0) return ''; // time in past is not displayed
 
 		const sec = deltaSec % 60;

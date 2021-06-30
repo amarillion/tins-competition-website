@@ -47,7 +47,7 @@ export class TinsNewsPage extends ScopedElementsMixin(LitElement) {
 			@media (max-width: 1023px) {
 				.twocol {
 					display: flex;
-    				flex-direction: column-reverse;
+					flex-direction: column-reverse;
 				}
 				.rightcol {
 					margin-bottom: 1rem;

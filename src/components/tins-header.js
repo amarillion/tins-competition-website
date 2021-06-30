@@ -21,7 +21,7 @@ export class TinsHeader extends LitElement {
 
 	render() {
 		return html`
-		<img src="./static/tinslogo06.gif" alt="TINS Logo" />
+		<a href="/news"><img src="./static/tinslogo06.gif" alt="TINS Logo" /></a>
 		<div><small>game jams by the <a href="http://www.allegro.cc">allegro community</a></small></div>
 		<hr />
 		<tins-currentuser></tins-currentuser>
