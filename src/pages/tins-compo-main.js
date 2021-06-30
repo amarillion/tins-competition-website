@@ -58,17 +58,17 @@ export class TinsCompoMain extends ScopedElementsMixin(LitElement) {
 	}
 
 	renderRulesBlock(compo) {
-		const { title, competitionStart, competitionEnd, votingEnd, canJoin, numEntrants, canPost, short, serverTime } = compo;
+		const { competitionStart, short } = compo;
 		return html`
 		<div class="block">
 			<h3><tins-fa-icon class="icon" src="${rulesIcon}" size="2rem"></tins-fa-icon>Rules</h3>
 			<p><a href="${short}/rules" router-ignore>Read the rules</a></p>
-			<tins-count-down label="Special rules will be announced in"       epochMillis=${competitionStart}></tins-count-down>
+			<tins-count-down label="The rule-o-matic will add extra rules in"       epochMillis=${competitionStart}></tins-count-down>
 		</div>`;
 	}
 
 	renderJoinBlock(compo) {
-		const { title, competitionStart, competitionEnd, votingEnd, canJoin, numEntrants, canPost, short, joinedCompetition } = compo;
+		const { canJoin, numEntrants, joinedCompetition } = compo;
 		if (!canJoin) return '';
 		return html`
 		<div class="block">
@@ -84,8 +84,8 @@ export class TinsCompoMain extends ScopedElementsMixin(LitElement) {
 	}
 
 	renderVoteBlock(compo) {
-		const { title, competitionStart, competitionEnd, votingEnd, canJoin, numEntrants, canPost, canVote, short } = compo;
-		if (!canVote) return '';
+		const { votingEnd, canVote, short, joinedCompetition } = compo;
+		if (!(canVote && joinedCompetition)) return '';
 		return html`
 		<div class="block">
 			<h3><tins-fa-icon class="icon" src="${voteIcon}" size="2rem"></tins-fa-icon>Voting</h3>
@@ -95,7 +95,7 @@ export class TinsCompoMain extends ScopedElementsMixin(LitElement) {
 	}
 
 	renderLiveBlock(compo) {
-		const { title, competitionStart, competitionEnd, votingEnd, canJoin, numEntrants, canPost, canVote, short, serverTime } = compo;
+		const { title, competitionStart, competitionEnd, short, serverTime } = compo;
 		if (serverTime > competitionEnd || serverTime < competitionStart) return '';
 		return html`
 		<div class="block">
@@ -106,7 +106,7 @@ export class TinsCompoMain extends ScopedElementsMixin(LitElement) {
 	}
 
 	renderResultsBlock(compo) {
-		const { title, competitionStart, competitionEnd, votingEnd, canJoin, numEntrants, canPost, canVote, short, hasResults } = compo;
+		const { short, hasResults } = compo;
 		if (!hasResults) return '';
 		return html`
 		<div class="block">
@@ -116,7 +116,7 @@ export class TinsCompoMain extends ScopedElementsMixin(LitElement) {
 	}
 
 	renderCalendarBlock(compo) {
-		const { title, competitionStart, competitionEnd, votingEnd, canJoin, numEntrants, canPost, short, serverTime } = compo;
+		const { title, competitionStart, competitionEnd, canJoin, serverTime } = compo;
 		if (serverTime > competitionStart) return '';
 
 		const formatDate = d => new Date(d).toLocaleDateString('en-GB', { month: 'short', day: 'numeric'});
@@ -131,7 +131,7 @@ export class TinsCompoMain extends ScopedElementsMixin(LitElement) {
 	}
 
 	renderLogsBlock(compo) {
-		const { title, competitionStart, competitionEnd, votingEnd, canJoin, numEntrants, canPost, short, numLogs, joinedCompetition } = compo;
+		const { canPost, short, numLogs, joinedCompetition } = compo;
 		if (!(canPost || numLogs)) return '';
 
 		const message = (canPost && joinedCompetition) ? 'Add or update your log' : `View logs (${numLogs} posts)`;
@@ -155,7 +155,8 @@ export class TinsCompoMain extends ScopedElementsMixin(LitElement) {
 
 	render() {
 		const compo = this.compo || {};
-		const { title, competitionStart, competitionEnd, votingEnd, canJoin, numEntrants, canPost, short } = compo;
+		if (!compo) return ''; // loading or error...
+		const { title } = compo;
 		return html`<h1>${title}</h1>
 		<div class="container">
 			${this.renderResultsBlock(compo)}
