@@ -11,6 +11,7 @@ import { TinsAllEntries } from './pages/tins-all-entries.js';
 import { TinsUser } from './pages/tins-user.js';
 import { TinsLogs } from './pages/tins-logs.js';
 import { TinsLogEdit } from './pages/tins-log-edit.js';
+import { TinsCompoMain } from './pages/tins-compo-main.js';
 
 import { TinsFrame } from './components/tins-frame.js';
 
@@ -29,6 +30,7 @@ customElements.define('tins-user', TinsUser);
 customElements.define('tins-logs', TinsLogs);
 customElements.define('tins-log-edit', TinsLogEdit);
 customElements.define('tins-frame', TinsFrame);
+customElements.define('tins-compo-main', TinsCompoMain);
 
 router.setRoutes([{ 
 	path: '/',
@@ -49,6 +51,8 @@ router.setRoutes([{
 		// }},
 		//TODO: possibly add game name at end of url
 		{ path: '/entry/:entryId', component: 'tins-entry' },
+
+		{ path: '/:compoId/', component: 'tins-compo-main' },
 
 		{ path: '/:compoId/log/edit', component: 'tins-log-edit' },
 		{ path: '/:compoId/log/id/:postId', component: 'tins-logs' },
