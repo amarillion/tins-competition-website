@@ -19,6 +19,12 @@ const config = {
 		
 	},
 
+	optimization: {
+		splitChunks: {
+			chunks: 'all',
+		},
+	},
+
 	module: {
 		rules: [{
 			/* `import y from 'x.svg'` -> copy x.svg to the output folder and assign the name of the file to y. */
