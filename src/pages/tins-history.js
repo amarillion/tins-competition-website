@@ -48,7 +48,7 @@ export class TinsHistory extends StoreSubscriberMixin(ScopedElementsMixin(LitEle
 
 	<div class="toc">
 	<ul>
-		${repeat(events, e => e.short, e => html`<li><a href="/${e.short}/" router-ignore>${e.title}</a></li>`)}
+		${repeat(events, e => e.short, e => html`<li><a href="/${e.short}/">${e.title}</a></li>`)}
 	</ul>
 	</div>
 

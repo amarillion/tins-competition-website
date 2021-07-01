@@ -132,14 +132,20 @@ export class TinsLogs extends StoreSubscriberMixin(ScopedElementsMixin(LitElemen
 	}
 
 	renderContents() {
-		const { posts, competition } = this.data;
-		
+		let { posts, competition } = this.data;
+		if (!posts) posts = [];
+		const { title } = competition;
+
 		return html`
 			${this.renderForm(competition)}
+			<h1>${title} logs</h1>
 			${this.renderPageNav()}
-			<table>
-			${repeat(posts || [], p => p.id, p => html`<tr><td>${this.renderPost(p, competition)}</td></tr>`)}
-			</table>
+			${posts.length ? 
+				html`<table>
+				${repeat(posts, p => p.id, p => html`<tr><td>${this.renderPost(p, competition)}</td></tr>`)}
+				</table>`
+				: html`<p>Nothing posted yet...</p>`
+			}
 			${this.renderPageNav()}
 		`;
 	}
