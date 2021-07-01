@@ -11,7 +11,7 @@ export class TinsSideBar extends StoreSubscriberMixin(LitElement) {
 		return {
 			isStaff: { type: Boolean },
 			username: { type: String },
-			events: { type: Array },
+			currentEvent: { type: Object },
 		};
 	}
 
@@ -19,14 +19,14 @@ export class TinsSideBar extends StoreSubscriberMixin(LitElement) {
 		super();
 		this.isStaff = false;
 		this.username = null;
-		this.events = [];
+		this.curentEvent = {};
 	}
 
 	get selectors() {
 		return {
 			isStaff: s => s.currentUser.data && s.currentUser.data.isStaff,
 			username: currentUserSelector,
-			events: s => s.currentEvent.data && s.currentEvent.data.events
+			currentEvent: s=> s.currentEvent.data && s.currentEvent.data.currentEvent
 		};
 	}
 	
@@ -34,6 +34,52 @@ export class TinsSideBar extends StoreSubscriberMixin(LitElement) {
 		super.connectedCallback();
 		dispatch(refreshCurrentEvent());
 	}
+
+	renderCurrentEvent() {
+		const currentEvent = this.currentEvent || {};
+		const { short, title, joinedCompetition, canJoin, competitionStart, competitionEnd, serverTime, canVote } = currentEvent;
+		const afterStart = serverTime > competitionStart;
+		const afterEnd = serverTime > competitionEnd;
+		return html`<div class="toc">
+			<a href="/${short}/">${title}</a>
+			<hr>
+			${canJoin ? html`<a href="/join" router-ignore>Join</a>` : ''}
+			<a href="/2021/rules" router-ignore>Rules</a>
+			<a href="/2021/entrants" router-ignore>Entrants</a>
+			${(afterStart) ? html`<a href="/2021/entries" router-ignore>Entries</a>` : ''}
+			${(afterEnd) ? html`<a href="/2021/results" router-ignore>Results</a>` : ''}
+			${(afterEnd) ? html`<a href="/2021/reviews" router-ignore>Reviews</a>` : ''}
+			<a href="/2021/log">Logs</a>
+			${(joinedCompetition && afterStart) ? html`<a href="/2021/upload" router-ignore>Upload</a>` : ''}
+			${(joinedCompetition && canVote) ? html`<a href="/2021/vote" router-ignore>Vote</a>` : ''}
+		</div>`;
+	}
+
+	render() {
+		return html`
+		<nav id="rightcontent">
+
+			<div class="toc">
+
+				<a href="/news">News</a>
+				<a href="/about">About</a>
+				<a href="/support">Support TINS</a>
+				<a href="/faq">FAQ</a>
+				<a href="/history">History</a>
+		
+			${this.username ? html`
+				<a href="/user/${this.username}">My Profile</a>
+				<a href="/accounts/password/change" router-ignore>Change password</a>
+			` : ''}
+				${this.isStaff ? html`<hr><a href="/admin/" router-ignore>admin</a>` : '' }
+			</div>
+			
+			${this.renderCurrentEvent()}
+		</nav>
+		
+		`;
+	}
+
 	
 	static get styles() {
 		return css`
@@ -89,38 +135,6 @@ export class TinsSideBar extends StoreSubscriberMixin(LitElement) {
 		`;
 	}
 
-	render() {
-		const events = this.events || [];
-		return html`
-		<nav id="rightcontent">
-
-			
-			<div class="toc">
-		
-				<a href="/news">News</a>
-				<a href="/about">About</a>
-				<a href="/support">Support TINS</a>
-				<a href="/faq">FAQ</a>
-				<a href="/history">History</a>
-		
-			${this.username ? html`
-				<a href="/user/${this.username}">My Profile</a>
-				<a href="/join" router-ignore>Join a competition</a>
-				<a href="/accounts/password/change" router-ignore>Change password</a>
-			` : ''}
-			</div>
-			
-			<div class="toc">
-				${repeat(events, e => e.short, e => html`<a href="/${e.short}/" router-ignore>${e.title}</a>`)}
-			</div>
-			
-			${this.isStaff ? html`<div class="toc">
-				<a href="/admin/" router-ignore>admin<br>
-			</div>` : '' }
-		</nav>
-		
-		`;
-	}
 }
 
 customElements.define('tins-sidebar', TinsSideBar);
