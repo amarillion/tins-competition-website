@@ -44,7 +44,7 @@ export class TinsHistory extends StoreSubscriberMixin(ScopedElementsMixin(LitEle
 		return html`
 	<h2>TINS event history</h2>
 	
-	There have been game programming competitions on this site all the way back since 2003.
+	There have been game programming competitions on this site all the way back since 2003. 
 
 	<div class="toc">
 	<ul>
@@ -52,6 +52,8 @@ export class TinsHistory extends StoreSubscriberMixin(ScopedElementsMixin(LitEle
 	</ul>
 	</div>
 
+	<p>You can browse <a href="/all/entries">all games</a> ever submitted!</p>
+	
 	<h2>Other community events</h2>
 	<p>
 	The allegro community has a long and rich history of wacky competitions.
