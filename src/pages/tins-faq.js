@@ -80,7 +80,16 @@ export class TinsFaq extends ScopedElementsMixin(LitElement) {
 	<p>
 	I recommend you explicitly attach a license to your code, so that the terms of use are clear and will remain clear in the future. You may choose yourself which license to use, for example the GPL or the more liberal allegro license.	
 	</p>
-	
+
+	<h3>
+	How do I review games if I only get the source code? Am I expected to compile all entries from scratch?
+	</h3>
+	<p>
+	Most entrants do provide binaries. It's in their own interest to make the game easy to play! Even if not, the community shares the load. 
+	We usually put together a "binary pack", so you can install &amp; play all the games from a single convenient zip file.
+	</p>
+
+
 	<h3>
 	Can the competition start at a different time for me since I live many hours away from GMT?
 	</h3>
