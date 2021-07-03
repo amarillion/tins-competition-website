@@ -88,7 +88,7 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 				Game by: ${repeat(
 			entrants, 
 			e => e.id, 
-			e => html`${e.name} <a href='${competition.short}/log/${e.id}'>log (${logCounts[e.id]})</a>`
+			e => html`${e.name} <a href='${competition.short}/log/entrant/${e.id}'>log (${logCounts[e.id]})</a>`
 		)}
 			</p>
 
