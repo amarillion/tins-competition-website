@@ -14,6 +14,7 @@ import trophyIcon from '@fortawesome/fontawesome-free/svgs/solid/trophy.svg';
 import liveIcon from '@fortawesome/fontawesome-free/svgs/solid/heartbeat.svg';
 import { TinsCountDown } from '../components/tins-count-down.js';
 import { asyncFetchJSON } from '../util.js';
+import { TinsStatusHelper } from '../components/tins-status-helper.js';
 
 export class TinsCompoMain extends ScopedElementsMixin(LitElement) {
 
@@ -37,7 +38,7 @@ export class TinsCompoMain extends ScopedElementsMixin(LitElement) {
 		super();
 		this.compo = {};
 		this.error = {};
-		this.loading = false;
+		this.loading = true;
 	}
 
 	async connectedCallback() {
@@ -54,6 +55,7 @@ export class TinsCompoMain extends ScopedElementsMixin(LitElement) {
 			'tins-current-event': TinsCurrentEvent,
 			'tins-fa-icon': TinsFaIcon,
 			'tins-count-down': TinsCountDown,
+			'tins-status-helper': TinsStatusHelper,
 		};
 	}
 
@@ -153,7 +155,7 @@ export class TinsCompoMain extends ScopedElementsMixin(LitElement) {
 		</div>`;
 	}
 
-	render() {
+	renderContents() {
 		const compo = this.compo || {};
 		if (!compo) return ''; // loading or error...
 		const { title } = compo;
@@ -169,6 +171,12 @@ export class TinsCompoMain extends ScopedElementsMixin(LitElement) {
 			${this.renderVoteBlock(compo)}
 		</div>
 		`;
+	}
+
+	render() {
+		return html`<tins-status-helper 
+				error="${this.error}" ?loading=${this.loading}
+			>${this.renderContents()}</tins-status-helper>`;
 	}
 
 	static get styles() {
