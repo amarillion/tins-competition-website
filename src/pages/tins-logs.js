@@ -132,8 +132,8 @@ export class TinsLogs extends StoreSubscriberMixin(ScopedElementsMixin(LitElemen
 	}
 
 	renderContents() {
-		let { posts, competition } = this.data;
-		if (!posts) posts = [];
+		const competition = this.data.competition || {};
+		const posts = this.data.posts || [];
 		const { title } = competition;
 
 		return html`
