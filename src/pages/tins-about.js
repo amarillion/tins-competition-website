@@ -1,15 +1,15 @@
 import { LitElement, html, css } from 'lit-element';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
+import twitterIcon from '@fortawesome/fontawesome-free/svgs/brands/twitter.svg';
+import emailIcon from '@fortawesome/fontawesome-free/svgs/solid/envelope.svg';
+import { TinsFaIcon } from '../components/tins-fa-icon.js';
 
 export class TinsAbout extends ScopedElementsMixin(LitElement) {
 
-	static get styles() {
-		return css`
-			a 			{ font-weight: bold; text-decoration: none; }
-			a:link 		{ color: #600; }
-			a:hover 	{ text-decoration: underline; }
-			a:active 	{ text-decoration: underline; }
-		`;
+	static get scopedElements() {
+		return {
+			'tins-fa-icon': TinsFaIcon,
+		};
 	}
 
 	render() {
@@ -56,9 +56,20 @@ export class TinsAbout extends ScopedElementsMixin(LitElement) {
 	have fun, be creative and do something nice for the community.
 	<h2>About the organizers</h2>
 	<p>
-	TINS is organized by <a href="http://www.helixsoft.nl">Amarillion</a>, who has been doing this kind of thing since 2001. Email me at amarillion@yahoo.com if you have any questions, or send me a message on twitter: <a href="https://twitter.com/mpvaniersel">@mpvaniersel</a>
+	TINS is organized by <a href="http://www.helixsoft.nl">Amarillion</a>, who has been doing this kind of thing since 2001. 
+	Contact me: <tins-fa-icon src="${emailIcon}" size="1rem"></tins-fa-icon> amarillion@yahoo.com or <tins-fa-icon src="${twitterIcon}" size="1rem"></tins-fa-icon> <a href="https://twitter.com/mpvaniersel">@mpvaniersel</a>
 	</p>
 	
 		`;
 	}
+
+	static get styles() {
+		return css`
+			a 			{ font-weight: bold; text-decoration: none; }
+			a:link 		{ color: #600; }
+			a:hover 	{ text-decoration: underline; }
+			a:active 	{ text-decoration: underline; }
+		`;
+	}
+
 }

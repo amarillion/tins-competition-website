@@ -58,7 +58,7 @@ export class TinsHistory extends StoreSubscriberMixin(ScopedElementsMixin(LitEle
 	<p>
 	The allegro community has a long and rich history of wacky competitions.
 	</p>
-	<ol>
+	<ul>
 	<li><a href="http://www.speedhack.allegro.cc/2015/">Speedhack 2015</a>
 	<li><a href="http://www.speedhack.allegro.cc/2014/">Speedhack 2014</a>
 	<li><a href="http://www.speedhack.allegro.cc/2011/">Speedhack 2011</a>
@@ -77,7 +77,7 @@ export class TinsHistory extends StoreSubscriberMixin(ScopedElementsMixin(LitEle
 	<li><!-- http://www.hot.ee/ideahack/ -->IdeaHack 2001
 	<li><a href="http://www.speedhack.allegro.cc/2001/">SpeedHack 2001</a>
 	<li><a href="http://www.speedhack.allegro.cc/1999/">SpeedHack 1999</a>
-	</ol>
+	</ul>
 		`;
 	}
 }
