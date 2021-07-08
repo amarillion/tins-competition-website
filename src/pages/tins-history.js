@@ -59,7 +59,12 @@ export class TinsHistory extends StoreSubscriberMixin(ScopedElementsMixin(LitEle
 	The allegro community has a long and rich history of wacky competitions.
 	</p>
 	<ol>
+	<li><a href="http://www.speedhack.allegro.cc/2015/">Speedhack 2015</a>
+	<li><a href="http://www.speedhack.allegro.cc/2014/">Speedhack 2014</a>
+	<li><a href="http://www.speedhack.allegro.cc/2011/">Speedhack 2011</a>
+	<li><a href="http://www.speedhack.allegro.cc/2009/">Speedhack 2009</a>
 	<li><a href="http://www.speedhack.allegro.cc/2007/">Speedhack 2007</a>
+	<li><a href="http://www.speedhack.allegro.cc/2006/">Speedhack 2006</a>
 	<li><a href="http://www.speedhack.allegro.cc/2005/">Speedhack 2005</a>
 	<li><a href="http://www.speedhack.allegro.cc/2004/">Speedhack 2004</a>
 	<li><!-- http://www.binarysurge.com/blitzhack/ -->BlitzHack 2003
