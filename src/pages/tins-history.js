@@ -24,6 +24,12 @@ export class TinsHistory extends StoreSubscriberMixin(ScopedElementsMixin(LitEle
 			a:link 		{ color: #600; }
 			a:hover 	{ text-decoration: underline; }
 			a:active 	{ text-decoration: underline; }
+
+			@media (min-width: 1024px) {
+				ul {
+					columns: 2;
+				}
+			}
 		`;
 	}
 
@@ -46,7 +52,7 @@ export class TinsHistory extends StoreSubscriberMixin(ScopedElementsMixin(LitEle
 	
 	There have been game programming competitions on this site all the way back since 2003. 
 
-	<div class="toc">
+	<div class="two-col">
 	<ul>
 		${repeat(events, e => e.short, e => html`<li><a href="/${e.short}/">${e.title}</a></li>`)}
 	</ul>
@@ -67,15 +73,16 @@ export class TinsHistory extends StoreSubscriberMixin(ScopedElementsMixin(LitEle
 	<li><a href="http://www.speedhack.allegro.cc/2006/">Speedhack 2006</a>
 	<li><a href="http://www.speedhack.allegro.cc/2005/">Speedhack 2005</a>
 	<li><a href="http://www.speedhack.allegro.cc/2004/">Speedhack 2004</a>
-	<li><!-- http://www.binarysurge.com/blitzhack/ -->BlitzHack 2003
+	<li><a href="https://web.archive.org/web/20060720222623/http://www.binarysurge.com/blitzhack/">BlitzHack 2003</a>
 	<li><a href="http://www.speedhack.allegro.cc/2003">Speedhack 2003</a>
 	<li><a href="http://www.speedhack.allegro.cc/2002/">SpeedHack 2002</a>
-	<!-- Following Links unfortunately dead... -->
-	<li><!-- http://gamecode.tripod.com/sizehack3d.html -->The Allegro SizeHack3D 2001
-	<li><!-- http://amarillion.bafsoft.net/teamcompo/index.htm -->The Allegro Team Competition 2001	
-	<li><!-- http://binarysurge.netfirms.com/pgc/ -->The Pixelate Games Competition 2001
+	<li><a href="https://web.archive.org/web/20040218222341/http://gamecode.tripod.com/sizehack3d.html">The Allegro SizeHack3D 2001
+	<li><a href="https://web.archive.org/web/20131031223551/http://amarillion.bafsoft.net/teamcompo/index.htm">The Allegro Team Competition 2001</a>
+	<li><a href="https://web.archive.org/web/20110405080130/http://binarysurge.netfirms.com/pgc/">The Pixelate Games Competition 2001</a>
+	<!-- Following link unfortunately dead !-->
 	<li><!-- http://www.hot.ee/ideahack/ -->IdeaHack 2001
 	<li><a href="http://www.speedhack.allegro.cc/2001/">SpeedHack 2001</a>
+	<li>The Allegro SizeHack 2000
 	<li><a href="http://www.speedhack.allegro.cc/1999/">SpeedHack 1999</a>
 	</ul>
 		`;
