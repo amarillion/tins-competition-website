@@ -37,19 +37,18 @@ export class TinsSideBar extends StoreSubscriberMixin(LitElement) {
 
 	renderCurrentEvent() {
 		const currentEvent = this.currentEvent || {};
-		const { short, title, joinedCompetition, canJoin, competitionStart, competitionEnd, serverTime, canVote } = currentEvent;
-		const afterStart = serverTime > competitionStart;
-		const afterEnd = serverTime > competitionEnd;
+		const { short, title, joinedCompetition, canJoin, afterStart, afterEnd, canVote } = currentEvent;
+		console.log ({ joinedCompetition, afterEnd, afterStart });
 		return html`<div class="toc">
 			<a href="/${short}/">${title}</a>
 			<hr>
 			${canJoin ? html`<a href="/join" router-ignore>Join</a>` : ''}
-			<a href="/2021/rules" router-ignore>Rules</a>
-			<a href="/2021/entrants" router-ignore>Entrants</a>
-			${(afterStart) ? html`<a href="/2021/entries" router-ignore>Entries</a>` : ''}
-			${(afterEnd) ? html`<a href="/2021/results" router-ignore>Results</a>` : ''}
-			${(afterEnd) ? html`<a href="/2021/reviews" router-ignore>Reviews</a>` : ''}
-			<a href="/2021/log">Logs</a>
+			<a href="/${short}/rules" router-ignore>Rules</a>
+			<a href="/${short}/entrants" router-ignore>Entrants</a>
+			${(afterStart) ? html`<a href="/${short}/entries" router-ignore>Entries</a>` : ''}
+			${(afterEnd) ? html`<a href="/${short}/results" router-ignore>Results</a>` : ''}
+			${(afterEnd) ? html`<a href="/${short}/reviews" router-ignore>Reviews</a>` : ''}
+			<a href="/${short}/log">Logs</a>
 			${(joinedCompetition && afterStart) ? html`<a href="/2021/upload" router-ignore>Upload</a>` : ''}
 			${(joinedCompetition && canVote) ? html`<a href="/2021/vote" router-ignore>Vote</a>` : ''}
 		</div>`;
