@@ -90,7 +90,7 @@ export class TinsNewsFeed extends ScopedElementsMixin(LitElement) {
 			${day} ${month} ${year}
 		</div>
 		<div class="window">
-			<tins-richtext-view text="${post.text}"></tins-richtext-view">
+			<tins-richtext-view text="${post.text}"></tins-richtext-view>
 			${post.img ? html`<img src='/upload/${post.img}'/>` : ''}
 		</div>
 		`;
