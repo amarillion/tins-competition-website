@@ -9,6 +9,7 @@ import downloadIcon from '@fortawesome/fontawesome-free/svgs/solid/download.svg'
 import { TinsFaIcon } from '../components/tins-fa-icon.js';
 import { TinsImageUpload } from '../components/tins-image-upload.js';
 import { TinsStatusHelper } from '../components/tins-status-helper.js';
+import { TinsInlineCountDown } from '../components/tins-inline-count-down.js';
 
 export class TinsEntry extends ScopedElementsMixin(LitElement) {
 
@@ -18,6 +19,7 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 			'tins-status-helper': TinsStatusHelper,
 			'tins-fa-icon': TinsFaIcon,
 			'tins-image-upload': TinsImageUpload,
+			'tins-inline-count-down': TinsInlineCountDown
 		};
 	}
 
@@ -72,10 +74,23 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 				sizeLimit="${IMAGE_UPLOAD_SIZE_LIMIT}">
 			</tins-image-upload>`;
 	}
-	
+
+	renderUploadBox() {
+		if (!this.entry.editable) return '';
+		const { competition } = this.entry;
+		const { afterStart, afterEnd, competitionEnd } = competition;
+		if (afterEnd || !afterStart) return '';
+		return html`
+			<p>
+				<a href="/${competition.short}/upload" router-ignore>Upload your entry!</a> Time remaining: <tins-inline-count-down epochMillis=${competitionEnd}></tins-inline-count-down>
+			</p>`;
+	}
+
 	renderContents() {
+		if (this.loading) return;
 		const { entrants, tags, competition, logCounts, id, 
-			title, imagefile, editable, text, lastSubmission, reviewCount } = this.entry;
+			imagefile, editable, text, lastSubmission, reviewCount } = this.entry;
+		const title = (this.entry && this.entry.title) || 'Untitled'
 		return html`
 			<div class="floatright">
 				${repeat(tags, t => html`<img src="/upload/${t.icon}" title="${t.desc}"/>`)}
@@ -91,6 +106,8 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 			e => html`${e.name} <a href='${competition.short}/log/entrant/${e.id}'>log (${logCounts[e.id]})</a>`
 		)}
 			</p>
+
+			${this.renderUploadBox()}
 
 			${imagefile ? html`<img src="/upload/${imagefile}"/>` : html`<hr>`}
 			${this.renderEditImage()}

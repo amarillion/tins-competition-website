@@ -95,12 +95,6 @@ export class TinsAllEntries extends ScopedElementsMixin(LitElement) {
 			></tins-entry-thumbnail></a>`;
 	}
 
-	updated(changedMap) {
-		if (changedMap.has('loading')) {
-			console.log('TINS-ALL-ENTRIES', this.loading);
-		}
-	}
-
 	renderContents() {
 		if (!this.data.result) return '';
 		return html`

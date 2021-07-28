@@ -38,7 +38,6 @@ export class TinsSideBar extends StoreSubscriberMixin(LitElement) {
 	renderCurrentEvent() {
 		const currentEvent = this.currentEvent || {};
 		const { short, title, joinedCompetition, canJoin, afterStart, afterEnd, canVote } = currentEvent;
-		console.log ({ joinedCompetition, afterEnd, afterStart });
 		return html`<div class="toc">
 			<a href="/${short}/">${title}</a>
 			<hr>
@@ -49,8 +48,9 @@ export class TinsSideBar extends StoreSubscriberMixin(LitElement) {
 			${(afterEnd) ? html`<a href="/${short}/results" router-ignore>Results</a>` : ''}
 			${(afterEnd) ? html`<a href="/${short}/reviews" router-ignore>Reviews</a>` : ''}
 			<a href="/${short}/log">Logs</a>
-			${(joinedCompetition && afterStart) ? html`<a href="/2021/upload" router-ignore>Upload</a>` : ''}
-			${(joinedCompetition && canVote) ? html`<a href="/2021/vote" router-ignore>Vote</a>` : ''}
+			${(joinedCompetition && afterStart) ? html`<a href="/${short}/upload" router-ignore>Upload</a>` : ''}
+			${(joinedCompetition && afterStart) ? html`<a href="/${short}/myEntry">My entry</a>` : ''}
+			${(joinedCompetition && canVote) ? html`<a href="/${short}/vote" router-ignore>Vote</a>` : ''}
 		</div>`;
 	}
 

@@ -14,6 +14,7 @@ import { TinsLogEdit } from './pages/tins-log-edit.js';
 import { TinsCompoMain } from './pages/tins-compo-main.js';
 
 import { TinsFrame } from './components/tins-frame.js';
+import { TinsMyEntry } from './pages/tins-my-entry.js';
 
 const outlet = document.getElementById('outlet');
 const router = new Router(outlet);
@@ -25,6 +26,7 @@ customElements.define('tins-history', TinsHistory);
 customElements.define('tins-secret-santa', TinsSecretSanta);
 customElements.define('tins-support', TinsSupport);
 customElements.define('tins-entry', TinsEntry);
+customElements.define('tins-my-entry', TinsMyEntry);
 customElements.define('tins-all-entries', TinsAllEntries);
 customElements.define('tins-user', TinsUser);
 customElements.define('tins-logs', TinsLogs);
@@ -53,6 +55,8 @@ router.setRoutes([{
 		{ path: '/entry/:entryId', component: 'tins-entry' },
 
 		{ path: '/:compoId/', component: 'tins-compo-main' },
+
+		{ path: '/:compoId/myEntry', component: 'tins-my-entry' },
 
 		{ path: '/:compoId/log/edit', component: 'tins-log-edit' },
 		{ path: '/:compoId/log/id/:postId', component: 'tins-logs' },
