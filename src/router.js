@@ -15,6 +15,8 @@ import { TinsCompoMain } from './pages/tins-compo-main.js';
 
 import { TinsFrame } from './components/tins-frame.js';
 import { TinsMyEntry } from './pages/tins-my-entry.js';
+import { TinsRules } from './pages/tins-rules.js';
+import { TinsResults } from './pages/tins-results.js';
 
 const outlet = document.getElementById('outlet');
 const router = new Router(outlet);
@@ -33,6 +35,8 @@ customElements.define('tins-logs', TinsLogs);
 customElements.define('tins-log-edit', TinsLogEdit);
 customElements.define('tins-frame', TinsFrame);
 customElements.define('tins-compo-main', TinsCompoMain);
+customElements.define('tins-rules', TinsRules);
+customElements.define('tins-results', TinsResults);
 
 router.setRoutes([{ 
 	path: '/',
@@ -55,6 +59,8 @@ router.setRoutes([{
 		{ path: '/entry/:entryId', component: 'tins-entry' },
 
 		{ path: '/:compoId/', component: 'tins-compo-main' },
+		{ path: '/:compoId/rules', component: 'tins-rules' },
+		{ path: '/:compoId/results', component: 'tins-results' },
 
 		{ path: '/:compoId/myEntry', component: 'tins-my-entry' },
 

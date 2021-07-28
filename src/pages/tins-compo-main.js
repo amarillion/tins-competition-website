@@ -35,7 +35,7 @@ export class TinsCompoMain extends ScopedElementsMixin(LitElement) {
 	async connectedCallback() {
 		super.connectedCallback();
 		const compoId = this.location.params.compoId;
-		const data = await asyncFetchJSON(`/api/v1/event/${compoId}`, this);
+		const data = await asyncFetchJSON(`/api/v1/compo/${compoId}`, this);
 		if (data) {
 			this.compo = data;
 		}
@@ -55,7 +55,7 @@ export class TinsCompoMain extends ScopedElementsMixin(LitElement) {
 		return html`
 		<div class="block">
 			<h3><tins-fa-icon class="icon" src="${rulesIcon}" size="2rem"></tins-fa-icon>Rules</h3>
-			<p><a href="${short}/rules" router-ignore>Read the rules</a></p>
+			<p><a href="${short}/rules">Read the rules</a></p>
 			<tins-count-down label="Find out your extra rules in"       epochMillis=${competitionStart}></tins-count-down>
 		</div>`;
 	}
@@ -104,7 +104,7 @@ export class TinsCompoMain extends ScopedElementsMixin(LitElement) {
 		return html`
 		<div class="block">
 			<h3><tins-fa-icon class="icon" src="${trophyIcon}" size="2rem"></tins-fa-icon>Results</h3>
-			<p><a href="/${short}/results" router-ignore>Click here to see the results</a>
+			<p><a href="/${short}/results">Click here to see the results</a>
 		</div>`;
 	}
 
