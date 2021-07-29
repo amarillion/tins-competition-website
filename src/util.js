@@ -51,7 +51,9 @@ export async function asyncFetchJSON(url, self) {
 }
 
 export async function fetchJSONOrThrow(url) {
-	const response = await fetch(url);
+	const response = await fetch(url, {
+		credentials: 'same-origin'
+	});
 	if (response.ok) {
 		// parse json only if response is OK. Error state may contain invalid json.
 		const data = await response.json(); 

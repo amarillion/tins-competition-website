@@ -23,7 +23,7 @@ export const refreshCurrentUser = () => async (dispatch, getState) => {
 
 	dispatch(loading());
 
-	const response = await fetch('/api/v1/currentUser');
+	const response = await fetch('/api/v1/currentUser', { credentials: 'same-origin' });
 	if (response.status < 200 || response.status > 299) {
 		dispatch(error(await response.text()));
 	}

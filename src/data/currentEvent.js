@@ -29,7 +29,7 @@ export const refreshCurrentEvent = () => async (dispatch, getState) => {
 
 	dispatch(currentEventLoading());
 
-	const response = await fetch('/api/v1/currentEvent');
+	const response = await fetch('/api/v1/currentEvent', { credentials: 'same-origin' } );
 	if (response.status < 200 || response.status > 299) {
 		dispatch(currentEventError(await response.text()));
 	}
