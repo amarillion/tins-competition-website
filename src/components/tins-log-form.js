@@ -1,6 +1,8 @@
 import { LitElement, html, css } from 'lit-element';
 import infoIcon from '@fortawesome/fontawesome-free/svgs/solid/info-circle.svg';
 import { formatBytes, IMAGE_UPLOAD_SIZE_LIMIT } from '../util.js';
+import { ScopedElementsMixin } from '@open-wc/scoped-elements';
+import { TinsFaIcon } from './tins-fa-icon.js';
 
 export const spoilerExplanation = `\
 Posts marked spoiler will be hidden from the public until the competition is over. 
@@ -14,7 +16,13 @@ Newlines are preserved.
 You can edit the text of your last post only.
 `;
 
-export class TinsLogForm extends LitElement {
+export class TinsLogForm extends ScopedElementsMixin(LitElement) {
+
+	static get scopedElements() {
+		return {
+			'tins-fa-icon': TinsFaIcon,
+		};
+	}
 
 	static get properties() {
 		return {
@@ -88,7 +96,7 @@ export class TinsLogForm extends LitElement {
 			: html`<input type="hidden" name="img_option" value="add_or_replace">`}
 		
 		<div class="screenshot" ?hidden=${this.imgDisabled} title="note: screenshots should be GIF, JPG or PNG files of less than ${formatBytes(IMAGE_UPLOAD_SIZE_LIMIT)}">
-			<label>Screenshot: <tins-fa-icon src="${infoIcon}" color="blue" size="1rem"></tins-fa-icon>
+			<label>Screenshot: <tins-fa-icon src="${infoIcon}" color="navy" size="1rem"></tins-fa-icon>
 				<input type="file" name="screenshot" accept="image/*">
 			</label>
 		</div>`;
@@ -100,14 +108,14 @@ export class TinsLogForm extends LitElement {
 		<form name="msglog" @submit=${(e) => this.submit(e)} enctype="multipart/form-data">
 		
 		<div title="${markupMessage}">
-		Write your message (markup allowed <tins-fa-icon src="${infoIcon}" color="blue" size="1rem"></tins-fa-icon>):
+		Write your message (markup allowed <tins-fa-icon src="${infoIcon}" color="navy" size="1rem"></tins-fa-icon>):
 		</div>
 		<textarea name="message" cols="40" rows="10" required id="id_message">${text}</textarea>
 		
 		<div title="${spoilerExplanation}">
 			<label>Spoiler:
 			<input type="checkbox" name="spoiler" id="id_spoiler" ?checked=${spoiler}>
-			<tins-fa-icon src="${infoIcon}" color="blue" size="1rem"></tins-fa-icon>
+			<tins-fa-icon src="${infoIcon}" color="navy" size="1rem"></tins-fa-icon>
 			</label>
 		</div>
 	
