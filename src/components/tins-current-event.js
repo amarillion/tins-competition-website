@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
 import { StoreSubscriberMixin } from '../data/storeSubscriberMixin.js';
+import { asyncFetchJSON } from '../util.js';
 
 import { TinsCountDown } from './tins-count-down.js';
 customElements.define('tins-count-down', TinsCountDown);
@@ -10,8 +11,9 @@ export class TinsCurrentEvent extends StoreSubscriberMixin(LitElement) {
 		return {
 			loading: { type: Boolean },
 			error: { type: String },
-			currenEvent: { type: Object },
+			currentEvent: { type: Object },
 			hidden: { type: Boolean, reflect: true },
+			posts: { type: Array }
 		};
 	}
 
@@ -26,11 +28,77 @@ export class TinsCurrentEvent extends StoreSubscriberMixin(LitElement) {
 	constructor() {
 		super();
 		this.hidden = true;
+		this.posts = null;
 		this.currentEvent = {};
 	}
 
-	updated(/* changedProperties */) {
-		this.hidden = !this.currentEvent;
+	connectedCallback() {
+		super.connectedCallback();
+		this.refreshLogs();
+	}
+
+	async refreshLogs() {
+		if (!this.currentEvent) return;
+		if (this.posts != null) return; // already loaded...
+		
+		const { short } = this.currentEvent;
+		const data = await asyncFetchJSON(`/api/v1/log/event/${short}`, this);
+		if (data) {
+			this.posts = data.posts;
+		}
+	}
+
+	updated(changedProperties) {
+		if (changedProperties.has('currentEvent')) {
+			this.hidden = !this.currentEvent;
+			this.refreshLogs();
+		}
+	}
+
+	formatRelativeTime(millis) {
+		const rtf = new Intl.RelativeTimeFormat("en", {
+			style: "long", // other values: "long", "short" or "narrow"
+		});
+		const deltaMillis = new Date(millis) - Date.now();
+		const deltaMinutes = Math.round(deltaMillis / 60000);
+		if (Math.abs(deltaMinutes) < 60) {
+			return rtf.format(deltaMinutes, "minute")
+		}
+		else if (Math.abs(deltaMinutes) < 60*24) {
+			const deltaHours = Math.round(deltaMinutes / 60);
+			return rtf.format(deltaHours, "hour")
+		}
+		else {
+			const deltaDays = Math.round(deltaMinutes / (60*24));
+			return rtf.format(deltaDays, "day")
+		}
+	}
+
+	renderLastPost() {
+		if (!this.posts) return;
+		const [ post ] = this.posts;
+		
+		const relativeText = this.formatRelativeTime(post.date);
+
+		const stripped = new DOMParser().parseFromString(post.text, 'text/html').body.textContent;
+		const fragment = stripped.split(" ").slice(0, 15).join(" ") + "...";
+		return html`
+			<div class="latestPost">
+			<i>${fragment}</i>
+			<span style="color: grey;">posted ${relativeText} by ${post.entrant.name}</span>.
+			</div>
+		`
+	}
+
+	renderLogs() {
+		const { canPost, short } = this.currentEvent;
+		if (!canPost) return '';
+		
+		return html`
+			<hr>
+			<a href="/${short}/log/">View the latest logs</a>.
+			${this.renderLastPost()}
+		`;
 	}
 
 	render() {
@@ -47,9 +115,7 @@ export class TinsCurrentEvent extends StoreSubscriberMixin(LitElement) {
 			${canJoin
 			? html`Already ${numEntrants} signed up. <a href="/join/" router-ignore>Click to join</a>!` 
 			: ''}
-			${canPost
-				? html`<br><a href="/${short}/log/">View the latest logs</a>.`
-				: ''}
+			${this.renderLogs()}
 		`;
 	}
 
@@ -61,6 +127,10 @@ export class TinsCurrentEvent extends StoreSubscriberMixin(LitElement) {
 				padding: 10px;
 				color: black;
 				margin-bottom: 1rem;
+			}
+
+			.latestPost {
+				padding: 10px;
 			}
 
 			:host([hidden]) {
