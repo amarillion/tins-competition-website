@@ -56,23 +56,29 @@ export class TinsCurrentEvent extends StoreSubscriberMixin(LitElement) {
 	}
 
 	formatRelativeTime(millis) {
-		const rtf = new Intl.RelativeTimeFormat("en", {
-			style: "long", // other values: "long", "short" or "narrow"
-		});
-		const deltaMillis = new Date(millis) - Date.now();
-		const deltaMinutes = Math.round(deltaMillis / 60000);
-		if (Math.abs(deltaMinutes) < 60) {
-			return rtf.format(deltaMinutes, "minute")
+		try {
+			const rtf = new Intl.RelativeTimeFormat("en", {
+				style: "long", // other values: "long", "short" or "narrow"
+			});
+			const deltaMillis = new Date(millis) - Date.now();
+			const deltaMinutes = Math.round(deltaMillis / 60000);
+			if (Math.abs(deltaMinutes) < 60) {
+				return rtf.format(deltaMinutes, "minute")
+			}
+			else if (Math.abs(deltaMinutes) < 60*24) {
+				const deltaHours = Math.round(deltaMinutes / 60);
+				return rtf.format(deltaHours, "hour")
+			}
+			else {
+				const deltaDays = Math.round(deltaMinutes / (60*24));
+				return rtf.format(deltaDays, "day")
+			}
 		}
-		else if (Math.abs(deltaMinutes) < 60*24) {
-			const deltaHours = Math.round(deltaMinutes / 60);
-			return rtf.format(deltaHours, "hour")
+		catch (e) {
+			// Intl.RelatvieTimeFormat not supported
+			return '';
 		}
-		else {
-			const deltaDays = Math.round(deltaMinutes / (60*24));
-			return rtf.format(deltaDays, "day")
-		}
-	}
+ 	}
 
 	renderLastPost() {
 		if (!this.posts) return;
