@@ -20,13 +20,15 @@ export class TinsSideBar extends StoreSubscriberMixin(LitElement) {
 		this.isStaff = false;
 		this.username = null;
 		this.curentEvent = {};
+		this.latestEvent = {};
 	}
 
 	get selectors() {
 		return {
 			isStaff: s => s.currentUser.data && s.currentUser.data.isStaff,
 			username: currentUserSelector,
-			currentEvent: s=> s.currentEvent.data && s.currentEvent.data.currentEvent
+			currentEvent: s => s.currentEvent.data && s.currentEvent.data.currentEvent,
+			latestEvent: s => s.currentEvent.data && s.currentEvent.data.events[0],
 		};
 	}
 	
@@ -37,7 +39,9 @@ export class TinsSideBar extends StoreSubscriberMixin(LitElement) {
 
 	renderCurrentEvent() {
 		const currentEvent = this.currentEvent || {};
-		const { short, title, joinedCompetition, canJoin, afterStart, afterEnd, canVote } = currentEvent;
+		const latestEvent = this.latestEvent || {};
+		const { short, title, afterStart, afterEnd } = latestEvent;
+		const { joinedCompetition, canJoin, canVote } = currentEvent;
 		return html`<div class="toc">
 			<a href="/${short}/">${title}</a>
 			<hr>
