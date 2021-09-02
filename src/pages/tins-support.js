@@ -14,11 +14,22 @@ export class TinsSupport extends ScopedElementsMixin(LitElement) {
 
 	render() {
 		return html`
-	<h1>Support the TINS Game Jams!</h1>
+	<h1>Shop &amp; Support</h1>
+
+	<h3>Buy T-shirts and more...</h3>
+
+	<p>Did you fail to win a T-shirt? You can now buy one! Just head over to the <a href="https://tins-is-not-speedhack.creator-spring.com">TINS store</a>.</p>
+	
+	<a href="https://tins-is-not-speedhack.creator-spring.com"><img src="./static/store.png" alt="Sample products from the TINS store"></a>
+	
+	<p>All profits go towards the organization of future TINS events.</p>
+
+	<h3>Donations</h3>
 
 	<p>Do you enjoy TINS or KrampusHack? Do you want to see more events in the future, and help me make them extra cool and shiny? 
 	Then why not donate and support the event financially?
 	</p>
+
 	<p>
 	Suggested donation: <b>€10.00</b>
 	</p>

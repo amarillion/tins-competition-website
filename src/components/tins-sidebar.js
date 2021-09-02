@@ -66,7 +66,7 @@ export class TinsSideBar extends StoreSubscriberMixin(LitElement) {
 
 				<a href="/news">News</a>
 				<a href="/about">About</a>
-				<a href="/support">Support TINS</a>
+				<a href="/support">Shop &amp; Support</a>
 				<a href="/faq">FAQ</a>
 				<a href="/history">History</a>
 		
