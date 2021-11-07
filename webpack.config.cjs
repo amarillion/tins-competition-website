@@ -1,6 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+
 const webpack = require("webpack");
 const resolve = dir => path.join(__dirname, dir);
 
@@ -48,6 +50,7 @@ const config = {
 		new CopyWebpackPlugin({ patterns: [
 			{ from: "assets", to: "" },
 		]}),
+		new CompressionPlugin(),
 	],
 
 	devServer: {

@@ -24,9 +24,10 @@
 		"lit-element": "2.5.1"
 	},
 	"devDependencies": {
-		"@babel/eslint-parser": "^7.16.0",
 		"@babel/core": "7.16.0",
+		"@babel/eslint-parser": "^7.16.0",
 		"@babel/preset-env": "7.16.0",
+		"compression-webpack-plugin": "^9.0.0",
 		"copy-webpack-plugin": "9.0.1",
 		"cross-env": "7.0.3",
 		"eslint": "8.2.0",
