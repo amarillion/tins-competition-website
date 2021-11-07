@@ -1,5 +1,5 @@
-import { jest } from '@jest/globals';
-import { TinsSecretSanta } from "../src/pages/tins-my-secret-santa.js";
+import { test, expect } from '@jest/globals';
+// import { TinsSecretSanta } from "../src/pages/tins-my-secret-santa.js";
 import { TinsSpinner } from "../src/components/tins-spinner.js";
 
 test('custom elements in JSDOM', async () => {

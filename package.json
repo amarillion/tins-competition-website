@@ -8,7 +8,7 @@
 		"clean": "rm -r static/*",
 		"build": "webpack --mode production",
 		"dev": "webpack --watch --mode development",
-		"lint": "eslint \"src/**/*.js\"",
+		"lint": "eslint \"{src,test}/**/*.js\"",
 		"test": "npx jest --verbose --coverage --collectCoverageFrom=\"src/**/*.js\""
 	},
 	"author": "Martijn 'Amarillion' van Iersel",
