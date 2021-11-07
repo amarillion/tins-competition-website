@@ -5,9 +5,9 @@ const esModules = [
 ].join('|');
 
 export default {
+	testEnvironment: "jsdom",
 	transform: {
 		'^.+\\.js$': 'babel-jest',
 	},
 	transformIgnorePatterns: [`/node_modules/(?!${esModules})`],
-	setupFiles: ["jest-canvas-mock"]
 };
