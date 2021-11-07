@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"type": "module",
 	"scripts": {
-		"clean": "rm -r dist/*",
+		"clean": "rm -r static/*",
 		"build": "webpack --mode production",
 		"dev": "webpack --watch --mode development",
 		"lint": "eslint \"src/**/*.js\"",
