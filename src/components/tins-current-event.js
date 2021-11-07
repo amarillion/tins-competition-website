@@ -22,7 +22,7 @@ export class TinsCurrentEvent extends StoreSubscriberMixin(LitElement) {
 			currentEvent: s => s.currentEvent.data && s.currentEvent.data.currentEvent,
 			loading: s => s.currentEvent.loading,
 			error: s => s.currentEvent.error
-		}
+		};
 	}
 
 	constructor() {
@@ -63,22 +63,22 @@ export class TinsCurrentEvent extends StoreSubscriberMixin(LitElement) {
 			const deltaMillis = new Date(millis) - Date.now();
 			const deltaMinutes = Math.round(deltaMillis / 60000);
 			if (Math.abs(deltaMinutes) < 60) {
-				return rtf.format(deltaMinutes, "minute")
+				return rtf.format(deltaMinutes, "minute");
 			}
 			else if (Math.abs(deltaMinutes) < 60*24) {
 				const deltaHours = Math.round(deltaMinutes / 60);
-				return rtf.format(deltaHours, "hour")
+				return rtf.format(deltaHours, "hour");
 			}
 			else {
 				const deltaDays = Math.round(deltaMinutes / (60*24));
-				return rtf.format(deltaDays, "day")
+				return rtf.format(deltaDays, "day");
 			}
 		}
 		catch (e) {
 			// Intl.RelatvieTimeFormat not supported
 			return '';
 		}
- 	}
+	}
 
 	renderLastPost() {
 		if (!this.posts) return;
@@ -93,7 +93,7 @@ export class TinsCurrentEvent extends StoreSubscriberMixin(LitElement) {
 			<i>${fragment}</i>
 			<span style="color: grey;">posted ${relativeText} by ${post.entrant.name}</span>.
 			</div>
-		`
+		`;
 	}
 
 	renderLogs() {
@@ -109,7 +109,7 @@ export class TinsCurrentEvent extends StoreSubscriberMixin(LitElement) {
 
 	render() {
 		if (!this.currentEvent) return '';
-		const { title, competitionStart, competitionEnd, votingEnd, canJoin, numEntrants, canPost, short } = this.currentEvent;
+		const { title, competitionStart, competitionEnd, votingEnd, canJoin, numEntrants } = this.currentEvent;
 		return html`
 			Current event:
 			<h1>${title}</h1>

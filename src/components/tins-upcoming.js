@@ -51,7 +51,7 @@ export class TinsUpcoming extends StoreSubscriberMixin(LitElement) {
 			upcoming: s => s.currentEvent.data && s.currentEvent.data.upcoming,
 			loading: s => s.currentEvent.loading,
 			error: s => s.currentEvent.error
-		}
+		};
 	}
 
 	updated(changedProperties) {

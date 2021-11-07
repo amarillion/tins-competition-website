@@ -39,7 +39,7 @@ export class TinsLogPost extends ScopedElementsMixin(LitElement) {
 
 	renderSpoilerMessage(spoiler) {
 		if (!spoiler) return '';
-		return html`<div class="right" title="${spoilerExplanation}"><tins-fa-icon size="1rem" src=${invisibleIcon}></tins-fa-icon></div>`
+		return html`<div class="right" title="${spoilerExplanation}"><tins-fa-icon size="1rem" src=${invisibleIcon}></tins-fa-icon></div>`;
 	}
 
 	render() {

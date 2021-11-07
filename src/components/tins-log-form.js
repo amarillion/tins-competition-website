@@ -6,7 +6,7 @@ import { TinsFaIcon } from './tins-fa-icon.js';
 
 export const spoilerExplanation = `\
 Posts marked spoiler will be hidden from the public until the competition is over. 
-For secret-santa competitions, they're hidden from your giftee as well.`
+For secret-santa competitions, they're hidden from your giftee as well.`;
 
 export const markupMessage = `\
 Certain html tags are allowed: <a> <abbr> <b> <i> <s> <li> <ul> <ol> <pre> <code> <blockquote>

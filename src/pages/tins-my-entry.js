@@ -22,7 +22,7 @@ export class TinsMyEntry extends LitElement {
 		this.loading = false;
 	}
 
-	async onBeforeEnter(location, commands, router) {
+	async onBeforeEnter(location, commands /*, router */) {
 		const compoId = location.params.compoId;
 
 		const data = await asyncStateFlags(
@@ -36,7 +36,7 @@ export class TinsMyEntry extends LitElement {
 			return commands.redirect(`/entry/${data.entryId}/`);
 		}
 		else {
-			this.error = { msg: 'Could not get or create your entry' }
+			this.error = { msg: 'Could not get or create your entry' };
 		}
 	}
 

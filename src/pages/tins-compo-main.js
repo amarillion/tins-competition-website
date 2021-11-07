@@ -2,7 +2,6 @@ import { LitElement, html, css } from 'lit-element';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { TinsCurrentEvent } from '../components/tins-current-event.js';
 import { TinsFaIcon } from '../components/tins-fa-icon.js';
-import { StoreSubscriberMixin } from '../data/storeSubscriberMixin.js';
 
 import calendarIcon from '@fortawesome/fontawesome-free/svgs/solid/calendar-alt.svg';
 import joinIcon from '@fortawesome/fontawesome-free/svgs/regular/hand-point-right.svg';
@@ -17,14 +16,6 @@ import { asyncFetchJSON } from '../util.js';
 import { TinsStatusHelper } from '../components/tins-status-helper.js';
 
 export class TinsCompoMain extends ScopedElementsMixin(LitElement) {
-
-	static get properties() {
-		return {
-			loading: { type: Boolean },
-			error: { type: String },
-			compo: { type: Object },
-		};
-	}
 
 	static get properties() {
 		return {
@@ -78,8 +69,8 @@ export class TinsCompoMain extends ScopedElementsMixin(LitElement) {
 			</p>
 			<p>There are ${numEntrants} participants.</p>
 			${joinedCompetition
-				? html`You signed up successfully! <a href="/join/" router-ignore>Click to modify</a>`
-				: html`<a href="/join/" router-ignore>Click to join</a>!` 
+			? html`You signed up successfully! <a href="/join/" router-ignore>Click to modify</a>`
+			: html`<a href="/join/" router-ignore>Click to join</a>!` 
 			}
 			</p>
 		</div>`;
@@ -93,7 +84,7 @@ export class TinsCompoMain extends ScopedElementsMixin(LitElement) {
 			<h3><tins-fa-icon class="icon" src="${voteIcon}" size="2rem"></tins-fa-icon>Voting</h3>
 			<tins-count-down label="Voting ends" epochMillis=${votingEnd}></tins-count-down>
 			<p>Voting is now active. <a href="/${short}/vote">Cast your vote!</a></p>
-		</div>`
+		</div>`;
 	}
 
 	renderLiveBlock(compo) {
@@ -129,7 +120,7 @@ export class TinsCompoMain extends ScopedElementsMixin(LitElement) {
 			<p>
 			${title} will be held from <b>${formatDate(competitionStart)}</b> to <b>${formatDate(competitionEnd)}</b>. Mark your calendar!
 			</p>
-		</div>`
+		</div>`;
 	}
 
 	renderLogsBlock(compo) {

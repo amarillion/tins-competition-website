@@ -29,7 +29,7 @@ export class TinsLogs extends StoreSubscriberMixin(ScopedElementsMixin(LitElemen
 		return {
 			canPost: canPostSelector(compoId),
 			username: currentUserSelector
-		}
+		};
 	}
 
 	static get properties() {
@@ -117,7 +117,7 @@ export class TinsLogs extends StoreSubscriberMixin(ScopedElementsMixin(LitElemen
 		
 		let url;
 		if (entrantId) {
-			url = `/${compoId}/log/entrant/${entrantId}`
+			url = `/${compoId}/log/entrant/${entrantId}`;
 		}
 		else {
 			url = `/${compoId}/log`;
@@ -140,11 +140,11 @@ export class TinsLogs extends StoreSubscriberMixin(ScopedElementsMixin(LitElemen
 			${this.renderForm(competition)}
 			<h1>${title} logs</h1>
 			${this.renderPageNav()}
-			${posts.length ? 
-				html`<table>
+			${posts.length 
+			? html`<table>
 				${repeat(posts, p => p.id, p => html`<tr><td>${this.renderPost(p, competition)}</td></tr>`)}
-				</table>`
-				: html`<p>Nothing posted yet...</p>`
+				</table>` 
+			: html`<p>Nothing posted yet...</p>`
 			}
 			${this.renderPageNav()}
 		`;

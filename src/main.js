@@ -6,7 +6,7 @@ window.onerror = async (event, fileName, lineNumber, columnNumber, error) => {
 		const body = JSON.stringify({
 			fileName, lineNumber, columnNumber, error,
 			path: window.location.path
-		})
+		});
 		await postOrThrow('/api/v1/error', JSON.stringify(body));
 	}
 	catch (e) { /* ignore cascade */}
@@ -19,7 +19,7 @@ window.onunhandledrejection = async (event) => {
 			message, columnNumber, lineNumber, fileName, 
 			path: window.location.pathname
 		};
-		await postOrThrow('/api/v1/error', JSON.stringify(body))
+		await postOrThrow('/api/v1/error', JSON.stringify(body));
 	}
 	catch (e) { /* ignore cascade */ }
 };

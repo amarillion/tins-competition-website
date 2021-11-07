@@ -90,7 +90,7 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 		if (this.loading) return;
 		const { entrants, tags, competition, logCounts, id, 
 			imagefile, editable, text, lastSubmission, reviewCount } = this.entry;
-		const title = (this.entry && this.entry.title) || 'Untitled'
+		const title = (this.entry && this.entry.title) || 'Untitled';
 		return html`
 			<div class="floatright">
 				${repeat(tags, t => html`<img src="/upload/${t.icon}" title="${t.desc}"/>`)}
