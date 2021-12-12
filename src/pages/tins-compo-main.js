@@ -56,7 +56,7 @@ export class TinsCompoMain extends ScopedElementsMixin(LitElement) {
 		<div class="block">
 			<h3><tins-fa-icon class="icon" src="${rulesIcon}" size="2rem"></tins-fa-icon>Rules</h3>
 			<p><a href="${short}/rules" router-ignore>Read the rules</a></p>
-			<tins-count-down label="The rule-o-matic will add extra rules in"       epochMillis=${competitionStart}></tins-count-down>
+			<tins-count-down label="Find out your extra rules in"       epochMillis=${competitionStart}></tins-count-down>
 		</div>`;
 	}
 
