@@ -40,10 +40,11 @@ export class TinsSideBar extends StoreSubscriberMixin(LitElement) {
 		const currentEvent = this.currentEvent || {};
 		const latestEvent = this.latestEvent || {};
 		const { short, title, afterStart, afterEnd } = latestEvent;
-		const { joinedCompetition, canJoin, canVote } = currentEvent;
+		const { joinedCompetition, canJoin, canVote, hasSecretSanta } = currentEvent;
 		return html`<div class="toc">
 			<a href="/${short}/">${title}</a>
 			<hr>
+			${(afterStart && !afterEnd && hasSecretSanta) ? html`<a href="/secretsanta">My Secret Santa</a>` : ''}
 			${canJoin ? html`<a href="/join" router-ignore>Join</a>` : ''}
 			<a href="/${short}/rules" router-ignore>Rules</a>
 			<a href="/${short}/entrants" router-ignore>Entrants</a>
