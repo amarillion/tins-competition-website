@@ -113,7 +113,7 @@ export class TinsSecretSanta extends ScopedElementsMixin(LitElement) {
 			</p>
 			<p>
 			You can find their wishlist on 
-			<a href="/${this.competition.short}/log/${this.secretSanta.receiver.entrantId}/">their log</a>
+			<a href="/${this.competition.short}/log/entrant/${this.secretSanta.receiver.entrantId}/">their log</a>
 			</p>
 			<br>
 			<p>Best wishes, </p>
