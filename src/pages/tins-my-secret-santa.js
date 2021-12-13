@@ -5,6 +5,8 @@ import { TinsFrame } from '../components/tins-frame.js';
 import { TinsInlineCountDown } from '../components/tins-inline-count-down.js';
 import { registerEventListener, asyncFetchJSON } from '../util.js';
 import { TinsStatusHelper } from '../components/tins-status-helper.js';
+import { TinsFaIcon } from '../components/tins-fa-icon.js';
+import sleighIcon from '@fortawesome/fontawesome-free/svgs/solid/sleigh.svg';
 
 export class TinsSecretSanta extends ScopedElementsMixin(LitElement) {
 
@@ -12,7 +14,8 @@ export class TinsSecretSanta extends ScopedElementsMixin(LitElement) {
 		return {
 			'tins-frame': TinsFrame,
 			'tins-status-helper': TinsStatusHelper,
-			'tins-inline-count-down': TinsInlineCountDown
+			'tins-inline-count-down': TinsInlineCountDown,
+			'tins-fa-icon': TinsFaIcon
 		};
 	}
 
@@ -107,6 +110,9 @@ export class TinsSecretSanta extends ScopedElementsMixin(LitElement) {
 		return html`
 		<div class="letter">
 			<p class="right">North Pole, ${formattedDate}</p>
+			<div style="float: right;">
+				<tins-fa-icon src="${sleighIcon}" color="crimson" size="4rem"><tins-fa-icon>
+			</div>
 			<p>Hello ${this.secretSanta.giver.name},</p>
 			<p>
 			I have decided that you will give a gift to ${this.secretSanta.receiver.name}!
