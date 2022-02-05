@@ -79,6 +79,7 @@ export class TinsLogForm extends ScopedElementsMixin(LitElement) {
 		const formElt = this.shadowRoot.querySelector('form');
 		const formData = new FormData(formElt);
 		this._submitCallback(formData);
+		formElt.reset(); // reset not automatic due to preventDefault...
 	}
 
 	renderScreenshotSelector() {
