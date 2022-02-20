@@ -1,9 +1,18 @@
 import { LitElement, html, css } from 'lit-element';
 import { repeat } from 'lit-html/directives/repeat.js';
 import twitterIcon from '@fortawesome/fontawesome-free/svgs/brands/twitter.svg';
+import discordIcon from '@fortawesome/fontawesome-free/svgs/brands/discord.svg';
 import { StoreSubscriberMixin } from '../data/storeSubscriberMixin.js';
+import { TinsFaIcon } from './tins-fa-icon.js';
+import { ScopedElementsMixin } from '@open-wc/scoped-elements';
  
-export class TinsUpcoming extends StoreSubscriberMixin(LitElement) {
+export class TinsUpcoming extends ScopedElementsMixin(StoreSubscriberMixin(LitElement)) {
+
+	static get scopedElements() {
+		return {
+			'tins-fa-icon': TinsFaIcon,
+		};
+	}
 
 	static get properties() {
 		return {
@@ -67,7 +76,8 @@ export class TinsUpcoming extends StoreSubscriberMixin(LitElement) {
 			<p><i>Mark these events in your calendar!</i></p>
 			${repeat(upcoming, u => html`<b>${u.dateStr}</b> <span>${u.title}</span><br>`)}
 			<hr>
-			Stay informed! To get notified of upcoming events, <a href="https://groups.google.com/d/forum/tinscompetition">join our google group</a><br> 
+			Stay informed! <a href="https://groups.google.com/d/forum/tinscompetition">join our google group</a><br> 
+			<tins-fa-icon src="${discordIcon}" size="1rem"></tins-fa-icon><a href="https://discord.gg/7uK6jNtNX9">our Discord server</a><br>
 			<tins-fa-icon src="${twitterIcon}" size="1rem"></tins-fa-icon><a href="https://twitter.com/mpvaniersel">@mpvaniersel</a>
 		`;
 	}

@@ -1,7 +1,15 @@
 import { LitElement, html, css } from 'lit-element';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
+import { TinsFaIcon } from '../components/tins-fa-icon.js';
+import patreonIcon from '@fortawesome/fontawesome-free/svgs/brands/patreon.svg';
 
 export class TinsSupport extends ScopedElementsMixin(LitElement) {
+
+	static get scopedElements() {
+		return {
+			'tins-fa-icon': TinsFaIcon,
+		};
+	}
 
 	static get styles() {
 		return css`
@@ -30,6 +38,12 @@ export class TinsSupport extends ScopedElementsMixin(LitElement) {
 	Then why not donate and support the event financially?
 	</p>
 
+	<h4>Periodic donations</h4>
+	<p>
+	If you want to set up a periodic donation, use my <tins-fa-icon src="${patreonIcon}" size="1rem"></tins-fa-icon> <a href="https://www.patreon.com/tins_competition">patreon page</a>.
+	</p>
+
+	<h4>One-off donations</h4>
 	<p>
 	Suggested donation: <b>€10.00</b>
 	</p>

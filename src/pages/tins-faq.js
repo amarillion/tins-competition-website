@@ -14,10 +14,21 @@ export class TinsFaq extends ScopedElementsMixin(LitElement) {
 
 	render() {
 		return html`
-	<h1>FAQ</h1>
-
+	<h1>Frequently Asked Questions</h1>
 	<h3>
-	I'm new to Game Jams. Do you have any tips?
+	Q: What communication channels are there for TINS?
+	</h3>
+	<p>
+	To stay up-to-date with the latest news, or get to know the other participants, use one of the following communication channels:
+	</p>
+	<ul>
+	<li>Join the <a href="https://discord.gg/7uK6jNtNX9">TINS Discord server</a>. Hang out, chat, ask questions.
+	<li>Or visit the <a href="https://web.libera.chat/#allegro">#allegro</a> channel on Libera IRC. Hang out and chat, old-school style.
+	<li>Sign up for our <a href="https://groups.google.com/forum/#!forum/tinscompetition">Google group</a> to receive important announcements by e-mail.
+	<li>Post on the <a href="https://allegro.cc/forums/">Allegro.cc forums</a> to share your game, and get more feedback from a community of enthusiasts.
+	</ul>
+	<h3>
+	Q: I'm new to Game Jams. Do you have any tips?
 	</h3>
 	<p>
 	Sure! First of all:
@@ -40,7 +51,7 @@ export class TinsFaq extends ScopedElementsMixin(LitElement) {
 	</p>
 	
 	<h3>
-	Can I reuse code for TINS?
+	Q: Can I reuse code for TINS?
 	</h3>
 	<p>
 	Sure. Code reuse is an essential hacking skill. You can use any code that you are legally able to do so (your own, GPLed, giftware, public domain or any other Free Software licence). But it must be available for others too, see question below.
@@ -52,7 +63,7 @@ export class TinsFaq extends ScopedElementsMixin(LitElement) {
 	<p>
 		
 	<h3>
-	How do you differentiate between code reuse and cheating by starting early?
+	Q: How do you differentiate between code reuse and cheating by starting early?
 	</h3>
 	<p>
 	There have been a lot of questions about where exactly lies the border between proper re-use and cheating. 
@@ -69,7 +80,7 @@ export class TinsFaq extends ScopedElementsMixin(LitElement) {
 	</p>
 	
 	<h3>
-	Do I have to supply the source? I'm worried about people stealing my work!
+	Q: Do I have to supply the source? I'm worried about people stealing my work!
 	</h3>
 	<p>
 	I'm afraid so. It proves that it is your own work. Plus, people can also learn from it.
@@ -82,7 +93,7 @@ export class TinsFaq extends ScopedElementsMixin(LitElement) {
 	</p>
 
 	<h3>
-	How do I review games if I only get the source code? Am I expected to compile all entries from scratch?
+	Q: How do I review games if I only get the source code? Am I expected to compile all entries from scratch?
 	</h3>
 	<p>
 	Most entrants do provide binaries. It's in their own interest to make the game easy to play! Even if not, the community shares the load. 
@@ -91,7 +102,7 @@ export class TinsFaq extends ScopedElementsMixin(LitElement) {
 
 
 	<h3>
-	Can the competition start at a different time for me since I live many hours away from GMT?
+	Q: Can the competition start at a different time for me since I live many hours away from GMT?
 	</h3>
 	<p>
 	It is just a deception that living in the GMT timezone is an advantage. 
@@ -106,7 +117,7 @@ export class TinsFaq extends ScopedElementsMixin(LitElement) {
 	</p>
 	
 	<h3>
-	Can I use other programs like utilities for graphics and sound in my entry?
+	Q: Can I use other programs like utilities for graphics and sound in my entry?
 	</h3>
 	<p>
 	Of course. You can use any package that you like to develop data, sound and graphics for your entry. You might like to point out 
@@ -118,14 +129,14 @@ export class TinsFaq extends ScopedElementsMixin(LitElement) {
 	</p>
 	
 	<h3>
-	I can't make it on the date you mention, will there be another TINS / KrampusHack later?
+	Q: I can't make it on the date you mention, will there be another TINS / KrampusHack later?
 	</h3>
 	<p>
 	Yes! We've settled on a schedule for TINS and KrampusHack: TINS will be hosted somewhere in the summer each year, and KrampusHack each December.
 	</p>
 	
 	<h3>
-	One weekend is way too short!
+	Q: One weekend is way too short!
 	</h3>
 	<p>
 	Not true. Take a look at earlier speedhack entries and you will see that a lot of them are really complete games which are fun to play. 
@@ -134,7 +145,7 @@ export class TinsFaq extends ScopedElementsMixin(LitElement) {
 	</p>
 	
 	<h3>
-	Are teams allowed?
+	Q: Are teams allowed?
 	</h3>
 	<p>
 	Yes, although the registration system is not designed for this - I suggest that you all sign up
@@ -142,8 +153,7 @@ export class TinsFaq extends ScopedElementsMixin(LitElement) {
 	</p>
 	
 	<h3>
-	
-	I've participated in TINS/KrampuHack/SH before, but I never come up with any good ideas...
+	Q: I've participated in TINS/KrampuHack/SpeedHack before, but I never come up with any good ideas...
 	</h3>
 	<p>
 	Good ideas can come at the strangest moments, not necessarily when you need them most. 
