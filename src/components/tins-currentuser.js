@@ -45,8 +45,8 @@ export class TinsCurrentUser extends StoreSubscriberMixin(LitElement) {
 		return html`
 	<p id="status">
 	${this.username ? 
-			html`You are logged in as: <b>${this.username}</b> <a href="/accounts/logout" router-ignore>log out</a>` : 
-			html`Welcome, new user. Please <a href="/accounts/login" router-ignore>log in</a> or <a href="/accounts/register" router-ignore>register</a>.`}
+			html`You are logged in as: <b>${this.username}</b> <a href="/accounts/logout?next=${window.location.pathname}" router-ignore>log out</a>` : 
+			html`Welcome, new user. Please <a href="/accounts/login?next=${window.location.pathname}" router-ignore>log in</a> or <a href="/accounts/register" router-ignore>register</a>.`}
 	</p>`;
 	}
 }
