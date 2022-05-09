@@ -1,6 +1,6 @@
 const esModules = [
-	'lit-element',
-	'lit-html',
+	'lit',
+	'@lit',
 	'@open-wc/'
 ].join('|');
 

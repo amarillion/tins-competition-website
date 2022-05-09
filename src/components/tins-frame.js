@@ -1,7 +1,7 @@
 import './tins-header.js';
 import './tins-sidebar.js';
 
-import { LitElement, html, css } from 'lit-element';
+import { LitElement, html, css } from 'lit';
 
 export class TinsFrame extends LitElement {
 

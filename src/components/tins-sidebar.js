@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit-element';
+import { LitElement, html, css } from 'lit';
 import { dispatch } from '../store.js';
 import { refreshCurrentEvent } from '../data/currentEvent.js';
 import { StoreSubscriberMixin } from '../data/storeSubscriberMixin.js';

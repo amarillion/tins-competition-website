@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit-element';
+import { LitElement, html, css } from 'lit';
 import infoIcon from '@fortawesome/fontawesome-free/svgs/solid/info-circle.svg';
 import { formatBytes, IMAGE_UPLOAD_SIZE_LIMIT } from '../util.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';

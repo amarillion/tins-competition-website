@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit-element';
+import { LitElement, html, css } from 'lit';
 import { StoreSubscriberMixin } from '../data/storeSubscriberMixin.js';
 import { asyncFetchJSON } from '../util.js';
 

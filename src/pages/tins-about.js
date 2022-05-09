@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit-element';
+import { LitElement, html, css } from 'lit';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import twitterIcon from '@fortawesome/fontawesome-free/svgs/brands/twitter.svg';
 import emailIcon from '@fortawesome/fontawesome-free/svgs/solid/envelope.svg';

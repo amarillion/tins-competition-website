@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit-element';
+import { LitElement, html, css } from 'lit';
 import { formatBytes } from '../util.js';
 
 export class TinsImageUpload extends LitElement {

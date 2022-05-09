@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit-element';
+import { LitElement, html, css } from 'lit';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { repeat } from 'lit-html/directives/repeat.js';
 import { StoreSubscriberMixin } from '../data/storeSubscriberMixin.js';

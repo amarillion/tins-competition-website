@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit-element';
+import { LitElement, html, css } from 'lit';
 import { repeat } from 'lit-html/directives/repeat.js';
 import twitterIcon from '@fortawesome/fontawesome-free/svgs/brands/twitter.svg';
 import discordIcon from '@fortawesome/fontawesome-free/svgs/brands/discord.svg';

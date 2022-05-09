@@ -1,5 +1,5 @@
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
-import { LitElement, html, css } from 'lit-element';
+import { LitElement, html, css } from 'lit';
 import { repeat } from 'lit-html/directives/repeat.js';
 import { asyncFetchJSON } from '../util.js';
 import { TinsRichTextView } from './tins-richtext-view.js';

@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit-element';
+import { LitElement, html, css } from 'lit';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { renderRichText } from '../util.js';

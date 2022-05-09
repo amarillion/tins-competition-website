@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit-element';
+import { LitElement, html, css } from 'lit';
 import { TinsSpinner } from './tins-spinner.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { TinsRichTextView } from './tins-richtext-view.js';

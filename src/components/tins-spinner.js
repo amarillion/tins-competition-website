@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit-element';
+import { LitElement, html, css } from 'lit';
 
 // Based on: https://glennmccomb.com/articles/building-a-pure-css-animated-svg-spinner/
 export class TinsSpinner extends LitElement {

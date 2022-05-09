@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit-element';
+import { LitElement, html, css } from 'lit';
 import { asyncStateFlags, postOrThrow } from '../util.js';
 
 /**

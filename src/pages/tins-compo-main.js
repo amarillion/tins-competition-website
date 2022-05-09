@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit-element';
+import { LitElement, html, css } from 'lit';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { TinsCurrentEvent } from '../components/tins-current-event.js';
 import { TinsFaIcon } from '../components/tins-fa-icon.js';
