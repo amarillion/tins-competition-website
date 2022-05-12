@@ -1,4 +1,4 @@
-import linkifyHtml from 'linkifyjs/html.js';
+import linkifyHtml from 'linkify-html';
 import { clearCurrentUser } from './data/currentUser.js';
 import { dispatch } from './store.js';
 import Cookies from 'js-cookie';

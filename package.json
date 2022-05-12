@@ -20,7 +20,7 @@
 		"@reduxjs/toolkit": "1.8.1",
 		"@vaadin/router": "1.7.4",
 		"js-cookie": "3.0.1",
-		"linkifyjs": "3.0.5",
+		"linkify-html": "^3.0.5",
 		"lit": "^2.2.3"
 	},
 	"devDependencies": {
