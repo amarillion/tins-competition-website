@@ -12,7 +12,8 @@ const config = {
 
 	// how and where outputs and assets should be put.
 	output: {
-		filename: '[name].[hash].js',
+		filename: '[name].[contenthash].js',
+		clean: true,
 		path: resolve("static"),
 
 		// this will be the path prefix used by HtmlWebpackPlugin.
