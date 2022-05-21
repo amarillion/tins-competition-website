@@ -49,6 +49,9 @@ const config = {
 		}),
 		new CopyWebpackPlugin({ patterns: [
 			{ from: "assets", to: "" },
+			{ from: "node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js", to: "webcomponentsjs" },
+			{ from: "node_modules/@webcomponents/webcomponentsjs/bundles", to: "webcomponentsjs/bundles" },
+			{ from: "node_modules/lit-element/polyfill-support.js", to: "lit" },
 		]}),
 		new CompressionPlugin(),
 	],

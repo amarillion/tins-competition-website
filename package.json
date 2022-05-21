@@ -19,6 +19,7 @@
 		"@open-wc/scoped-elements": "2.1.1",
 		"@reduxjs/toolkit": "1.8.1",
 		"@vaadin/router": "1.7.4",
+		"@webcomponents/webcomponentsjs": "^2.6.0",
 		"js-cookie": "3.0.1",
 		"linkify-html": "^3.0.5",
 		"lit": "^2.2.3"

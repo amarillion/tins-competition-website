@@ -19,8 +19,10 @@
 		}
 	</style>
 	<link rel="icon" type="image/png" href="/static/favico16t.png" />
-	<!-- Load the polyfills first -->
-	<script src="https://unpkg.com/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+
+	<!-- For seamonkey support. As recommended by https://lit.dev/docs/tools/requirements/#polyfills -->
+	<script src="/static/lit/polyfill-support.js"></script>
+	<script src="/static/webcomponentsjs/webcomponents-loader.js"></script>
 	<noscript>
 		<h1>Welcome to the home of the TINS game jam!</h1>
 		This site uses <i>JavaScript</i> - I'm afraid you'll need to activate JavaScript or switch to a different browser.

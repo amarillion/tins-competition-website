@@ -2,7 +2,6 @@ import linkifyHtml from 'linkify-html';
 import { clearCurrentUser } from './data/currentUser.js';
 import { dispatch } from './store.js';
 import Cookies from 'js-cookie';
-import './polyfills.js'; // need replaceAll
 
 export const IMAGE_UPLOAD_SIZE_LIMIT = 1 << 20;
 
