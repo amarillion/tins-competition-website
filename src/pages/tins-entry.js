@@ -10,6 +10,7 @@ import { TinsFaIcon } from '../components/tins-fa-icon.js';
 import { TinsImageUpload } from '../components/tins-image-upload.js';
 import { TinsStatusHelper } from '../components/tins-status-helper.js';
 import { TinsInlineCountDown } from '../components/tins-inline-count-down.js';
+import { TinsTeamMembers } from '../components/tins-team-members.js';
 
 export class TinsEntry extends ScopedElementsMixin(LitElement) {
 
@@ -19,7 +20,8 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 			'tins-status-helper': TinsStatusHelper,
 			'tins-fa-icon': TinsFaIcon,
 			'tins-image-upload': TinsImageUpload,
-			'tins-inline-count-down': TinsInlineCountDown
+			'tins-inline-count-down': TinsInlineCountDown,
+			'tins-team-members': TinsTeamMembers
 		};
 	}
 
@@ -86,9 +88,14 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 			</p>`;
 	}
 
+	renderInvitation() {
+		if (!this.entry.editable) return '';
+		return html`<tins-team-members .entry=${this.entry}></tins-team-members>`;
+	}
+
 	renderContents() {
 		if (this.loading) return;
-		const { entrants, tags, competition, logCounts, id, 
+		const { pendingInvitations, entrants, tags, competition, logCounts, id, 
 			imagefile, editable, text, lastSubmission, reviewCount } = this.entry;
 		const title = (this.entry && this.entry.title) || 'Untitled';
 		return html`
@@ -105,6 +112,13 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 			e => e.id, 
 			e => html`${e.name} <a href='${competition.short}/log/entrant/${e.id}'>log (${logCounts[e.id]})</a>`
 		)}
+		<!-- TODO: don't show if there are no invitations !-->
+		Pending invitations: ${repeat(
+			pendingInvitations, 
+			e => e.id, 
+			e => html`${e.name}`
+		)}
+				${this.renderInvitation()}
 			</p>
 
 			${this.renderUploadBox()}
