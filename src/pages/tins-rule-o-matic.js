@@ -8,9 +8,9 @@ import { TinsRange } from '../components/tins-range.js';
 import infoIcon from '@fortawesome/fontawesome-free/svgs/solid/info-circle.svg';
 
 import { currentUserSelector } from '../data/currentUser.js';
-import { StoreSubscriberMixin } from '../data/storeSubscriberMixin.js';
+import { subscribe } from '../store.js';
 
-export class TinsRuleOMatic extends StoreSubscriberMixin(ScopedElementsMixin(LitElement)) {
+export class TinsRuleOMatic extends ScopedElementsMixin(LitElement) {
 
 	static get scopedElements() {
 		return {
@@ -19,13 +19,6 @@ export class TinsRuleOMatic extends StoreSubscriberMixin(ScopedElementsMixin(Lit
 			'tins-range': TinsRange,
 		};
 	}
-
-	get selectors() {
-		return {
-			username: currentUserSelector
-		};
-	}
-
 
 	static get properties() {
 		return {
@@ -44,7 +37,18 @@ export class TinsRuleOMatic extends StoreSubscriberMixin(ScopedElementsMixin(Lit
 
 	async connectedCallback() {
 		super.connectedCallback();
+		this.subscriptions = [
+			subscribe(currentUserSelector, val => {
+				this.username = val;
+				this.fetchNewRule();
+			})
+		];
 		this.fetchNewRule();
+	}
+
+	disconnectedCallback() {
+		this.subscriptions.forEach(unsub => unsub());
+		super.disconnectedCallback();
 	}
 
 	async fetchNewRule() {
@@ -63,9 +67,12 @@ export class TinsRuleOMatic extends StoreSubscriberMixin(ScopedElementsMixin(Lit
 		this.saveButton = this.shadowRoot.querySelector('#saveButton');
 		this.challengeInput = this.shadowRoot.querySelector('#challengeInput');
 		this.interestInput = this.shadowRoot.querySelector('#interestInput');
-		this.saveButton.disabled = true;
-		this.challengeInput.clear();
-		this.interestInput.clear();
+
+		if (this.saveButton && this.challengeInput && this.interestInput) {
+			this.saveButton.disabled = true;
+			this.challengeInput.clear();
+			this.interestInput.clear();
+		}
 	}
 
 	async skipRating() {
