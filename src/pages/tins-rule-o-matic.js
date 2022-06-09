@@ -52,10 +52,6 @@ export class TinsRuleOMatic extends StoreSubscriberMixin(ScopedElementsMixin(Lit
 		if (data) {
 			this.data = data.needsRating[0];
 		}
-		this.skipButton = this.shadowRoot.querySelector('#skipButton');
-		this.saveButton = this.shadowRoot.querySelector('#saveButton');
-		this.challengeInput = this.shadowRoot.querySelector('#challengeInput');
-		this.interestInput = this.shadowRoot.querySelector('#interestInput');
 		this.resetForm();
 	}
 
@@ -64,6 +60,9 @@ export class TinsRuleOMatic extends StoreSubscriberMixin(ScopedElementsMixin(Lit
 		this.challenge = null;
 		this.valid = false;
 
+		this.saveButton = this.shadowRoot.querySelector('#saveButton');
+		this.challengeInput = this.shadowRoot.querySelector('#challengeInput');
+		this.interestInput = this.shadowRoot.querySelector('#interestInput');
 		this.saveButton.disabled = true;
 		this.challengeInput.clear();
 		this.interestInput.clear();
@@ -83,7 +82,6 @@ export class TinsRuleOMatic extends StoreSubscriberMixin(ScopedElementsMixin(Lit
 		this.resetForm();
 		const data = await response.json();
 		if (data) {
-			console.log({ data });
 			this.data = data.needsRating[0];
 		}
 	}
@@ -93,7 +91,6 @@ export class TinsRuleOMatic extends StoreSubscriberMixin(ScopedElementsMixin(Lit
 
 		if (target == this.challengeInput) {
 			this.challenge = value;
-			console.log(this.challenge, value);
 		}
 		else if (target == this.interestInput) {
 			this.interest = value;
