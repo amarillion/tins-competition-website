@@ -17,6 +17,7 @@ import { TinsFrame } from './components/tins-frame.js';
 import { TinsMyEntry } from './pages/tins-my-entry.js';
 import { TinsRules } from './pages/tins-rules.js';
 import { TinsResults } from './pages/tins-results.js';
+import { TinsRuleOMatic } from './pages/tins-rule-o-matic.js';
 
 const outlet = document.getElementById('outlet');
 const router = new Router(outlet);
@@ -37,6 +38,7 @@ customElements.define('tins-frame', TinsFrame);
 customElements.define('tins-compo-main', TinsCompoMain);
 customElements.define('tins-rules', TinsRules);
 customElements.define('tins-results', TinsResults);
+customElements.define('tins-rule-o-matic', TinsRuleOMatic);
 
 router.setRoutes([{ 
 	path: '/',
@@ -58,6 +60,8 @@ router.setRoutes([{
 		//TODO: possibly add game name at end of url
 		{ path: '/entry/:entryId', component: 'tins-entry' },
 
+		{ path: '/rule-o-matic', component: 'tins-rule-o-matic' },
+
 		{ path: '/:compoId/', component: 'tins-compo-main' },
 		{ path: '/:compoId/rules', component: 'tins-rules' },
 		{ path: '/:compoId/results', component: 'tins-results' },
@@ -72,5 +76,6 @@ router.setRoutes([{
 
 		{ path: '/:compoId/log/page/:page', component: 'tins-logs' }, 
 		{ path: '/:compoId/log/entrant/:entrantId/page/:page', component: 'tins-logs' },
+		
 	]}
 ]);
