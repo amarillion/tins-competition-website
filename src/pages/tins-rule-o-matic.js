@@ -201,8 +201,21 @@ The rating scale ranges from 'I can do this in my sleep' to 'No way, this is imp
 			:host {
 			}
 
+			@keyframes slide {
+				0% {
+					opacity: 0;
+					transform: translateX(4rem);
+				}
+				100% {
+					opacity: 1;
+					transform: translateX(0);
+				}
+			}
+
 			pre {
 				white-space: pre-wrap;
+				padding: 1rem;
+				animation: slide 0.4s ease;
 			}
 
 			.range {
