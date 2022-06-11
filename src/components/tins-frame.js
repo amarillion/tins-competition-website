@@ -52,7 +52,6 @@ export class TinsFrame extends LitElement {
 				box-shadow: 0px 20px 40px black;	
 				border-top: 4px dashed #000;
 				border-bottom: 4px dashed #000;	
-				font-size: 18px;
 			}
 		
 			#rightcontent {
@@ -77,6 +76,7 @@ export class TinsFrame extends LitElement {
 			margin: 0px 0px 0px 0px;
 			padding: 0px 30px 60px 30px;
 			vertical-align: top;
+			font-size: 18px;
 		}
 		
 		#rightcontent {
