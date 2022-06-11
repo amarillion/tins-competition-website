@@ -113,7 +113,7 @@ export class TinsRuleOMatic extends ScopedElementsMixin(LitElement) {
 
 		if (!loggedIn) return html`<p>You must be logged in.</p>`;
 		const INTEREST_LABELS = ['Why would you want that!?', 'Meh', 'Ok, I guess', 'Nice one!', 'Ooh! I love it!'];
-		const CHALLENGE_LABELS = ['I can do this in my sleep!', 'Piece of cake', 'Not too much trouble', 'A real challenge!' ,'No way, nearly impossible!'];
+		const CHALLENGE_LABELS = ['I can do this in my sleep!', 'Piece of cake', 'Let me sit down for this', 'A real challenge!' ,'No way, nearly impossible!'];
 		if (this.loading) return '';
 
 		const rule = this.data || {};
@@ -128,21 +128,57 @@ ${rule.text}
 
 Choose a rating
 
-<p><span title="This rating determines how much fun a rule is, ranging from 'boring' to 'extremely fun and interesting'. Rules that are fun, that stimulate creativity, or are open to a variety of interesting interpretations should be rated highly. Rules that are boring, cliche, confusing, or limiting should be rated lowly. Rules scoring below 3 on average will be excluded from a rule-o-matic roll.">
-<tins-fa-icon src="${infoIcon}" color="navy" size="1rem"></tins-fa-icon> Rate how interesting this rule is </span><br>
+<p>
+<details>
+<summary>Rate how much you <b>like</b> this rule (Expand for explainer)</summary>
+<blockquote>
+<p>
+<tins-fa-icon src="${infoIcon}" color="navy" size="1rem"></tins-fa-icon>
+Give a rating for how good, fun, or interesting a rule is. In other words: would you <i>like</i> this rule to be in the next competition?
+</p>
+<p>
+What makes good rules? A rule must be fun, stimulate creativity, and be open to a variety of interesting interpretations. 
+Rules that are boring, cliche, confusing, or limiting your creativity, should get a low rating. 
+</p>
+The rating scale ranges from 'Why would you want <i>that</i>?' to 'Ooh! I love it!'. Hover over the radio buttons to see the meaning of each level. 
+Rules with a rating of 3 or higher will have a chance to be included in competitions. Ratings below that will be excluded.
+</p>
+</blockquote>
+</details>
+ <br>
 <div class="range">
-	<div>Uninteresting</div><tins-range id="interestInput" .labels=${INTEREST_LABELS} @changed=${this.ratingChanged}></tins-range><div>Interesting</div>
+	<div>I don't like it</div><tins-range id="interestInput" .labels=${INTEREST_LABELS} @changed=${this.ratingChanged}></tins-range><div>I like it</div>
 </div>
 </p>
-<p title="Ranges from 'I can do this in my sleep' to 'this is almost impossible'. Challenging rules are neither good nor bad: each roll of the rule-o-matic will include one challenging rule (above 3 on average) and several non-challenging rules (below 3 on average). Rules above 4.5 on average (nearly impossible) will be excluded from the roll.">
-<tins-fa-icon src="${infoIcon}" color="navy" size="1rem"></tins-fa-icon> Rate how challenging this rule is:<br>
+
+<p>
+<details>
+<summary>Rate how <b>challenging</b> you find this rule (Expand for explainer)</summary>
+<blockquote>
+<p>
+<tins-fa-icon src="${infoIcon}" color="navy" size="1rem"></tins-fa-icon>
+How hard do you think this rule is to implement? Keep in mind that challenging rules are <i>neither good nor bad</i>. Each competition will always include one challenging rule (between 3 and 4.5 on average) and several non-challenging rules (below 3 on average). 
+</p>
+<p>
+Impossible rules (above 4.5 on average) will be excluded from the roll.
+So if you think a rule is impossible to do, rate it a 5. If many people agree, then it will be excluded.
+</p>
+<p>
+A special note for <i>bonus rules</i>. The challenge rating is ignored when it comes to bonus rules. Bonus rules are there to help you, and therefore don't really add much to the challenge of the competition. For bonus rules, only the 'interest' aspect determines how likely it'll be rolled.
+</p>
+<p>
+The rating scale ranges from 'I can do this in my sleep' to 'No way, this is impossible!'. Hover over the radio buttons to see each level.
+</p>
+</blockquote>
+</details>
+
 <div class="range">
 	<div>Easy</div><tins-range id="challengeInput" .labels=${CHALLENGE_LABELS} @changed=${this.ratingChanged}></tins-range><div>Hard</div>
 </div>
 </p>
 
 <button id="skipButton" @click=${this.skipRating}>Skip</button>
-<button id="saveButton" @click=${this.submitRating}>Save and next</button>
+<button id="saveButton" @click=${this.submitRating}>Save &amp; Next</button>
 		`;
 	}
 
@@ -156,6 +192,7 @@ Choose a rating
 		return css`
 			:host {
 			}
+
 			pre {
 				white-space: pre-wrap;
 			}
@@ -171,6 +208,25 @@ Choose a rating
 			.range > :first-child {
 				text-align: right;
 			}
+
+			button {
+				padding: 0.5rem;
+				border: 2px solid black;
+				min-width: 5rem;
+				background: #FF8;
+				color: black;
+			}
+
+			button:hover {
+				background: #CC0;
+				transition: 0.1s
+			}
+
+			button:disabled {
+				background: lightgrey;
+				transition: 0.1s
+			}
+
 		`;
 	}
 
