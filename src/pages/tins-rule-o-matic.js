@@ -6,6 +6,10 @@ import { TinsFaIcon } from '../components/tins-fa-icon.js';
 import { asyncFetchJSON, postOrThrow } from '../util.js';
 import { TinsRange } from '../components/tins-range.js';
 import infoIcon from '@fortawesome/fontawesome-free/svgs/solid/info-circle.svg';
+import thumbsUpIcon from '@fortawesome/fontawesome-free/svgs/solid/thumbs-up.svg';
+import thumbsDownIcon from '@fortawesome/fontawesome-free/svgs/solid/thumbs-down.svg';
+import easyIcon from '@fortawesome/fontawesome-free/svgs/solid/bicycle.svg';
+import hardIcon from '@fortawesome/fontawesome-free/svgs/solid/space-shuttle.svg';
 
 import { currentUserSelector } from '../data/currentUser.js';
 import { subscribe } from '../store.js';
@@ -117,9 +121,9 @@ export class TinsRuleOMatic extends ScopedElementsMixin(LitElement) {
 		if (this.loading) return '';
 
 		const rule = this.data || {};
-		return html`<h1>Your input for the Rule-O-Matic</h1>
+		return html`<h1>Rate some Rules</h1>
 		
-<p>Rate the following rule</p>
+<p>Help improve TINS by rating the following rule:</p>
 
 <pre>
 ${rule.category} rule #${rule.number}:
@@ -147,7 +151,9 @@ Rules with a rating of 3 or higher will have a chance to be included in competit
 </details>
  <br>
 <div class="range">
-	<div>I don't like it</div><tins-range id="interestInput" .labels=${INTEREST_LABELS} @changed=${this.ratingChanged}></tins-range><div>I like it</div>
+	<tins-fa-icon src="${thumbsDownIcon}" color="black" size="1.6rem"></tins-fa-icon>
+	<tins-range id="interestInput" .labels=${INTEREST_LABELS} @changed=${this.ratingChanged}></tins-range>
+	<tins-fa-icon src="${thumbsUpIcon}" color="black" size="1.6rem"></tins-fa-icon>
 </div>
 </p>
 
@@ -173,7 +179,9 @@ The rating scale ranges from 'I can do this in my sleep' to 'No way, this is imp
 </details>
 
 <div class="range">
-	<div>Easy</div><tins-range id="challengeInput" .labels=${CHALLENGE_LABELS} @changed=${this.ratingChanged}></tins-range><div>Hard</div>
+	<tins-fa-icon src="${easyIcon}" color="black" size="1.6rem"></tins-fa-icon>
+	<tins-range id="challengeInput" .labels=${CHALLENGE_LABELS} @changed=${this.ratingChanged}></tins-range>
+	<tins-fa-icon src="${hardIcon}" color="black" size="1.6rem"></tins-fa-icon>
 </div>
 </p>
 
@@ -200,13 +208,9 @@ The rating scale ranges from 'I can do this in my sleep' to 'No way, this is imp
 			.range {
 				display: grid;
 				justify-content: center;
-				grid-template-columns: 8rem 10rem 8rem;
+				grid-template-columns: auto 10rem auto;
 				gap: 1rem;
 				margin: 2rem 0;
-			}
-
-			.range > :first-child {
-				text-align: right;
 			}
 
 			button {

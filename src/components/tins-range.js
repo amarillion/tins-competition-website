@@ -56,6 +56,9 @@ export class TinsRange extends LitElement {
 			display: grid;
 			grid-auto-flow: column;
 		}
+		input[type=radio] {
+			width: 1.6rem;
+		}
 		`;
 	}
 }

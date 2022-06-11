@@ -25,9 +25,9 @@ export class TinsFrame extends LitElement {
 				flex: 4 4 0;
 		
 				z-index: 2; /* to make sure shadow is cast over rightcontent */
-				box-shadow:20px 0px 40px black;	
+				box-shadow:20px 0px 40px black;
 				border-left: 4px dashed #000;
-				border-right: 4px dashed #000;	
+				border-right: 4px dashed #000;
 			}
 		
 			#rightcontent {
@@ -52,12 +52,14 @@ export class TinsFrame extends LitElement {
 				box-shadow: 0px 20px 40px black;	
 				border-top: 4px dashed #000;
 				border-bottom: 4px dashed #000;	
+				font-size: 18px;
 			}
 		
 			#rightcontent {
 				flex: 1 1 auto;
 			}
-		
+
+
 		}
 		
 		img {
