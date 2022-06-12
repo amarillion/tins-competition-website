@@ -58,7 +58,7 @@ export class TinsRuleOMatic extends ScopedElementsMixin(LitElement) {
 	async fetchNewRule() {
 		const data = await asyncFetchJSON(`/rule-o-matic/ratings`, this);
 		if (data) {
-			this.data = data.needsRating[0];
+			this.data = data;
 		}
 		this.resetForm();
 	}
@@ -85,15 +85,16 @@ export class TinsRuleOMatic extends ScopedElementsMixin(LitElement) {
 	}
 
 	async submitRating() {
+		const rule = this.data.needsRating[0];
 		const response = await postOrThrow(`/rule-o-matic/ratings`, JSON.stringify({
-			ruleId: this.data.id,
+			ruleId: rule.id,
 			challenge: this.challenge,
 			interest: this.interest
 		}));
 		this.resetForm();
 		const data = await response.json();
 		if (data) {
-			this.data = data.needsRating[0];
+			this.data = data;
 		}
 	}
 
@@ -120,17 +121,14 @@ export class TinsRuleOMatic extends ScopedElementsMixin(LitElement) {
 		const CHALLENGE_LABELS = ['I can do this in my sleep!', 'Piece of cake', 'Let me sit down for this', 'A real challenge!' ,'No way, nearly impossible!'];
 		if (this.loading) return '';
 
-		const rule = this.data || {};
+		const data = this.data || {};
+		const rule = data.needsRating[0];
 		return html`<h1>Rate some Rules</h1>
-		
-<p>Help improve TINS by rating the following rule:</p>
 
 <pre>
 ${rule.category} rule #${rule.number}:
 ${rule.text}
 </pre>
-
-Choose a rating
 
 <p>
 <details>
@@ -151,9 +149,9 @@ Rules with a rating of 3 or higher will have a chance to be included in competit
 </details>
  <br>
 <div class="range">
-	<tins-fa-icon src="${thumbsDownIcon}" color="black" size="1.6rem"></tins-fa-icon>
+	<tins-fa-icon title="Bad" src="${thumbsDownIcon}" color="black" size="1.6rem"></tins-fa-icon>
 	<tins-range id="interestInput" .labels=${INTEREST_LABELS} @changed=${this.ratingChanged}></tins-range>
-	<tins-fa-icon src="${thumbsUpIcon}" color="black" size="1.6rem"></tins-fa-icon>
+	<tins-fa-icon title="Good" src="${thumbsUpIcon}" color="black" size="1.6rem"></tins-fa-icon>
 </div>
 </p>
 
@@ -179,11 +177,14 @@ The rating scale ranges from 'I can do this in my sleep' to 'No way, this is imp
 </details>
 
 <div class="range">
-	<tins-fa-icon src="${easyIcon}" color="black" size="1.6rem"></tins-fa-icon>
+	<tins-fa-icon title="Easy" src="${easyIcon}" color="black" size="1.6rem"></tins-fa-icon>
 	<tins-range id="challengeInput" .labels=${CHALLENGE_LABELS} @changed=${this.ratingChanged}></tins-range>
-	<tins-fa-icon src="${hardIcon}" color="black" size="1.6rem"></tins-fa-icon>
+	<tins-fa-icon title="Hard" src="${hardIcon}" color="black" size="1.6rem"></tins-fa-icon>
 </div>
 </p>
+
+<p><i>Thanks for helping to improve TINS! So far you've rated ${data.yourRatings} out of ${data.totalRules} rules. 
+You're the #${data.rank} contributor${data.toBeat ? (html` (behind ${data.toBeat.author} who rated ${data.toBeat.count})`) : ''}</i></p>
 
 <button id="skipButton" @click=${this.skipRating}>Skip</button>
 <button id="saveButton" @click=${this.submitRating}>Save &amp; Next</button>
