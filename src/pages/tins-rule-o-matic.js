@@ -113,19 +113,11 @@ export class TinsRuleOMatic extends ScopedElementsMixin(LitElement) {
 		}
 	}
 
-	renderContents() {
-		const loggedIn = !!this.username;
-
-		if (!loggedIn) return html`<p>You must be logged in.</p>`;
-		const INTEREST_LABELS = ['Why would you want that!?', 'Meh', 'Ok, I guess', 'Nice one!', 'Ooh! I love it!'];
-		const CHALLENGE_LABELS = ['I can do this in my sleep!', 'Piece of cake', 'Let me sit down for this', 'A real challenge!' ,'No way, nearly impossible!'];
-		if (this.loading) return '';
-
-		const data = this.data || {};
-		const rule = data.needsRating[0];
-		return html`<h1>Rate some Rules</h1>
-
-<pre>
+	renderRule(rule) {
+		if (rule) { 
+			const INTEREST_LABELS = ['Why would you want that!?', 'Meh', 'Ok, I guess', 'Nice one!', 'Ooh! I love it!'];
+			const CHALLENGE_LABELS = ['I can do this in my sleep!', 'Piece of cake', 'Let me sit down for this', 'A real challenge!' ,'No way, nearly impossible!'];
+			return html`<pre>
 ${rule.category} rule #${rule.number}:
 ${rule.text}
 </pre>
@@ -182,12 +174,31 @@ The rating scale ranges from 'I can do this in my sleep' to 'No way, this is imp
 	<tins-fa-icon title="Hard" src="${hardIcon}" color="black" size="1.6rem"></tins-fa-icon>
 </div>
 </p>
+`;
+		}
+		else {
+			return html`<p>Zarroo rules remain!</p>`;
+		}
+	}
+
+	renderContents() {
+		const loggedIn = !!this.username;
+
+		if (!loggedIn) return html`<p>You must be logged in.</p>`;
+		if (this.loading) return '';
+
+		const data = this.data || {};
+		const rule = data.needsRating[0];
+		return html`<h1>Rate some Rules</h1>
+${this.renderRule(rule)}
 
 <p><i>Thanks for helping to improve TINS! So far you've rated ${data.yourRatings} out of ${data.totalRules} rules. 
 You're the #${data.rank} contributor${data.toBeat ? (html` (behind ${data.toBeat.author} who rated ${data.toBeat.count})`) : ''}</i></p>
 
+${rule ? html`
 <button id="skipButton" @click=${this.skipRating}>Skip</button>
 <button id="saveButton" @click=${this.submitRating}>Save &amp; Next</button>
+`: ''}
 		`;
 	}
 
