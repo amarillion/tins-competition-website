@@ -1,6 +1,8 @@
 import { LitElement, html, css } from 'lit';
 import { repeat } from 'lit-html/directives/repeat.js';
 
+let instanceCounter = 0;
+
 /** Range between 1 and 5. Starts with null value. Must be adjusted to be valid. */
 export class TinsRange extends LitElement {
 
@@ -17,6 +19,10 @@ export class TinsRange extends LitElement {
 		this._value = 3;
 		this._valid = false;
 		this._labels = ['1', '2', '3', '4', '5'];
+
+		// each instantiation of a range gets a unique instance id, to
+		// prevent clashes on older browsers (Seamonkey)
+		this.uniqueId = instanceCounter++;
 	}
 
 	clear() {
@@ -46,7 +52,7 @@ export class TinsRange extends LitElement {
 
 	render() {
 		return html`${repeat([0,1,2,3,4], i => 
-			html`<input title="${[this._labels[i]]}" @click=${() => this.valueSelected(i+1)} value="${i+1}" type="radio" name="range-group">`
+			html`<input title="${[this._labels[i]]}" @click=${() => this.valueSelected(i+1)} value="${i+1}" type="radio" name="range-group-${this.uniqueId}">`
 		)}`;
 	}
 
