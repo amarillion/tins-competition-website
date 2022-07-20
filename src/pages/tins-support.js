@@ -11,15 +11,6 @@ export class TinsSupport extends ScopedElementsMixin(LitElement) {
 		};
 	}
 
-	static get styles() {
-		return css`
-			a 			{ font-weight: bold; text-decoration: none; }
-			a:link 		{ color: #600; }
-			a:hover 	{ text-decoration: underline; }
-			a:active 	{ text-decoration: underline; }
-		`;
-	}
-
 	render() {
 		return html`
 	<h1>Shop &amp; Support</h1>
@@ -70,4 +61,18 @@ export class TinsSupport extends ScopedElementsMixin(LitElement) {
 	</p>
 		`;
 	}
+
+	static get styles() {
+		return css`
+			:host {
+				display: block; // solves text selection issues
+			}
+
+			a 			{ font-weight: bold; text-decoration: none; }
+			a:link 		{ color: #600; }
+			a:hover 	{ text-decoration: underline; }
+			a:active 	{ text-decoration: underline; }
+		`;
+	}
+
 }

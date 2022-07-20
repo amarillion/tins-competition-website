@@ -40,6 +40,9 @@ export class TinsStatusHelper extends ScopedElementsMixin(LitElement) {
 
 	static get styles() {
 		return css`
+		:host {
+			display: block; // solves text selection issues
+		}
 
 		.error {
 			width: 100%;

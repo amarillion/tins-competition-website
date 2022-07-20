@@ -65,6 +65,9 @@ export class TinsAbout extends ScopedElementsMixin(LitElement) {
 
 	static get styles() {
 		return css`
+			:host {
+				display: block; // solves text selection issues
+			}
 			a 			{ font-weight: bold; text-decoration: none; }
 			a:link 		{ color: #600; }
 			a:hover 	{ text-decoration: underline; }

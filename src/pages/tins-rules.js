@@ -54,6 +54,7 @@ export class TinsRules extends ScopedElementsMixin(LitElement) {
 	static get styles() {
 		return css`
 			:host {
+				display: block; // solves text selection issues
 			}
 			pre {
 				white-space: pre-wrap;

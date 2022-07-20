@@ -18,21 +18,6 @@ export class TinsHistory extends StoreSubscriberMixin(ScopedElementsMixin(LitEle
 		};
 	}
 
-	static get styles() {
-		return css`
-			a 			{ font-weight: bold; text-decoration: none; }
-			a:link 		{ color: #600; }
-			a:hover 	{ text-decoration: underline; }
-			a:active 	{ text-decoration: underline; }
-
-			@media (min-width: 1024px) {
-				ul {
-					columns: 2;
-				}
-			}
-		`;
-	}
-
 	get selectors() {
 		return {
 			events: s => s.currentEvent.data && s.currentEvent.data.events
@@ -87,4 +72,24 @@ export class TinsHistory extends StoreSubscriberMixin(ScopedElementsMixin(LitEle
 	</ul>
 		`;
 	}
+
+	static get styles() {
+		return css`
+			:host {
+				display: block; // solves text selection issues
+			}
+
+			a 			{ font-weight: bold; text-decoration: none; }
+			a:link 		{ color: #600; }
+			a:hover 	{ text-decoration: underline; }
+			a:active 	{ text-decoration: underline; }
+
+			@media (min-width: 1024px) {
+				ul {
+					columns: 2;
+				}
+			}
+		`;
+	}
+
 }

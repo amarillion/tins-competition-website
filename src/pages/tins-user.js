@@ -91,6 +91,7 @@ export class TinsUser extends ScopedElementsMixin(LitElement) {
 	static get styles() {
 		return css`
 			:host {
+				display: block; // solves text selection issues
 			}
 
 			.icons {
