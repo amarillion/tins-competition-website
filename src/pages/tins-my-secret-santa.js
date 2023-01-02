@@ -44,6 +44,8 @@ export class TinsSecretSanta extends ScopedElementsMixin(LitElement) {
 		this.secretSanta = null;
 		this.competitionStarted = false;
 		this.joinedCompetition = false;
+		this.competitionEnded = false;
+		this.reverse = {};
 	}
 
 	async refresh() {
@@ -51,9 +53,11 @@ export class TinsSecretSanta extends ScopedElementsMixin(LitElement) {
 		const data = await asyncFetchJSON('/api/v1/mySecretSanta', this);
 		if (data) {
 			this.competitionStarted = data.competitionStarted;
+			this.competitionEnded = data.competitionEnded;
 			this.secretSanta = data.secretSanta;
 			this.competition = data.competition;
 			this.joinedCompetition = data.joinedCompetition;
+			this.reverse = data.reverse;
 		}
 	}
 
@@ -85,6 +89,54 @@ export class TinsSecretSanta extends ScopedElementsMixin(LitElement) {
 			}</p>`;
 	}
 
+	renderEndLetter() {
+		const formattedDate = new Date(this.competition.competitionEnd)
+			.toLocaleDateString([], { dateStyle:'long' });
+		return html`
+		<div class="letter">
+			<p class="right">North Pole, ${formattedDate}</p>
+			<div style="float: right;">
+				<tins-fa-icon src="${sleighIcon}" color="crimson" size="4rem"><tins-fa-icon>
+			</div>
+			<p>Hello ${this.secretSanta.giver.name},</p>
+			<p>
+			Did you already receive your gift from ${this.reverse.name}?
+			</p>
+			<p>
+			Check their 
+			${this.reverse.entryId ? html`<a href="/entry/${this.reverse.entryId}/">entry page</a> and `: ''}
+			<a href="/${this.competition.short}/log/entrant/${this.reverse.entrantId}/">their log</a>
+			to see if they uploaded something for you!
+			</p>
+			<br>
+			<p>Best wishes, </p>
+			<p class="indent">Santa.</p>
+		</div>`;
+	}
+
+	renderStartLetter() {
+		const formattedDate = new Date(this.competition.competitionStart)
+			.toLocaleDateString([], { dateStyle:'long' });
+		return html`
+		<div class="letter">
+			<p class="right">North Pole, ${formattedDate}</p>
+			<div style="float: right;">
+				<tins-fa-icon src="${sleighIcon}" color="crimson" size="4rem"><tins-fa-icon>
+			</div>
+			<p>Hello ${this.secretSanta.giver.name},</p>
+			<p>
+			I have decided that you will give a gift to ${this.secretSanta.receiver.name}!
+			</p>
+			<p>
+			You can find their wishlist on 
+			<a href="/${this.competition.short}/log/entrant/${this.secretSanta.receiver.entrantId}/">their log</a>
+			</p>
+			<br>
+			<p>Best wishes, </p>
+			<p class="indent">Santa.</p>
+		</div>`;
+	}
+
 	renderContents() {
 		if (!this.competition) {
 			return html`<p>There is no competition going on today. Come back later!</p>`;
@@ -104,28 +156,10 @@ export class TinsSecretSanta extends ScopedElementsMixin(LitElement) {
 			return html`<p>There is no secret santa information available for the current competition.</p>`;
 		}
 
-		const formattedDate = new Date(this.competition.competitionStart)
-			.toLocaleDateString([], { dateStyle:'long' });
-
 		return html`
-		<div class="letter">
-			<p class="right">North Pole, ${formattedDate}</p>
-			<div style="float: right;">
-				<tins-fa-icon src="${sleighIcon}" color="crimson" size="4rem"><tins-fa-icon>
-			</div>
-			<p>Hello ${this.secretSanta.giver.name},</p>
-			<p>
-			I have decided that you will give a gift to ${this.secretSanta.receiver.name}!
-			</p>
-			<p>
-			You can find their wishlist on 
-			<a href="/${this.competition.short}/log/entrant/${this.secretSanta.receiver.entrantId}/">their log</a>
-			</p>
-			<br>
-			<p>Best wishes, </p>
-			<p class="indent">Santa.</p>
-		</div>
-			`;
+			${this.competitionEnded ? this.renderEndLetter() : ''}
+			${this.renderStartLetter()}
+		`;
 	}
 
 	render() {
