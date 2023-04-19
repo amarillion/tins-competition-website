@@ -124,7 +124,9 @@ export function renderRichText(text) {
 		validate: {
 			// only linkify URLs that start with a protocol
 			// http://www.google.com but not google.com
-			url: (value) => /^(http|ftp)s?:\/\//.test(value)
+			url: (value) => /^(http|ftp)s?:\/\//.test(value),
+			// do not linkify email addresses.
+			email: () => false
 		}
 	});
 

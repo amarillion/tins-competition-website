@@ -19,4 +19,11 @@ test('test linkification', () => {
 	).toBe(
 		`<p>Two paragraphs</p><p>and a line<br>break</p>`
 	);
+
+	expect(
+		renderRichText("Don't linkify something that looks like an email@example.com")
+	).toBe(
+		`<p>Don't linkify something that looks like an email@example.com</p>`
+	);
+
 });
