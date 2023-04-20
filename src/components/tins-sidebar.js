@@ -47,7 +47,7 @@ export class TinsSideBar extends StoreSubscriberMixin(LitElement) {
 			${(afterStart && !afterEnd && hasSecretSanta) ? html`<a href="/secretsanta">My Secret Santa</a>` : ''}
 			${canJoin ? html`<a href="/join" router-ignore>Join</a>` : ''}
 			<a href="/${short}/rules">Rules</a>
-			<a href="/${short}/entrants" router-ignore>Entrants</a>
+			<a href="/${short}/entrants">Entrants</a>
 			${(afterStart) ? html`<a href="/${short}/entries" router-ignore>Entries</a>` : ''}
 			${(afterEnd) ? html`<a href="/${short}/results">Results</a>` : ''}
 			${(afterEnd) ? html`<a href="/${short}/reviews" router-ignore>Reviews</a>` : ''}
