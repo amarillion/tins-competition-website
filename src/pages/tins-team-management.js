@@ -1,16 +1,16 @@
 import { LitElement, html, css } from 'lit';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
-import { TinsSpinner } from './tins-spinner.js';
+import { TinsSpinner } from '../components/tins-spinner.js';
 import { repeat } from 'lit-html/directives/repeat.js';
-import { postOrThrow } from '../util.js';
+import { asyncStateFlags, postOrThrow } from '../util.js';
 
-export class TinsTeamMembers extends ScopedElementsMixin(LitElement) {
+export class TinsTeamManagement extends ScopedElementsMixin(LitElement) {
 
 	static get properties() {
 		return {
-			error: { type: String },
 			loading: { type: Boolean },
-			invitationOpen: { type: Boolean },
+			error: { type: String },
+			data: { type: Object }
 		};
 	}
 
@@ -30,10 +30,6 @@ export class TinsTeamMembers extends ScopedElementsMixin(LitElement) {
 		this.error = "";
 		this.invitationOpen = false;
 		this.entry = {};
-	}
-
-	renderError() {
-		return this.error ? html`<div class="error">${this.error}</div>` : '';
 	}
 
 	async openInvitation() {
@@ -63,7 +59,22 @@ export class TinsTeamMembers extends ScopedElementsMixin(LitElement) {
 		//TODO: trigger refresh of entry member list.
 	}
 
-	renderContents() {
+	async onBeforeEnter(location, commands /*, router */) {
+		const compoId = location.params.compoId;
+
+		const data = await asyncStateFlags(
+			async () => {
+				const response = await postOrThrow(`/api/v1/compo/${compoId}/myEntry`, '');
+				return response.json();
+			}, this
+		);
+
+		if (!data) {
+			this.error = { msg: 'Could not get or create your entry' };
+		}
+	}
+
+	renderInvitation() {
 		if (!this.invitationOpen) {
 			return html`<div><button @click="${() => this.openInvitation()}">Invite team members</button></div>`;
 		}
@@ -78,14 +89,24 @@ export class TinsTeamMembers extends ScopedElementsMixin(LitElement) {
 		}
 	}
 
+	renderPending() {
+		const pendingInvitations = this.entry;
+		return this.pendingInvitations ? html`Pending invitations: ${repeat(
+			pendingInvitations, 
+			e => e.id, 
+			e => html`${e.name}`
+		)}` : '';
+	}
+
+	renderContents() {
+		return html`${this.pendingInvitations} ${this.renderInvitation()}`;
+
+	}
+
 	render() {
-		return html`
-			${this.loading 
-			? html`<tins-spinner class="spinner"></tins-spinner>` 
-			: this.error 
-				? html`${this.renderError()}`
-				: this.renderContents()
-			}`;
+		return html`<tins-status-helper 
+				error="${this.error}" ?loading=${this.loading}
+			>${this.renderContents()}</tins-status-helper>`;
 	}
 
 	static get styles() {

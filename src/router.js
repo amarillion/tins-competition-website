@@ -19,6 +19,7 @@ import { TinsRules } from './pages/tins-rules.js';
 import { TinsResults } from './pages/tins-results.js';
 import { TinsRuleOMatic } from './pages/tins-rule-o-matic.js';
 import { TinsEntrants } from './pages/tins-entrants.js';
+import { TinsTeamManagement } from './pages/tins-team-management.js';
 
 const outlet = document.getElementById('outlet');
 const router = new Router(outlet);
@@ -41,6 +42,7 @@ customElements.define('tins-rules', TinsRules);
 customElements.define('tins-results', TinsResults);
 customElements.define('tins-rule-o-matic', TinsRuleOMatic);
 customElements.define('tins-entrants', TinsEntrants);
+customElements.define('tins-team-management', TinsTeamManagement);
 
 router.setRoutes([{ 
 	path: '/',
@@ -70,6 +72,7 @@ router.setRoutes([{
 		{ path: '/:compoId/entrants', component: 'tins-entrants' },
 
 		{ path: '/:compoId/myEntry', component: 'tins-my-entry' },
+		{ path: '/:compoId/team', component: 'tins-team-management' },
 
 		{ path: '/:compoId/log/edit', component: 'tins-log-edit' },
 		{ path: '/:compoId/log/id/:postId', component: 'tins-logs' },
