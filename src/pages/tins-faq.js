@@ -1,6 +1,5 @@
 import { LitElement, html, css } from 'lit';
 import { repeat } from 'lit-html/directives/repeat.js';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';
 
 const FAQ = [
@@ -128,7 +127,7 @@ const FAQ = [
 	}, 
 ];
 
-export class TinsFaq extends ScopedElementsMixin(LitElement) {
+export class TinsFaq extends LitElement {
 
 	render() {
 		return html`

@@ -1,19 +1,11 @@
 import { LitElement, html, css } from 'lit';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
 import { asyncFetchJSON } from '../util.js';
 import { repeat } from 'lit-html/directives/repeat.js';
 import { TinsEntryThumbnail } from '../components/tins-entry-thumbnail.js';
 import { TinsStatusHelper } from '../components/tins-status-helper.js';
 
-export class TinsAllEntries extends ScopedElementsMixin(LitElement) {
-
-	static get scopedElements() {
-		return {
-			'tins-status-helper': TinsStatusHelper,
-			'tins-entry-thumbnail': TinsEntryThumbnail,
-		};
-	}
+export class TinsAllEntries extends LitElement {
 
 	static get properties() {
 		return {

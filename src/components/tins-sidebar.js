@@ -139,5 +139,3 @@ export class TinsSideBar extends StoreSubscriberMixin(LitElement) {
 	}
 
 }
-
-customElements.define('tins-sidebar', TinsSideBar);

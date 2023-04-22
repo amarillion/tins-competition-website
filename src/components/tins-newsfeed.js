@@ -1,10 +1,9 @@
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { LitElement, html, css } from 'lit';
 import { repeat } from 'lit-html/directives/repeat.js';
 import { asyncFetchJSON } from '../util.js';
 import { TinsRichTextView } from './tins-richtext-view.js';
 
-export class TinsNewsFeed extends ScopedElementsMixin(LitElement) {
+export class TinsNewsFeed extends LitElement {
 
 	static get properties() {
 		return {
@@ -12,12 +11,6 @@ export class TinsNewsFeed extends ScopedElementsMixin(LitElement) {
 			error: { type: String },
 			posts: { type: Array },
 			newsId: { type: Number },
-		};
-	}
-
-	static get scopedElements() {
-		return {
-			'tins-richtext-view': TinsRichTextView
 		};
 	}
 

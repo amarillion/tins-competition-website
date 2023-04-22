@@ -1,19 +1,10 @@
 import { LitElement, html, css } from 'lit';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
 import { TinsUpcoming } from '../components/tins-upcoming.js';
 import { TinsCurrentEvent } from '../components/tins-current-event.js';
 import { TinsNewsFeed } from '../components/tins-newsfeed.js';
 
-export class TinsNewsPage extends ScopedElementsMixin(LitElement) {
-
-	static get scopedElements() {
-		return {
-			'tins-newsfeed': TinsNewsFeed,
-			'tins-upcoming': TinsUpcoming,
-			'tins-current-event': TinsCurrentEvent,
-		};
-	}
+export class TinsNewsPage extends LitElement {
 
 	constructor() {
 		super();

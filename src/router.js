@@ -12,8 +12,6 @@ import { TinsUser } from './pages/tins-user.js';
 import { TinsLogs } from './pages/tins-logs.js';
 import { TinsLogEdit } from './pages/tins-log-edit.js';
 import { TinsCompoMain } from './pages/tins-compo-main.js';
-
-import { TinsFrame } from './components/tins-frame.js';
 import { TinsMyEntry } from './pages/tins-my-entry.js';
 import { TinsRules } from './pages/tins-rules.js';
 import { TinsResults } from './pages/tins-results.js';
@@ -21,28 +19,69 @@ import { TinsRuleOMatic } from './pages/tins-rule-o-matic.js';
 import { TinsEntrants } from './pages/tins-entrants.js';
 import { TinsTeamManagement } from './pages/tins-team-management.js';
 
+import { TinsFrame } from './components/tins-frame.js';
+import { TinsCurrentUser } from './components/tins-currentuser.js';
+import { TinsCountDown } from './components/tins-count-down.js';
+import { TinsSideBar } from './components/tins-sidebar.js';
+import { TinsHeader } from './components/tins-header.js';
+import { TinsCurrentEvent } from './components/tins-current-event.js';
+import { TinsEntryThumbnail } from './components/tins-entry-thumbnail.js';
+import { TinsFaIcon } from './components/tins-fa-icon.js';
+import { TinsImageUpload } from './components/tins-image-upload.js';
+import { TinsInlineCountDown } from './components/tins-inline-count-down.js';
+import { TinsLogForm } from './components/tins-log-form.js';
+import { TinsStatusHelper } from './components/tins-status-helper.js';
+import { TinsLogPost } from './components/tins-log-post.js';
+import { TinsNewsFeed } from './components/tins-newsfeed.js';
+import { TinsRange } from './components/tins-range.js';
+import { TinsRichTextControl } from './components/tins-richtext-control.js';
+import { TinsRichTextView } from './components/tins-richtext-view.js';
+import { TinsSpinner } from './components/tins-spinner.js';
+import { TinsUpcoming } from './components/tins-upcoming.js';
+
 const outlet = document.getElementById('outlet');
 const router = new Router(outlet);
 
-customElements.define('tins-newspage', TinsNewsPage);
+// pages
 customElements.define('tins-about', TinsAbout);
+customElements.define('tins-all-entries', TinsAllEntries);
+customElements.define('tins-compo-main', TinsCompoMain);
+customElements.define('tins-entrants', TinsEntrants);
+customElements.define('tins-entry', TinsEntry);
 customElements.define('tins-faq', TinsFaq);
 customElements.define('tins-history', TinsHistory);
-customElements.define('tins-secret-santa', TinsSecretSanta);
-customElements.define('tins-support', TinsSupport);
-customElements.define('tins-entry', TinsEntry);
-customElements.define('tins-my-entry', TinsMyEntry);
-customElements.define('tins-all-entries', TinsAllEntries);
-customElements.define('tins-user', TinsUser);
-customElements.define('tins-logs', TinsLogs);
 customElements.define('tins-log-edit', TinsLogEdit);
-customElements.define('tins-frame', TinsFrame);
-customElements.define('tins-compo-main', TinsCompoMain);
-customElements.define('tins-rules', TinsRules);
+customElements.define('tins-logs', TinsLogs);
+customElements.define('tins-my-entry', TinsMyEntry);
+customElements.define('tins-my-secret-santa', TinsSecretSanta);
+customElements.define('tins-newspage', TinsNewsPage);
 customElements.define('tins-results', TinsResults);
 customElements.define('tins-rule-o-matic', TinsRuleOMatic);
-customElements.define('tins-entrants', TinsEntrants);
+customElements.define('tins-rules', TinsRules);
+customElements.define('tins-support', TinsSupport);
 customElements.define('tins-team-management', TinsTeamManagement);
+customElements.define('tins-user', TinsUser);
+
+// components
+customElements.define('tins-count-down', TinsCountDown);
+customElements.define('tins-current-event', TinsCurrentEvent);
+customElements.define('tins-currentuser', TinsCurrentUser);
+customElements.define('tins-entry-thumbnail', TinsEntryThumbnail);
+customElements.define('tins-fa-icon', TinsFaIcon);
+customElements.define('tins-frame', TinsFrame);
+customElements.define('tins-header', TinsHeader);
+customElements.define('tins-image-upload', TinsImageUpload);
+customElements.define('tins-inline-count-down', TinsInlineCountDown);
+customElements.define('tins-log-form', TinsLogForm);
+customElements.define('tins-log-post', TinsLogPost);
+customElements.define('tins-newsfeed', TinsNewsFeed);
+customElements.define('tins-range', TinsRange);
+customElements.define('tins-richtext-control.js', TinsRichTextControl);
+customElements.define('tins-richtext-view', TinsRichTextView);
+customElements.define('tins-sidebar', TinsSideBar);
+customElements.define('tins-spinner', TinsSpinner);
+customElements.define('tins-status-helper', TinsStatusHelper);
+customElements.define('tins-upcoming', TinsUpcoming);
 
 router.setRoutes([{ 
 	path: '/',
@@ -64,7 +103,7 @@ router.setRoutes([{
 		{ path: '/faq', component: 'tins-faq' },
 		{ path: '/about', component: 'tins-about' },
 		{ path: '/history', component: 'tins-history' },
-		{ path: '/secretSanta', component: 'tins-secret-santa' },
+		{ path: '/secretSanta', component: 'tins-my-secret-santa' },
 		{ path: '/support', component: 'tins-support' },
 		{ path: '/all/entries', component: 'tins-all-entries' },
 		{ path: '/user/:userId', component: 'tins-user' },

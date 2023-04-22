@@ -1,5 +1,4 @@
 import { LitElement, html, css } from 'lit';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
 import { TinsRichTextView } from '../components/tins-richtext-view.js';
 import { asyncFetchJSON, postOrThrow } from '../util.js';
@@ -13,17 +12,7 @@ import { StoreSubscriberMixin } from '../data/storeSubscriberMixin.js';
 import { TinsStatusHelper } from '../components/tins-status-helper.js';
 import { breadCrumbs } from '../breadcrumbs.js';
 
-export class TinsLogs extends StoreSubscriberMixin(ScopedElementsMixin(LitElement)) {
-
-	static get scopedElements() {
-		return {
-			'tins-richtext-view': TinsRichTextView,
-			'tins-status-helper': TinsStatusHelper,
-			'tins-fa-icon': TinsFaIcon,
-			'tins-log-form': TinsLogForm,
-			'tins-log-post': TinsLogPost,
-		};
-	}
+export class TinsLogs extends StoreSubscriberMixin(LitElement) {
 
 	get selectors() {
 		const { compoId }  = this.location.params;

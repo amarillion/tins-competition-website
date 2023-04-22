@@ -1,5 +1,4 @@
 import { LitElement, html, css } from 'lit-element';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
 import { TinsSpinner } from '../components/tins-spinner.js';
 import { TinsFaIcon } from '../components/tins-fa-icon.js';
@@ -14,15 +13,7 @@ import hardIcon from '@fortawesome/fontawesome-free/svgs/solid/space-shuttle.svg
 import { currentUserSelector } from '../data/currentUser.js';
 import { subscribe } from '../store.js';
 
-export class TinsRuleOMatic extends ScopedElementsMixin(LitElement) {
-
-	static get scopedElements() {
-		return {
-			'tins-spinner': TinsSpinner,
-			'tins-fa-icon': TinsFaIcon,
-			'tins-range': TinsRange,
-		};
-	}
+export class TinsRuleOMatic extends LitElement {
 
 	static get properties() {
 		return {

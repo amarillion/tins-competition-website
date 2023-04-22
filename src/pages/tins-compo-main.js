@@ -1,5 +1,4 @@
 import { LitElement, html, css } from 'lit';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { TinsCurrentEvent } from '../components/tins-current-event.js';
 import { TinsFaIcon } from '../components/tins-fa-icon.js';
 
@@ -16,7 +15,7 @@ import { asyncFetchJSON } from '../util.js';
 import { TinsStatusHelper } from '../components/tins-status-helper.js';
 import { breadCrumbs } from '../breadcrumbs.js';
 
-export class TinsCompoMain extends ScopedElementsMixin(LitElement) {
+export class TinsCompoMain extends LitElement {
 
 	static get properties() {
 		return {
@@ -40,15 +39,6 @@ export class TinsCompoMain extends ScopedElementsMixin(LitElement) {
 		if (data) {
 			this.compo = data;
 		}
-	}
-
-	static get scopedElements() {
-		return {
-			'tins-current-event': TinsCurrentEvent,
-			'tins-fa-icon': TinsFaIcon,
-			'tins-count-down': TinsCountDown,
-			'tins-status-helper': TinsStatusHelper,
-		};
 	}
 
 	renderRulesBlock(compo) {

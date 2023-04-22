@@ -28,5 +28,3 @@ export class TinsHeader extends LitElement {
 		`;
 	}
 }
-
-customElements.define('tins-header', TinsHeader);

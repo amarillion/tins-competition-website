@@ -1,5 +1,4 @@
 import { LitElement, html, css } from 'lit';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
 import { TinsRichTextControl } from '../components/tins-richtext-control.js';
 import { asyncFetchJSON, formatBytes, IMAGE_UPLOAD_SIZE_LIMIT, postOrThrow } from '../util.js';
@@ -16,17 +15,7 @@ import { TinsImageUpload } from '../components/tins-image-upload.js';
 import { TinsStatusHelper } from '../components/tins-status-helper.js';
 import { TinsInlineCountDown } from '../components/tins-inline-count-down.js';
 
-export class TinsEntry extends ScopedElementsMixin(LitElement) {
-
-	static get scopedElements() {
-		return {
-			'tins-richtext': TinsRichTextControl,
-			'tins-status-helper': TinsStatusHelper,
-			'tins-fa-icon': TinsFaIcon,
-			'tins-image-upload': TinsImageUpload,
-			'tins-inline-count-down': TinsInlineCountDown,
-		};
-	}
+export class TinsEntry extends LitElement {
 
 	static get properties() {
 		return {

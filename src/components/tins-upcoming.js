@@ -3,16 +3,8 @@ import { repeat } from 'lit-html/directives/repeat.js';
 import twitterIcon from '@fortawesome/fontawesome-free/svgs/brands/twitter.svg';
 import discordIcon from '@fortawesome/fontawesome-free/svgs/brands/discord.svg';
 import { StoreSubscriberMixin } from '../data/storeSubscriberMixin.js';
-import { TinsFaIcon } from './tins-fa-icon.js';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
  
-export class TinsUpcoming extends ScopedElementsMixin(StoreSubscriberMixin(LitElement)) {
-
-	static get scopedElements() {
-		return {
-			'tins-fa-icon': TinsFaIcon,
-		};
-	}
+export class TinsUpcoming extends StoreSubscriberMixin(LitElement) {
 
 	static get properties() {
 		return {

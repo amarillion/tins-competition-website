@@ -1,19 +1,11 @@
 import { LitElement, html, css } from 'lit';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
-import { TinsSpinner } from './tins-spinner.js';
 
-export class TinsStatusHelper extends ScopedElementsMixin(LitElement) {
+export class TinsStatusHelper extends LitElement {
 
 	static get properties() {
 		return {
 			error: { type: String },
 			loading: { type: Boolean }
-		};
-	}
-
-	static get scopedElements() {
-		return {
-			'tins-spinner': TinsSpinner
 		};
 	}
 

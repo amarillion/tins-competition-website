@@ -1,14 +1,7 @@
 import { LitElement, html, css } from 'lit';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { TinsFaIcon } from '../components/tins-fa-icon.js';
 
-export class TinsSupport extends ScopedElementsMixin(LitElement) {
-
-	static get scopedElements() {
-		return {
-			'tins-fa-icon': TinsFaIcon,
-		};
-	}
+export class TinsSupport extends LitElement {
 
 	render() {
 		return html`

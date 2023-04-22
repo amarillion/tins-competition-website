@@ -1,11 +1,10 @@
 import { LitElement, html, css } from 'lit';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { TinsSpinner } from '../components/tins-spinner.js';
 import { repeat } from 'lit-html/directives/repeat.js';
 import { asyncStateFlags, fetchJSONOrThrow, postOrThrow } from '../util.js';
 import { breadCrumbs } from '../breadcrumbs.js';
 
-export class TinsTeamManagement extends ScopedElementsMixin(LitElement) {
+export class TinsTeamManagement extends LitElement {
 
 	static get properties() {
 		return {
@@ -16,12 +15,6 @@ export class TinsTeamManagement extends ScopedElementsMixin(LitElement) {
 			pendingInvitations: { type: Array },
 			invitationOpen: { type: Boolean },
 			entrants: { type: Array },
-		};
-	}
-
-	static get scopedElements() {
-		return {
-			'tins-spinner': TinsSpinner
 		};
 	}
 

@@ -1,7 +1,6 @@
 import { LitElement, html, css } from 'lit';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
-export class TinsEntryThumbnail extends ScopedElementsMixin(LitElement) {
+export class TinsEntryThumbnail extends LitElement {
 
 	static get properties() {
 		return {

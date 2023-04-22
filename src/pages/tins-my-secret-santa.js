@@ -1,5 +1,4 @@
 import { LitElement, html, css } from 'lit';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
 import { TinsFrame } from '../components/tins-frame.js';
 import { TinsInlineCountDown } from '../components/tins-inline-count-down.js';
@@ -8,16 +7,7 @@ import { TinsStatusHelper } from '../components/tins-status-helper.js';
 import { TinsFaIcon } from '../components/tins-fa-icon.js';
 import sleighIcon from '@fortawesome/fontawesome-free/svgs/solid/sleigh.svg';
 
-export class TinsSecretSanta extends ScopedElementsMixin(LitElement) {
-
-	static get scopedElements() {
-		return {
-			'tins-frame': TinsFrame,
-			'tins-status-helper': TinsStatusHelper,
-			'tins-inline-count-down': TinsInlineCountDown,
-			'tins-fa-icon': TinsFaIcon
-		};
-	}
+export class TinsSecretSanta extends LitElement {
 
 	static get properties() {
 		return {

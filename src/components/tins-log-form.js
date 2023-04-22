@@ -1,7 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import infoIcon from '@fortawesome/fontawesome-free/svgs/solid/info-circle.svg';
 import { formatBytes, IMAGE_UPLOAD_SIZE_LIMIT } from '../util.js';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { TinsFaIcon } from './tins-fa-icon.js';
 
 export const spoilerExplanation = `\
@@ -16,13 +15,7 @@ Newlines are preserved.
 You can edit the text of your last post only.
 `;
 
-export class TinsLogForm extends ScopedElementsMixin(LitElement) {
-
-	static get scopedElements() {
-		return {
-			'tins-fa-icon': TinsFaIcon,
-		};
-	}
+export class TinsLogForm extends LitElement {
 
 	static get properties() {
 		return {

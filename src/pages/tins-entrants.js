@@ -1,5 +1,4 @@
 import { LitElement, html, css } from 'lit';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
 import { repeat } from 'lit-html/directives/repeat.js';
 import commentIcon from '@fortawesome/fontawesome-free/svgs/regular/comment.svg';
@@ -12,14 +11,7 @@ import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';
 import { renderRichText } from '../util.js';
 import { breadCrumbs } from '../breadcrumbs.js';
 
-export class TinsEntrants extends ScopedElementsMixin(LitElement) {
-
-	static get scopedElements() {
-		return {
-			'tins-status-helper': TinsStatusHelper,
-			'tins-fa-icon': TinsFaIcon,
-		};
-	}
+export class TinsEntrants extends LitElement {
 
 	static get properties() {
 		return {

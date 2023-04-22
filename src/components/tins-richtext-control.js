@@ -1,9 +1,8 @@
 import { LitElement, html, css } from 'lit';
 import { TinsSpinner } from './tins-spinner.js';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { TinsRichTextView } from './tins-richtext-view.js';
 
-export class TinsRichTextControl extends ScopedElementsMixin(LitElement) {
+export class TinsRichTextControl extends LitElement {
 
 	static get properties() {
 		return {
@@ -18,13 +17,6 @@ export class TinsRichTextControl extends ScopedElementsMixin(LitElement) {
 			safeText: { type: String },
 			unsafeText: { type: String },
 			submitCallback: { type: Function },
-		};
-	}
-
-	static get scopedElements() {
-		return {
-			'tins-spinner': TinsSpinner,
-			'tins-richtext-view': TinsRichTextView
 		};
 	}
 

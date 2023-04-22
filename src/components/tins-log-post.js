@@ -1,18 +1,10 @@
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { LitElement, html, css } from 'lit';
 import { TinsFaIcon } from './tins-fa-icon.js';
 import { TinsRichTextView } from './tins-richtext-view.js';
 import invisibleIcon from '@fortawesome/fontawesome-free/svgs/solid/eye-slash.svg';
 import { spoilerExplanation } from './tins-log-form.js';
 
-export class TinsLogPost extends ScopedElementsMixin(LitElement) {
-
-	static get scopedElements() {
-		return {
-			'tins-richtext-view': TinsRichTextView,
-			'tins-fa-icon': TinsFaIcon,
-		};
-	}
+export class TinsLogPost extends LitElement {
 
 	static get properties() {
 		return {

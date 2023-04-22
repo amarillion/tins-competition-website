@@ -1,5 +1,4 @@
 import { LitElement, html, css } from 'lit';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
 import { TinsRichTextControl } from '../components/tins-richtext-control.js';
 import { asyncStateFlags, fetchJSONOrThrow } from '../util.js';
@@ -10,16 +9,7 @@ import personIcon from '@fortawesome/fontawesome-free/svgs/solid/id-card.svg';
 import globeIcon from '@fortawesome/fontawesome-free/svgs/solid/globe-europe.svg';
 import { TinsFaIcon } from '../components/tins-fa-icon.js';
 
-export class TinsUser extends ScopedElementsMixin(LitElement) {
-
-	static get scopedElements() {
-		return {
-			'tins-richtext': TinsRichTextControl,
-			'tins-spinner': TinsSpinner,
-			'tins-entry-thumbnail': TinsEntryThumbnail,
-			'tins-fa-icon': TinsFaIcon,
-		};
-	}
+export class TinsUser extends LitElement {
 
 	static get properties() {
 		return {

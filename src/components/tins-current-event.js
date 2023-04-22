@@ -2,9 +2,6 @@ import { LitElement, html, css } from 'lit';
 import { StoreSubscriberMixin } from '../data/storeSubscriberMixin.js';
 import { asyncFetchJSON } from '../util.js';
 
-import { TinsCountDown } from './tins-count-down.js';
-customElements.define('tins-count-down', TinsCountDown);
-
 export class TinsCurrentEvent extends StoreSubscriberMixin(LitElement) {
 
 	static get properties() {

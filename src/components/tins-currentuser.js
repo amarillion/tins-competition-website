@@ -50,5 +50,3 @@ export class TinsCurrentUser extends StoreSubscriberMixin(LitElement) {
 	</p>`;
 	}
 }
-
-customElements.define('tins-currentuser', TinsCurrentUser);

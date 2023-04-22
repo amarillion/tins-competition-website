@@ -1,5 +1,4 @@
 import { LitElement, html, css } from 'lit';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
 import { asyncFetchJSON, postOrThrow } from '../util.js';
 import { TinsFaIcon } from '../components/tins-fa-icon.js';
@@ -7,16 +6,7 @@ import { TinsLogForm } from '../components/tins-log-form.js';
 import { TinsLogPost } from '../components/tins-log-post.js';
 import { TinsStatusHelper } from '../components/tins-status-helper.js';
 
-export class TinsLogEdit extends ScopedElementsMixin(LitElement) {
-
-	static get scopedElements() {
-		return {
-			'tins-log-post': TinsLogPost,
-			'tins-status-helper': TinsStatusHelper,
-			'tins-fa-icon': TinsFaIcon,
-			'tins-log-form': TinsLogForm,
-		};
-	}
+export class TinsLogEdit extends LitElement {
 
 	static get properties() {
 		return {
