@@ -2,7 +2,7 @@ import { LitElement, html, css } from 'lit';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { TinsSpinner } from '../components/tins-spinner.js';
 import { repeat } from 'lit-html/directives/repeat.js';
-import { asyncStateFlags, postOrThrow } from '../util.js';
+import { asyncStateFlags, fetchJSONOrThrow, postOrThrow } from '../util.js';
 
 export class TinsTeamManagement extends ScopedElementsMixin(LitElement) {
 
@@ -10,7 +10,11 @@ export class TinsTeamManagement extends ScopedElementsMixin(LitElement) {
 		return {
 			loading: { type: Boolean },
 			error: { type: String },
-			data: { type: Object }
+			entry: { type: Object },
+			invitations: { type: Array },
+			pendingInvitations: { type: Array },
+			invitationOpen: { type: Boolean },
+			entrants: { type: Array },
 		};
 	}
 
@@ -20,21 +24,18 @@ export class TinsTeamManagement extends ScopedElementsMixin(LitElement) {
 		};
 	}
 
-	set entry(value) {
-		this._entry = value;
-	}
-
 	constructor() {
 		super();
 		this.loading = false;
 		this.error = "";
 		this.invitationOpen = false;
 		this.entry = {};
+		this.invitations = [];
 	}
 
 	async openInvitation() {
-		const { competition } = this._entry;
-		const response = await fetch(`/api/v1/compo/${competition.short}/entrants`);
+		const { competition } = this.entry;
+		const response = await fetch(`/api/v1/compo/${competition.short}/entrants?simple=true`);
 		const data = await response.json();
 		
 		// TODO: filter self, filter invitees, filter team members
@@ -45,11 +46,13 @@ export class TinsTeamManagement extends ScopedElementsMixin(LitElement) {
 	async sendInvitation() {
 		const selectedRecipient = this.shadowRoot.querySelector('#invitee-select').value;
 		try {
-			await postOrThrow(`/api/v1/entry/${this._entry.id}/createInvitation`,
+			await postOrThrow(`/api/v1/invitation/create`,
 				JSON.stringify({ 
+					'entryId': this.entry.id,
 					'recipientEntrantId': selectedRecipient
 				})
 			);
+			this.refresh();
 		}
 		catch (e) {
 			//TODO: nicer error handling
@@ -59,24 +62,37 @@ export class TinsTeamManagement extends ScopedElementsMixin(LitElement) {
 		//TODO: trigger refresh of entry member list.
 	}
 
-	async onBeforeEnter(location, commands /*, router */) {
-		const compoId = location.params.compoId;
+	async onBeforeEnter(location /*, commands, router */) {
+		this.compoId = location.params.compoId;
+		await this.refresh();
+	}
 
+	async refresh() {
+		const compoId = this.compoId;
 		const data = await asyncStateFlags(
 			async () => {
+				const invitations = await fetchJSONOrThrow(`/api/v1/invitation/byCompo/${compoId}`);
 				const response = await postOrThrow(`/api/v1/compo/${compoId}/myEntry`, '');
-				return response.json();
+				const myEntry = await response.json();
+				const { entryId } = myEntry;
+				const entry = await fetchJSONOrThrow(`/api/v1/entry/${entryId}/`, '');
+				return { invitations, entry };
 			}, this
 		);
 
-		if (!data) {
-			this.error = { msg: 'Could not get or create your entry' };
+		if (data) {
+			this.entry = data.entry;
+			this.invitations = data.invitations.toMe;
+			this.pendingInvitations = data.invitations.fromMe;
+		}
+		else {
+			this.error = { msg: 'Could not get or team management data' };
 		}
 	}
 
 	renderInvitation() {
 		if (!this.invitationOpen) {
-			return html`<div><button @click="${() => this.openInvitation()}">Invite team members</button></div>`;
+			return html`<div><button @click="${() => this.openInvitation()}">Invite somebody else</button></div>`;
 		}
 		else {
 			return html`
@@ -89,18 +105,45 @@ export class TinsTeamManagement extends ScopedElementsMixin(LitElement) {
 		}
 	}
 
-	renderPending() {
-		const pendingInvitations = this.entry;
-		return this.pendingInvitations ? html`Pending invitations: ${repeat(
-			pendingInvitations, 
+	renderWaiting() {
+		return this.invitations ? html`${repeat(
+			this.invitations, 
 			e => e.id, 
-			e => html`${e.name}`
-		)}` : '';
+			e => html`<p>You've been invited to join the team of ${e.senderName}. 
+			Do you <button @click=${() => this.resolve(e, true)}>Accept</button> 
+			or <button @click=${() => this.resolve(e, false)}>Reject</button>?</p>`
+		)}</p>` : '';
+	}
+
+	async resolve(invitation, isAccept) {
+		await postOrThrow(`/api/v1/invitation/id/${invitation.id}/resolve`, JSON.stringify({ resolution: isAccept ? 'accept' : 'reject' }));
+		this.refresh();
+	}
+
+	renderPending() {
+		const pendingInvitations = this.pendingInvitations;
+		return (pendingInvitations && pendingInvitations.length > 0) ? html`<p>Pending invitations (waiting to be accepted):<ul>${repeat(
+			pendingInvitations, 
+			e => e.recipientEntrantId, 
+			e => html`<li>${e.recipientName}`
+		)}</ul></p>` : '';
+	}
+
+	renderMembers() {
+		const { entrants } = this.entry;
+		return html`<p>Your current team:<ol>${repeat(
+			entrants, 
+			e => e.id, 
+			e => html`<li>${e.name}`
+		)}</ol>${entrants.length === 1 ? `(You're all by yourself)` : ''}</p>`;
 	}
 
 	renderContents() {
-		return html`${this.pendingInvitations} ${this.renderInvitation()}`;
-
+		return html`
+			${this.renderMembers()}
+			${this.renderWaiting()}
+			${this.renderInvitation()}
+			${this.renderPending()}`;
 	}
 
 	render() {
