@@ -86,15 +86,25 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 			</p>`;
 	}
 
-	renderInvitation() {
-		if (!this.entry.editable) return '';
-		const { competition } = this.entry;
-		return html`<a href="/${competition.short}/team">Manage Team</a>`;
+	renderAuthorBox() {
+		const { competition, entrants, logCounts } = this.entry;
+		return html`<p class="authorbox">
+		Event: <a href="/${competition.short}" router-ignore>${competition.title}</a><br>
+		${this.entry.editable ? 
+			html`<div class="floatright"><a href="/${competition.short}/team">Manage Team</a></div>` 
+			: ''
+		}
+		Game by: ${repeat(
+			entrants, 
+			e => e.id, 
+			e => html`${e.name} <a href='${competition.short}/log/entrant/${e.id}'>log (${logCounts[e.id]})</a> `
+		)}
+	</p>`;
 	}
 
 	renderContents() {
 		if (this.loading) return;
-		const { entrants, tags, competition, logCounts, id, 
+		const { tags, competition, id, 
 			imagefile, editable, text, lastSubmission, reviewCount } = this.entry;
 		const title = (this.entry && this.entry.title) || 'Untitled';
 		return html`
@@ -103,16 +113,7 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 			</div>
 
 			<h1><tins-fa-icon src="${gamepadIcon}" size="2rem"></tins-fa-icon> ${title}</h1>
-			
-			<p class="authorbox">
-				Event: <a href="/${competition.short}" router-ignore>${competition.title}</a><br>
-				Game by: ${repeat(
-			entrants, 
-			e => e.id, 
-			e => html`${e.name} <a href='${competition.short}/log/entrant/${e.id}'>log (${logCounts[e.id]})</a>`
-		)}
-			</p>
-
+			${this.renderAuthorBox()}
 			${this.renderUploadBox()}
 
 			${imagefile ? html`<img src="/upload/${imagefile}"/>` : html`<hr>`}

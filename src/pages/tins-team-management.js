@@ -2,7 +2,7 @@ import { LitElement, html, css } from 'lit';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { TinsSpinner } from '../components/tins-spinner.js';
 import { repeat } from 'lit-html/directives/repeat.js';
-import { asyncFetchJSON, asyncStateFlags, fetchJSONOrThrow, postOrThrow } from '../util.js';
+import { asyncStateFlags, fetchJSONOrThrow, postOrThrow } from '../util.js';
 
 export class TinsTeamManagement extends ScopedElementsMixin(LitElement) {
 
