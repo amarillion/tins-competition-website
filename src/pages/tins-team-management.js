@@ -2,7 +2,7 @@ import { LitElement, html, css } from 'lit';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { TinsSpinner } from '../components/tins-spinner.js';
 import { repeat } from 'lit-html/directives/repeat.js';
-import { asyncStateFlags, fetchJSONOrThrow, postOrThrow } from '../util.js';
+import { asyncFetchJSON, asyncStateFlags, fetchJSONOrThrow, postOrThrow } from '../util.js';
 
 export class TinsTeamManagement extends ScopedElementsMixin(LitElement) {
 
@@ -120,6 +120,20 @@ export class TinsTeamManagement extends ScopedElementsMixin(LitElement) {
 		this.refresh();
 	}
 
+	async leaveTeam() {
+		if (window.confirm("Are you sure you want to leave this team and go by yourself?")) {
+			const compoId = this.compoId;
+			try {
+				const data = await fetchJSONOrThrow(`/api/v1/compo/${compoId}/currentEntrant`);
+				await postOrThrow(`/api/v1/removeTeamMember/${data.entrantId}`, '');
+				this.refresh();
+			}
+			catch(e) {
+				alert(`${e}`);
+			}
+		}
+	}
+
 	renderPending() {
 		const pendingInvitations = this.pendingInvitations;
 		return (pendingInvitations && pendingInvitations.length > 0) ? html`<p>Pending invitations (waiting to be accepted):<ul>${repeat(
@@ -135,7 +149,9 @@ export class TinsTeamManagement extends ScopedElementsMixin(LitElement) {
 			entrants, 
 			e => e.id, 
 			e => html`<li>${e.name}`
-		)}</ol>${entrants.length === 1 ? `(You're all by yourself)` : ''}</p>`;
+		)}</ol>${entrants.length === 1 ? 
+			`(You're all by yourself)` : 
+			html`<button @click=${() => this.leaveTeam()}>Leave team</button>`}</p>`;
 	}
 
 	renderContents() {
