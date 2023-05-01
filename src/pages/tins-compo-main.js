@@ -14,6 +14,7 @@ import liveIcon from '@fortawesome/fontawesome-free/svgs/solid/heartbeat.svg';
 import { TinsCountDown } from '../components/tins-count-down.js';
 import { asyncFetchJSON } from '../util.js';
 import { TinsStatusHelper } from '../components/tins-status-helper.js';
+import { breadCrumbs } from '../breadcrumbs.js';
 
 export class TinsCompoMain extends ScopedElementsMixin(LitElement) {
 
@@ -164,8 +165,14 @@ export class TinsCompoMain extends ScopedElementsMixin(LitElement) {
 		`;
 	}
 
+	renderBreadCrumbs() {
+		const compoId = this.location.params.compoId;
+		return breadCrumbs({ title: compoId });
+	}
+
 	render() {
-		return html`<tins-status-helper 
+		return html`${this.renderBreadCrumbs()}
+			<tins-status-helper 
 				error="${this.error}" ?loading=${this.loading}
 			>${this.renderContents()}</tins-status-helper>`;
 	}

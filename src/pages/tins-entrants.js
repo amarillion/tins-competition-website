@@ -10,6 +10,7 @@ import { TinsStatusHelper } from '../components/tins-status-helper.js';
 import { asyncFetchJSON } from '../util.js';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';
 import { renderRichText } from '../util.js';
+import { breadCrumbs } from '../breadcrumbs.js';
 
 export class TinsEntrants extends ScopedElementsMixin(LitElement) {
 
@@ -74,10 +75,17 @@ export class TinsEntrants extends ScopedElementsMixin(LitElement) {
 		${repeat(entrants, e => e.entrantId, e => this.renderEntrant(e, compoId))}
 		`;
 	}
-
+	
+	renderBreadCrumbs() {
+		const compoId = this.location.params.compoId;
+		return breadCrumbs(
+			{ url: `/${compoId}/`, title: compoId },
+			{ title: 'entrants' }
+		);
+	}
 
 	render() {
-		return html`<tins-status-helper 
+		return html`${this.renderBreadCrumbs()}<tins-status-helper 
 				error="${this.error}" ?loading=${this.loading}
 			>${this.renderContents()}</tins-status-helper>`;
 	}

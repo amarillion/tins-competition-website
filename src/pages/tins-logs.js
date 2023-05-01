@@ -11,6 +11,7 @@ import { canPostSelector } from '../data/currentEvent.js';
 import { currentUserSelector } from '../data/currentUser.js';
 import { StoreSubscriberMixin } from '../data/storeSubscriberMixin.js';
 import { TinsStatusHelper } from '../components/tins-status-helper.js';
+import { breadCrumbs } from '../breadcrumbs.js';
 
 export class TinsLogs extends StoreSubscriberMixin(ScopedElementsMixin(LitElement)) {
 
@@ -150,8 +151,17 @@ export class TinsLogs extends StoreSubscriberMixin(ScopedElementsMixin(LitElemen
 		`;
 	}
 
+	renderBreadCrumbs() {
+		const compoId = this.location.params.compoId;
+		return breadCrumbs(
+			{ url: `/${compoId}/`, title: compoId },
+			{ title: 'log' }
+		);
+	}
+
 	render() {
-		return html`<tins-status-helper 
+		return html`${this.renderBreadCrumbs()}
+<tins-status-helper 
 				error="${this.error}" ?loading=${this.loading}
 			>${this.renderContents()}</tins-status-helper>`;
 	}

@@ -5,6 +5,7 @@ import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { TinsSpinner } from '../components/tins-spinner.js';
 import { TinsFaIcon } from '../components/tins-fa-icon.js';
 import { asyncFetchJSON } from '../util.js';
+import { breadCrumbs } from '../breadcrumbs.js';
 
 export class TinsRules extends ScopedElementsMixin(LitElement) {
 
@@ -45,8 +46,17 @@ export class TinsRules extends ScopedElementsMixin(LitElement) {
 		return html`${unsafeHTML(rules)}`;
 	}
 
+	renderBreadCrumbs() {
+		const compoId = this.location.params.compoId;
+		return breadCrumbs(
+			{ url: `/${compoId}/`, title: compoId },
+			{ title: 'rules' }
+		);
+	}
+
 	render() {
-		return html`<tins-status-helper 
+		return html`${this.renderBreadCrumbs()}
+<tins-status-helper 
 				error="${this.error}" ?loading=${this.loading}
 			>${this.renderContents()}</tins-status-helper>`;
 	}

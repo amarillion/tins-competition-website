@@ -3,6 +3,7 @@ import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { TinsSpinner } from '../components/tins-spinner.js';
 import { repeat } from 'lit-html/directives/repeat.js';
 import { asyncStateFlags, fetchJSONOrThrow, postOrThrow } from '../util.js';
+import { breadCrumbs } from '../breadcrumbs.js';
 
 export class TinsTeamManagement extends ScopedElementsMixin(LitElement) {
 
@@ -162,8 +163,17 @@ export class TinsTeamManagement extends ScopedElementsMixin(LitElement) {
 			${this.renderPending()}`;
 	}
 
+	renderBreadCrumbs() {
+		const compoId = this.location.params.compoId;
+		return breadCrumbs(
+			{ url: `/${compoId}/`, title: compoId },
+			{ title: 'Team Management' }
+		);
+	}
+
 	render() {
-		return html`<tins-status-helper 
+		return html`${this.renderBreadCrumbs()}
+<tins-status-helper 
 				error="${this.error}" ?loading=${this.loading}
 			>${this.renderContents()}</tins-status-helper>`;
 	}
