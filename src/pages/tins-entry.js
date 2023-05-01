@@ -144,6 +144,11 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 			:host {
 			}
 
+			a 			{ font-weight: bold; text-decoration: none; }
+			a:link 		{ color: #600; }
+			a:hover 	{ text-decoration: underline; }
+			a:active 	{ text-decoration: underline; }
+
 			.authorbox {
 				color: grey;
 			}

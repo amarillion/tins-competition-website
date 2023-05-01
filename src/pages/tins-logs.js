@@ -171,6 +171,11 @@ export class TinsLogs extends StoreSubscriberMixin(ScopedElementsMixin(LitElemen
 			:host {
 			}
 
+			a 			{ font-weight: bold; text-decoration: none; }
+			a:link 		{ color: #600; }
+			a:hover 	{ text-decoration: underline; }
+			a:active 	{ text-decoration: underline; }
+
 			.error {
 				width: 100%;
 				color: red;

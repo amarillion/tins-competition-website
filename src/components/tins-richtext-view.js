@@ -21,6 +21,11 @@ export class TinsRichTextView extends ScopedElementsMixin(LitElement) {
 			display: block; // solves text selection issues
 		}
 
+		a 			{ font-weight: bold; text-decoration: none; }
+		a:link 		{ color: #600; }
+		a:hover 	{ text-decoration: underline; }
+		a:active 	{ text-decoration: underline; }
+
 		.video-container {
 			position: relative;
 			width: 100%;
@@ -38,6 +43,10 @@ export class TinsRichTextView extends ScopedElementsMixin(LitElement) {
 
 		img {
 			max-width: 100%;
+		}
+
+		pre {
+			white-space: pre-wrap;
 		}
 		`;
 	}
