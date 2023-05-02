@@ -71,6 +71,12 @@ const FAQ = [
 	I recommend you explicitly attach a license to your code, so that the terms of use are clear and will remain clear in the future. You may choose yourself which license to use, for example the GPL or the more liberal allegro license.	
 	</p>`
 	}, {
+		question: "Q: I'm using Unity. How do I share my sources? My project folder is huge!",
+		answer: `A basic solution for sharing sources of a Unity project, 
+		you can share the files that are left over after excluding files listed in this <a href="https://github.com/github/gitignore/blob/master/Unity.gitignore">Unity .gitignore</a>. 
+		That should give you all the files you need to recover the project (with minimal junk), 
+		assuming that one has the correct version of the Unity editor installed.`
+	}, {
 		question: "Q: How do I review games if I only get the source code? Am I expected to compile all entries from scratch?",
 		answer: `
 	<p>
@@ -116,8 +122,8 @@ const FAQ = [
 	}, {
 		question: "Q: Are teams allowed?",
 		answer: `<p>
-	Yes, although the registration system is not designed for this - I suggest that you all sign up
-	but mention in the info field who you are going to team up with.
+	Yes! I recommend that all team members register and join the competition.
+	Once the competition start, you can find a team management button on your entry page.
 	</p>`
 	}, {
 		question: "Q: I've participated in TINS/KrampuHack/SpeedHack before, but I never come up with any good ideas...",
