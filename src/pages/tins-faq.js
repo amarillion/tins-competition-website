@@ -135,7 +135,8 @@ const FAQ = [
 	the additional rules without too much modification.
 	</p>`
 	}, 
-]
+];
+
 export class TinsFaq extends ScopedElementsMixin(LitElement) {
 
 	render() {
