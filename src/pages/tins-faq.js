@@ -38,27 +38,18 @@ const FAQ = [
 	}, {
 		question: "Q: Can I reuse code for TINS?",
 		answer: `<p>
-	Sure. Code reuse is an essential hacking skill. You can use any code that you are legally able to do so (your own, GPLed, giftware, public domain or any other Free Software licence). But it must be available for others too, see question below.
+	Sure. Code reuse is an essential hacking skill. You can use any code that you are legally able to do so (your own, GPLed, giftware, public domain or any other Free Software licence). But, to ensure a level playing field and help newbies, we have an additional requirement:
 	</p>
 	<p>
-	I would ask you to indicate what changes that have been made to the code, so that I (and others) can judge your hack on it's merits.
-	</p>
-	<p>`
-	}, {
-		question: "Q: How do you differentiate between code reuse and cheating by starting early?",
-		answer: `<p>
-	There have been a lot of questions about where exactly lies the border between proper re-use and cheating. 
-	Therefore, the rule is:
+	<i>You may only reuse your own code if it is publicly available before the start of the competition.</i>
 	</p>
 	<p>
-	<i>You may only reuse your own code if that is available online at least two weeks before the start of the competition.
-	</i>
+	A simple way to adhere to this rule is to open a github repo, and stick all the code that you want to reuse on there.
 	</p>
 	<p>
-	This will ensure that nobody can get a clear advantage by reusing large parts of code that they just wrote before the competition.
-	Note that this rule applies to code that you wrote yourself. For libraries and tools, 
-	you can simply use the latest version that's available online, no need to chase down a two-week old version.
-	</p>`
+	If you re-use a lot of code, I would ask you to indicate what changes that have been made, so that everyone can judge your hack on its merits.
+	</p>
+	`
 	}, {
 		question: "Q: Do I have to supply the source? I'm worried about people stealing my work!",
 		answer: `<p>
