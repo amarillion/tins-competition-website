@@ -48,6 +48,17 @@ router.setRoutes([{
 	path: '/',
 	component: 'tins-frame',
 	children: [ 
+
+		// special exclusion - these routes are served by original multi-page django application
+		// special exclusion added because results pages link to these reviews
+		{
+			path: '/:compoId/reviews/entry/(.*)',
+			action: (ctx, commands) => {
+				console.log("Explicitly ignored by vaadin configuration");
+				window.location.pathname = ctx.pathname;
+			}
+		},
+
 		{ path: '/news', component: 'tins-newspage' },
 		{ path: '/news/:newsId', component: 'tins-newspage' },
 		{ path: '/faq', component: 'tins-faq' },
