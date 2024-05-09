@@ -17,11 +17,13 @@ export class TinsSupport extends ScopedElementsMixin(LitElement) {
 
 	<h3>Buy T-shirts and more...</h3>
 
-	<p>Did you fail to win a T-shirt? You can now buy one! Just head over to the <a href="https://tins-is-not-speedhack.creator-spring.com">TINS store</a>.</p>
+	<p>Buy your own unique TINS T-shirt! Just head over to the <a href="https://tins-is-not-speedhack.myspreadshop.nl/">TINS store</a>.</p>
 	
-	<a href="https://tins-is-not-speedhack.creator-spring.com"><img src="./static/store.png" alt="Sample products from the TINS store"></a>
+	<a href="https://tins-is-not-speedhack.myspreadshop.nl/"><img src="./static/store.png" alt="Sample products from the TINS store"></a>
 	
 	<p>All profits go towards the organization of future TINS events.</p>
+
+	<p>You can find some more cool designs in the special <a href="https://clubcatt.com/collections/krampushack-2023-collection">clubcatt Krampus 2023 collection</a></p>
 
 	<h3>Donations</h3>
 
@@ -29,12 +31,6 @@ export class TinsSupport extends ScopedElementsMixin(LitElement) {
 	Then why not donate and support the event financially?
 	</p>
 
-	<h4>Periodic donations</h4>
-	<p>
-	If you want to set up a periodic donation, use my <tins-fa-icon src="${patreonIcon}" size="1rem"></tins-fa-icon> <a href="https://www.patreon.com/tins_competition">patreon page</a>.
-	</p>
-
-	<h4>One-off donations</h4>
 	<p>
 	Suggested donation: <b>€10.00</b>
 	</p>
@@ -49,12 +45,9 @@ export class TinsSupport extends ScopedElementsMixin(LitElement) {
 
 	<h3>What will your money be used for?</h3>
 
-	<p>Donations will be used to make the TINS events even more spectacular! Here is what I plan to use the money for:
-	<ul>
-	<li>Upgrade the server so I can increase upload size limits
-	<li>Award prizes to the winners of future events.
-	</ul>
-	These additions will make the event more attractive and popular, thus helping the allegro community in general.
+	<p>
+	Donations will go towards hosting costs. Money really helps to keep this server running ;-)
+	</p>
 	<p>
 	Only donate what you can easily miss yourself.
 	I promise that the TINS events will always remain free and open for everybody.
