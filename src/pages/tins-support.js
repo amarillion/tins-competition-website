@@ -1,7 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { TinsFaIcon } from '../components/tins-fa-icon.js';
-import patreonIcon from '@fortawesome/fontawesome-free/svgs/brands/patreon.svg';
 
 export class TinsSupport extends ScopedElementsMixin(LitElement) {
 

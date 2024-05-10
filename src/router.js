@@ -53,7 +53,7 @@ router.setRoutes([{
 		// special exclusion added because results pages link to these reviews
 		{
 			path: '/:compoId/reviews/entry/(.*)',
-			action: (ctx, commands) => {
+			action: (ctx, /* commands */) => {
 				console.log("Explicitly ignored by vaadin configuration");
 				window.location.pathname = ctx.pathname;
 			}
