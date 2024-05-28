@@ -16,9 +16,9 @@ export class TinsSupport extends ScopedElementsMixin(LitElement) {
 
 	<h3>Buy T-shirts and more...</h3>
 
-	<p>Buy your own unique TINS T-shirt! Just head over to the <a href="https://clubcatt.com/tins">Official TINS Collection on Clubcatt.com</a>.</p>
+	<p>Buy your own unique TINS T-shirt! Just head over to the <a href="https://clubcatt.com/tins">Official TINS Collection on clubcatt.com</a>.</p>
 	
-	<a href="https://clubcatt.com/tins/"><img src="./static/store.png" alt="Sample products from the TINS store"></a>
+	<a href="https://clubcatt.com/tins/"><img src="./static/store.png" alt="T-shirts for TINS Hackathon"></a>
 	
 	<p>With your purchase, you contribute towards the organization of future TINS events.</p>
 
