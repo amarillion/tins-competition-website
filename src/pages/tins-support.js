@@ -16,13 +16,13 @@ export class TinsSupport extends ScopedElementsMixin(LitElement) {
 
 	<h3>Buy T-shirts and more...</h3>
 
-	<p>Buy your own unique TINS T-shirt! Just head over to the <a href="https://tins-is-not-speedhack.myspreadshop.nl/">TINS store</a>.</p>
+	<p>Buy your own unique TINS T-shirt! Just head over to the <a href="https://clubcatt.com/tins">Official TINS Collection on Clubcatt.com</a>.</p>
 	
-	<a href="https://tins-is-not-speedhack.myspreadshop.nl/"><img src="./static/store.png" alt="Sample products from the TINS store"></a>
+	<a href="https://clubcatt.com/tins/"><img src="./static/store.png" alt="Sample products from the TINS store"></a>
 	
-	<p>All profits go towards the organization of future TINS events.</p>
+	<p>With your purchase, you contribute towards the organization of future TINS events.</p>
 
-	<p>You can find some more cool designs in the special <a href="https://clubcatt.com/collections/krampushack-2023-collection">clubcatt Krampus 2023 collection</a></p>
+	<p>Some more cool designs are still available at the <a href="https://tins-is-not-speedhack.myspreadshop.nl/">old TINS store</a></p>
 
 	<h3>Donations</h3>
 
@@ -58,6 +58,10 @@ export class TinsSupport extends ScopedElementsMixin(LitElement) {
 		return css`
 			:host {
 				display: block; // solves text selection issues
+			}
+
+			img {
+				max-width: 100%;
 			}
 
 			a 			{ font-weight: bold; text-decoration: none; }
