@@ -5,7 +5,12 @@ import { TinsRichTextControl } from '../components/tins-richtext-control.js';
 import { asyncFetchJSON, formatBytes, IMAGE_UPLOAD_SIZE_LIMIT, postOrThrow } from '../util.js';
 import { repeat } from 'lit-html/directives/repeat.js';
 import gamepadIcon from '@fortawesome/fontawesome-free/svgs/solid/gamepad.svg';
-import downloadIcon from '@fortawesome/fontawesome-free/svgs/solid/download.svg';
+import downloadIcon from '@fortawesome/fontawesome-free/svgs/solid/paperclip.svg';
+import sourceIcon from '@fortawesome/fontawesome-free/svgs/brands/osi.svg';
+import windowsIcon from '@fortawesome/fontawesome-free/svgs/brands/windows.svg';
+import linuxIcon from '@fortawesome/fontawesome-free/svgs/brands/linux.svg';
+import macIcon from '@fortawesome/fontawesome-free/svgs/brands/apple.svg';
+
 import { TinsFaIcon } from '../components/tins-fa-icon.js';
 import { TinsImageUpload } from '../components/tins-image-upload.js';
 import { TinsStatusHelper } from '../components/tins-status-helper.js';
@@ -102,10 +107,58 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 	</p>`;
 	}
 
+	renderSingleUpload(u) {
+		const getFileName = (url) => url.split('/').pop();
+		const formatUploadTime = (time) => Intl.DateTimeFormat("en", {
+			weekday: 'short',
+			hour: '2-digit',
+			minute: '2-digit',
+		}).format(new Date(time));
+		return html`<tr>
+			<td><tins-fa-icon src="${downloadIcon}" color="gray" size="2rem"></tins-fa-icon></td>
+			<td><a href="/upload/${u.url}" router-ignore>${getFileName(u.url)}</a></td>
+			<td>${formatBytes(u.size)}</td>
+			<td>${formatUploadTime(u.time)}</td>
+			<td>${u.tags ? this.renderTags(u.tags) : ''}</td>
+		</tr>`;
+	}
+
+	renderUploads(uploads) {
+		const preDeadline = uploads.filter(u => !u.postCompo);
+		const postDeadline = uploads.filter(u => u.postCompo);
+		return html`
+		<table class="uploadgrid" border=1 frame=void rules=rows>
+			${repeat(preDeadline.slice(0, 4), u => this.renderSingleUpload(u))}
+			${postDeadline.length > 0 ? html`
+				<td colspan="6" style="background: white;"><h4>Post competition additions:</h4></td>
+				${repeat(postDeadline.slice(0, 4), u => this.renderSingleUpload(u))}
+			` : ''}
+		</table>`;
+	}
+
+	renderTags(tags) {
+		console.log("renderTags: ", tags);
+		tags.sort();
+		const icons = {
+			hasSource: sourceIcon,
+			hasWindows: windowsIcon,
+			hasLinux: linuxIcon,
+			hasMac: macIcon,
+		};
+		const titles = {
+			hasSource: 'Source included',
+			hasWindows: 'Windows Binary',
+			hasLinux: 'Linux Binary',
+			hasMac: 'Mac Binary',
+		};
+		return repeat(tags, t => html`<tins-fa-icon src="${icons[t]}" title="${titles[t]}"></tins-fa-icon>`);
+	}
+
 	renderContents() {
 		if (this.loading) return;
 		const { tags, competition, id, 
-			imagefile, editable, text, lastSubmission, reviewCount } = this.entry;
+			imagefile, editable, text, uploads, reviewCount } = this.entry;
+		
 		const title = (this.entry && this.entry.title) || 'Untitled';
 		return html`
 			<div class="floatright">
@@ -122,12 +175,13 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 			<p>
 				<tins-richtext class="richtext" .submitCallback=${(data) => this.submitText(data)} ?readOnly=${!editable} text="${text}"></tins-richtext>
 			</p>
-			${lastSubmission ? html`
-			<div class="downloadbox">
-				<tins-fa-icon src="${downloadIcon}" color="gray" size="2rem"></tins-fa-icon>
-				<a href="/upload/${lastSubmission.url}" router-ignore>${title}<a>
-				${formatBytes(lastSubmission.size)}
-			</div>` : ''}
+			${(uploads && uploads.length > 0) ? html`
+				<h3>Uploaded files:</h3>
+				<div class="downloadbox">
+					${this.renderUploads(uploads)}
+				</div>
+				` : ''}
+
 			<p><a href="/${competition.short}/reviews/entry/${id}/" router-ignore>Reviews (${reviewCount})</a>
 		`;
 	}
@@ -155,8 +209,6 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 
 			.downloadbox {
 				background: lightgrey;
-				border: 2px dashed grey;
-				padding: 10px;
 			}
 	
 			.edit-image {
@@ -179,6 +231,12 @@ export class TinsEntry extends ScopedElementsMixin(LitElement) {
 
 			img {
 				max-width: 100%;
+			}
+
+			table {
+				width: 100%;
+				border-top: 1px solid black;
+				border-bottom: 1px solid black;
 			}
 		`;
 	}
