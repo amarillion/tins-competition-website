@@ -18,7 +18,7 @@ export class TinsRichTextView extends ScopedElementsMixin(LitElement) {
 	static get styles() {
 		return css`
 		:host {
-			display: block; // solves text selection issues
+			display: block; /* solves text selection issues */
 		}
 
 		a 			{ font-weight: bold; text-decoration: none; }
