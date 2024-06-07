@@ -1,6 +1,4 @@
 import { LitElement, html, css } from 'lit';
-import { TinsCurrentEvent } from '../components/tins-current-event.js';
-import { TinsFaIcon } from '../components/tins-fa-icon.js';
 
 import calendarIcon from '@fortawesome/fontawesome-free/svgs/solid/calendar-alt.svg';
 import joinIcon from '@fortawesome/fontawesome-free/svgs/regular/hand-point-right.svg';
@@ -10,9 +8,7 @@ import gamepadIcon from '@fortawesome/fontawesome-free/svgs/solid/gamepad.svg';
 import voteIcon from '@fortawesome/fontawesome-free/svgs/solid/vote-yea.svg';
 import trophyIcon from '@fortawesome/fontawesome-free/svgs/solid/trophy.svg';
 import liveIcon from '@fortawesome/fontawesome-free/svgs/solid/heartbeat.svg';
-import { TinsCountDown } from '../components/tins-count-down.js';
 import { asyncFetchJSON } from '../util.js';
-import { TinsStatusHelper } from '../components/tins-status-helper.js';
 import { breadCrumbs } from '../breadcrumbs.js';
 
 export class TinsCompoMain extends LitElement {

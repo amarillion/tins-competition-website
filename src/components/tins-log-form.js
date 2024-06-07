@@ -1,7 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import infoIcon from '@fortawesome/fontawesome-free/svgs/solid/info-circle.svg';
 import { formatBytes, IMAGE_UPLOAD_SIZE_LIMIT } from '../util.js';
-import { TinsFaIcon } from './tins-fa-icon.js';
 
 export const spoilerExplanation = `\
 Posts marked spoiler will be hidden from the public until the competition is over. 

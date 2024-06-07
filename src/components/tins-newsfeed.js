@@ -1,7 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { repeat } from 'lit-html/directives/repeat.js';
 import { asyncFetchJSON } from '../util.js';
-import { TinsRichTextView } from './tins-richtext-view.js';
 
 export class TinsNewsFeed extends LitElement {
 

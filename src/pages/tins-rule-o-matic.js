@@ -1,9 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
 
-import { TinsSpinner } from '../components/tins-spinner.js';
-import { TinsFaIcon } from '../components/tins-fa-icon.js';
 import { asyncFetchJSON, postOrThrow } from '../util.js';
-import { TinsRange } from '../components/tins-range.js';
 import infoIcon from '@fortawesome/fontawesome-free/svgs/solid/info-circle.svg';
 import thumbsUpIcon from '@fortawesome/fontawesome-free/svgs/solid/thumbs-up.svg';
 import thumbsDownIcon from '@fortawesome/fontawesome-free/svgs/solid/thumbs-down.svg';

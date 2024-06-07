@@ -1,10 +1,6 @@
 import { LitElement, html, css } from 'lit';
 
 import { asyncFetchJSON, postOrThrow } from '../util.js';
-import { TinsFaIcon } from '../components/tins-fa-icon.js';
-import { TinsLogForm } from '../components/tins-log-form.js';
-import { TinsLogPost } from '../components/tins-log-post.js';
-import { TinsStatusHelper } from '../components/tins-status-helper.js';
 
 export class TinsLogEdit extends LitElement {
 

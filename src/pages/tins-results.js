@@ -1,8 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';
 
-import { TinsSpinner } from '../components/tins-spinner.js';
-import { TinsFaIcon } from '../components/tins-fa-icon.js';
 import { asyncFetchJSON } from '../util.js';
 import { breadCrumbs } from '../breadcrumbs.js';
 

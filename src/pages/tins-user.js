@@ -1,13 +1,9 @@
 import { LitElement, html, css } from 'lit';
 
-import { TinsRichTextControl } from '../components/tins-richtext-control.js';
 import { asyncStateFlags, fetchJSONOrThrow } from '../util.js';
 import { repeat } from 'lit-html/directives/repeat.js';
-import { TinsSpinner } from '../components/tins-spinner.js';
-import { TinsEntryThumbnail } from '../components/tins-entry-thumbnail.js';
 import personIcon from '@fortawesome/fontawesome-free/svgs/solid/id-card.svg';
 import globeIcon from '@fortawesome/fontawesome-free/svgs/solid/globe-europe.svg';
-import { TinsFaIcon } from '../components/tins-fa-icon.js';
 
 export class TinsUser extends LitElement {
 

@@ -1,10 +1,6 @@
 import { LitElement, html, css } from 'lit';
 
-import { TinsFrame } from '../components/tins-frame.js';
-import { TinsInlineCountDown } from '../components/tins-inline-count-down.js';
 import { registerEventListener, asyncFetchJSON } from '../util.js';
-import { TinsStatusHelper } from '../components/tins-status-helper.js';
-import { TinsFaIcon } from '../components/tins-fa-icon.js';
 import sleighIcon from '@fortawesome/fontawesome-free/svgs/solid/sleigh.svg';
 
 export class TinsSecretSanta extends LitElement {

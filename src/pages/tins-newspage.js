@@ -1,9 +1,5 @@
 import { LitElement, html, css } from 'lit';
 
-import { TinsUpcoming } from '../components/tins-upcoming.js';
-import { TinsCurrentEvent } from '../components/tins-current-event.js';
-import { TinsNewsFeed } from '../components/tins-newsfeed.js';
-
 export class TinsNewsPage extends LitElement {
 
 	constructor() {

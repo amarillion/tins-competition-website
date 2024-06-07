@@ -4,8 +4,6 @@ import { repeat } from 'lit-html/directives/repeat.js';
 import commentIcon from '@fortawesome/fontawesome-free/svgs/regular/comment.svg';
 import gamepadIcon from '@fortawesome/fontawesome-free/svgs/solid/gamepad.svg';
 import reviewIcon from '@fortawesome/fontawesome-free/svgs/solid/vote-yea.svg';
-import { TinsFaIcon } from '../components/tins-fa-icon.js';
-import { TinsStatusHelper } from '../components/tins-status-helper.js';
 import { asyncFetchJSON } from '../util.js';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';
 import { renderRichText } from '../util.js';

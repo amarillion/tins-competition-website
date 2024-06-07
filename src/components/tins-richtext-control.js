@@ -1,6 +1,4 @@
 import { LitElement, html, css } from 'lit';
-import { TinsSpinner } from './tins-spinner.js';
-import { TinsRichTextView } from './tins-richtext-view.js';
 
 export class TinsRichTextControl extends LitElement {
 

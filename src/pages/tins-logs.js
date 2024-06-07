@@ -1,15 +1,10 @@
 import { LitElement, html, css } from 'lit';
 
-import { TinsRichTextView } from '../components/tins-richtext-view.js';
 import { asyncFetchJSON, postOrThrow } from '../util.js';
 import { repeat } from 'lit-html/directives/repeat.js';
-import { TinsFaIcon } from '../components/tins-fa-icon.js';
-import { TinsLogForm } from '../components/tins-log-form.js';
-import { TinsLogPost } from '../components/tins-log-post.js';
 import { canPostSelector } from '../data/currentEvent.js';
 import { currentUserSelector } from '../data/currentUser.js';
 import { StoreSubscriberMixin } from '../data/storeSubscriberMixin.js';
-import { TinsStatusHelper } from '../components/tins-status-helper.js';
 import { breadCrumbs } from '../breadcrumbs.js';
 
 export class TinsLogs extends StoreSubscriberMixin(LitElement) {

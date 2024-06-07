@@ -1,6 +1,4 @@
 import { LitElement, html, css } from 'lit';
-import { TinsFaIcon } from './tins-fa-icon.js';
-import { TinsRichTextView } from './tins-richtext-view.js';
 import invisibleIcon from '@fortawesome/fontawesome-free/svgs/solid/eye-slash.svg';
 import { spoilerExplanation } from './tins-log-form.js';
 

@@ -1,6 +1,5 @@
 import { LitElement, html, css } from 'lit';
 
-import { TinsRichTextControl } from '../components/tins-richtext-control.js';
 import { asyncFetchJSON, formatBytes, IMAGE_UPLOAD_SIZE_LIMIT, postOrThrow } from '../util.js';
 import { repeat } from 'lit-html/directives/repeat.js';
 import gamepadIcon from '@fortawesome/fontawesome-free/svgs/solid/gamepad.svg';
@@ -9,11 +8,6 @@ import sourceIcon from '@fortawesome/fontawesome-free/svgs/brands/osi.svg';
 import windowsIcon from '@fortawesome/fontawesome-free/svgs/brands/windows.svg';
 import linuxIcon from '@fortawesome/fontawesome-free/svgs/brands/linux.svg';
 import macIcon from '@fortawesome/fontawesome-free/svgs/brands/apple.svg';
-
-import { TinsFaIcon } from '../components/tins-fa-icon.js';
-import { TinsImageUpload } from '../components/tins-image-upload.js';
-import { TinsStatusHelper } from '../components/tins-status-helper.js';
-import { TinsInlineCountDown } from '../components/tins-inline-count-down.js';
 
 export class TinsEntry extends LitElement {
 

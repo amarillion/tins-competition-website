@@ -1,7 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import twitterIcon from '@fortawesome/fontawesome-free/svgs/brands/twitter.svg';
 import emailIcon from '@fortawesome/fontawesome-free/svgs/solid/envelope.svg';
-import { TinsFaIcon } from '../components/tins-fa-icon.js';
 
 export class TinsAbout extends LitElement {
 

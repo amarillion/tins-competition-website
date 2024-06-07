@@ -1,5 +1,4 @@
 import { LitElement, html, css } from 'lit';
-import { TinsFaIcon } from '../components/tins-fa-icon.js';
 
 export class TinsSupport extends LitElement {
 
