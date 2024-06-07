@@ -1,4 +1,8 @@
-import { test, expect } from '@jest/globals';
+/**
+ * @vitest-environment jsdom
+ */
+
+import { expect, test } from 'vitest';
 // import { TinsSecretSanta } from "../src/pages/tins-my-secret-santa.js";
 import { TinsSpinner } from "../src/components/tins-spinner.js";
 
