@@ -42,7 +42,7 @@ export class TinsFaIcon extends LitElement {
 
 	updated(changedProperties) {
 		if (changedProperties.has("src")) {
-			this.shadowRoot.host.style.setProperty('--src', `url('${this.src}')`);
+			this.shadowRoot.host.style.setProperty('--src', `url("${this.src}")`);
 		}
 		if (changedProperties.has("size")) {
 			this.shadowRoot.host.style.setProperty('--size', this.size);
