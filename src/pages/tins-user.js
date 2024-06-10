@@ -3,7 +3,7 @@ import { LitElement, html, css } from 'lit';
 import { asyncStateFlags, fetchJSONOrThrow } from '../util.js';
 import { repeat } from 'lit-html/directives/repeat.js';
 import personIcon from '@fortawesome/fontawesome-free/svgs/solid/id-card.svg';
-import globeIcon from '@fortawesome/fontawesome-free/svgs/solid/globe-europe.svg';
+import globeIcon from '@fortawesome/fontawesome-free/svgs/solid/earth-europe.svg';
 
 export class TinsUser extends LitElement {
 

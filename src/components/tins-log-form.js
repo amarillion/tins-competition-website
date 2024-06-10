@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import infoIcon from '@fortawesome/fontawesome-free/svgs/solid/info-circle.svg';
+import infoIcon from '@fortawesome/fontawesome-free/svgs/solid/circle-info.svg';
 import { formatBytes, IMAGE_UPLOAD_SIZE_LIMIT } from '../util.js';
 
 export const spoilerExplanation = `\

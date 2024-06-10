@@ -3,7 +3,7 @@ import { LitElement, html, css } from 'lit';
 import { repeat } from 'lit-html/directives/repeat.js';
 import commentIcon from '@fortawesome/fontawesome-free/svgs/regular/comment.svg';
 import gamepadIcon from '@fortawesome/fontawesome-free/svgs/solid/gamepad.svg';
-import reviewIcon from '@fortawesome/fontawesome-free/svgs/solid/vote-yea.svg';
+import reviewIcon from '@fortawesome/fontawesome-free/svgs/solid/check-to-slot.svg';
 import { asyncFetchJSON } from '../util.js';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';
 import { renderRichText } from '../util.js';

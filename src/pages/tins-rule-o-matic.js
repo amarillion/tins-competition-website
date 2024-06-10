@@ -1,11 +1,11 @@
 import { LitElement, html, css } from 'lit-element';
 
 import { asyncFetchJSON, postOrThrow } from '../util.js';
-import infoIcon from '@fortawesome/fontawesome-free/svgs/solid/info-circle.svg';
+import infoIcon from '@fortawesome/fontawesome-free/svgs/solid/circle-info.svg';
 import thumbsUpIcon from '@fortawesome/fontawesome-free/svgs/solid/thumbs-up.svg';
 import thumbsDownIcon from '@fortawesome/fontawesome-free/svgs/solid/thumbs-down.svg';
 import easyIcon from '@fortawesome/fontawesome-free/svgs/solid/bicycle.svg';
-import hardIcon from '@fortawesome/fontawesome-free/svgs/solid/space-shuttle.svg';
+import hardIcon from '@fortawesome/fontawesome-free/svgs/solid/shuttle-space.svg';
 
 import { currentUserSelector } from '../data/currentUser.js';
 import { subscribe } from '../store.js';
