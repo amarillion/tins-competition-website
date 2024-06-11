@@ -7,7 +7,7 @@
 	"scripts": {
 		"clean": "rm -r static/*",
 		"build": "vite build",
-		"dev": "vite build --watch",
+		"dev": "vite build --watch --mode development",
 		"lint": "eslint \"{src,test}/**/*.js\"",
 		"test": "vitest"
 	},
