@@ -1,7 +1,6 @@
 import { Router } from '@vaadin/router';
 
 import { TinsNewsPage } from './pages/tins-newspage.js';
-import { TinsAbout } from './pages/tins-about.js';
 import { TinsFaq } from './pages/tins-faq.js';
 import { TinsHistory } from './pages/tins-history.js';
 import { TinsSecretSanta } from './pages/tins-my-secret-santa.js';
@@ -42,8 +41,11 @@ import { TinsUpcoming } from './components/tins-upcoming.js';
 const outlet = document.getElementById('outlet');
 const router = new Router(outlet);
 
+import TinsAbout from './pages/tins-about.ce.vue';
+import { defineCustomElement } from 'vue';
+
 // pages
-customElements.define('tins-about', TinsAbout);
+customElements.define('tins-about', defineCustomElement(TinsAbout));
 customElements.define('tins-all-entries', TinsAllEntries);
 customElements.define('tins-compo-main', TinsCompoMain);
 customElements.define('tins-entrants', TinsEntrants);

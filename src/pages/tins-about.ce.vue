@@ -1,11 +1,9 @@
-import { LitElement, html, css } from 'lit';
+<script setup>
 import twitterIcon from '@fortawesome/fontawesome-free/svgs/brands/twitter.svg';
 import emailIcon from '@fortawesome/fontawesome-free/svgs/solid/envelope.svg';
+</script>
 
-export class TinsAbout extends LitElement {
-
-	render() {
-		return html`
+<template>
 	<h1>About this site...</h1>
 	<p>
 	This site is the home of two online Game Jams: <b>TINS</b> and <b>KrampusHack</b>. 
@@ -46,25 +44,20 @@ export class TinsAbout extends LitElement {
 	<p>
 	Where TINS is a challenge of leet hacking skills, KrampusHack is much more relaxed. You get more time, there are fewer restrictions, and there is no voting, It's just a chance to hang out, 
 	have fun, be creative and do something nice for the community.
+	</p>
 	<h2>About the organizers</h2>
 	<p>
 	TINS is organized by <a href="http://www.helixsoft.nl">Amarillion</a>, who has been doing this kind of thing since 2001. 
-	Contact me: <tins-fa-icon src="${emailIcon}" size="1rem"></tins-fa-icon> amarillion@yahoo.com or <tins-fa-icon src="${twitterIcon}" size="1rem"></tins-fa-icon> <a href="https://twitter.com/mpvaniersel">@mpvaniersel</a>
+	Contact me: <tins-fa-icon :src="emailIcon" size="1rem"></tins-fa-icon> amarillion@yahoo.com or <tins-fa-icon :src="twitterIcon" size="1rem"></tins-fa-icon> <a href="https://twitter.com/mpvaniersel">@mpvaniersel</a>
 	</p>
-	
-		`;
-	}
+</template>
 
-	static get styles() {
-		return css`
-			:host {
-				display: block; // solves text selection issues
-			}
-			a 			{ font-weight: bold; text-decoration: none; }
-			a:link 		{ color: #600; }
-			a:hover 	{ text-decoration: underline; }
-			a:active 	{ text-decoration: underline; }
-		`;
+<style>
+	:host {
+		display: block; /* solves text selection issues */
 	}
-
-}
+	a 			{ font-weight: bold; text-decoration: none; }
+	a:link 		{ color: #600; }
+	a:hover 	{ text-decoration: underline; }
+	a:active 	{ text-decoration: underline; }
+</style>
