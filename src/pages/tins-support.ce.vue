@@ -1,16 +1,14 @@
-import { LitElement, html, css } from 'lit';
+<script>
+</script>
 
-export class TinsSupport extends LitElement {
-
-	render() {
-		return html`
+<template>
 	<h1>Shop &amp; Support</h1>
 
 	<h3>Buy T-shirts and more...</h3>
 
 	<p>Buy your own unique TINS T-shirt! Just head over to the <a href="https://clubcatt.com/tins">Official TINS Collection on clubcatt.com</a>.</p>
 	
-	<a href="https://clubcatt.com/tins/"><img src="./static/store.png" alt="T-shirts for TINS Hackathon"></a>
+	<a href="https://clubcatt.com/tins/"><img src="../assets/store.png" alt="T-shirts for TINS Hackathon"></a>
 	
 	<p>With your purchase, you contribute towards the organization of future TINS events.</p>
 
@@ -43,24 +41,19 @@ export class TinsSupport extends LitElement {
 	Only donate what you can easily miss yourself.
 	I promise that the TINS events will always remain free and open for everybody.
 	</p>
-		`;
+</template>
+
+<style>
+	:host {
+		display: block; /* solves text selection issues */
 	}
 
-	static get styles() {
-		return css`
-			:host {
-				display: block; // solves text selection issues
-			}
-
-			img {
-				max-width: 100%;
-			}
-
-			a 			{ font-weight: bold; text-decoration: none; }
-			a:link 		{ color: #600; }
-			a:hover 	{ text-decoration: underline; }
-			a:active 	{ text-decoration: underline; }
-		`;
+	img {
+		max-width: 100%;
 	}
 
-}
+	a 			{ font-weight: bold; text-decoration: none; }
+	a:link 		{ color: #600; }
+	a:hover 	{ text-decoration: underline; }
+	a:active 	{ text-decoration: underline; }
+</style>

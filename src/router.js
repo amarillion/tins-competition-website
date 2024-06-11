@@ -4,7 +4,6 @@ import { TinsNewsPage } from './pages/tins-newspage.js';
 import { TinsFaq } from './pages/tins-faq.js';
 import { TinsHistory } from './pages/tins-history.js';
 import { TinsSecretSanta } from './pages/tins-my-secret-santa.js';
-import { TinsSupport } from './pages/tins-support.js';
 import { TinsEntry } from './pages/tins-entry.js';
 import { TinsAllEntries } from './pages/tins-all-entries.js';
 import { TinsUser } from './pages/tins-user.js';
@@ -38,11 +37,12 @@ import { TinsRichTextView } from './components/tins-richtext-view.js';
 import { TinsSpinner } from './components/tins-spinner.js';
 import { TinsUpcoming } from './components/tins-upcoming.js';
 
+import { defineCustomElement } from 'vue';
+import TinsAbout from './pages/tins-about.ce.vue';
+import TinsSupport from './pages/tins-support.ce.vue';
+
 const outlet = document.getElementById('outlet');
 const router = new Router(outlet);
-
-import TinsAbout from './pages/tins-about.ce.vue';
-import { defineCustomElement } from 'vue';
 
 // pages
 customElements.define('tins-about', defineCustomElement(TinsAbout));
@@ -60,7 +60,7 @@ customElements.define('tins-newspage', TinsNewsPage);
 customElements.define('tins-results', TinsResults);
 customElements.define('tins-rule-o-matic', TinsRuleOMatic);
 customElements.define('tins-rules', TinsRules);
-customElements.define('tins-support', TinsSupport);
+customElements.define('tins-support', defineCustomElement(TinsSupport));
 customElements.define('tins-team-management', TinsTeamManagement);
 customElements.define('tins-user', TinsUser);
 
