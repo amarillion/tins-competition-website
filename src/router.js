@@ -78,7 +78,7 @@ customElements.define('tins-log-form', TinsLogForm);
 customElements.define('tins-log-post', TinsLogPost);
 customElements.define('tins-newsfeed', TinsNewsFeed);
 customElements.define('tins-range', TinsRange);
-customElements.define('tins-richtext-control.js', TinsRichTextControl);
+customElements.define('tins-richtext', TinsRichTextControl);
 customElements.define('tins-richtext-view', TinsRichTextView);
 customElements.define('tins-sidebar', TinsSideBar);
 customElements.define('tins-spinner', TinsSpinner);
