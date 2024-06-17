@@ -5,7 +5,6 @@ import { repeat } from 'lit-html/directives/repeat.js';
 import { canPostSelector } from '../data/currentEvent.js';
 import { currentUserSelector } from '../data/currentUser.js';
 import { StoreSubscriberMixin } from '../data/storeSubscriberMixin.js';
-import { breadCrumbs } from '../breadcrumbs.js';
 
 export class TinsLogs extends StoreSubscriberMixin(LitElement) {
 
@@ -137,10 +136,11 @@ export class TinsLogs extends StoreSubscriberMixin(LitElement) {
 
 	renderBreadCrumbs() {
 		const compoId = this.location.params.compoId;
-		return breadCrumbs(
+		const breadcrumbs = [
 			{ url: `/${compoId}/`, title: compoId },
 			{ title: 'log' }
-		);
+		];
+		return html`<tins-breadcrumbs .data=${breadcrumbs}></tins-breadcrumbs>`;
 	}
 
 	render() {

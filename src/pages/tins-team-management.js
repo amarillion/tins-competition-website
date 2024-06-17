@@ -1,7 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { repeat } from 'lit-html/directives/repeat.js';
 import { asyncStateFlags, fetchJSONOrThrow, postOrThrow } from '../util.js';
-import { breadCrumbs } from '../breadcrumbs.js';
 
 export class TinsTeamManagement extends LitElement {
 
@@ -157,10 +156,11 @@ export class TinsTeamManagement extends LitElement {
 
 	renderBreadCrumbs() {
 		const compoId = this.location.params.compoId;
-		return breadCrumbs(
+		const breadcrumbs = [
 			{ url: `/${compoId}/`, title: compoId },
 			{ title: 'Team Management' }
-		);
+		];
+		return html`<tins-breadcrumbs .data=${breadcrumbs}></tins-breadcrumbs>`;
 	}
 
 	render() {

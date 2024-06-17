@@ -2,7 +2,6 @@ import { LitElement, html, css } from 'lit-element';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';
 
 import { asyncFetchJSON } from '../util.js';
-import { breadCrumbs } from '../breadcrumbs.js';
 
 export class TinsRules extends LitElement {
 
@@ -38,10 +37,11 @@ export class TinsRules extends LitElement {
 
 	renderBreadCrumbs() {
 		const compoId = this.location.params.compoId;
-		return breadCrumbs(
+		const breadcrumbs = [
 			{ url: `/${compoId}/`, title: compoId },
 			{ title: 'rules' }
-		);
+		];
+		return html`<tins-breadcrumbs .data=${breadcrumbs}></tins-breadcrumbs>`;
 	}
 
 	render() {

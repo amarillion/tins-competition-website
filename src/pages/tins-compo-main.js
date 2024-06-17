@@ -9,7 +9,6 @@ import voteIcon from '@fortawesome/fontawesome-free/svgs/solid/check-to-slot.svg
 import trophyIcon from '@fortawesome/fontawesome-free/svgs/solid/trophy.svg';
 import liveIcon from '@fortawesome/fontawesome-free/svgs/solid/heart-pulse.svg';
 import { asyncFetchJSON } from '../util.js';
-import { breadCrumbs } from '../breadcrumbs.js';
 
 export class TinsCompoMain extends LitElement {
 
@@ -153,7 +152,7 @@ export class TinsCompoMain extends LitElement {
 
 	renderBreadCrumbs() {
 		const compoId = this.location.params.compoId;
-		return breadCrumbs({ title: compoId });
+		return html`<tins-breadcrumbs .data=${[{ title: compoId }]}></tins-breadcrumbs>`;
 	}
 
 	render() {
