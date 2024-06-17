@@ -1,60 +1,39 @@
-<script>
-
+<script setup>
 import commentIcon from '@fortawesome/fontawesome-free/svgs/regular/comment.svg';
 import gamepadIcon from '@fortawesome/fontawesome-free/svgs/solid/gamepad.svg';
 import reviewIcon from '@fortawesome/fontawesome-free/svgs/solid/check-to-slot.svg';
 import { fetchJSONOrThrow, renderRichText } from '../util.js';
-import { ref, onMounted } from 'vue';
+import { onMounted } from 'vue';
+import { usePromise } from '../usePromise.js';
 
-export default {
-	setup() {
-		const m = window.location.pathname.match(`\/(?<compoId>[^\/]+)\/entrants\/?$`);
-		const { compoId } = m.groups;
-		
-		const breadcrumbs = [
-			{ title: compoId, url: `/${compoId}/` },
-			{ title: 'entrants' },
-		];
+const m = window.location.pathname.match(`\/(?<compoId>[^\/]+)\/entrants\/?$`);
+const { compoId } = m.groups;
 
-		const error = ref("");
-		const loading = ref(false);
-		const entrants = ref([]);
+const breadcrumbs = [
+	{ title: compoId, url: `/${compoId}/` },
+	{ title: 'entrants' },
+];
 
-		onMounted(async () => {
-			loading.value = true;
-			error.value = "";
-			try {
-				const data = await fetchJSONOrThrow(`/api/v1/compo/${compoId}/entrants`)
-				// clear loading flag AFTER awaiting data.
-				loading.value = false; 
-				entrants.value = data?.result;
-			}
-			catch (e) {
-				loading.value = false;
-				error.value = e.message;
-				return null;
-			}
-		})
+const entrants = usePromise();
 
-		return { 
-			error, loading, entrants, breadcrumbs, compoId, 
-			renderRichText, 
-			commentIcon, gamepadIcon, reviewIcon
-		};
-	}
-}
+onMounted(() => {
+	entrants.doAsync(async() => {
+		const data = await fetchJSONOrThrow(`/api/v1/compo/${compoId}/entrants`)
+		return data.result;
+	});
+})
 </script>
 
 <template>
 	<tins-breadcrumbs :data="breadcrumbs"></tins-breadcrumbs>
 
-	<tins-status-helper :error="error" :loading="loading">
-		<div v-if="!loading && !error">
+	<tins-status-helper :error="entrants.error.value" :loading="entrants.loading.value">
+		<div v-if="!entrants.error.value && !entrants.loading.value">
 			<h1>Entrants</h1>
 			<p>
-				At this moment, {{entrants.length}} people have registered for the competition.
+				At this moment, {{entrants.result.value.length}} people have registered for the competition.
 			</p>
-			<div v-for="e in entrants" class="entrant">
+			<div v-for="e of entrants.result.value" class="entrant">
 				<p>
 					<b>Name:</b> <a :href="`/user/${e.username}`">{{e.username}}</a> <br>
 					<b>From:</b> {{e.location}}
@@ -71,17 +50,17 @@ export default {
 </template>
 
 <style>
-div.entrant {
-	display: block;
-	border-top: 1px solid black;
-	line-height: 1.5rem;
-}
-div.entrant img {
-	max-width: 100%;
-}
+	div.entrant {
+		display: block;
+		border-top: 1px solid black;
+		line-height: 1.5rem;
+	}
+	div.entrant img {
+		max-width: 100%;
+	}
 
-a 			{ font-weight: bold; text-decoration: none; }
-a:link 		{ color: #600; }
-a:hover 	{ text-decoration: underline; }
-a:active 	{ text-decoration: underline; }
+	a 			{ font-weight: bold; text-decoration: none; }
+	a:link 		{ color: #600; }
+	a:hover 	{ text-decoration: underline; }
+	a:active 	{ text-decoration: underline; }
 </style>
