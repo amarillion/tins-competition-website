@@ -1,4 +1,5 @@
 import { Router } from '@vaadin/router';
+import { defineCustomElement } from 'vue';
 
 import { TinsNewsPage } from './pages/tins-newspage.js';
 import { TinsFaq } from './pages/tins-faq.js';
@@ -15,6 +16,8 @@ import { TinsRules } from './pages/tins-rules.js';
 import { TinsResults } from './pages/tins-results.js';
 import { TinsRuleOMatic } from './pages/tins-rule-o-matic.js';
 import { TinsTeamManagement } from './pages/tins-team-management.js';
+
+import TinsBreadcrumbs from './components/tins-breadcrumbs.ce.vue';
 
 import { TinsFrame } from './components/tins-frame.js';
 import { TinsCurrentUser } from './components/tins-currentuser.js';
@@ -36,10 +39,10 @@ import { TinsRichTextView } from './components/tins-richtext-view.js';
 import { TinsSpinner } from './components/tins-spinner.js';
 import { TinsUpcoming } from './components/tins-upcoming.js';
 
-import { defineCustomElement } from 'vue';
 import TinsAbout from './pages/tins-about.ce.vue';
-import TinsSupport from './pages/tins-support.ce.vue';
 import TinsEntrants from './pages/tins-entrants.ce.vue';
+import TinsSupport from './pages/tins-support.ce.vue';
+
 
 const outlet = document.getElementById('outlet');
 const router = new Router(outlet);
@@ -84,6 +87,7 @@ customElements.define('tins-sidebar', TinsSideBar);
 customElements.define('tins-spinner', TinsSpinner);
 customElements.define('tins-status-helper', TinsStatusHelper);
 customElements.define('tins-upcoming', TinsUpcoming);
+customElements.define('tins-breadcrumbs', defineCustomElement(TinsBreadcrumbs));
 
 router.setRoutes([{ 
 	path: '/',

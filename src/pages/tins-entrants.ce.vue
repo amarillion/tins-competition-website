@@ -46,13 +46,7 @@ export default {
 </script>
 
 <template>
-	<div class="breadcrumbs">
-		<a href="/" router-ignore>TINS</a>
-		<span v-for="a of breadcrumbs"> » 
-			<a v-if="a.url" :router-ignore="a.routerIgnore" :href="a.url">{{ a.title }}</a>
-			<span v-else>{{ a.title }}</span>
-		</span>
-	</div>
+	<tins-breadcrumbs :data="breadcrumbs"></tins-breadcrumbs>
 
 	<tins-status-helper :error="error" :loading="loading">
 		<div v-if="!loading && !error">
