@@ -2,7 +2,6 @@ import { Router } from '@vaadin/router';
 import { defineCustomElement } from 'vue';
 
 import { TinsNewsPage } from './pages/tins-newspage.js';
-import { TinsFaq } from './pages/tins-faq.js';
 import { TinsHistory } from './pages/tins-history.js';
 import { TinsSecretSanta } from './pages/tins-my-secret-santa.js';
 import { TinsEntry } from './pages/tins-entry.js';
@@ -17,7 +16,10 @@ import { TinsResults } from './pages/tins-results.js';
 import { TinsRuleOMatic } from './pages/tins-rule-o-matic.js';
 import { TinsTeamManagement } from './pages/tins-team-management.js';
 
-import TinsBreadcrumbs from './components/tins-breadcrumbs.ce.vue';
+import TinsAbout from './pages/tins-about.ce.vue';
+import TinsEntrants from './pages/tins-entrants.ce.vue';
+import TinsFaq from './pages/tins-faq.ce.vue';
+import TinsSupport from './pages/tins-support.ce.vue';
 
 import { TinsFrame } from './components/tins-frame.js';
 import { TinsCurrentUser } from './components/tins-currentuser.js';
@@ -39,10 +41,7 @@ import { TinsRichTextView } from './components/tins-richtext-view.js';
 import { TinsSpinner } from './components/tins-spinner.js';
 import { TinsUpcoming } from './components/tins-upcoming.js';
 
-import TinsAbout from './pages/tins-about.ce.vue';
-import TinsEntrants from './pages/tins-entrants.ce.vue';
-import TinsSupport from './pages/tins-support.ce.vue';
-
+import TinsBreadcrumbs from './components/tins-breadcrumbs.ce.vue';
 
 const outlet = document.getElementById('outlet');
 const router = new Router(outlet);
@@ -53,7 +52,7 @@ customElements.define('tins-all-entries', TinsAllEntries);
 customElements.define('tins-compo-main', TinsCompoMain);
 customElements.define('tins-entrants', defineCustomElement(TinsEntrants));
 customElements.define('tins-entry', TinsEntry);
-customElements.define('tins-faq', TinsFaq);
+customElements.define('tins-faq', defineCustomElement(TinsFaq));
 customElements.define('tins-history', TinsHistory);
 customElements.define('tins-log-edit', TinsLogEdit);
 customElements.define('tins-logs', TinsLogs);

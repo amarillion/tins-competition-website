@@ -1,7 +1,4 @@
-import { LitElement, html, css } from 'lit';
-import { repeat } from 'lit-html/directives/repeat.js';
-import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';
-
+<script setup>
 const FAQ = [
 	{
 		question: "Q: What communication channels are there for TINS?",
@@ -126,27 +123,20 @@ const FAQ = [
 	</p>`
 	}, 
 ];
+</script>
 
-export class TinsFaq extends LitElement {
-
-	render() {
-		return html`
+<template>
 	<h1>Frequently Asked Questions</h1>
-	${repeat(FAQ, f => html`<h3>${f.question}</h3>${unsafeHTML(f.answer)}`)};
-	`;
+	<div v-for="f of FAQ"><h3>{{f.question}}</h3><div v-html="f.answer"></div></div>
+</template>
+
+<style>
+	:host {
+		display: block; /* solves text selection issues */
 	}
 
-	static get styles() {
-		return css`
-			:host {
-				display: block; // solves text selection issues
-			}
-		
-			a 			{ font-weight: bold; text-decoration: none; }
-			a:link 		{ color: #600; }
-			a:hover 	{ text-decoration: underline; }
-			a:active 	{ text-decoration: underline; }
-		`;
-	}
-
-}
+	a 			{ font-weight: bold; text-decoration: none; }
+	a:link 		{ color: #600; }
+	a:hover 	{ text-decoration: underline; }
+	a:active 	{ text-decoration: underline; }
+</style>
