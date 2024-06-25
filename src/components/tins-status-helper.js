@@ -33,7 +33,7 @@ export class TinsStatusHelper extends LitElement {
 	static get styles() {
 		return css`
 		:host {
-			display: block; // solves text selection issues
+			display: block; /* solves text selection issues */
 		}
 
 		.error {
