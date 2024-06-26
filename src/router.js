@@ -8,7 +8,6 @@ import { TinsEntry } from './pages/tins-entry.js';
 import { TinsUser } from './pages/tins-user.js';
 import { TinsLogs } from './pages/tins-logs.js';
 import { TinsLogEdit } from './pages/tins-log-edit.js';
-import { TinsCompoMain } from './pages/tins-compo-main.js';
 import { TinsMyEntry } from './pages/tins-my-entry.js';
 import { TinsRules } from './pages/tins-rules.js';
 import { TinsResults } from './pages/tins-results.js';
@@ -16,10 +15,11 @@ import { TinsRuleOMatic } from './pages/tins-rule-o-matic.js';
 import { TinsTeamManagement } from './pages/tins-team-management.js';
 
 import TinsAbout from './pages/tins-about.ce.vue';
+import TinsAllEntries from './pages/tins-all-entries.ce.vue';
+import TinsCompoMain from './pages/tins-compo-main.ce.vue';
 import TinsEntrants from './pages/tins-entrants.ce.vue';
 import TinsFaq from './pages/tins-faq.ce.vue';
 import TinsSupport from './pages/tins-support.ce.vue';
-import TinsAllEntries from './pages/tins-all-entries.ce.vue';
 
 import { TinsFrame } from './components/tins-frame.js';
 import { TinsCurrentUser } from './components/tins-currentuser.js';
@@ -49,7 +49,7 @@ const router = new Router(outlet);
 // pages
 customElements.define('tins-about', defineCustomElement(TinsAbout));
 customElements.define('tins-all-entries', defineCustomElement(TinsAllEntries));
-customElements.define('tins-compo-main', TinsCompoMain);
+customElements.define('tins-compo-main', defineCustomElement(TinsCompoMain));
 customElements.define('tins-entrants', defineCustomElement(TinsEntrants));
 customElements.define('tins-entry', TinsEntry);
 customElements.define('tins-faq', defineCustomElement(TinsFaq));
