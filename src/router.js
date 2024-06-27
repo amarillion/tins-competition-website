@@ -1,7 +1,6 @@
 import { Router } from '@vaadin/router';
 import { defineCustomElement } from 'vue';
 
-import { TinsNewsPage } from './pages/tins-newspage.js';
 import { TinsSecretSanta } from './pages/tins-my-secret-santa.js';
 import { TinsEntry } from './pages/tins-entry.js';
 import { TinsUser } from './pages/tins-user.js';
@@ -19,6 +18,7 @@ import TinsCompoMain from './pages/tins-compo-main.ce.vue';
 import TinsEntrants from './pages/tins-entrants.ce.vue';
 import TinsFaq from './pages/tins-faq.ce.vue';
 import TinsHistory from './pages/tins-history.ce.vue';
+import TinsNewsPage from './pages/tins-newspage.ce.vue';
 import TinsSupport from './pages/tins-support.ce.vue';
 
 import { TinsFrame } from './components/tins-frame.js';
@@ -58,7 +58,7 @@ customElements.define('tins-log-edit', TinsLogEdit);
 customElements.define('tins-logs', TinsLogs);
 customElements.define('tins-my-entry', TinsMyEntry);
 customElements.define('tins-my-secret-santa', TinsSecretSanta);
-customElements.define('tins-newspage', TinsNewsPage);
+customElements.define('tins-newspage', defineCustomElement(TinsNewsPage));
 customElements.define('tins-results', TinsResults);
 customElements.define('tins-rule-o-matic', TinsRuleOMatic);
 customElements.define('tins-rules', TinsRules);
