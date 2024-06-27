@@ -7,7 +7,6 @@ import { TinsUser } from './pages/tins-user.js';
 import { TinsLogs } from './pages/tins-logs.js';
 import { TinsLogEdit } from './pages/tins-log-edit.js';
 import { TinsMyEntry } from './pages/tins-my-entry.js';
-import { TinsResults } from './pages/tins-results.js';
 import { TinsRuleOMatic } from './pages/tins-rule-o-matic.js';
 import { TinsTeamManagement } from './pages/tins-team-management.js';
 
@@ -18,6 +17,7 @@ import TinsEntrants from './pages/tins-entrants.ce.vue';
 import TinsFaq from './pages/tins-faq.ce.vue';
 import TinsHistory from './pages/tins-history.ce.vue';
 import TinsNewsPage from './pages/tins-newspage.ce.vue';
+import TinsResults from './pages/tins-results.ce.vue';
 import TinsRules from './pages/tins-rules.ce.vue';
 import TinsSupport from './pages/tins-support.ce.vue';
 
@@ -59,7 +59,7 @@ customElements.define('tins-logs', TinsLogs);
 customElements.define('tins-my-entry', TinsMyEntry);
 customElements.define('tins-my-secret-santa', TinsSecretSanta);
 customElements.define('tins-newspage', defineCustomElement(TinsNewsPage));
-customElements.define('tins-results', TinsResults);
+customElements.define('tins-results', defineCustomElement(TinsResults));
 customElements.define('tins-rule-o-matic', TinsRuleOMatic);
 customElements.define('tins-rules', defineCustomElement(TinsRules));
 customElements.define('tins-support', defineCustomElement(TinsSupport));
