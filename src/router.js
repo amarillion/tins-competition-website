@@ -3,7 +3,6 @@ import { defineCustomElement } from 'vue';
 
 import { TinsSecretSanta } from './pages/tins-my-secret-santa.js';
 import { TinsEntry } from './pages/tins-entry.js';
-import { TinsUser } from './pages/tins-user.js';
 import { TinsLogs } from './pages/tins-logs.js';
 import { TinsLogEdit } from './pages/tins-log-edit.js';
 import { TinsMyEntry } from './pages/tins-my-entry.js';
@@ -20,6 +19,7 @@ import TinsNewsPage from './pages/tins-newspage.ce.vue';
 import TinsResults from './pages/tins-results.ce.vue';
 import TinsRules from './pages/tins-rules.ce.vue';
 import TinsSupport from './pages/tins-support.ce.vue';
+import TinsUser from './pages/tins-user.ce.vue';
 
 import { TinsFrame } from './components/tins-frame.js';
 import { TinsCurrentUser } from './components/tins-currentuser.js';
@@ -64,7 +64,7 @@ customElements.define('tins-rule-o-matic', TinsRuleOMatic);
 customElements.define('tins-rules', defineCustomElement(TinsRules));
 customElements.define('tins-support', defineCustomElement(TinsSupport));
 customElements.define('tins-team-management', TinsTeamManagement);
-customElements.define('tins-user', TinsUser);
+customElements.define('tins-user', defineCustomElement(TinsUser));
 
 // components
 customElements.define('tins-count-down', TinsCountDown);
