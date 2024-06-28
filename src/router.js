@@ -33,7 +33,6 @@ import { TinsLogForm } from './components/tins-log-form.js';
 import { TinsRange } from './components/tins-range.js';
 import { TinsRichTextControl } from './components/tins-richtext-control.js';
 import { TinsRichTextView } from './components/tins-richtext-view.js';
-import { TinsUpcoming } from './components/tins-upcoming.js';
 
 import TinsBreadcrumbs from './components/tins-breadcrumbs.ce.vue';
 import TinsEntryThumbnail from './components/tins-entry-thumbnail.ce.vue';
@@ -42,6 +41,7 @@ import TinsLogPost from './components/tins-log-post.ce.vue';
 import TinsNewsFeed from './components/tins-newsfeed.ce.vue';
 import TinsSpinner from './components/tins-spinner.ce.vue';
 import TinsStatusHelper from './components/tins-status-helper.ce.vue';
+import TinsUpcoming from './components/tins-upcoming.ce.vue';
 
 const outlet = document.getElementById('outlet');
 const router = new Router(outlet);
@@ -85,7 +85,7 @@ customElements.define('tins-richtext-view', TinsRichTextView);
 customElements.define('tins-sidebar', TinsSideBar);
 customElements.define('tins-spinner', defineCustomElement(TinsSpinner));
 customElements.define('tins-status-helper', defineCustomElement(TinsStatusHelper));
-customElements.define('tins-upcoming', TinsUpcoming);
+customElements.define('tins-upcoming', defineCustomElement(TinsUpcoming));
 customElements.define('tins-breadcrumbs', defineCustomElement(TinsBreadcrumbs));
 
 router.setRoutes([{ 

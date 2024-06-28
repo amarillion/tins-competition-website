@@ -1,13 +1,24 @@
 <script setup>
+import { usePromise } from '../usePromise.js';
+import { onMounted } from 'vue';
+import { fetchJSONOrThrow } from '../util.js';
 const params = new URLSearchParams(window.location.search);
 const newsId = params.get('newsId');
+
+const data = usePromise();
+onMounted(() => {
+	data.doAsync(async() => fetchJSONOrThrow(`/api/v1/currentEvent`));
+});
+
 </script>
 <template>
 	<div class="twocol">
 		<tins-newsfeed class="tins-newsfeed" :newsId="newsId"></tins-newsfeed>	
 		<div class="rightcol">
 			<tins-current-event class="tins-current-event"></tins-current-event>
-			<tins-upcoming class="tins-upcoming"></tins-upcoming>
+			<tins-status-helper :error="data.error.value" :loading="data.loading.value">
+				<tins-upcoming v-if="data.result.value" class="tins-upcoming" :upcoming="data.result.value.upcoming"></tins-upcoming>
+			</tins-status-helper>
 		</div>
 	</div>
 </template>
