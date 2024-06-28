@@ -30,7 +30,6 @@ import { TinsFaIcon } from './components/tins-fa-icon.js';
 import { TinsImageUpload } from './components/tins-image-upload.js';
 import { TinsInlineCountDown } from './components/tins-inline-count-down.js';
 import { TinsLogForm } from './components/tins-log-form.js';
-import { TinsStatusHelper } from './components/tins-status-helper.js';
 import { TinsRange } from './components/tins-range.js';
 import { TinsRichTextControl } from './components/tins-richtext-control.js';
 import { TinsRichTextView } from './components/tins-richtext-view.js';
@@ -42,6 +41,7 @@ import TinsHeader from './components/tins-header.ce.vue';
 import TinsLogPost from './components/tins-log-post.ce.vue';
 import TinsNewsFeed from './components/tins-newsfeed.ce.vue';
 import TinsSpinner from './components/tins-spinner.ce.vue';
+import TinsStatusHelper from './components/tins-status-helper.ce.vue';
 
 const outlet = document.getElementById('outlet');
 const router = new Router(outlet);
@@ -84,7 +84,7 @@ customElements.define('tins-richtext', TinsRichTextControl);
 customElements.define('tins-richtext-view', TinsRichTextView);
 customElements.define('tins-sidebar', TinsSideBar);
 customElements.define('tins-spinner', defineCustomElement(TinsSpinner));
-customElements.define('tins-status-helper', TinsStatusHelper);
+customElements.define('tins-status-helper', defineCustomElement(TinsStatusHelper));
 customElements.define('tins-upcoming', TinsUpcoming);
 customElements.define('tins-breadcrumbs', defineCustomElement(TinsBreadcrumbs));
 
