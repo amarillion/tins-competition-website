@@ -33,7 +33,6 @@ import { TinsInlineCountDown } from './components/tins-inline-count-down.js';
 import { TinsLogForm } from './components/tins-log-form.js';
 import { TinsStatusHelper } from './components/tins-status-helper.js';
 import { TinsLogPost } from './components/tins-log-post.js';
-import { TinsNewsFeed } from './components/tins-newsfeed.js';
 import { TinsRange } from './components/tins-range.js';
 import { TinsRichTextControl } from './components/tins-richtext-control.js';
 import { TinsRichTextView } from './components/tins-richtext-view.js';
@@ -42,6 +41,7 @@ import { TinsUpcoming } from './components/tins-upcoming.js';
 
 import TinsBreadcrumbs from './components/tins-breadcrumbs.ce.vue';
 import TinsEntryThumbnail from './components/tins-entry-thumbnail.ce.vue';
+import TinsNewsFeed from './components/tins-newsfeed.ce.vue';
 
 const outlet = document.getElementById('outlet');
 const router = new Router(outlet);
@@ -78,7 +78,7 @@ customElements.define('tins-image-upload', TinsImageUpload);
 customElements.define('tins-inline-count-down', TinsInlineCountDown);
 customElements.define('tins-log-form', TinsLogForm);
 customElements.define('tins-log-post', TinsLogPost);
-customElements.define('tins-newsfeed', TinsNewsFeed);
+customElements.define('tins-newsfeed', defineCustomElement(TinsNewsFeed));
 customElements.define('tins-range', TinsRange);
 customElements.define('tins-richtext', TinsRichTextControl);
 customElements.define('tins-richtext-view', TinsRichTextView);
