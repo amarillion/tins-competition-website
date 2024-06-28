@@ -25,7 +25,6 @@ import { TinsFrame } from './components/tins-frame.js';
 import { TinsCurrentUser } from './components/tins-currentuser.js';
 import { TinsCountDown } from './components/tins-count-down.js';
 import { TinsSideBar } from './components/tins-sidebar.js';
-import { TinsHeader } from './components/tins-header.js';
 import { TinsCurrentEvent } from './components/tins-current-event.js';
 import { TinsFaIcon } from './components/tins-fa-icon.js';
 import { TinsImageUpload } from './components/tins-image-upload.js';
@@ -41,6 +40,7 @@ import { TinsUpcoming } from './components/tins-upcoming.js';
 
 import TinsBreadcrumbs from './components/tins-breadcrumbs.ce.vue';
 import TinsEntryThumbnail from './components/tins-entry-thumbnail.ce.vue';
+import TinsHeader from './components/tins-header.ce.vue';
 import TinsNewsFeed from './components/tins-newsfeed.ce.vue';
 
 const outlet = document.getElementById('outlet');
@@ -73,7 +73,7 @@ customElements.define('tins-currentuser', TinsCurrentUser);
 customElements.define('tins-entry-thumbnail', defineCustomElement(TinsEntryThumbnail));
 customElements.define('tins-fa-icon', TinsFaIcon);
 customElements.define('tins-frame', TinsFrame);
-customElements.define('tins-header', TinsHeader);
+customElements.define('tins-header', defineCustomElement(TinsHeader));
 customElements.define('tins-image-upload', TinsImageUpload);
 customElements.define('tins-inline-count-down', TinsInlineCountDown);
 customElements.define('tins-log-form', TinsLogForm);
