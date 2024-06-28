@@ -32,13 +32,13 @@ import { TinsInlineCountDown } from './components/tins-inline-count-down.js';
 import { TinsLogForm } from './components/tins-log-form.js';
 import { TinsRange } from './components/tins-range.js';
 import { TinsRichTextControl } from './components/tins-richtext-control.js';
-import { TinsRichTextView } from './components/tins-richtext-view.js';
 
 import TinsBreadcrumbs from './components/tins-breadcrumbs.ce.vue';
 import TinsEntryThumbnail from './components/tins-entry-thumbnail.ce.vue';
 import TinsHeader from './components/tins-header.ce.vue';
 import TinsLogPost from './components/tins-log-post.ce.vue';
 import TinsNewsFeed from './components/tins-newsfeed.ce.vue';
+import TinsRichTextView from './components/tins-richtext-view.ce.vue';
 import TinsSpinner from './components/tins-spinner.ce.vue';
 import TinsStatusHelper from './components/tins-status-helper.ce.vue';
 import TinsUpcoming from './components/tins-upcoming.ce.vue';
@@ -67,6 +67,7 @@ customElements.define('tins-team-management', TinsTeamManagement);
 customElements.define('tins-user', defineCustomElement(TinsUser));
 
 // components
+customElements.define('tins-breadcrumbs', defineCustomElement(TinsBreadcrumbs));
 customElements.define('tins-count-down', TinsCountDown);
 customElements.define('tins-current-event', TinsCurrentEvent);
 customElements.define('tins-currentuser', TinsCurrentUser);
@@ -81,12 +82,11 @@ customElements.define('tins-log-post', defineCustomElement(TinsLogPost));
 customElements.define('tins-newsfeed', defineCustomElement(TinsNewsFeed));
 customElements.define('tins-range', TinsRange);
 customElements.define('tins-richtext', TinsRichTextControl);
-customElements.define('tins-richtext-view', TinsRichTextView);
+customElements.define('tins-richtext-view', defineCustomElement(TinsRichTextView));
 customElements.define('tins-sidebar', TinsSideBar);
 customElements.define('tins-spinner', defineCustomElement(TinsSpinner));
 customElements.define('tins-status-helper', defineCustomElement(TinsStatusHelper));
 customElements.define('tins-upcoming', defineCustomElement(TinsUpcoming));
-customElements.define('tins-breadcrumbs', defineCustomElement(TinsBreadcrumbs));
 
 router.setRoutes([{ 
 	path: '/',
