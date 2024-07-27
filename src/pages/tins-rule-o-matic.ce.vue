@@ -16,7 +16,6 @@ let interest = ref(null);
 let challenge = ref(null);
 
 async function skipRating() {
-	//TODO: prevent double submission?
 	fetchNewRule();
 }
 
@@ -34,15 +33,14 @@ async function submitRating() {
 	});
 }
 
-function ratingChanged(event) {
-	const { target, value } = event.detail;
+function interestChanged(event) {
+	const { detail: [ value ] } = event;
+	interest.value = value;
+}
 
-	if (target === challengeInput.value) {
-		challenge.value = value;
-	}
-	else if (target === interestInput.value) {
-		interest.value = value;
-	}
+function challengeChanged(event) {
+	const { detail: [ value ] } = event;
+	challenge.value = value;
 }
 
 let subscriptions;
@@ -71,7 +69,7 @@ const CHALLENGE_LABELS = ['I can do this in my sleep!', 'Piece of cake', 'Let me
 const loggedIn = computed(() => Boolean(username));
 
 async function fetchNewRule() {
-	if (data.loading.value) return; // prevent parallel requests
+	if (data.loading.value) return; // prevent double parallel requests
 	data.doAsync(async () => {
 		const result = await fetchJSONOrThrow(`/rule-o-matic/ratings`);
 		resetForm();
@@ -79,15 +77,9 @@ async function fetchNewRule() {
 	});
 }
 
-const challengeInput = ref(null); // linked by Vue to HTML element with corresponding ref attribute
-const interestInput = ref(null); // linked by Vue to HTML element with corresponding ref attribute
-
 function resetForm() {
 	interest.value = null;
 	challenge.value = null;
-
-	challengeInput?.value?.clear();
-	interestInput?.value?.clear();
 }
 
 const validRange = (val) => typeof val === 'number' && val > 0 && val <= 5;
@@ -98,7 +90,7 @@ const result = computed(() => data.result.value );
 </script>
 <template>
 	<tins-status-helper :error="data.error.value" :loading="data.loading.value">
-		<template v-if="!data.loading.value">
+		<template v-if="result">
 			<p v-if="!loggedIn">You must be logged in.</p>
 			<template v-else>
 				<h1>Rate some Rules</h1>
@@ -130,7 +122,7 @@ const result = computed(() => data.result.value );
 <br>
 <div class="range">
 	<tins-fa-icon title="Bad" :src="thumbsDownIcon" color="black" size="1.6rem"></tins-fa-icon>
-	<tins-range ref="interestInput" :labels="INTEREST_LABELS" @changed="ratingChanged"></tins-range>
+	<tins-range :value="interest" :labels="INTEREST_LABELS" @changed="interestChanged"></tins-range>
 	<tins-fa-icon title="Good" :src="thumbsUpIcon" color="black" size="1.6rem"></tins-fa-icon>
 </div>
 </p>
@@ -158,7 +150,7 @@ The rating scale ranges from 'I can do this in my sleep' to 'No way, this is imp
 
 <div class="range">
 	<tins-fa-icon title="Easy" :src="easyIcon" color="black" size="1.6rem"></tins-fa-icon>
-	<tins-range ref="challengeInput" :labels="CHALLENGE_LABELS" @changed="ratingChanged"></tins-range>
+	<tins-range :value="challenge" :labels="CHALLENGE_LABELS" @changed="challengeChanged"></tins-range>
 	<tins-fa-icon title="Hard" :src="hardIcon" color="black" size="1.6rem"></tins-fa-icon>
 </div>
 </p>
