@@ -22,13 +22,13 @@ import TinsSupport from './pages/tins-support.ce.vue';
 import TinsUser from './pages/tins-user.ce.vue';
 
 import { TinsSideBar } from './components/tins-sidebar.js';
-import { TinsCurrentEvent } from './components/tins-current-event.js';
 import { TinsImageUpload } from './components/tins-image-upload.js';
 import { TinsLogForm } from './components/tins-log-form.js';
 import { TinsRichTextControl } from './components/tins-richtext-control.js';
 
 import TinsBreadcrumbs from './components/tins-breadcrumbs.ce.vue';
 import TinsCountDown from './components/tins-count-down.ce.vue';
+import TinsCurrentEvent from './components/tins-current-event.ce.vue';
 import TinsCurrentUser from './components/tins-currentuser.ce.vue';
 import TinsEntryThumbnail from './components/tins-entry-thumbnail.ce.vue';
 import TinsFaIcon from './components/tins-fa-icon.ce.vue';
@@ -69,7 +69,7 @@ customElements.define('tins-user', defineCustomElement(TinsUser));
 // components
 customElements.define('tins-breadcrumbs', defineCustomElement(TinsBreadcrumbs));
 customElements.define('tins-count-down', defineCustomElement(TinsCountDown));
-customElements.define('tins-current-event', TinsCurrentEvent);
+customElements.define('tins-current-event', defineCustomElement(TinsCurrentEvent));
 customElements.define('tins-currentuser', defineCustomElement(TinsCurrentUser));
 customElements.define('tins-entry-thumbnail', defineCustomElement(TinsEntryThumbnail));
 customElements.define('tins-fa-icon', defineCustomElement(TinsFaIcon));
