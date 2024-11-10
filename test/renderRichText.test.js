@@ -26,4 +26,10 @@ test('test linkification', () => {
 		`<p>Don't linkify something that looks like an email@example.com</p>`
 	);
 
+	expect(
+		renderRichText(`Ordered list: <ol><li>Apples</li><li>Pears</li><li></ol>, Unordered list: <ul><li>Red</li><li>Green</li></ul></li>`)
+	).toBe(
+		`<p>Ordered list: <ol><li>Apples</li><li>Pears</li><li></ol>, Unordered list: <ul><li>Red</li><li>Green</li></ul></li></p>`
+	);
+
 });
