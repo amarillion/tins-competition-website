@@ -70,7 +70,7 @@ const title = computed(() => currentEvent.value?.title);
 			<a v-if="afterStart" :href="`/${short}/entries`" router-ignore>Entries</a>
 			<a v-if="afterEnd" :href="`/${short}/results`">Results</a>
 			<a v-if="afterEnd" :href="`/${short}/reviews`" router-ignore>Reviews</a>
-			<a href="/${short}/log">Logs</a>
+			<a :href="`/${short}/log`">Logs</a>
 			<a v-if="joinedCompetition && afterStart" :href="`/${short}/upload`" router-ignore>Upload</a>
 			<a v-if="joinedCompetition && afterStart" :href="`/${short}/myEntry`">My entry</a>
 			<a v-if="joinedCompetition && canVote" :href="`/${short}/vote`" router-ignore>Vote</a>
