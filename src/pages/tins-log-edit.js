@@ -36,6 +36,7 @@ export class TinsLogEdit extends LitElement {
 			this.loading = true;
 			const response = await postOrThrow(`/api/v1/log/event/${compoId}/myLatest`, formData);
 			this.data = await response.json();
+			this.requestUpdate();
 		}
 		catch (e) {
 			this.error = e.message;
@@ -49,9 +50,10 @@ export class TinsLogEdit extends LitElement {
 		return html`
 <p>You are now editing your most recent post. <a href="/${competition.short}/log/">Click here to add a new post instead</a>
 	</p>
-
 	<tins-log-form 
-		.prefill=${this.data.post} 
+		.text=${this.data.post.text}
+		.image=${this.data.post.image}
+		.spoiler=${this.data.post.spoiler}
 		.submitCallback=${(formData) => this.submit(formData)}
 	></tins-log-form>
 

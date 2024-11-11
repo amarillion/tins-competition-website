@@ -1,6 +1,6 @@
 <script setup>
 import invisibleIcon from '@fortawesome/fontawesome-free/svgs/solid/eye-slash.svg';
-import { spoilerExplanation } from './tins-log-form.js';
+import { spoilerExplanation } from '../util.js';
 
 import { defineProps, computed } from 'vue';
 

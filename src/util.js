@@ -3,6 +3,18 @@ import { clearCurrentUser } from './data/currentUser.js';
 import { dispatch } from './store.js';
 import Cookies from 'js-cookie';
 
+export const spoilerExplanation = `\
+Posts marked spoiler will be hidden from the public until the competition is over. 
+For secret-santa competitions, they're hidden from your giftee as well.`;
+
+export const markupMessage = `\
+Certain html tags are allowed: <a> <abbr> <b> <i> <s> <li> <ul> <ol> <pre> <code> <blockquote>
+URLs are automatically linkified. 
+Youtube links on a line by themselves are converted to embedded videos.
+Newlines are preserved.
+You can edit the text of your last post only.
+`;
+
 export const IMAGE_UPLOAD_SIZE_LIMIT = 1 << 20;
 
 /*
