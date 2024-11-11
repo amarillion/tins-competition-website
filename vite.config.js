@@ -13,5 +13,8 @@ export default defineConfig(({ mode }) => {
 			sourcemap: mode === 'development',
 		},
 		base: '/static/',
-	}
+		test: {
+			environment: 'jsdom'
+		}
+	};
 });

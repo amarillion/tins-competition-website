@@ -25,7 +25,10 @@
 	},
 	"devDependencies": {
 		"@vitejs/plugin-vue": "5.0.5",
+		"@vue/test-utils": "2.4.6",
 		"eslint": "8.38.0",
+		"fetch-mock": "12.1.0",
+		"jsdom": "25.0.1",
 		"vite": "5.2.13",
 		"vite-plugin-compression": "0.5.1",
 		"vitest": "1.6.0"
