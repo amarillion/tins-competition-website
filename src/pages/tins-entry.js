@@ -59,7 +59,7 @@ export class TinsEntry extends LitElement {
 		if (!this.entry.editable) return '';
 		return html`<tins-image-upload 
 				.submitCallback=${(data) => this.submitImage(data)} 
-				sizeLimit="${IMAGE_UPLOAD_SIZE_LIMIT}">
+				size-limit="${IMAGE_UPLOAD_SIZE_LIMIT}">
 			</tins-image-upload>`;
 	}
 
