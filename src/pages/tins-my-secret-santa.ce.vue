@@ -13,7 +13,6 @@ function refresh() {
 
 onMounted(refresh);
 
-//TODO: test that this gets triggered!
 function countDownFinished() {
 	setTimeout(() => refresh(), 1000);
 }
