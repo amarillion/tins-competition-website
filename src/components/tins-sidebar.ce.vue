@@ -8,7 +8,7 @@ const currentEvent = ref(null);
 let subscriptions = [];
 const currentEventLoading = ref(true);
 const currentEventError = ref('');
-
+const latestEvent = ref({});
 const isStaff = ref(false);
 const username = ref('');
 
@@ -17,7 +17,7 @@ onMounted(() => {
 		subscribe(s => s.currentEvent.data && s.currentEvent.data.currentEvent, val => { currentEvent.value = val; }),
 		subscribe(s => s.currentEvent.loading, val => { currentEventLoading.value = val; }),
 		subscribe(s => s.currentEvent.error, val => { currentEventError.value = val; }),
-
+		subscribe(s => s.currentEvent.data && s.currentEvent.data.events[0], val => { latestEvent.value = val; }),
 		subscribe(s => s.currentUser.data && s.currentUser.data.isStaff, val => { isStaff.value = val; }),
 		subscribe(currentUserSelector, val => { username.value = val; }),
 	];
@@ -31,8 +31,8 @@ onUnmounted(() => {
 
 const short = computed(() => currentEvent.value?.short);
 const joinedCompetition = computed(() => currentEvent.value?.joinedCompetition);
-const afterStart = computed(() => currentEvent.value?.afterStart);
-const afterEnd = computed(() => currentEvent.value?.afterEnd);
+const afterStart = computed(() => latestEvent.value?.afterStart);
+const afterEnd = computed(() => latestEvent.value?.afterEnd);
 const canJoin = computed(() => currentEvent.value?.canJoin);
 const canVote = computed(() => currentEvent.value?.canVote);
 const hasSecretSanta = computed(() => currentEvent.value?.hasSecretSanta);
@@ -56,7 +56,7 @@ const title = computed(() => currentEvent.value?.title);
 			<template v-if="isStaff">
 				<hr>
 				<a href="/admin/" router-ignore>admin</a>
-			</template>	
+			</template>
 		</div>
 		
 		<!-- Current event -->

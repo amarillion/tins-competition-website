@@ -1,3 +1,8 @@
+// for testing only
+export function testResetTimestamp() {
+	return { type: 'TEST_RESET_TIMESTAMP' };
+}
+
 function currentEventLoading() {
 	return { type: 'CURREVENT_LOADING' };
 }
@@ -47,6 +52,8 @@ export default function reducer(state = { loading: false, error: null, data: nul
 		return { ...state, loading: false, error: action.error, data: null, timestamp: null };
 	case 'CURREVENT_SUCCESS':
 		return { ...state, loading: false, error: null, data: action.data, timestamp: Date.now() };
+	case 'TEST_RESET_TIMESTAMP':
+		return { ...state, loading: false, error: null, data: null, timestamp: 0 };
 	default:
 		return state;
 	}

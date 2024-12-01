@@ -2,49 +2,82 @@ import { flushPromises, mount } from '@vue/test-utils';
 import TinsSidebar from '../src/components/tins-sidebar.ce.vue';
 
 import fetchMock from 'fetch-mock';
-import { beforeEach, describe, expect, test } from 'vitest';
+import { beforeAll, beforeEach, describe, expect, test } from 'vitest';
+import { dispatch } from '../src/store';
+import { testResetTimestamp } from '../src/data/currentEvent';
+
+const COMPO_ID='krampu24';
+const DEFAULT_CURRENT_EVENT = {
+	short: COMPO_ID,
+	title: "KrampusHack 2024",
+	canJoin: true,
+	canPost: true,
+	canVote: false,
+	votingEnd: 1735063200000,
+	competitionStart: 1733076000000,
+	competitionEnd: 1735063200000,
+	joinedCompetition: false,
+	hasSecretSanta: false,
+	numEntrants: 9
+};
+const DEFAULT_EVENT = {
+	short: COMPO_ID,
+	title: "KrampusHack 2024",
+	afterStart: false,
+	afterEnd: false,
+	canPost: true
+};
+const DEFAULT_RESPONSE = {
+	currentEvent: DEFAULT_CURRENT_EVENT, 
+	events: [ DEFAULT_EVENT ],
+	upcoming: [{
+		title: "TINS",
+		dateStr: "May-Jun 2025"
+	}]
+};
 
 describe('Side Bar Test', () => {
-	beforeEach(() => {
+
+	beforeAll(() => {
 		fetchMock.mockGlobal();
-		fetchMock.config.allowRelativeUrls = true;
-		fetchMock.get('/api/v1/currentEvent', {
-			"currentEvent": {
-				"short": "krampu24",
-				"title": "KrampusHack 2024",
-				"canJoin": true,
-				"canPost": true,
-				"canVote": false,
-				"votingEnd": 1735063200000,
-				"competitionStart": 1733076000000,
-				"competitionEnd": 1735063200000,
-				"joinedCompetition": false,
-				"hasSecretSanta": false,
-				"numEntrants": 9
-			}, 
-			"events": [{
-				"short": "krampu24",
-				"title": "KrampusHack 2024",
-				"afterStart": false,
-				"afterEnd": false,
-				"canPost": true
-			}],
-			"upcoming": [{
-				"title": "TINS",
-				"dateStr": "May-Jun 2025"
-			}]
-		});
 	});
 
-	test('shows news link', () => {
+	beforeEach(() => {
+		fetchMock.removeRoutes();
+		dispatch(testResetTimestamp()); // make sure store is in clean state, because getCurrentEvent is cached...
+	});
+
+	test('shows news link', async () => {
+		fetchMock.get('/api/v1/currentEvent', DEFAULT_RESPONSE);
 		const wrapper = mount(TinsSidebar);
+		await flushPromises();
 		expect(wrapper.find(`a[href='/news']`).exists()).toBe(true);
 	});
 
 	test('shows current event rules link', async () => {
+		fetchMock.get('/api/v1/currentEvent', DEFAULT_RESPONSE);
 		const wrapper = mount(TinsSidebar);
 		await flushPromises();
-		expect(wrapper.find(`a[href='/krampu24/rules']`).exists()).toBe(true);
-
+		expect(wrapper.find(`a[href='/${COMPO_ID}/rules']`).exists()).toBe(true);
 	});
+
+
+	test('during competition', async () => {
+		fetchMock.get('/api/v1/currentEvent', {
+			...DEFAULT_RESPONSE,
+			currentEvent: {
+				...DEFAULT_CURRENT_EVENT,
+				joinedCompetition: true,
+			},
+			events: [{
+				...DEFAULT_EVENT,
+				afterStart: true,
+			}],
+		});
+		const wrapper = mount(TinsSidebar);
+		await flushPromises();
+		expect(wrapper.find(`a[href='/${COMPO_ID}/upload']`).exists()).toBe(true);
+	});
+
+
 });
