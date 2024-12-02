@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { formatBytes } from '../util';
 import { defineProps, ref } from 'vue';
 

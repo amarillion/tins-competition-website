@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import mastodonIcon from '@fortawesome/fontawesome-free/svgs/brands/mastodon.svg';
 import discordIcon from '@fortawesome/fontawesome-free/svgs/brands/discord.svg';
 

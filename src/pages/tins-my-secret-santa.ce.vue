@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { usePromise } from '../usePromise.js';
 import { fetchJSONOrThrow } from '../util';
 import sleighIcon from '@fortawesome/fontawesome-free/svgs/solid/sleigh.svg';

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { computed, onMounted } from 'vue';
 import { currentUserStore } from '../store/index';
 import { currentEventStore } from '../store/index';

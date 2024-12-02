@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import invisibleIcon from '@fortawesome/fontawesome-free/svgs/solid/eye-slash.svg';
 import { spoilerExplanation } from '../util';
 

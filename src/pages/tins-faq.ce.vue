@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 const FAQ = [
 	{
 		question: "Q: What communication channels are there for TINS?",

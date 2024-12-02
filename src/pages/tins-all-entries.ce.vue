@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { usePromise } from '../usePromise.js';
 import { ref, computed, onMounted } from 'vue';
 import { fetchJSONOrThrow } from '../util';

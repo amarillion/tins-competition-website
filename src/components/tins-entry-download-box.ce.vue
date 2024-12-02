@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import sourceIcon from '@fortawesome/fontawesome-free/svgs/brands/osi.svg';
 import windowsIcon from '@fortawesome/fontawesome-free/svgs/brands/windows.svg';
 import linuxIcon from '@fortawesome/fontawesome-free/svgs/brands/linux.svg';

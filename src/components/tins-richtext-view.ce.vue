@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 
 import { renderRichText } from '../util';
 import { defineProps } from 'vue';

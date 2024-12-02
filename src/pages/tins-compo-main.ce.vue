@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import calendarIcon from '@fortawesome/fontawesome-free/svgs/solid/calendar.svg';
 import joinIcon from '@fortawesome/fontawesome-free/svgs/regular/hand-point-right.svg';
 import rulesIcon from '@fortawesome/fontawesome-free/svgs/solid/book.svg';

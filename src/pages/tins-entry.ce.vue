@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { fetchJSONOrThrow, IMAGE_UPLOAD_SIZE_LIMIT, postOrThrow } from '../util';
 import gamepadIcon from '@fortawesome/fontawesome-free/svgs/solid/gamepad.svg';
 import { computed, onMounted } from 'vue';

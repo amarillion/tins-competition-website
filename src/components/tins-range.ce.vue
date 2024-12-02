@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 let instanceCounter = 0;
 export default {
 	data() {
@@ -15,7 +15,7 @@ export default {
 };
 </script>
 
-<script setup>
+<script setup lang="ts">
 import { defineProps, defineEmits } from 'vue';
 
 /*

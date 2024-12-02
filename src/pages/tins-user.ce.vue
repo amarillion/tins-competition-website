@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { fetchJSONOrThrow } from '../util';
 import personIcon from '@fortawesome/fontawesome-free/svgs/solid/id-card.svg';
 import globeIcon from '@fortawesome/fontawesome-free/svgs/solid/earth-europe.svg';

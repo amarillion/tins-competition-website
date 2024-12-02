@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { defineProps, defineEmits, onMounted, ref } from 'vue';
 
 const emit = defineEmits(['countdownZero']);

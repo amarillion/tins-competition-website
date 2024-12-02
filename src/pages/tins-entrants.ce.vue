@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import commentIcon from '@fortawesome/fontawesome-free/svgs/regular/comment.svg';
 import gamepadIcon from '@fortawesome/fontawesome-free/svgs/solid/gamepad.svg';
 import reviewIcon from '@fortawesome/fontawesome-free/svgs/solid/check-to-slot.svg';
