@@ -2,7 +2,6 @@ import { Router } from '@vaadin/router';
 import { defineCustomElement } from 'vue';
 
 import { TinsMyEntry } from './pages/tins-my-entry.js';
-import { TinsTeamManagement } from './pages/tins-team-management.js';
 
 import TinsAbout from './pages/tins-about.ce.vue';
 import TinsAllEntries from './pages/tins-all-entries.ce.vue';
@@ -19,6 +18,7 @@ import TinsRuleOMatic from './pages/tins-rule-o-matic.ce.vue';
 import TinsRules from './pages/tins-rules.ce.vue';
 import TinsSecretSanta from './pages/tins-my-secret-santa.ce.vue';
 import TinsSupport from './pages/tins-support.ce.vue';
+import TinsTeamManagement from './pages/tins-team-management.ce.vue';
 import TinsUser from './pages/tins-user.ce.vue';
 
 import TinsBreadcrumbs from './components/tins-breadcrumbs.ce.vue';
@@ -63,7 +63,7 @@ customElements.define('tins-results', defineCustomElement(TinsResults));
 customElements.define('tins-rule-o-matic', defineCustomElement(TinsRuleOMatic));
 customElements.define('tins-rules', defineCustomElement(TinsRules));
 customElements.define('tins-support', defineCustomElement(TinsSupport));
-customElements.define('tins-team-management', TinsTeamManagement);
+customElements.define('tins-team-management', defineCustomElement(TinsTeamManagement));
 customElements.define('tins-user', defineCustomElement(TinsUser));
 
 // components
