@@ -1,8 +1,6 @@
 import { Router } from '@vaadin/router';
 import { defineCustomElement } from 'vue';
 
-import { TinsMyEntry } from './pages/tins-my-entry.js';
-
 import TinsAbout from './pages/tins-about.ce.vue';
 import TinsAllEntries from './pages/tins-all-entries.ce.vue';
 import TinsCompoMain from './pages/tins-compo-main.ce.vue';
@@ -12,6 +10,7 @@ import TinsFaq from './pages/tins-faq.ce.vue';
 import TinsHistory from './pages/tins-history.ce.vue';
 import TinsLogEdit from './pages/tins-log-edit.ce.vue';
 import TinsLogs from './pages/tins-logs.ce.vue';
+import TinsMyEntry from './pages/tins-my-entry.ce.vue';
 import TinsNewsPage from './pages/tins-newspage.ce.vue';
 import TinsResults from './pages/tins-results.ce.vue';
 import TinsRuleOMatic from './pages/tins-rule-o-matic.ce.vue';
@@ -56,7 +55,7 @@ customElements.define('tins-faq', defineCustomElement(TinsFaq));
 customElements.define('tins-history', defineCustomElement(TinsHistory));
 customElements.define('tins-log-edit', defineCustomElement(TinsLogEdit));
 customElements.define('tins-logs', defineCustomElement(TinsLogs));
-customElements.define('tins-my-entry', TinsMyEntry);
+customElements.define('tins-my-entry', defineCustomElement(TinsMyEntry));
 customElements.define('tins-my-secret-santa', defineCustomElement(TinsSecretSanta));
 customElements.define('tins-newspage', defineCustomElement(TinsNewsPage));
 customElements.define('tins-results', defineCustomElement(TinsResults));
