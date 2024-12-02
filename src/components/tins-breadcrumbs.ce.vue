@@ -3,12 +3,12 @@ export default {
 	props: {
 		data: Array
 	}
-}
+};
 </script>
 
 <template>
 	<a href="/" router-ignore>TINS</a>
-	<span v-for="a of data"> » 
+	<span v-for="a of data" :key="a"> » 
 		<a v-if="a.url" :router-ignore="a.routerIgnore" :href="a.url">{{ a.title }}</a>
 		<span v-else>{{ a.title }}</span>
 	</span>

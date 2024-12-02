@@ -3,7 +3,7 @@ import { fetchJSONOrThrow } from '../util.js';
 import { onMounted } from 'vue';
 import { usePromise } from '../usePromise.js';
 
-const m = window.location.pathname.match(`\/(?<compoId>[^\/]+)\/rules\/?$`);
+const m = window.location.pathname.match(`/(?<compoId>[^/]+)/rules/?$`);
 const { compoId } = m.groups;
 
 const breadcrumbs = [

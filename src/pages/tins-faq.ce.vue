@@ -127,7 +127,7 @@ const FAQ = [
 
 <template>
 	<h1>Frequently Asked Questions</h1>
-	<div v-for="f of FAQ"><h3>{{f.question}}</h3><div v-html="f.answer"></div></div>
+	<div v-for="f of FAQ" :key="f"><h3>{{f.question}}</h3><div v-html="f.answer"></div></div>
 </template>
 
 <style>

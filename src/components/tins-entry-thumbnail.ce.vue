@@ -4,7 +4,7 @@ export default {
 		entry: { type: Object, required: true },
 		footer: { type: String, required: true }
 	}
-}
+};
 </script>
 
 <template>

@@ -6,7 +6,7 @@ import { fetchJSONOrThrow, renderRichText } from '../util.js';
 import { onMounted } from 'vue';
 import { usePromise } from '../usePromise.js';
 
-const m = window.location.pathname.match(`\/(?<compoId>[^\/]+)\/entrants\/?$`);
+const m = window.location.pathname.match(`/(?<compoId>[^/]+)/entrants/?$`);
 const { compoId } = m.groups;
 
 const breadcrumbs = [
@@ -18,10 +18,10 @@ const entrants = usePromise();
 
 onMounted(() => {
 	entrants.doAsync(async() => {
-		const data = await fetchJSONOrThrow(`/api/v1/compo/${compoId}/entrants`)
+		const data = await fetchJSONOrThrow(`/api/v1/compo/${compoId}/entrants`);
 		return data.result;
 	});
-})
+});
 </script>
 
 <template>
@@ -33,7 +33,7 @@ onMounted(() => {
 			<p>
 				At this moment, {{entrants.result.value.length}} people have registered for the competition.
 			</p>
-			<div v-for="e of entrants.result.value" class="entrant">
+			<div v-for="e of entrants.result.value" :key="e" class="entrant">
 				<p>
 					<b>Name:</b> <a :href="`/user/${e.username}`">{{e.username}}</a> <br>
 					<b>From:</b> {{e.location}}

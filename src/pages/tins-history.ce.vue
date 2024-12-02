@@ -5,7 +5,7 @@ import { fetchJSONOrThrow } from '../util.js';
 
 const data = usePromise();
 onMounted(() => {
-	data.doAsync(async() => (await fetchJSONOrThrow(`/api/v1/currentEvent`)).events) //TODO: separate endpoint for history...
+	data.doAsync(async() => (await fetchJSONOrThrow(`/api/v1/currentEvent`)).events); //TODO: separate endpoint for history...
 });
 const events = computed(() => data.result.value || []);
 </script>
@@ -17,7 +17,7 @@ const events = computed(() => data.result.value || []);
 	<tins-status-helper  :error="data.error.value" :loading="data.loading.value">
 		<div class="two-col">
 		<ul>
-			<li v-for="e of events"><a :href="`/${e.short}/`">{{e.title}}</a></li>
+			<li v-for="e of events" :key="e.short"><a :href="`/${e.short}/`">{{e.title}}</a></li>
 		</ul>
 		</div>
 	</tins-status-helper>

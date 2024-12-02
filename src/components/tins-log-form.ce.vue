@@ -16,6 +16,7 @@ const props = defineProps({
 	submitCallback: { type: Function, default: () => { console.log("WARN: submitCallback not set"); } }
 });
 
+const textRef = ref(props.text);
 const formElt = ref(null);
 const imgDisabled = ref(Boolean(props.image));
 
@@ -41,7 +42,7 @@ function enableImage() {
 		<div :title="markupMessage">
 		Write your message (markup allowed <tins-fa-icon :src="infoIcon" color="navy" size="1rem"></tins-fa-icon>):
 		</div>
-		<textarea name="message" cols="40" rows="10" required id="id_message">{{ text }}</textarea>
+		<textarea name="message" cols="40" rows="10" required id="id_message" v-model="textRef"></textarea>
 		
 		<div :title="spoilerExplanation">
 			<label>Spoiler:

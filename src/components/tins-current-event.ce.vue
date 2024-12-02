@@ -1,9 +1,8 @@
 <script setup>
 import { fetchJSONOrThrow } from '../util.js';
 import { usePromise } from '../usePromise.js';
-import { refreshCurrentEvent } from '../data/currentEvent.js';
 import { ref, onMounted, onUnmounted, computed } from 'vue';
-import { subscribe, dispatch } from '../store.js';
+import { subscribe } from '../store.js';
 
 const currentEventRef = ref({});
 let subscriptions;
@@ -43,29 +42,29 @@ async function refreshLogs() {
 const currentEvent = computed(() => currentEventRef.value );
 
 function formatRelativeTime(millis) {
-		try {
-			const rtf = new Intl.RelativeTimeFormat("en", {
-				style: "long", // other values: "long", "short" or "narrow"
-			});
-			const deltaMillis = new Date(millis) - Date.now();
-			const deltaMinutes = Math.round(deltaMillis / 60000);
-			if (Math.abs(deltaMinutes) < 60) {
-				return rtf.format(deltaMinutes, "minute");
-			}
-			else if (Math.abs(deltaMinutes) < 60*24) {
-				const deltaHours = Math.round(deltaMinutes / 60);
-				return rtf.format(deltaHours, "hour");
-			}
-			else {
-				const deltaDays = Math.round(deltaMinutes / (60*24));
-				return rtf.format(deltaDays, "day");
-			}
+	try {
+		const rtf = new Intl.RelativeTimeFormat("en", {
+			style: "long", // other values: "long", "short" or "narrow"
+		});
+		const deltaMillis = new Date(millis) - Date.now();
+		const deltaMinutes = Math.round(deltaMillis / 60000);
+		if (Math.abs(deltaMinutes) < 60) {
+			return rtf.format(deltaMinutes, "minute");
 		}
-		catch (e) {
-			// Intl.RelatvieTimeFormat not supported
-			return '';
+		else if (Math.abs(deltaMinutes) < 60*24) {
+			const deltaHours = Math.round(deltaMinutes / 60);
+			return rtf.format(deltaHours, "hour");
+		}
+		else {
+			const deltaDays = Math.round(deltaMinutes / (60*24));
+			return rtf.format(deltaDays, "day");
 		}
 	}
+	catch (e) {
+		// Intl.RelatvieTimeFormat not supported
+		return '';
+	}
+}
 
 const slug = post => {	
 	const stripped = new DOMParser().parseFromString(post.text, 'text/html').body.textContent;

@@ -14,7 +14,7 @@ import { fetchJSONOrThrow } from '../util.js';
 
 const compo = usePromise();
 
-const m = window.location.pathname.match(`\/(?<compoId>[^\/]+)\/?$`);
+const m = window.location.pathname.match(`/(?<compoId>[^/]+)/?$`);
 const { compoId } = m.groups;
 
 onMounted(() => {

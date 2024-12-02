@@ -4,7 +4,7 @@ export default {
 	data() {
 		return { 
 			uniqueId: undefined
-		}
+		};
 	},
 	// can not be generated from setup function...
 	created() {
@@ -12,7 +12,7 @@ export default {
 		// prevent clashes on older browsers (Seamonkey)
 		this.uniqueId = ++instanceCounter;
 	}
-}
+};
 </script>
 
 <script setup>
@@ -26,9 +26,9 @@ import { defineProps, defineEmits } from 'vue';
  */
 
 
-const emit = defineEmits();
-const props = defineProps({
-	labels: { type: Array, default: ['1', '2', '3', '4', '5'] },
+const emit = defineEmits('changed');
+defineProps({
+	labels: { type: Array, default: () => ['1', '2', '3', '4', '5'] },
 	/** Range between 1 and 5. Starts with null value. Must be non-null to be valid. */
 	value: { type: Number }
 });
@@ -41,6 +41,7 @@ function dispatchNewValue(newValue) {
 <template>
 	<input 
 		v-for="i of [0,1,2,3,4]" 
+		:key="i"
 		:title="`${[labels[i]]}`" 
 		@click="() => dispatchNewValue(i+1)" 
 		:value="i+1" 

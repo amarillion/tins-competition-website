@@ -1,7 +1,7 @@
 <script setup>
 import { defineProps, defineEmits, onMounted, ref } from 'vue';
 
-const emit = defineEmits(['countdownZero'])
+const emit = defineEmits(['countdownZero']);
 
 const props = defineProps({
 	epochmillis: { type: Number, required: true },
@@ -47,8 +47,7 @@ function update() {
 		labels.value = [ "days", "hours" ];
 		setTimeout(() => update(), 60*60*1000);
 	}
-	else 
-	if (hours > 0) {
+	else if (hours > 0) {
 		numbers.value = [ hours, min ];
 		labels.value = [ "hours", "min" ];
 		setTimeout(() => update(), 60*1000);

@@ -8,7 +8,7 @@ import { formatBytes } from '../util';
 import { computed } from 'vue';
 
 const props = defineProps({
-	uploads: { type: Array, default: [] }
+	uploads: { type: Array, default: () => [] }
 });
 
 const getFileName = (url) => url.split('/').pop();
@@ -39,22 +39,22 @@ const postDeadline = computed(() => props.uploads.filter(u => u.postCompo).slice
 	<div class="downloadbox">
 		<table border=1 frame=void rules=rows>
 
-			<tr v-for="upload of preDeadline">
+			<tr v-for="upload of preDeadline" :key="upload">
 				<td><tins-fa-icon :src="downloadIcon" color="gray" size="2rem"></tins-fa-icon></td>
 				<td><a :href="`/upload/${upload.url}`" router-ignore>{{getFileName(upload.url)}}</a></td>
 				<td>{{formatBytes(upload.size)}}</td>
 				<td>{{formatUploadTime(upload.time)}}</td>
-				<td><tins-fa-icon v-for="t of upload.tags.sort()" :src="icons[t]" :title="titles[t]"></tins-fa-icon></td>
+				<td><tins-fa-icon v-for="t of upload.tags.sort()" :key="t" :src="icons[t]" :title="titles[t]"></tins-fa-icon></td>
 			</tr>
 
 			<tr v-if="postDeadline.length > 0"><td colspan="5" style="background: white;"><h4>Post competition additions:</h4></td></tr>
 
-			<tr v-for="upload of postDeadline">
+			<tr v-for="upload of postDeadline" :key="upload">
 				<td><tins-fa-icon :src="downloadIcon" color="gray" size="2rem"></tins-fa-icon></td>
 				<td><a :href="`/upload/${upload.url}`" router-ignore>{{getFileName(upload.url)}}</a></td>
 				<td>{{formatBytes(upload.size)}}</td>
 				<td>{{formatUploadTime(upload.time)}}</td>
-				<td><tins-fa-icon v-for="t of upload.tags.sort()" :src="icons[t]" :title="titles[t]"></tins-fa-icon></td>
+				<td><tins-fa-icon v-for="t of upload.tags.sort()" :key="t" :src="icons[t]" :title="titles[t]"></tins-fa-icon></td>
 			</tr>
 
 		</table>

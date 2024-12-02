@@ -18,7 +18,7 @@ describe('Log Form test', () => {
 			props: { text: 'Prefilled text' }
 		});
 
-		expect(wrapper.find(`textarea`).text()).toBe('Prefilled text');
+		expect(wrapper.find(`textarea`).element.value).toBe('Prefilled text');
 	});
 
 	test('prefill spoiler flag is applied to form', () => {

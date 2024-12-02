@@ -101,7 +101,7 @@ const result = computed(() => data.result.value );
 {{rule.text}}
 </pre>
 
-<p>
+<div>
 <details>
 <summary>Rate how much you <b>like</b> this rule (Expand for explainer)</summary>
 <blockquote>
@@ -125,9 +125,9 @@ const result = computed(() => data.result.value );
 	<tins-range :value="interest" :labels="INTEREST_LABELS" @changed="interestChanged"></tins-range>
 	<tins-fa-icon title="Good" :src="thumbsUpIcon" color="black" size="1.6rem"></tins-fa-icon>
 </div>
-</p>
+</div>
 
-<p>
+<div>
 <details>
 <summary>Rate how <b>challenging</b> you find this rule (Expand for explainer)</summary>
 <blockquote>
@@ -153,7 +153,7 @@ The rating scale ranges from 'I can do this in my sleep' to 'No way, this is imp
 	<tins-range :value="challenge" :labels="CHALLENGE_LABELS" @changed="challengeChanged"></tins-range>
 	<tins-fa-icon title="Hard" :src="hardIcon" color="black" size="1.6rem"></tins-fa-icon>
 </div>
-</p>
+</div>
 				</template>
 				<p v-else>Zarroo rules remain!</p>
 

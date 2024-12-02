@@ -61,10 +61,10 @@ const byUser = computed(_byUser);
 			</div>
 
 			<div v-if="groupBy === 'byEvent'">
-				<div v-for="i of byCompo" v-key="i.competition.short">
+				<div v-for="i of byCompo" :key="i.competition.short">
 					<h2>{{i.competition.title}}</h2>
 					<div class="entry-list">
-						<a v-for="e of i.entries" :href="`/entry/${e.id}`">
+						<a v-for="e of i.entries" :key="e.id" :href="`/entry/${e.id}`">
 							<tins-entry-thumbnail 
 								.entry="e"
 								:footer="e.team"
@@ -74,10 +74,10 @@ const byUser = computed(_byUser);
 				</div>
 			</div>
 			<div v-else>
-				<div v-for="i of byUser" v-key="i.user.id">
+				<div v-for="i of byUser" :key="i.user.id">
 					<h2>{{i.user.name}}</h2>
 					<div class="entry-list">
-						<a v-for="e of i.entries" :href="`/entry/${e.id}`">
+						<a v-for="e of i.entries" :key="e.id" :href="`/entry/${e.id}`">
 							<tins-entry-thumbnail 
 								.entry="e"
 								:footer="e.competition.title"

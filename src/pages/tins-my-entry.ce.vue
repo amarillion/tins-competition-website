@@ -8,7 +8,7 @@ import { postOrThrow } from '../util.js';
  * The function of this page is to fetch the entry id for the given entrant (Creating it if it doesn't exist)
  * and redirect to that.
  */
-const m = window.location.pathname.match(`\/(?<compoId>[^\/]+)\/myEntry\/?$`);
+const m = window.location.pathname.match(`/(?<compoId>[^/]+)/myEntry/?$`);
 const { compoId } = m.groups;
 
 const data = usePromise();

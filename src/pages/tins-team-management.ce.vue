@@ -4,7 +4,7 @@ import { usePromise } from '../usePromise.js';
 import { computed, onMounted, ref } from 'vue';
 
 const data = usePromise();
-const m = window.location.pathname.match(`\/(?<compoId>[^\/]+)\/team\/?$`);
+const m = window.location.pathname.match(`/(?<compoId>[^/]+)/team/?$`);
 const { compoId } = m.groups;
 
 const breadcrumbs = [
@@ -93,14 +93,14 @@ async function leaveTeam() {
 	<tins-status-helper :error="data.error.value" :loading="data.loading.value">
 		<p v-if="entry.entrants">Your current team:
 			<ol>
-				<li v-for="e of entry.entrants" v-key="e.id">{{e.name}}</li>
+				<li v-for="e of entry.entrants" :key="e.id">{{e.name}}</li>
 			</ol>
 			<span v-if="entry.entrants.length === 1">(You're all by yourself)</span>
 			<button v-else @click="leaveTeam">Leave team</button>
 		</p>
 
 		<template v-if="invitations">
-			<p v-for="e of invitations" v-key="e.id">You've been invited to join the team of {{e.senderName}}. 
+			<p v-for="e of invitations" :key="e.id">You've been invited to join the team of {{e.senderName}}. 
 				Do you <button @click="() => resolve(e, true)">Accept</button> 
 				or <button @click="() => resolve(e, false)">Reject</button>?
 			</p>
@@ -109,7 +109,7 @@ async function leaveTeam() {
 		<div v-if="invitationOpen">
 			<select name="invitees" ref="inviteeSelectElt">
 				<option value="">--Please choose an option--</option>
-				<option v-for="e of allEntrants.result.value" v-key="e.entrantId" :value="e.entrantId">{{e.username}}</option>
+				<option v-for="e of allEntrants.result.value" :key="e.entrantId" :value="e.entrantId">{{e.username}}</option>
 			</select>
 			<button @click="sendInvitation">Send Invitation</button>
 		</div>
@@ -120,7 +120,7 @@ async function leaveTeam() {
 		
 		<p v-if="(pendingInvitations && pendingInvitations.length > 0)">Pending invitations (waiting to be accepted):
 			<ul>
-				<li v-for="e of pendingInvitations" v-key="e.recipientEntrantId">{{e.recipientName}}</li>
+				<li v-for="e of pendingInvitations" :key="e.recipientEntrantId">{{e.recipientName}}</li>
 			</ul>
 		</p>
 

@@ -20,9 +20,9 @@ function countDownFinished() {
 const competitionStarted = computed(() => data.result.value?.competitionStarted || false);
 const competitionEnded = computed(() => data.result.value?.competitionEnded || false);
 const competition = computed(() => data.result.value?.competition || null);
-const joinedCompetition = computed(() => data.result.value?.joinedCompetition || false)
-const title = computed(() => competition.value ? `Your Secret Santa for ${competition.value.title}` : 'Secret Santa')
-const secretSanta = computed(() => data.result.value?.secretSanta || null) // note that absence of secretSanta info is only a problem after the start of the competition
+const joinedCompetition = computed(() => data.result.value?.joinedCompetition || false);
+const title = computed(() => competition.value ? `Your Secret Santa for ${competition.value.title}` : 'Secret Santa');
+const secretSanta = computed(() => data.result.value?.secretSanta || null); // note that absence of secretSanta info is only a problem after the start of the competition
 const reverse = computed(() => data.result.value?.reverse || {});
 </script>
 <template>

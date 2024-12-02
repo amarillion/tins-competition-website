@@ -2,7 +2,6 @@
 import { defineProps, ref, watch } from 'vue';
 
 const props = defineProps({
-	editMode: { type: Boolean, reflect: true, default: false },
 	readOnly: { type: Boolean, default: false },
 	placeholder: { type: String, default: '(no description)' },
 
@@ -12,6 +11,7 @@ const props = defineProps({
 
 const loading = ref(false);
 const error = ref('');
+const editMode = ref(false);
 
 /** text provided by attribute must be safe */
 const safeText = ref(props.text);
@@ -29,12 +29,12 @@ async function clickSave() {
 		// text processed on server side before it's considered safe 
 		safeText.value = await props.submitCallback(unsafeText.value);
 		loading.value = false;
-		props.editMode = false;
+		editMode.value = false;
 	}
 	catch(e) {
 		console.log(e);
 		loading.value = false;
-		props.editMode = true;
+		editMode.value = true;
 		error.value = e.toString();
 	}
 }
@@ -43,12 +43,12 @@ function clickCancel() {
 	// discard edited text
 	unsafeText.value = safeText.value;
 	loading.value = false;
-	props.editMode = false;
+	editMode.value = false;
 }
 
 function clickEdit() {
 	if (!props.readOnly) {
-		props.editMode = true;
+		editMode.value = true;
 	}
 }
 </script>

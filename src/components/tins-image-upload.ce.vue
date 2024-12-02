@@ -11,7 +11,7 @@ const props = defineProps({
 });
 
 const error = ref('');
-const imageUploadElt = ref(null)
+const imageUploadElt = ref(null);
 async function upload() {
 	const fileNum = imageUploadElt.value.files.length;
 	if (fileNum != 1) {
@@ -39,8 +39,7 @@ async function upload() {
 		<input ref="imageUploadElt"
 			type="file" 
 			accept="image/*,video/webm"
-			@change="upload">
-		</input>
+			@change="upload"/>
 		<div v-if="error" class="error">{{ error }}</div>
 	</label>
 </template>

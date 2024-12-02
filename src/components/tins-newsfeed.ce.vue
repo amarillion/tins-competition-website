@@ -11,9 +11,9 @@ const data = usePromise();
 onMounted(() => {
 	data.doAsync(async() => {
 		const url  = props.newsId ? `/api/v1/news/${props.newsId}` : '/api/v1/news';
-		return fetchJSONOrThrow(url)
+		return fetchJSONOrThrow(url);
 	});
-})
+});
 
 
 const posts = computed(() => data.result.value?.posts);
@@ -28,7 +28,7 @@ function formatPostDate(date) {
 <template>
 	<h1>News</h1>
 
-	<div v-for="p of posts">
+	<div v-for="p of posts" :key="p">
 		<br />
 		<div class="header">
 			{{ formatPostDate(p.date) }}

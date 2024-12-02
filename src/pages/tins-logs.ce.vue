@@ -80,7 +80,7 @@ const numPages = computed(() => data.result.value?.numPages || -1);
 		<h1>{{competition.title}} logs</h1>
 
 		<table v-if="posts.length">
-			<tr v-for="p of posts" v-key="p.id"><td><tins-log-post :post="p" :competition="competition"></tins-log-post></td></tr>
+			<tr v-for="p of posts" :key="p.id"><td><tins-log-post :post="p" :competition="competition"></tins-log-post></td></tr>
 		</table>
 		<p v-else>Nothing posted yet...</p>
 

@@ -6,7 +6,7 @@ import { usePromise } from '../usePromise.js';
 
 const data = usePromise();
 
-const m = window.location.pathname.match(`\/entry\/(?<entryId>[^\/]+)\/?$`);
+const m = window.location.pathname.match(`/entry/(?<entryId>[^/]+)/?$`);
 const { entryId } = m.groups;
 
 onMounted(() => data.doAsync(async () => fetchJSONOrThrow(`/api/v1/entry/${entryId}/`)));
@@ -42,19 +42,19 @@ const competition = computed(() => data.result.value?.competition || {});
 	<tins-status-helper :error="data.error.value" :loading="data.loading.value">
 		<template v-if="!data.loading.value">
 			<div class="floatright">
-				<img v-for="t of tags" :src="`/upload/${t.icon}`" :title="`${t.desc}`"/>
+				<img v-for="t of tags" :key="t" :src="`/upload/${t.icon}`" :title="`${t.desc}`"/>
 			</div>
 
 			<h1><tins-fa-icon :src="gamepadIcon" size="2rem"></tins-fa-icon> {{title}}</h1>
 			
-			<p class="authorbox">
+			<div class="authorbox">
 				Event: <a :href="`/${competition.short}`" router-ignore>{{competition.title}}</a><br>
 				<div v-if="entry.editable" class="floatright"><a :href="`/${competition.short}/team`">Manage Team</a></div>
 				Game by:
-				<span v-for="e of entry.entrants" v-key="e.id">
+				<span v-for="e of entry.entrants" :key="e.id">
 					{{e.name}} <a :href='`${competition.short}/log/entrant/${e.id}`'>log ({{entry.logCounts[e.id]}})</a>&nbsp;
 				</span>
-			</p>
+			</div>
 
 			<!-- TODO: test!-->
 			<p v-if="entry.editable && !competition.afterEnd && competition.afterStart">
@@ -96,6 +96,7 @@ const competition = computed(() => data.result.value?.competition || {});
 
 	.authorbox {
 		color: grey;
+		margin-bottom: 1rem;
 	}
 
 	.edit-image {

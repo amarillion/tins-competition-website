@@ -1,14 +1,14 @@
 <script setup>
 import { postOrThrow, fetchJSONOrThrow } from '../util.js';
-import { usePromise } from '../usePromise.js'
+import { usePromise } from '../usePromise.js';
 import { onMounted, computed } from 'vue';
 
-const m = window.location.pathname.match(`\/(?<compoId>[^\/]+)\/log\/edit\/?$`);
+const m = window.location.pathname.match(`/(?<compoId>[^/]+)/log/edit/?$`);
 const { compoId } = m.groups;
 
 const data = usePromise();
 onMounted(() => {
-	data.doAsync(async() => (await fetchJSONOrThrow(`/api/v1/log/event/${compoId}/myLatest`)))
+	data.doAsync(async() => (await fetchJSONOrThrow(`/api/v1/log/event/${compoId}/myLatest`)));
 });
 
 async function submit(formData) {
