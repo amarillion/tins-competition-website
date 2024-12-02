@@ -1,19 +1,18 @@
 module.exports = {
 	parserOptions: {
-		sourceType: "module",
-		ecmaVersion: 10
+		"parser": "@typescript-eslint/parser"
 	},
 	env: {
 		"browser": true,
 		"es6": true,
 	},
-	extends: "eslint:recommended",
+	extends: [
+		"eslint:recommended",
+		"plugin:vue/vue3-essential"
+	],
 	rules: {
 		'indent': [ 'error', 'tab', { 'ignoredNodes': ['TemplateLiteral'] } ],
 		"semi": [2, "always"],
-		"no-console": [0]
+		"no-console": [0],
 	},
-	globals: {
-		"DocumentTouch": true
-	}
 };
