@@ -5,7 +5,6 @@ import { watch, onMounted, computed } from 'vue';
 import { currentEventStore } from '../store/index';
 import { storeToRefs } from 'pinia';
 
-
 onMounted(() => {	
 	refreshLogs();
 });
@@ -30,7 +29,7 @@ const { currentEvent } = storeToRefs(currentEventStore);
 // reload logs when current event is loaded or changed.
 watch(currentEvent, () => { refreshLogs(); });
 
-function formatRelativeTime(millis) {
+function formatRelativeTime(millis: number) {
 	try {
 		const rtf = new Intl.RelativeTimeFormat("en", {
 			style: "long", // other values: "long", "short" or "narrow"

@@ -18,7 +18,7 @@ onMounted(() => {
 
 const posts = computed(() => data.result.value?.posts);
 
-function formatPostDate(date) {
+function formatPostDate(date: number) {
 	const dateTimeFormat = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'long', day: 'numeric' });
 	const [{ value: month },,{ value: day },,{ value: year }] = dateTimeFormat.formatToParts(new Date(date));
 	return `${day} ${month} ${year}`;

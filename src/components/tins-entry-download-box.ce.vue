@@ -11,8 +11,8 @@ const props = defineProps({
 	uploads: { type: Array, default: () => [] }
 });
 
-const getFileName = (url) => url.split('/').pop();
-const formatUploadTime = (time) => Intl.DateTimeFormat("en", {
+const getFileName = (url: string) => url.split('/').pop();
+const formatUploadTime = (time: number) => Intl.DateTimeFormat("en", {
 	weekday: 'short',
 	hour: '2-digit',
 	minute: '2-digit',

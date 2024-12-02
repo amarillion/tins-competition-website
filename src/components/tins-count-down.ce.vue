@@ -15,8 +15,8 @@ function getDeltaSec() {
 }
 
 const deltaSec = ref(0);
-const numbers = ref([]);
-const labels = ref([]);
+const numbers = ref<number[]>([]);
+const labels = ref<string[]>([]);
 
 function update() {
 	const _deltaSec = getDeltaSec();

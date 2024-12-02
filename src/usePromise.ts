@@ -1,10 +1,10 @@
 import { ref } from 'vue';
 
-export function usePromise() {
-	const result = ref(null);
+export function usePromise<T>() {
+	const result = ref<T>(null);
 	const loading = ref(false);
-	const error = ref(null);
-	const doAsync = async (fn) => {
+	const error = ref<unknown>(null);
+	const doAsync = async (fn: () => Promise<T>) => {
 		loading.value = true;
 		error.value = null;
 		result.value = null;
