@@ -22,11 +22,21 @@ const imgDisabled = ref(Boolean(props.image));
 
 function submit(e) {
 	e.preventDefault();
+	
 	const formData = new FormData(formElt.value);
-	props.submitCallback(formData);
 
-	// TODO: BUG! resetting form means that the form now shows old values from init time...
-	formElt.value.reset(); // reset not automatic due to preventDefault...
+	// validate form
+	const screenshot = formData.get('screenshot');
+
+	if (screenshot && screenshot.size > IMAGE_UPLOAD_SIZE_LIMIT) {
+		screenShotErrorMessage.value = `File is too large. Maximum size allowed is ${formatBytes(IMAGE_UPLOAD_SIZE_LIMIT)}.`;
+	}
+	else {
+		props.submitCallback(formData);
+
+		// TODO: BUG! resetting form means that the form now shows old values from init time...
+		formElt.value.reset(); // reset not automatic due to preventDefault...
+	}
 }
 
 function disableImage() {
@@ -35,6 +45,12 @@ function disableImage() {
 function enableImage() {
 	imgDisabled.value = false;
 }
+
+const screenShotErrorMessage = ref('');
+
+const fileInputChanged = () => {
+	screenShotErrorMessage.value = ''; // Clear any previous errors
+};
 
 </script>
 <template>
@@ -63,8 +79,11 @@ function enableImage() {
 		<input v-else type="hidden" name="img_option" value="add_or_replace">
 		
 		<div class="screenshot" :hidden="imgDisabled" :title="`note: screenshots should be GIF, JPG or PNG files of less than ${formatBytes(IMAGE_UPLOAD_SIZE_LIMIT)}`">
+			<div v-if="screenShotErrorMessage" class="error">
+				{{ screenShotErrorMessage }}
+			</div>
 			<label>Screenshot: <tins-fa-icon :src="infoIcon" color="navy" size="1rem"></tins-fa-icon>
-				<input type="file" name="screenshot" accept="image/*">
+				<input type="file" name="screenshot" accept="image/*" @change="fileInputChanged">
 			</label>
 		</div>
 		<!-- end of screenshot selector-->
@@ -75,7 +94,11 @@ function enableImage() {
 	
 	</form>
 </template>
-<style>
+<style scoped>
+	.error {
+		color: red;
+	}
+
 	textarea {
 		width: 100%;
 	}
