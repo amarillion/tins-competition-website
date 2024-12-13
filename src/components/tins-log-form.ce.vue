@@ -17,6 +17,8 @@ const props = defineProps({
 });
 
 const textRef = ref(props.text);
+const spoilerRef = ref(props.spoiler);
+
 const formElt = ref(null);
 const imgDisabled = ref(Boolean(props.image));
 
@@ -32,10 +34,15 @@ function submit(e) {
 		screenShotErrorMessage.value = `File is too large. Maximum size allowed is ${formatBytes(IMAGE_UPLOAD_SIZE_LIMIT)}.`;
 	}
 	else {
-		props.submitCallback(formData);
+		// reset the form completely
+		textRef.value = '';
+		spoilerRef.value = false;
+		if (formElt.value.screenshot) {
+			formElt.value.screenshot.value = null;
+		}
 
-		// TODO: BUG! resetting form means that the form now shows old values from init time...
-		formElt.value.reset(); // reset not automatic due to preventDefault...
+		// call submit function...
+		props.submitCallback(formData);
 	}
 }
 
@@ -62,7 +69,7 @@ const fileInputChanged = () => {
 		
 		<div :title="spoilerExplanation">
 			<label>Spoiler:
-			<input type="checkbox" name="spoiler" id="id_spoiler" :checked="spoiler">
+			<input type="checkbox" name="spoiler" id="id_spoiler" v-model="spoilerRef">
 			<tins-fa-icon :src="infoIcon" color="navy" size="1rem"></tins-fa-icon>
 			</label>
 		</div>

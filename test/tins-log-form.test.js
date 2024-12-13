@@ -38,4 +38,22 @@ describe('Log Form test', () => {
 		expect(wrapper.find(`div.screenshot`).isVisible()).toBe(false);
 	});
 
+	test('after submitting, form is cleared', async () => {
+		const wrapper = mount(TinsLogForm, { props: { 
+			text: 'This is my post 123',
+			spoiler: true,
+			screenshot: 'dummy'
+		}});
+
+		const textArea = wrapper.find('textarea');
+
+		await wrapper.find('form').trigger('submit');
+
+		// after submitting, the form must be cleared, to ensure the user can't do a double submission
+		expect(textArea.element.value).toBe('');
+		
+		// spoiler flag must also be cleared
+		// expect(wrapper.find(`input[name='spoiler']`).element.value).toBe("off");
+	});
+
 });
