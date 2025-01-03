@@ -84,9 +84,9 @@ const lastPost = computed(() => {
 		Current event:
 		<h1>{{currentEvent.title}}</h1>
 		<div class="datelist">
-		<tins-count-down label="Start"       :epochMillis="currentEvent.competitionStart"></tins-count-down>
-		<tins-count-down label="Finish"      :epochMillis="currentEvent.competitionEnd"></tins-count-down>
-		<tins-count-down label="Voting ends" :epochMillis="currentEvent.votingEnd"></tins-count-down>
+		<tins-count-down label="Start"       :epochmillis="currentEvent.competitionStart"></tins-count-down>
+		<tins-count-down label="Finish"      :epochmillis="currentEvent.competitionEnd"></tins-count-down>
+		<tins-count-down label="Voting ends" :epochmillis="currentEvent.votingEnd"></tins-count-down>
 		</div>
 		<template v-if="currentEvent.canJoin">
 			Already {{currentEvent.numEntrants}} signed up. <a href="/join/" router-ignore>Click to join</a>!
