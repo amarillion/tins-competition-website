@@ -1,5 +1,5 @@
 <script setup>
-import twitterIcon from '@fortawesome/fontawesome-free/svgs/brands/twitter.svg';
+import mastodonIcon from '@fortawesome/fontawesome-free/svgs/brands/mastodon.svg';
 import discordIcon from '@fortawesome/fontawesome-free/svgs/brands/discord.svg';
 
 import { defineProps } from 'vue';
@@ -19,7 +19,7 @@ defineProps({
 		<hr>
 		Stay informed! <a href="https://groups.google.com/d/forum/tinscompetition">join our google group</a><br> 
 		<tins-fa-icon :src="discordIcon" size="1rem"></tins-fa-icon> <a href="https://discord.gg/7uK6jNtNX9">our Discord server</a><br>
-		<tins-fa-icon :src="twitterIcon" size="1rem"></tins-fa-icon> <a href="https://twitter.com/mpvaniersel">@mpvaniersel</a>
+		<tins-fa-icon :src="mastodonIcon" size="1rem"></tins-fa-icon> <small><a href="https://mastodon.gamedev.place/@amarillion">@amarillion@mastodon.gamedev.place</a></small>
 	</div>
 </template>
 <style>

@@ -1,5 +1,5 @@
 <script setup>
-import twitterIcon from '@fortawesome/fontawesome-free/svgs/brands/twitter.svg';
+import mastodonIcon from '@fortawesome/fontawesome-free/svgs/brands/mastodon.svg';
 import emailIcon from '@fortawesome/fontawesome-free/svgs/solid/envelope.svg';
 </script>
 
@@ -48,7 +48,7 @@ import emailIcon from '@fortawesome/fontawesome-free/svgs/solid/envelope.svg';
 	<h2>About the organizers</h2>
 	<p>
 	TINS is organized by <a href="http://www.helixsoft.nl">Amarillion</a>, who has been doing this kind of thing since 2001. 
-	Contact me: <tins-fa-icon :src="emailIcon" size="1rem"></tins-fa-icon> amarillion@yahoo.com or <tins-fa-icon :src="twitterIcon" size="1rem"></tins-fa-icon> <a href="https://twitter.com/mpvaniersel">@mpvaniersel</a>
+	Contact me: <tins-fa-icon :src="emailIcon" size="1rem"></tins-fa-icon> amarillion@yahoo.com or <tins-fa-icon :src="mastodonIcon" size="1rem"></tins-fa-icon> <a href="https://mastodon.gamedev.place/@amarillion">@amarillion@mastodon.gamedev.place</a>
 	</p>
 </template>
 
