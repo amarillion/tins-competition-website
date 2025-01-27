@@ -1,5 +1,5 @@
 <script setup>
-import { fetchJSONOrThrow, postOrThrow } from '../util.js';
+import { fetchJSONOrThrow, postOrThrow } from '../util';
 import { canPostSelector, refreshCurrentEvent } from '../data/currentEvent.js';
 import { currentUserSelector } from '../data/currentUser.js';
 import { ref, onMounted, onUnmounted, computed } from 'vue';

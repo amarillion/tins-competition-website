@@ -1,6 +1,6 @@
 <script setup>
 import { usePromise } from '../usePromise.js';
-import { fetchJSONOrThrow } from '../util.js';
+import { fetchJSONOrThrow } from '../util';
 import sleighIcon from '@fortawesome/fontawesome-free/svgs/solid/sleigh.svg';
 import { computed, onMounted } from 'vue';
 

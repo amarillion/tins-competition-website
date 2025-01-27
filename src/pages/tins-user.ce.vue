@@ -1,5 +1,5 @@
 <script setup>
-import { fetchJSONOrThrow } from '../util.js';
+import { fetchJSONOrThrow } from '../util';
 import personIcon from '@fortawesome/fontawesome-free/svgs/solid/id-card.svg';
 import globeIcon from '@fortawesome/fontawesome-free/svgs/solid/earth-europe.svg';
 import { onMounted, computed } from 'vue';

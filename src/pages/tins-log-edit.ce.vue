@@ -1,5 +1,5 @@
 <script setup>
-import { postOrThrow, fetchJSONOrThrow } from '../util.js';
+import { postOrThrow, fetchJSONOrThrow } from '../util';
 import { usePromise } from '../usePromise.js';
 import { onMounted, computed } from 'vue';
 

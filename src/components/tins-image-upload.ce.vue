@@ -1,5 +1,5 @@
 <script setup>
-import { formatBytes } from '../util.js';
+import { formatBytes } from '../util';
 import { defineProps, ref } from 'vue';
 
 const props = defineProps({

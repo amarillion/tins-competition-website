@@ -17,18 +17,7 @@ You can edit the text of your last post only.
 
 export const IMAGE_UPLOAD_SIZE_LIMIT = 1 << 20;
 
-/*
-	Adds an event listener on a DOM element, and returns a function that 
-	removes it again when called.
-*/
-export function registerEventListener(elt, type, func, capture = false) {
-	elt.addEventListener(type, func, capture);
-	return () => {
-		elt.removeEventListener(type, func, capture);
-	};
-}
-
-export function formatBytes(bytes) {
+export function formatBytes(bytes: number) {
 	const GB = 1 << 30;
 	const MB = 1 << 20;
 	const KB = 1 << 10;
@@ -46,7 +35,7 @@ export function formatBytes(bytes) {
 	}
 }
 
-export async function formatErrorResponse(response) {
+export async function formatErrorResponse(response: Response) {
 	const message = (await response.text()).split("\n")[0];
 	switch(response.status) {
 	case 401: return `Access denied: ${message}`;
@@ -56,7 +45,7 @@ export async function formatErrorResponse(response) {
 	}
 }
 
-export async function fetchJSONOrThrow(url) {
+export async function fetchJSONOrThrow(url: string) {
 	const response = await fetch(url, {
 		credentials: 'same-origin'
 	});
@@ -73,7 +62,7 @@ export async function fetchJSONOrThrow(url) {
 	}
 }
 
-export async function postOrThrow(url, body) {
+export async function postOrThrow(url: string, body: string) {
 	// being able to access the cookie proves that this code is running in the proper domain
 	const csrftoken = Cookies.get('csrftoken');
 
@@ -96,7 +85,7 @@ export async function postOrThrow(url, body) {
 	}
 }
 
-function transformYoutubeLinks(text) {
+function transformYoutubeLinks(text: string) {
 	if (!text) return text;
 	const youtubeLink = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([^& \n<]+)(?:[^ \n<]+)?$/gm;
 	// trick for responsive aspect ratio in iframe: https://www.ankursheel.com/blog/full-width-you-tube-video-embed
@@ -104,7 +93,7 @@ function transformYoutubeLinks(text) {
 	return text.replaceAll(youtubeLink, replacement);
 }
 
-export function renderRichText(text) {
+export function renderRichText(text: string) {
 	// convert youtube links
 	// must be done before linkifying and converting newlines
 	text = transformYoutubeLinks(text);

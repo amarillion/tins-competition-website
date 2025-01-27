@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted } from 'vue';
 import { usePromise } from '../usePromise.js';
-import { postOrThrow } from '../util.js';
+import { postOrThrow } from '../util';
 
 /**
  * 

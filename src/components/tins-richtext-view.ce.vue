@@ -1,6 +1,6 @@
 <script setup>
 
-import { renderRichText } from '../util.js';
+import { renderRichText } from '../util';
 import { defineProps } from 'vue';
 
 defineProps({

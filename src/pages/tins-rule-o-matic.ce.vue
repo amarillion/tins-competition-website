@@ -1,7 +1,7 @@
 <script setup>
 import { usePromise } from '../usePromise.js';
 import { onMounted, computed, onUnmounted, ref } from 'vue';
-import { fetchJSONOrThrow, postOrThrow } from '../util.js';
+import { fetchJSONOrThrow, postOrThrow } from '../util';
 
 import infoIcon from '@fortawesome/fontawesome-free/svgs/solid/circle-info.svg';
 import thumbsUpIcon from '@fortawesome/fontawesome-free/svgs/solid/thumbs-up.svg';

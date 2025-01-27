@@ -1,7 +1,7 @@
 <script setup>
 import { usePromise } from '../usePromise.js';
 import { ref, computed, onMounted } from 'vue';
-import { fetchJSONOrThrow } from '../util.js';
+import { fetchJSONOrThrow } from '../util';
 
 const groupBy = ref('byUser');
 

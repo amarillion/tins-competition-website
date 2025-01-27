@@ -2,7 +2,7 @@
 import commentIcon from '@fortawesome/fontawesome-free/svgs/regular/comment.svg';
 import gamepadIcon from '@fortawesome/fontawesome-free/svgs/solid/gamepad.svg';
 import reviewIcon from '@fortawesome/fontawesome-free/svgs/solid/check-to-slot.svg';
-import { fetchJSONOrThrow, renderRichText } from '../util.js';
+import { fetchJSONOrThrow, renderRichText } from '../util';
 import { onMounted } from 'vue';
 import { usePromise } from '../usePromise.js';
 

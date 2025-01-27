@@ -1,7 +1,7 @@
 <script setup>
 import { usePromise } from '../usePromise.js';
 import { onMounted } from 'vue';
-import { fetchJSONOrThrow } from '../util.js';
+import { fetchJSONOrThrow } from '../util';
 const params = new URLSearchParams(window.location.search);
 const newsId = params.get('newsId');
 
