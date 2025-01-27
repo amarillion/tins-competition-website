@@ -3,7 +3,7 @@ import { computed, ref } from 'vue';
 
 export const useCurrentUserStore = defineStore('currentUser', () => {
 	
-	const currentUser = ref(null);
+	const currentUser = ref<{ login: string, isStaff: boolean }>(null);
 	const timestamp = ref(0);
 	const loading = ref(false);
 	const error = ref(null);
@@ -18,15 +18,17 @@ export const useCurrentUserStore = defineStore('currentUser', () => {
 	// TODO: consider vueUse.useFetch or similar: https://vueuse.org/core/useFetch/#intercepting-a-request
 	const refreshCurrentUser = async () => {
 		const ageInMinutes = (Date.now() - timestamp.value) / 1000 / 60;
-		if (ageInMinutes < 15) { return; }
+		if (ageInMinutes < 15) { console.log('refreshCurrentUser: Using cached value for username'); return; }
 		
 		loading.value = true;
 		const response = await fetch('/api/v1/currentUser', { credentials: 'same-origin' });
+		console.log(`refreshCurrentUser: ${response.status}`); 
 		if (response.status < 200 || response.status > 299) {
 			error.value = await response.text();
 		}
 		else {
 			const data = (await response.json());
+			console.log({ data });
 			currentUser.value = data;
 			error.value = null;
 		}
@@ -35,6 +37,8 @@ export const useCurrentUserStore = defineStore('currentUser', () => {
 
 	
 	const isLoggedIn = computed(() => currentUser.value !== null);
+	const isStaff = computed(() => currentUser.value?.isStaff );
+	const username = computed(() => currentUser.value?.login );
 
-	return { isLoggedIn, clearCurrentUser, refreshCurrentUser, currentUser };
+	return { isLoggedIn, clearCurrentUser, refreshCurrentUser, currentUser, isStaff, username };
 });

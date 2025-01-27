@@ -1,29 +1,16 @@
-<script setup>
-import { subscribe, dispatch } from '../store.js';
-import { currentUserSelector, refreshCurrentUser } from '../data/currentUser.js';
-import { ref, onMounted, onUnmounted, computed } from 'vue';
-
-const username = ref("");
-let subscriptions;
+<script setup lang="ts">
+import { computed, onMounted } from 'vue';
+import { currentUserStore } from '../store/index';
 
 onMounted(() => {
-	subscriptions = [
-		subscribe(currentUserSelector, val => { username.value = val; })
-	];
-	
-	dispatch(refreshCurrentUser());
-});
-
-onUnmounted(() => {
-	subscriptions.forEach(unsub => unsub());
+	currentUserStore.refreshCurrentUser();
 });
 
 const currentPath = computed(() => window.location.pathname);
-
 </script>
 <template>
-	<p class="status" v-if="username">
-		You are logged in as: <b>{{username}}</b> <a :href="`/accounts/logout?next=${currentPath}`" router-ignore>log out</a>
+	<p class="status" v-if="currentUserStore.username">
+		You are logged in as: <b>{{currentUserStore.username}}</b> <a :href="`/accounts/logout?next=${currentPath}`" router-ignore>log out</a>
 	</p>
 	<p class="status" v-else>
 		Welcome, new user. Please <a :href="`/accounts/login?next=${currentPath}`" router-ignore>log in</a> or <a href="/accounts/register" router-ignore>register</a>
