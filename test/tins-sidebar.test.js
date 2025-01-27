@@ -61,6 +61,14 @@ describe('Side Bar Test', () => {
 		expect(wrapper.find(`a[href='/${COMPO_ID}/rules']`).exists()).toBe(true);
 	});
 
+	test('shows admin link if staff', async () => {
+		// TODO...
+		fetchMock.get('/api/v1/currentEvent', DEFAULT_RESPONSE);
+		const wrapper = mount(TinsSidebar);
+		await flushPromises();
+		expect(wrapper.find(`a[href='/admin']`).exists()).toBe(true);
+	});
+
 
 	test('during competition', async () => {
 		fetchMock.get('/api/v1/currentEvent', {
