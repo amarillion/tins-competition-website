@@ -1,6 +1,4 @@
 import linkifyHtml from 'linkify-html';
-import { clearCurrentUser } from './data/currentUser.js';
-import { dispatch } from './store.js';
 import Cookies from 'js-cookie';
 import { currentUserStore } from './store/index.js';
 
@@ -57,7 +55,6 @@ export async function fetchJSONOrThrow(url: string) {
 	}
 	else {
 		if (response.status === 401) {
-			dispatch(clearCurrentUser());
 			currentUserStore.clearCurrentUser();
 		}
 		throw new Error(await formatErrorResponse(response));
@@ -80,7 +77,6 @@ export async function postOrThrow(url: string, body: string) {
 	}
 	else {
 		if (response.status === 401) {
-			dispatch(clearCurrentUser());
 			currentUserStore.clearCurrentUser();
 		}
 

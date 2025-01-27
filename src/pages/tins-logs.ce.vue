@@ -1,10 +1,10 @@
 <script setup>
 import { fetchJSONOrThrow, postOrThrow } from '../util';
 import { canPostSelector, refreshCurrentEvent } from '../data/currentEvent.js';
-import { currentUserSelector } from '../data/currentUser.js';
 import { ref, onMounted, onUnmounted, computed } from 'vue';
 import { usePromise } from '../usePromise.js';
 import { subscribe, dispatch } from '../store.js';
+import { currentUserStore } from '../store/index';
 
 const m = window.location.pathname.match(`/(?<compoId>\\w+)/log(/entrant/(?<entrantId>\\d+)|/page/(?<page>\\d+)|/id/(?<postId>\\d+))?/?$`);
 const { compoId, postId, entrantId } = m.groups;
@@ -13,7 +13,6 @@ const url = entrantId ? `/${compoId}/log/entrant/${entrantId}` : `/${compoId}/lo
 
 let subscriptions = [];
 const currentEvent = ref(null);
-const username = ref('');
 const canPost = ref(false);
 const data = usePromise();
 
@@ -21,7 +20,6 @@ onMounted(() => {
 	subscriptions = [
 		subscribe(s => s.currentEvent.data && s.currentEvent.data.currentEvent, val => { currentEvent.value = val; }),
 		subscribe(canPostSelector(compoId), val => { canPost.value = val; }),
-		subscribe(currentUserSelector, val => { username.value = val; }),
 	];
 	
 	dispatch(refreshCurrentEvent());
@@ -60,7 +58,7 @@ const breadcrumbs = [
 ];
 
 
-const loggedIn = computed(() => Boolean(username));
+const loggedIn = computed(() => Boolean(currentUserStore.username));
 const posts = computed(() => data.result.value?.posts || []);
 const competition = computed(() => data.result.value?.competition || {});
 const numPages = computed(() => data.result.value?.numPages || -1);

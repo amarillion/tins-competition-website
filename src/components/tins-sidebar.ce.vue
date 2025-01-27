@@ -1,16 +1,14 @@
 <script setup>
 import { refreshCurrentEvent } from '../data/currentEvent.js';
-import { currentUserSelector } from '../data/currentUser.js';
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { subscribe, dispatch } from '../store.js';
+import { currentUserStore } from '../store/index';
 
 const currentEvent = ref(null);
 let subscriptions = [];
 const currentEventLoading = ref(true);
 const currentEventError = ref('');
 const latestEvent = ref({});
-const isStaff = ref(false);
-const username = ref('');
 
 onMounted(() => {
 	subscriptions = [
@@ -18,8 +16,6 @@ onMounted(() => {
 		subscribe(s => s.currentEvent.loading, val => { currentEventLoading.value = val; }),
 		subscribe(s => s.currentEvent.error, val => { currentEventError.value = val; }),
 		subscribe(s => s.currentEvent.data && s.currentEvent.data.events[0], val => { latestEvent.value = val; }),
-		subscribe(s => s.currentUser.data && s.currentUser.data.isStaff, val => { isStaff.value = val; }),
-		subscribe(currentUserSelector, val => { username.value = val; }),
 	];
 	
 	dispatch(refreshCurrentEvent());
@@ -49,11 +45,11 @@ const title = computed(() => currentEvent.value?.title);
 			<a href="/faq">FAQ</a>
 			<a href="/history">History</a>
 
-			<template v-if="username">
-				<a :href="`/user/${username}`">My Profile</a>
+			<template v-if="currentUserStore.username">
+				<a :href="`/user/${currentUserStore.username}`">My Profile</a>
 				<a href="`/accounts/password/change" router-ignore>Change password</a>
 			</template>
-			<template v-if="isStaff">
+			<template v-if="currentUserStore.isStaff">
 				<hr>
 				<a href="/admin/" router-ignore>admin</a>
 			</template>

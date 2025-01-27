@@ -1,6 +1,6 @@
 <script setup>
 import { usePromise } from '../usePromise.js';
-import { onMounted, computed, onUnmounted, ref } from 'vue';
+import { onMounted, computed, ref, watch } from 'vue';
 import { fetchJSONOrThrow, postOrThrow } from '../util';
 
 import infoIcon from '@fortawesome/fontawesome-free/svgs/solid/circle-info.svg';
@@ -9,8 +9,7 @@ import thumbsDownIcon from '@fortawesome/fontawesome-free/svgs/solid/thumbs-down
 import easyIcon from '@fortawesome/fontawesome-free/svgs/solid/bicycle.svg';
 import hardIcon from '@fortawesome/fontawesome-free/svgs/solid/shuttle-space.svg';
 
-import { currentUserSelector } from '../data/currentUser.js';
-import { subscribe } from '../store.js';
+import { currentUserStore } from '../store/index';
 
 let interest = ref(null);
 let challenge = ref(null);
@@ -43,30 +42,21 @@ function challengeChanged(event) {
 	challenge.value = value;
 }
 
-let subscriptions;
-let username = ref("");
-
 const data = usePromise();
 
-onMounted(() => {
-	// TODO: replace with a way to get username from pinia.
-	subscriptions = [
-		subscribe(currentUserSelector, val => {
-			username.value = val;
-			fetchNewRule();
-		})
-	];
-	fetchNewRule();
-});
 
-onUnmounted(() => {
-	subscriptions.forEach(unsub => unsub());
+onMounted(() => {
+	fetchNewRule();
 });
 
 const INTEREST_LABELS = ['Why would you want that!?', 'Meh', 'Ok, I guess', 'Nice one!', 'Ooh! I love it!'];
 const CHALLENGE_LABELS = ['I can do this in my sleep!', 'Piece of cake', 'Let me sit down for this', 'A real challenge!' ,'No way, nearly impossible!'];
 
-const loggedIn = computed(() => Boolean(username));
+const loggedIn = computed(() => Boolean(currentUserStore.username));
+watch(loggedIn, () => {
+	// fetch rule after logging in.
+	fetchNewRule();
+});
 
 async function fetchNewRule() {
 	if (data.loading.value) return; // prevent double parallel requests
