@@ -2,8 +2,7 @@ import { flushPromises, mount } from '@vue/test-utils';
 
 import fetchMock from 'fetch-mock';
 import { beforeAll, beforeEach, describe, expect, test } from 'vitest';
-import { dispatch } from '../src/store';
-import { refreshCurrentEvent, testResetTimestamp } from '../src/data/currentEvent';
+import { currentEventStore } from '../src/store';
 import TinsCurrentEvent from '../src/components/tins-current-event.ce.vue';
 
 const COMPO_ID='krampu24';
@@ -44,13 +43,13 @@ describe('Current event component', () => {
 
 	beforeEach(() => {
 		fetchMock.removeRoutes();
-		dispatch(testResetTimestamp()); // make sure store is in clean state, because getCurrentEvent is cached...
+		currentEventStore.testResetTimestamp(); // make sure store is in clean state, because getCurrentEvent is cached...
 	});
 
 	test('Shows countdown to upcoming event', async () => {
 		fetchMock.get('/api/v1/currentEvent', DEFAULT_RESPONSE);
 		const wrapper = mount(TinsCurrentEvent);
-		dispatch(refreshCurrentEvent()); // TODO: design flaw: tins-current-event relies on another component to trigger refreshCurrentEvent...
+		currentEventStore.refreshCurrentEvent(); // TODO: design flaw: tins-current-event relies on another component to trigger refreshCurrentEvent...
 		await flushPromises();
 		console.log(wrapper.html());
 		expect(wrapper.findAll("tins-count-down").length).toBe(3);

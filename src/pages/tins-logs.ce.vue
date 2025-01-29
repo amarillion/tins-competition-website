@@ -1,33 +1,21 @@
 <script setup>
 import { fetchJSONOrThrow, postOrThrow } from '../util';
-import { canPostSelector, refreshCurrentEvent } from '../data/currentEvent.js';
-import { ref, onMounted, onUnmounted, computed } from 'vue';
+import { onMounted, computed } from 'vue';
 import { usePromise } from '../usePromise.js';
-import { subscribe, dispatch } from '../store.js';
 import { currentUserStore } from '../store/index';
+import { currentEventStore } from '../store/index';
 
 const m = window.location.pathname.match(`/(?<compoId>\\w+)/log(/entrant/(?<entrantId>\\d+)|/page/(?<page>\\d+)|/id/(?<postId>\\d+))?/?$`);
 const { compoId, postId, entrantId } = m.groups;
 const page = Number(m.groups.page) || 1;
 const url = entrantId ? `/${compoId}/log/entrant/${entrantId}` : `/${compoId}/log`;
 
-let subscriptions = [];
-const currentEvent = ref(null);
-const canPost = ref(false);
+const canPost = currentEventStore.canPost;
 const data = usePromise();
 
 onMounted(() => {
-	subscriptions = [
-		subscribe(s => s.currentEvent.data && s.currentEvent.data.currentEvent, val => { currentEvent.value = val; }),
-		subscribe(canPostSelector(compoId), val => { canPost.value = val; }),
-	];
-	
-	dispatch(refreshCurrentEvent());
+	currentEventStore.refreshCurrentEvent();
 	data.doAsync(refreshData);
-});
-
-onUnmounted(() => {
-	subscriptions.forEach(unsub => unsub());
 });
 
 async function refreshData() {

@@ -1,28 +1,23 @@
 <script setup>
-import { refreshCurrentEvent } from '../data/currentEvent.js';
-import { ref, computed, onMounted, onUnmounted } from 'vue';
-import { subscribe, dispatch } from '../store.js';
+import { ref, computed, onMounted } from 'vue';
 import { currentUserStore } from '../store/index';
+import { currentEventStore } from '../store/index';
+import { storeToRefs } from 'pinia';
 
-const currentEvent = ref(null);
-let subscriptions = [];
-const currentEventLoading = ref(true);
-const currentEventError = ref('');
 const latestEvent = ref({});
 
-onMounted(() => {
-	subscriptions = [
-		subscribe(s => s.currentEvent.data && s.currentEvent.data.currentEvent, val => { currentEvent.value = val; }),
-		subscribe(s => s.currentEvent.loading, val => { currentEventLoading.value = val; }),
-		subscribe(s => s.currentEvent.error, val => { currentEventError.value = val; }),
-		subscribe(s => s.currentEvent.data && s.currentEvent.data.events[0], val => { latestEvent.value = val; }),
-	];
-	
-	dispatch(refreshCurrentEvent());
-});
+const { 
+	currentEvent,
+	loading: currentEventLoading,
+	error: currentEventError
+} = storeToRefs(currentEventStore);
 
-onUnmounted(() => {
-	subscriptions.forEach(unsub => unsub());
+const {
+	isStaff, username
+} = storeToRefs(currentUserStore);
+
+onMounted(() => {
+	currentEventStore.refreshCurrentEvent();
 });
 
 const short = computed(() => currentEvent.value?.short);
@@ -35,7 +30,6 @@ const hasSecretSanta = computed(() => currentEvent.value?.hasSecretSanta);
 const title = computed(() => currentEvent.value?.title);
 </script>
 <template>
-
 	<nav id="rightcontent">
 
 		<div class="toc">
@@ -45,16 +39,16 @@ const title = computed(() => currentEvent.value?.title);
 			<a href="/faq">FAQ</a>
 			<a href="/history">History</a>
 
-			<template v-if="currentUserStore.username">
-				<a :href="`/user/${currentUserStore.username}`">My Profile</a>
+			<template v-if="username">
+				<a :href="`/user/${username}`">My Profile</a>
 				<a href="`/accounts/password/change" router-ignore>Change password</a>
 			</template>
-			<template v-if="currentUserStore.isStaff">
+			<template v-if="isStaff">
 				<hr>
 				<a href="/admin/" router-ignore>admin</a>
 			</template>
 		</div>
-		
+
 		<!-- Current event -->
 		<div class="toc" v-if="currentEvent">
 			<a :href="`/${short}/`">{{ title }}</a>

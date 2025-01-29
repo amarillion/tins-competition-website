@@ -3,8 +3,7 @@ import TinsTeamManagement from '../src/pages/tins-team-management.ce.vue';
 
 import fetchMock from 'fetch-mock';
 import { beforeAll, beforeEach, describe, expect, test } from 'vitest';
-import { dispatch } from '../src/store';
-import { testResetTimestamp } from '../src/data/currentEvent';
+import { currentEventStore } from '../src/store/index';
 
 const COMPO_ID='2024';
 const ENTRY_ID='99';
@@ -43,7 +42,7 @@ describe('Team Management Test', () => {
 
 	beforeEach(() => {
 		fetchMock.removeRoutes();
-		dispatch(testResetTimestamp()); // make sure store is in clean state, because getCurrentEvent is cached...
+		currentEventStore.testResetTimestamp(); // make sure store is in clean state, because getCurrentEvent is cached...
 	});
 
 	test('Check that team members contain your own name', async () => {

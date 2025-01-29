@@ -3,8 +3,7 @@ import TinsSidebar from '../src/components/tins-sidebar.ce.vue';
 
 import fetchMock from 'fetch-mock';
 import { beforeAll, beforeEach, describe, expect, test } from 'vitest';
-import { dispatch } from '../src/store';
-import { testResetTimestamp } from '../src/data/currentEvent';
+import { currentEventStore  } from '../src/store';
 
 const COMPO_ID='krampu24';
 const DEFAULT_CURRENT_EVENT = {
@@ -44,7 +43,7 @@ describe('Side Bar Test', () => {
 
 	beforeEach(() => {
 		fetchMock.removeRoutes();
-		dispatch(testResetTimestamp()); // make sure store is in clean state, because getCurrentEvent is cached...
+		currentEventStore.testResetTimestamp(); // make sure store is in clean state, because getCurrentEvent is cached...
 	});
 
 	test('shows news link', async () => {

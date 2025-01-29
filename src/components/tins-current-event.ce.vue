@@ -1,26 +1,13 @@
 <script setup>
 import { fetchJSONOrThrow } from '../util';
 import { usePromise } from '../usePromise.js';
-import { ref, onMounted, onUnmounted, computed } from 'vue';
-import { subscribe } from '../store.js';
+import { watch, onMounted, computed } from 'vue';
+import { currentEventStore } from '../store/index';
+import { storeToRefs } from 'pinia';
 
-const currentEventRef = ref({});
-let subscriptions;
-const currentEventLoading = ref(true);
-const currentEventError = ref('');
 
-onMounted(() => {
-	subscriptions = [
-		subscribe(s => s.currentEvent.data && s.currentEvent.data.currentEvent, val => { currentEventRef.value = val; refreshLogs(); }),
-		subscribe(s => s.currentEvent.loading, val => { currentEventLoading.value = val; }),
-		subscribe(s => s.currentEvent.error, val => { currentEventError.value = val; }),
-	];
-	
+onMounted(() => {	
 	refreshLogs();
-});
-
-onUnmounted(() => {
-	subscriptions.forEach(unsub => unsub());
 });
 
 const posts = usePromise();
@@ -38,8 +25,10 @@ async function refreshLogs() {
 	});
 }
 
-// TODO -> is this correct?
-const currentEvent = computed(() => currentEventRef.value );
+const { currentEvent } = storeToRefs(currentEventStore);
+
+// reload logs when current event is loaded or changed.
+watch(currentEvent, () => { refreshLogs(); });
 
 function formatRelativeTime(millis) {
 	try {
