@@ -1,6 +1,6 @@
 <script setup>
 import { usePromise } from '../usePromise.js';
-import { onMounted, computed, ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { fetchJSONOrThrow, postOrThrow } from '../util';
 
 import infoIcon from '@fortawesome/fontawesome-free/svgs/solid/circle-info.svg';
@@ -10,6 +10,9 @@ import easyIcon from '@fortawesome/fontawesome-free/svgs/solid/bicycle.svg';
 import hardIcon from '@fortawesome/fontawesome-free/svgs/solid/shuttle-space.svg';
 
 import { currentUserStore } from '../store/index';
+import { storeToRefs } from 'pinia';
+
+const { isLoggedIn } = storeToRefs(currentUserStore);
 
 let interest = ref(null);
 let challenge = ref(null);
@@ -44,19 +47,12 @@ function challengeChanged(event) {
 
 const data = usePromise();
 
-
-onMounted(() => {
-	fetchNewRule();
-});
-
 const INTEREST_LABELS = ['Why would you want that!?', 'Meh', 'Ok, I guess', 'Nice one!', 'Ooh! I love it!'];
 const CHALLENGE_LABELS = ['I can do this in my sleep!', 'Piece of cake', 'Let me sit down for this', 'A real challenge!' ,'No way, nearly impossible!'];
 
-const loggedIn = computed(() => Boolean(currentUserStore.username));
-watch(loggedIn, () => {
-	// fetch rule after logging in.
+watch(isLoggedIn, () => {
 	fetchNewRule();
-});
+}, { immediate: true });
 
 async function fetchNewRule() {
 	if (data.loading.value) return; // prevent double parallel requests
@@ -79,10 +75,10 @@ const result = computed(() => data.result.value );
 
 </script>
 <template>
-	<tins-status-helper :error="data.error.value" :loading="data.loading.value">
-		<template v-if="result">
-			<p v-if="!loggedIn">You must be logged in.</p>
-			<template v-else>
+	<p v-if="!isLoggedIn">You must be logged in.</p>
+	<template v-else>
+		<tins-status-helper :error="data.error.value" :loading="data.loading.value">
+			<template v-if="result">
 				<h1>Rate some Rules</h1>
 				
 				<template v-if="rule">
@@ -158,8 +154,8 @@ The rating scale ranges from 'I can do this in my sleep' to 'No way, this is imp
 				</template>
 
 			</template>
-		</template>
-	</tins-status-helper>
+		</tins-status-helper>
+	</template>
 </template>
 
 <style>
