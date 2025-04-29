@@ -103,6 +103,7 @@ router.setRoutes([{
 			}
 		},
 
+		{ path: '/', redirect: '/news/' },
 		{ path: '/news', component: 'tins-newspage' },
 		{ path: '/news/:newsId', component: 'tins-newspage' },
 		{ path: '/faq', component: 'tins-faq' },
