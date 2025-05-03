@@ -1,16 +1,17 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
 import { currentUserStore } from '../store/index';
 import { currentEventStore } from '../store/index';
 import { storeToRefs } from 'pinia';
 
-const latestEvent = ref({});
-
 const { 
 	currentEvent,
-	loading: currentEventLoading,
-	error: currentEventError
+	events,
+	// loading: currentEventLoading,
+	// error: currentEventError
 } = storeToRefs(currentEventStore);
+
+const latestEvent = computed(() => events && events.value && events.value[0]);
 
 const {
 	isStaff, username
@@ -31,7 +32,6 @@ const title = computed(() => currentEvent.value?.title);
 </script>
 <template>
 	<nav id="rightcontent">
-
 		<div class="toc">
 			<a href="/news">News</a>
 			<a href="/about">About</a>

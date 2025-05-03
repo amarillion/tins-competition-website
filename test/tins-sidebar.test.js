@@ -3,7 +3,7 @@ import TinsSidebar from '../src/components/tins-sidebar.ce.vue';
 
 import fetchMock from 'fetch-mock';
 import { beforeAll, beforeEach, describe, expect, test } from 'vitest';
-import { currentEventStore  } from '../src/store';
+import { currentEventStore, currentUserStore  } from '../src/store';
 
 const COMPO_ID='krampu24';
 const DEFAULT_CURRENT_EVENT = {
@@ -61,11 +61,12 @@ describe('Side Bar Test', () => {
 	});
 
 	test('shows admin link if staff', async () => {
-		// TODO...
+		// sidebar component doesn't refresh store by itself, so we inject data here...
+		currentUserStore.$patch({ currentUser: { login: 'amarillion', isStaff: true }});
 		fetchMock.get('/api/v1/currentEvent', DEFAULT_RESPONSE);
 		const wrapper = mount(TinsSidebar);
 		await flushPromises();
-		expect(wrapper.find(`a[href='/admin']`).exists()).toBe(true);
+		expect(wrapper.find(`a[href='/admin/']`).exists()).toBe(true);
 	});
 
 
