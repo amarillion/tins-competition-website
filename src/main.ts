@@ -1,5 +1,5 @@
 import './router.js';
-import { postOrThrow } from './util';
+import { postOrThrow } from './util.js';
 
 window.onerror = async (event, fileName, lineNumber, columnNumber, error) => {
 	try {

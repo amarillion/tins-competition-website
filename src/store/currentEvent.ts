@@ -29,25 +29,24 @@ export type CurrentEventType = {
 export const useCurrentEventStore = defineStore('currentEvent', () => {
 	
 	const currentEvent = ref<CurrentEventType>(null);
-	const byShort = ref<Record<string, {}>>(null);
 	const events = ref<EventType[]>([]);
 	const upcoming = ref<UpcomingType[]>([]);
 	const timestamp = ref(0);
 	const loading = ref(false);
 	const error = ref(null);
 
-	const canPost = computed((compoId: string) => 
-		currentEvent.value && currentEvent.value.byShort[compoId].canPost);
-
-	function transformResponse(data: { events: EventType[], upcoming: UpcomingType[], currentEvent: CurrentEventType }) {
-		const { events, upcoming, currentEvent } = data;
-		const byShort = {};
+	function byShortMapper(events: EventType[]) {
+		const byShort: Record<string, EventType> = {};
 		for (const e of events) {
 			byShort[e.short] = e;
 		}
-		return { events, upcoming, byShort, currentEvent };
+		return byShort;
 	}
+	
+	const byShort = computed(() => byShortMapper(events.value));
 
+	const canPost = (compoId: string) => byShort.value && byShort.value[compoId].canPost;
+	
 	async function refreshCurrentEvent() {
 		// TODO: timestamp missing. Did this ever work?
 		const ageInMinutes = (Date.now() - timestamp.value) / 1000 / 60;
@@ -60,11 +59,10 @@ export const useCurrentEventStore = defineStore('currentEvent', () => {
 			error.value = await response.text();
 		}
 		else {
-			const data = transformResponse(await response.json());
+			const data = await response.json();
 			currentEvent.value = data.currentEvent;
 			upcoming.value = data.upcoming;
 			events.value = data.events;
-			byShort.value = data.byShort;
 		}
 		loading.value = false;
 	}

@@ -10,7 +10,7 @@ const { compoId, postId, entrantId } = m.groups;
 const page = Number(m.groups.page) || 1;
 const url = entrantId ? `/${compoId}/log/entrant/${entrantId}` : `/${compoId}/log`;
 
-const canPost = currentEventStore.canPost;
+const canPost = computed(() => currentEventStore.canPost(compoId));
 const data = usePromise();
 
 onMounted(() => {
