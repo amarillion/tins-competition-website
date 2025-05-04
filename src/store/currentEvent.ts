@@ -1,12 +1,37 @@
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
 
+export type EventType = {
+	short: string,
+	title: string,
+	afterStart: boolean,
+	afterEnd: boolean,
+	canPost: boolean
+};
+export type UpcomingType = {
+	title: string,
+	dateStr: string
+}
+export type CurrentEventType = {
+	short: string,
+	title: string,
+	canJoin: boolean,
+	canPost: boolean,
+	canVote: boolean,
+	votingEnd: number,
+	competitionStart: number,
+	competitionEnd: number,
+	joinedCompetition: boolean,
+	hasSecretSanta: boolean,
+	numEntrants: number,
+}
+
 export const useCurrentEventStore = defineStore('currentEvent', () => {
 	
-	const currentEvent = ref<{}>(null);
+	const currentEvent = ref<CurrentEventType>(null);
 	const byShort = ref<Record<string, {}>>(null);
-	const events = ref<[]>([]);
-	const upcoming = ref<[]>([]);
+	const events = ref<EventType[]>([]);
+	const upcoming = ref<UpcomingType[]>([]);
 	const timestamp = ref(0);
 	const loading = ref(false);
 	const error = ref(null);
@@ -14,7 +39,7 @@ export const useCurrentEventStore = defineStore('currentEvent', () => {
 	const canPost = computed((compoId: string) => 
 		currentEvent.value && currentEvent.value.byShort[compoId].canPost);
 
-	function transformResponse(data) {
+	function transformResponse(data: { events: EventType[], upcoming: UpcomingType[], currentEvent: CurrentEventType }) {
 		const { events, upcoming, currentEvent } = data;
 		const byShort = {};
 		for (const e of events) {

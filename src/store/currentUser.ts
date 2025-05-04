@@ -1,9 +1,13 @@
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
 
+export type UserType = {
+	login: string, isStaff: boolean
+}
+
 export const useCurrentUserStore = defineStore('currentUser', () => {
 	
-	const currentUser = ref<{ login: string, isStaff: boolean }>(null);
+	const currentUser = ref<UserType>(null);
 	const timestamp = ref(0);
 	const loading = ref(false);
 	const error = ref(null);
