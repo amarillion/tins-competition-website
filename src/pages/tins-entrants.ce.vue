@@ -14,7 +14,18 @@ const breadcrumbs = [
 	{ title: 'entrants' },
 ];
 
-const entrants = usePromise();
+type EntrantType = {
+	entrantId: number,
+	info: string,
+	location: string,
+	username: string,
+	numPosts: number,
+	numReviews: number,
+	entryId: null | number,
+	isSelf: boolean
+};
+
+const entrants = usePromise<EntrantType[]>();
 
 onMounted(() => {
 	entrants.doAsync(async() => {
@@ -28,12 +39,12 @@ onMounted(() => {
 	<tins-breadcrumbs :data="breadcrumbs"></tins-breadcrumbs>
 
 	<tins-status-helper :error="entrants.error.value" :loading="entrants.loading.value">
-		<div v-if="!entrants.error.value && !entrants.loading.value">
+		<div v-if="entrants.result.value">
 			<h1>Entrants</h1>
 			<p>
 				At this moment, {{entrants.result.value.length}} people have registered for the competition.
 			</p>
-			<div v-for="e of entrants.result.value" :key="e" class="entrant">
+			<div v-for="e of entrants.result.value" :key="e.entrantId" class="entrant">
 				<p>
 					<b>Name:</b> <a :href="`/user/${e.username}`">{{e.username}}</a> <br>
 					<b>From:</b> {{e.location}}

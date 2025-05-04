@@ -4,9 +4,18 @@ import { fetchJSONOrThrow } from '../util';
 import sleighIcon from '@fortawesome/fontawesome-free/svgs/solid/sleigh.svg';
 import { computed, onMounted } from 'vue';
 
-const formatDateLong = (millis) => new Date(millis).toLocaleDateString([], { dateStyle:'long' });
+const formatDateLong = (millis: number) => new Date(millis).toLocaleDateString([], { dateStyle:'long' });
 
-const data = usePromise();
+type MySecretSantaType = {
+	competitionStarted: boolean,
+	competitionEnded: boolean,
+	competition: { title: string, short: string, canJoin: boolean, competitionStart: number, competitionEnd: number },
+	joinedCompetition: boolean,
+	secretSanta: { giver: { name: string }, receiver: { name: string, entrantId: number } },
+	reverse: { name?: string, entryId?: number, entrantId?: number }
+}
+
+const data = usePromise<MySecretSantaType>();
 function refresh() {
 	data.doAsync(async () => fetchJSONOrThrow('/api/v1/mySecretSanta'));
 }
@@ -23,7 +32,7 @@ const competition = computed(() => data.result.value?.competition || null);
 const joinedCompetition = computed(() => data.result.value?.joinedCompetition || false);
 const title = computed(() => competition.value ? `Your Secret Santa for ${competition.value.title}` : 'Secret Santa');
 const secretSanta = computed(() => data.result.value?.secretSanta || null); // note that absence of secretSanta info is only a problem after the start of the competition
-const reverse = computed(() => data.result.value?.reverse || {});
+const reverse = computed(() => data.result.value?.reverse || { });
 </script>
 <template>
 	<tins-status-helper :error="data.error.value" :loading="data.loading.value">

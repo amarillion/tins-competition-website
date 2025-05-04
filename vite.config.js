@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => {
 			vue(),
 		],
 		build: {
-			outDir: './static', // <- this is where djanog expects the static assets when running in local dev mode...
+			outDir: './static', // <- this is where django expects the static assets when running in local dev mode...
 			sourcemap: mode === 'development',
 		},
 		base: '/static/',

@@ -34,7 +34,7 @@ function formatRelativeTime(millis: number) {
 		const rtf = new Intl.RelativeTimeFormat("en", {
 			style: "long", // other values: "long", "short" or "narrow"
 		});
-		const deltaMillis = new Date(millis) - Date.now();
+		const deltaMillis = new Date(millis).valueOf() - Date.now().valueOf();
 		const deltaMinutes = Math.round(deltaMillis / 60000);
 		if (Math.abs(deltaMinutes) < 60) {
 			return rtf.format(deltaMinutes, "minute");

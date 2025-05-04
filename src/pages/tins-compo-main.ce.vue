@@ -12,7 +12,25 @@ import { usePromise } from '../usePromise.js';
 import { onMounted } from 'vue';
 import { fetchJSONOrThrow } from '../util';
 
-const compo = usePromise();
+type CompoType = {
+	short: string,
+	title: string,
+	canJoin: boolean,
+	canPost: boolean,
+	canVote: boolean,
+	votingEnd: number,
+	competitionStart: number,
+	competitionEnd: number,
+	numEntrants: number,
+	hasResults: boolean,
+	numReviews: number,
+	numEntries: number,
+	numLogs: number,
+	serverTime: number,
+	joinedCompetition: boolean
+}
+
+const compo = usePromise<CompoType>();
 
 const m = window.location.pathname.match(`/(?<compoId>[^/]+)/?$`);
 const { compoId } = m.groups;
@@ -21,7 +39,7 @@ onMounted(() => {
 	compo.doAsync(async () => fetchJSONOrThrow(`/api/v1/compo/${compoId}`));
 });
 
-const formatDate = d => new Date(d).toLocaleDateString('en-GB', { month: 'short', day: 'numeric'});
+const formatDate = (d: number) => new Date(d).toLocaleDateString('en-GB', { month: 'short', day: 'numeric'});
 
 </script>
 <template>

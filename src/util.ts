@@ -61,7 +61,7 @@ export async function fetchJSONOrThrow(url: string) {
 	}
 }
 
-export async function postOrThrow(url: string, body: string) {
+export async function postOrThrow(url: string, body: string | FormData) {
 	// being able to access the cookie proves that this code is running in the proper domain
 	const csrftoken = Cookies.get('csrftoken');
 

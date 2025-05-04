@@ -3,15 +3,19 @@ import { usePromise } from '../usePromise.js';
 import { ref, computed, onMounted } from 'vue';
 import { fetchJSONOrThrow } from '../util';
 
-const groupBy = ref('byUser');
+type CompoType = { short: string, title: string, competitionStart: number }
+type EntrantType = { id: number, name: string }
+type EntryType = { id: number, team: string, competition: CompoType, entrants: EntrantType[] };
 
-const data = usePromise();
+const groupBy = ref<'byUser'|'byEvent'>('byUser');
+
+const data = usePromise<EntryType[]>();
 onMounted(() => {
 	data.doAsync(async() => (await fetchJSONOrThrow(`/api/v1/entries/all`)).result);
 });
 
 function _byCompo() {
-	const byCompo = {};
+	const byCompo: Record<string, { entries: EntryType[], competition: CompoType }> = {};
 	for(const entry of data.result.value) {
 		const { short } = entry.competition;
 		if (!(short in byCompo)) {
@@ -31,7 +35,7 @@ function _byCompo() {
 const byCompo = computed(_byCompo);
 
 function _byUser() {
-	const byUser = {};
+	const byUser: Record<string, { entries: EntryType[], user: EntrantType }> = {};
 	for(const entry of data.result.value) {
 		for (const entrant of entry.entrants) {
 			const { name, id } = entrant;

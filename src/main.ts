@@ -5,7 +5,7 @@ window.onerror = async (event, fileName, lineNumber, columnNumber, error) => {
 	try {
 		const body = JSON.stringify({
 			fileName, lineNumber, columnNumber, error,
-			path: window.location.path
+			path: window.location.pathname
 		});
 		await postOrThrow('/api/v1/error', JSON.stringify(body));
 	}

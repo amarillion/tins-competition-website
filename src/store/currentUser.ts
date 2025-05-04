@@ -26,13 +26,11 @@ export const useCurrentUserStore = defineStore('currentUser', () => {
 		
 		loading.value = true;
 		const response = await fetch('/api/v1/currentUser', { credentials: 'same-origin' });
-		console.log(`refreshCurrentUser: ${response.status}`); 
 		if (response.status < 200 || response.status > 299) {
 			error.value = await response.text();
 		}
 		else {
 			const data = (await response.json());
-			console.log({ data });
 			currentUser.value = data;
 			error.value = null;
 		}

@@ -10,7 +10,7 @@ function getDeltaSec() {
 	const d = new Date(props.epochmillis);
 	const now = Date.now();
 
-	const deltaSec = Math.floor((d - now) / 1000);
+	const deltaSec = Math.floor((d.valueOf() - now.valueOf()) / 1000);
 	return deltaSec;
 }
 

@@ -4,7 +4,40 @@ import gamepadIcon from '@fortawesome/fontawesome-free/svgs/solid/gamepad.svg';
 import { computed, onMounted } from 'vue';
 import { usePromise } from '../usePromise.js';
 
-const data = usePromise();
+type UploadType = {
+	id: 396,
+	url: string, 
+	time: string, 
+	size: number, 
+	postCompo: boolean, 
+	tags?: string[]
+}
+type CompetitionType = {
+	short: string,
+	title: string,
+	competitionStart: number,
+	competitionEnd: number,
+	afterStart: boolean,
+	afterEnd: boolean
+}
+type EntryType = {
+	id: number,
+	competition: CompetitionType, 
+	title: string, 
+	team: string,
+	imagefile: string,
+	thumbnail: string,
+	entrants: { id: number, name: string }[]
+	logCounts: Record<string, number>, 
+	text: string, 
+	tags: { icon: string, desc: string }[], 
+	editable: boolean, 
+	lastSubmission: UploadType,
+	uploads: UploadType[], 
+	reviewCount: 3
+}
+
+const data = usePromise<EntryType>();
 
 const m = window.location.pathname.match(`/entry/(?<entryId>[^/]+)/?$`);
 const { entryId } = m.groups;
@@ -22,7 +55,7 @@ async function submitImage(value) {
 	});
 }
 
-async function submitText(unsafeText) {
+async function submitText(unsafeText: string) {
 	const response = await postOrThrow(
 		`/api/v1/entry/${entryId}/text`, 
 		JSON.stringify({ text: unsafeText })
@@ -31,18 +64,18 @@ async function submitText(unsafeText) {
 	return data.text;
 }
 
-const entry = computed(() => data.result.value || {});
+const entry = computed(() => data.result.value || {} as EntryType);
 const text = computed(() => data.result.value?.text || '');
 const tags = computed(() => data.result.value?.tags);
 const title = computed(() => data.result.value?.title || 'Untitled');
 const uploads = computed(() => data.result.value?.uploads || []);
-const competition = computed(() => data.result.value?.competition || {});
+const competition = computed(() => data.result.value?.competition || {} as CompetitionType);
 </script>
 <template>
 	<tins-status-helper :error="data.error.value" :loading="data.loading.value">
 		<template v-if="!data.loading.value">
 			<div class="floatright">
-				<img v-for="t of tags" :key="t" :src="`/upload/${t.icon}`" :title="`${t.desc}`"/>
+				<img v-for="t of tags" :key="t.icon" :src="`/upload/${t.icon}`" :title="`${t.desc}`"/>
 			</div>
 
 			<h1><tins-fa-icon :src="gamepadIcon" size="2rem"></tins-fa-icon> {{title}}</h1>
