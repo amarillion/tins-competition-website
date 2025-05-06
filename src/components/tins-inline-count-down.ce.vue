@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { defineProps, defineEmits, onMounted, ref } from 'vue';
+import { defineEmits, onMounted, ref } from 'vue';
 
-const emit = defineEmits(['countdownZero']);
+const emit = defineEmits(['countDownZero']);
 
-const props = defineProps({
-	epochmillis: { type: Number, required: true },
-});
+const props = defineProps<{ epochmillis: number }>();
 
 function getDeltaSec() {
 	const d = new Date(props.epochmillis);
@@ -21,7 +19,7 @@ onMounted(() => update());
 const numbers = ref([]);
 const labels = ref([]);
 
-let waitingForZero;
+let waitingForZero: boolean;
 function emitOnce() {
 	if (waitingForZero) {
 		emit('countDownZero');

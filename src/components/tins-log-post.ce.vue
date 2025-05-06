@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import invisibleIcon from '@fortawesome/fontawesome-free/svgs/solid/eye-slash.svg';
 import { spoilerExplanation } from '../util';
-
-import { defineProps, computed } from 'vue';
+import { computed } from 'vue';
 
 const props = defineProps({
 	post: { type: Object, required: true },

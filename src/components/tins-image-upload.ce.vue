@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { formatBytes } from '../util';
-import { defineProps, ref } from 'vue';
+import { ref } from 'vue';
 
 const props = defineProps({
 	sizeLimit: { type: Number, default: 0 },

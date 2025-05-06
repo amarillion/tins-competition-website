@@ -1,7 +1,6 @@
 <script setup lang="ts">
 
 import { renderRichText } from '../util';
-import { defineProps } from 'vue';
 
 defineProps({
 	text: { type: String, required: true }

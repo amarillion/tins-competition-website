@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import { usePromise } from '../usePromise.js';
 import { onMounted } from 'vue';
-import { fetchJSONOrThrow } from '../util';
+import { storeToRefs } from 'pinia';
+import { currentEventStore } from '../store/index.js';
 const params = new URLSearchParams(window.location.search);
 const newsId = params.get('newsId');
 
-const data = usePromise();
-onMounted(() => {
-	data.doAsync(async() => fetchJSONOrThrow(`/api/v1/currentEvent`));
-});
+const { upcoming, error, loading } = storeToRefs(currentEventStore);
+
+onMounted(() => currentEventStore.refreshCurrentEvent());
 
 </script>
 <template>
@@ -16,8 +15,8 @@ onMounted(() => {
 		<tins-newsfeed class="tins-newsfeed" :newsId="newsId"></tins-newsfeed>	
 		<div class="rightcol">
 			<tins-current-event class="tins-current-event"></tins-current-event>
-			<tins-status-helper :error="data.error.value" :loading="data.loading.value">
-				<tins-upcoming v-if="data.result.value" class="tins-upcoming" :upcoming="data.result.value.upcoming"></tins-upcoming>
+			<tins-status-helper :error="error" :loading="loading">
+				<tins-upcoming v-if="upcoming" class="tins-upcoming" :upcoming="upcoming"></tins-upcoming>
 			</tins-status-helper>
 		</div>
 	</div>

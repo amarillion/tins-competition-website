@@ -9,7 +9,12 @@ onMounted(() => {
 	refreshLogs();
 });
 
-const posts = usePromise();
+type PostType = {
+	text: string,
+	date: number,
+	entrant: { name: string }
+}
+const posts = usePromise<PostType[]>();
 
 async function refreshLogs() {
 	if (!currentEvent.value) return;
@@ -54,7 +59,7 @@ function formatRelativeTime(millis: number) {
 	}
 }
 
-const slug = post => {	
+const slug = (post: PostType) => {	
 	const stripped = new DOMParser().parseFromString(post.text, 'text/html').body.textContent;
 	const fragment = stripped.split(" ").slice(0, 15).join(" ") + "...";
 	return fragment;

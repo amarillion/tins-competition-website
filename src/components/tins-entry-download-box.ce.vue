@@ -7,12 +7,21 @@ import downloadIcon from '@fortawesome/fontawesome-free/svgs/solid/paperclip.svg
 import { formatBytes } from '../util';
 import { computed } from 'vue';
 
-const props = defineProps({
-	uploads: { type: Array, default: () => [] }
-});
+type UploadType = {
+	id: number,
+	postCompo: boolean,
+	size: number;
+	url: string,
+	time: string,
+	tags: string[]
+};
+
+const { uploads = [] } = defineProps<{
+	uploads: UploadType[]
+}>();
 
 const getFileName = (url: string) => url.split('/').pop();
-const formatUploadTime = (time: number) => Intl.DateTimeFormat("en", {
+const formatUploadTime = (time: string) => Intl.DateTimeFormat("en", {
 	weekday: 'short',
 	hour: '2-digit',
 	minute: '2-digit',
@@ -31,15 +40,15 @@ const titles = {
 	hasMac: 'Mac Binary',
 };
 
-const preDeadline = computed(() => props.uploads.filter(u => !u.postCompo).slice(0, 4));
-const postDeadline = computed(() => props.uploads.filter(u => u.postCompo).slice(0, 4));
+const preDeadline = computed(() => uploads.filter(u => !u.postCompo).slice(0, 4));
+const postDeadline = computed(() => uploads.filter(u => u.postCompo).slice(0, 4));
 
 </script>
 <template>
 	<div class="downloadbox">
 		<table border=1 frame=void rules=rows>
 
-			<tr v-for="upload of preDeadline" :key="upload">
+			<tr v-for="upload of preDeadline" :key="upload.id">
 				<td><tins-fa-icon :src="downloadIcon" color="gray" size="2rem"></tins-fa-icon></td>
 				<td><a :href="`/upload/${upload.url}`" router-ignore>{{getFileName(upload.url)}}</a></td>
 				<td>{{formatBytes(upload.size)}}</td>
@@ -49,7 +58,7 @@ const postDeadline = computed(() => props.uploads.filter(u => u.postCompo).slice
 
 			<tr v-if="postDeadline.length > 0"><td colspan="5" style="background: white;"><h4>Post competition additions:</h4></td></tr>
 
-			<tr v-for="upload of postDeadline" :key="upload">
+			<tr v-for="upload of postDeadline" :key="upload.id">
 				<td><tins-fa-icon :src="downloadIcon" color="gray" size="2rem"></tins-fa-icon></td>
 				<td><a :href="`/upload/${upload.url}`" router-ignore>{{getFileName(upload.url)}}</a></td>
 				<td>{{formatBytes(upload.size)}}</td>

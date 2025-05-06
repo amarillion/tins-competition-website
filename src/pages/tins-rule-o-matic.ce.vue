@@ -45,7 +45,21 @@ function challengeChanged(event) {
 	challenge.value = value;
 }
 
-const data = usePromise();
+type RuleType = {
+	category: unknown,
+	number: unknown,
+	text: unknown,
+	id: number,
+}
+
+type RatingType = {
+	needsRating: RuleType[],
+	yourRatings: unknown,
+	toBeat: { author: string, count: number },
+	totalRules: number,
+	rank: number
+}
+const data = usePromise<RatingType>();
 
 const INTEREST_LABELS = ['Why would you want that!?', 'Meh', 'Ok, I guess', 'Nice one!', 'Ooh! I love it!'];
 const CHALLENGE_LABELS = ['I can do this in my sleep!', 'Piece of cake', 'Let me sit down for this', 'A real challenge!' ,'No way, nearly impossible!'];
@@ -68,7 +82,7 @@ function resetForm() {
 	challenge.value = null;
 }
 
-const validRange = (val) => typeof val === 'number' && val > 0 && val <= 5;
+const validRange = (val: unknown) => typeof val === 'number' && val > 0 && val <= 5;
 const valid = computed(() => validRange(interest.value) && validRange(challenge.value));
 const rule = computed(() => data.result.value?.needsRating[0]);
 const result = computed(() => data.result.value );

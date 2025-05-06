@@ -3,7 +3,23 @@ import { fetchJSONOrThrow, postOrThrow } from '../util';
 import { usePromise } from '../usePromise.js';
 import { computed, onMounted, ref } from 'vue';
 
-const data = usePromise();
+type InvitationType = {
+	id: number,
+	senderName: string,
+	entryId: number,
+	recipientEntrantId: number,
+	recipientName: string,
+}
+type InvitationsType = { toMe: InvitationType[], fromMe: InvitationType[] }
+type MyEntryType = {
+	id?: string,
+	entrants?: { id: number, name: string }[],
+}
+
+const data = usePromise<{
+	entry: MyEntryType,
+	invitations: InvitationsType,
+}>();
 const m = window.location.pathname.match(`/(?<compoId>[^/]+)/team/?$`);
 const { compoId } = m.groups;
 
@@ -39,7 +55,7 @@ const entry = computed(() => data.result.value?.entry || {});
 const invitations = computed(() => data.result.value?.invitations.toMe || []);
 const pendingInvitations = computed(() => data.result.value?.invitations.fromMe || []);
 const invitationOpen = ref(false);
-const allEntrants = usePromise();
+const allEntrants = usePromise<{ entrantId: number, username: string }[]>();
 const inviteeSelectElt = ref(null);
 
 async function openInvitationSelect() {
@@ -70,7 +86,7 @@ async function sendInvitation() {
 	invitationOpen.value = false;
 }
 
-async function resolve(invitation, isAccept) {
+async function resolve(invitation: { id: number }, isAccept: boolean) {
 	await postOrThrow(`/api/v1/invitation/id/${invitation.id}/resolve`, JSON.stringify({ resolution: isAccept ? 'accept' : 'reject' }));
 	refresh();
 }

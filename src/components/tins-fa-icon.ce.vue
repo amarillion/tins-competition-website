@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { computed, defineProps } from 'vue';
+import { computed } from 'vue';
 
-const props = defineProps({
-	color: { type: String, default: 'black' },
-	src: { type: String, default: '' },
-	size: { type: String, default: '24px' }
-});
+const { color = 'black', src = '', size = '24px' } = defineProps<{
+	color: string,
+	src: string,
+	size: string
+}>();
 
 // recommended way to inject css variables in vue:
 // https://stackoverflow.com/questions/42872002/in-vue-js-component-how-to-use-props-in-css/52280182#52280182
 const cssProps = computed(() => {
 	return {
-		'--size': props.size,
-		'--color': props.color,
-		'--src': `url("${props.src.startsWith("data:image") ? props.src : "invalid src property, must be image data"}")`,
+		'--size': size,
+		'--color': color,
+		'--src': `url("${src.startsWith("data:image") ? src : "invalid src property, must be image data"}")`,
 	};
 });
 

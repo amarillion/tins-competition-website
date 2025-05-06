@@ -1,20 +1,18 @@
 <script setup lang="ts">
-import { computed, onMounted } from 'vue';
-import { usePromise } from '../usePromise.js';
-import { fetchJSONOrThrow } from '../util';
+import { onMounted } from 'vue';
+import { currentEventStore } from '../store/index.js';
+import { storeToRefs } from 'pinia';
 
-const data = usePromise();
-onMounted(() => {
-	data.doAsync(async() => (await fetchJSONOrThrow(`/api/v1/currentEvent`)).events); //TODO: separate endpoint for history...
-});
-const events = computed(() => data.result.value || []);
+const { events, error: currentEventError, loading: currentEventLoading } = storeToRefs(currentEventStore);
+
+onMounted(() => currentEventStore.refreshCurrentEvent());
 </script>
 <template>
 	<h2>TINS event history</h2>
 	
 	There have been game programming competitions on this site all the way back since 2003. 
 
-	<tins-status-helper  :error="data.error.value" :loading="data.loading.value">
+	<tins-status-helper  :error="currentEventError" :loading="currentEventLoading">
 		<div class="two-col">
 		<ul>
 			<li v-for="e of events" :key="e.short"><a :href="`/${e.short}/`">{{e.title}}</a></li>

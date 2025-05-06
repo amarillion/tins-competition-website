@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { defineProps, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
-const props = defineProps({
-	epochmillis: { type: Number, required: true },
-	label: { type: String, required: true },
-});
+const { epochmillis } = defineProps<{
+	epochmillis: number,
+	label: string,
+}>();
 
 function getDeltaSec() {
-	const d = new Date(props.epochmillis);
+	const d = new Date(epochmillis);
 	const now = Date.now();
 
 	const deltaSec = Math.floor((d.valueOf() - now.valueOf()) / 1000);

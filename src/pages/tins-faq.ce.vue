@@ -122,12 +122,12 @@ const FAQ = [
 	the additional rules without too much modification.
 	</p>`
 	}, 
-];
+].map((val, idx) => ({ idx, ...val }));
 </script>
 
 <template>
 	<h1>Frequently Asked Questions</h1>
-	<div v-for="f of FAQ" :key="f"><h3>{{f.question}}</h3><div v-html="f.answer"></div></div>
+	<div v-for="f of FAQ" :key="f.idx"><h3>{{f.question}}</h3><div v-html="f.answer"></div></div>
 </template>
 
 <style>
