@@ -1,12 +1,18 @@
 <script setup lang="ts">
-import { defineProps, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 
-const props = defineProps({
-	readOnly: { type: Boolean, default: false },
-	placeholder: { type: String, default: '(no description)' },
+const props = withDefaults(defineProps<{
+	readOnly?: boolean,
+	placeholder?: string,
+	text?: string,
+	submitCallback?: Function,
+}>(), {
+	readOnly: false,
+	placeholder: '(no description)',
 
-	text: { type: String, default: '' },
-	submitCallback: { type: Function, default: () => { console.log("WARN: submitCallback not set"); } },
+	text: '',
+	// TODO: replace with event
+	submitCallback: () => { console.log("WARN: submitCallback not set"); },
 });
 
 const loading = ref(false);
@@ -14,9 +20,9 @@ const error = ref('');
 const editMode = ref(false);
 
 /** text provided by attribute must be safe */
-const safeText = ref(props.text);
-const unsafeText = ref(props.text);
-watch(props.text, (value) => {
+const safeText = ref<string>(props.text);
+const unsafeText = ref<string>(props.text);
+watch(() => props.text, (value: string) => {
 	safeText.value = value;
 	unsafeText.value = value;
 });
@@ -67,7 +73,7 @@ function clickEdit() {
 		</template>
 		<template v-else>
 			<div v-if="!readOnly" class="buttons"><button @click="clickEdit">Edit</button></div>
-			<tins-richtext-view :text="`${safeText || `<i>${placeHolder}</i>`}`"></tins-richtext-view>
+			<tins-richtext-view :text="`${safeText || `<i>${placeholder}</i>`}`"></tins-richtext-view>
 		</template>
 	</template>
 </template>
