@@ -2,7 +2,7 @@ import { flushPromises, mount } from '@vue/test-utils';
 import TinsRuleOMatic from '../src/pages/tins-rule-o-matic.ce.vue';
 import { describe, expect, it } from 'vitest';
 import { currentUserStore } from '../src/store';
-import fetchMock from 'fetch-mock';
+import { FetchMock } from './util/fetchMock.js';
 
 const MOCK_NO_RULES = {
 	needsRating: [],
@@ -21,15 +21,18 @@ describe('Tins Rule-o-matic', () => {
 
 	
 	it("When logged in but there are no rules", async () => {
-		fetchMock.mockGlobal().getOnce(`/rule-o-matic/ratings`, MOCK_NO_RULES);
+		FetchMock.builder()
+			.get(`/rule-o-matic/ratings`, MOCK_NO_RULES)
+			.run(async () => {
 
-		currentUserStore.$patch({ currentUser: { login: 'amarillion', isStaff: false }});
+				currentUserStore.$patch({ currentUser: { login: 'amarillion', isStaff: false }});
 
-		// currentUserStore.currentUser = { login: 'testUser', isStaff: false };
-		const wrapper = mount(TinsRuleOMatic);
-		
-		await flushPromises();
-		expect(wrapper.text()).toContain(`So far you've rated 528 out of 545 rules. You're the #3 contributor`);	
+				// currentUserStore.currentUser = { login: 'testUser', isStaff: false };
+				const wrapper = mount(TinsRuleOMatic);
+				
+				await flushPromises();
+				expect(wrapper.text()).toContain(`So far you've rated 528 out of 545 rules. You're the #3 contributor`);	
+			});
 	});
 
 });

@@ -1,8 +1,8 @@
 import { flushPromises, mount } from '@vue/test-utils';
 import TinsSidebar from '../src/components/tins-sidebar.ce.vue';
 
-import fetchMock from 'fetch-mock';
-import { beforeAll, beforeEach, describe, expect, test } from 'vitest';
+import { FetchMock } from './util/fetchMock.js';
+import { beforeEach, describe, expect, test } from 'vitest';
 import { currentEventStore, currentUserStore  } from '../src/store';
 
 const COMPO_ID='krampu24';
@@ -37,55 +37,61 @@ const DEFAULT_RESPONSE = {
 
 describe('Side Bar Test', () => {
 
-	beforeAll(() => {
-		fetchMock.mockGlobal();
-	});
-
 	beforeEach(() => {
-		fetchMock.removeRoutes();
 		currentEventStore.testResetTimestamp(); // make sure store is in clean state, because getCurrentEvent is cached...
 	});
 
 	test('shows news link', async () => {
-		fetchMock.get('/api/v1/currentEvent', DEFAULT_RESPONSE);
-		const wrapper = mount(TinsSidebar);
-		await flushPromises();
-		expect(wrapper.find(`a[href='/news']`).exists()).toBe(true);
+		await FetchMock.builder()
+			.get('/api/v1/currentEvent', DEFAULT_RESPONSE)
+			.run(async () => {
+				const wrapper = mount(TinsSidebar);
+				await flushPromises();
+				expect(wrapper.find(`a[href='/news']`).exists()).toBe(true);
+			});
 	});
 
 	test('shows current event rules link', async () => {
-		fetchMock.get('/api/v1/currentEvent', DEFAULT_RESPONSE);
-		const wrapper = mount(TinsSidebar);
-		await flushPromises();
-		expect(wrapper.find(`a[href='/${COMPO_ID}/rules']`).exists()).toBe(true);
+		await FetchMock.builder()
+			.get('/api/v1/currentEvent', DEFAULT_RESPONSE)
+			.run(async () => {
+				const wrapper = mount(TinsSidebar);
+				await flushPromises();
+				expect(wrapper.find(`a[href='/${COMPO_ID}/rules']`).exists()).toBe(true);
+			});
 	});
 
 	test('shows admin link if staff', async () => {
-		// sidebar component doesn't refresh store by itself, so we inject data here...
-		currentUserStore.$patch({ currentUser: { login: 'amarillion', isStaff: true }});
-		fetchMock.get('/api/v1/currentEvent', DEFAULT_RESPONSE);
-		const wrapper = mount(TinsSidebar);
-		await flushPromises();
-		expect(wrapper.find(`a[href='/admin/']`).exists()).toBe(true);
+		await FetchMock.builder()
+			.get('/api/v1/currentEvent', DEFAULT_RESPONSE)
+			.run(async() => {
+				// sidebar component doesn't refresh store by itself, so we inject data here...
+				currentUserStore.$patch({ currentUser: { login: 'amarillion', isStaff: true }});
+				const wrapper = mount(TinsSidebar);
+				await flushPromises();
+				expect(wrapper.find(`a[href='/admin/']`).exists()).toBe(true);
+			});
 	});
 
 
 	test('during competition', async () => {
-		fetchMock.get('/api/v1/currentEvent', {
-			...DEFAULT_RESPONSE,
-			currentEvent: {
-				...DEFAULT_CURRENT_EVENT,
-				joinedCompetition: true,
-			},
-			events: [{
-				...DEFAULT_EVENT,
-				afterStart: true,
-			}],
-		});
-		const wrapper = mount(TinsSidebar);
-		await flushPromises();
-		expect(wrapper.find(`a[href='/${COMPO_ID}/upload']`).exists()).toBe(true);
+		await FetchMock.builder()
+			.get('/api/v1/currentEvent', {
+				...DEFAULT_RESPONSE,
+				currentEvent: {
+					...DEFAULT_CURRENT_EVENT,
+					joinedCompetition: true,
+				},
+				events: [{
+					...DEFAULT_EVENT,
+					afterStart: true,
+				}],
+			})
+			.run(async() => {
+				const wrapper = mount(TinsSidebar);
+				await flushPromises();
+				expect(wrapper.find(`a[href='/${COMPO_ID}/upload']`).exists()).toBe(true);
+			});
 	});
-
 
 });

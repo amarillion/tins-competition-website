@@ -1,6 +1,6 @@
 import { flushPromises, mount } from '@vue/test-utils';
 
-import fetchMock from 'fetch-mock';
+import { FetchMock } from './util/fetchMock.js';
 import { beforeAll, describe, expect, test } from 'vitest';
 import TinsEntry from '../src/pages/tins-entry.ce.vue';
 
@@ -35,20 +35,25 @@ describe('Entry Page Test', () => {
 	});
 
 	test('Component mounts without errors and renders game title', async () => {
-		fetchMock.mockGlobal().get(`/api/v1/entry/${ENTRY_ID}/`, MOCK_RESULT);
-		const wrapper = mount(TinsEntry);
-		await flushPromises();
-		expect(wrapper.text()).toContain(ENTRY_TITLE);
+		FetchMock.builder()
+			.get(`/api/v1/entry/${ENTRY_ID}/`, MOCK_RESULT)
+			.run(async () => {
+				const wrapper = mount(TinsEntry);
+				await flushPromises();
+				expect(wrapper.text()).toContain(ENTRY_TITLE);		
+			});
 	});
 
 	test('Component renders tags', async () => {
-		fetchMock.mockGlobal().get(`/api/v1/entry/${ENTRY_ID}/`, MOCK_RESULT);
-		const wrapper = mount(TinsEntry);
-		await flushPromises();
-		expect(wrapper.find(`img[src='/upload/images/400k.png']`).exists()).toBe(true);
+		FetchMock.builder()
+			.get(`/api/v1/entry/${ENTRY_ID}/`, MOCK_RESULT)
+			.run(async () => {
+				const wrapper = mount(TinsEntry);
+				await flushPromises();
+				expect(wrapper.find(`img[src='/upload/images/400k.png']`).exists()).toBe(true);
+			});
 	});
 
 	// TODO test adding / replacing / removing image
 	// TODO test editing text
-
 });

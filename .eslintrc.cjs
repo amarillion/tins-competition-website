@@ -15,4 +15,9 @@ module.exports = {
 		"semi": [2, "always"],
 		"no-console": [0],
 	},
+	globals: {
+		'RequestInit': true,
+		'RequestInfo': true,
+		'globalThis': true
+	}
 };

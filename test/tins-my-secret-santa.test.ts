@@ -1,7 +1,7 @@
 import { flushPromises, mount } from '@vue/test-utils';
 import TinsSecretSanta from '../src/pages/tins-my-secret-santa.ce.vue';
 
-import fetchMock from 'fetch-mock';
+import { FetchMock } from './util/fetchMock.js';
 import { describe, expect, test } from 'vitest';
 
 const COMPETITION_DEFAULTS = {
@@ -47,84 +47,90 @@ describe('Secret Santa Test', () => {
 	*/
 
 	test('Error when no active competition', async () => {
-		fetchMock.mockGlobal().getOnce('/api/v1/mySecretSanta', {});
-		const wrapper = mount(TinsSecretSanta);
-		await flushPromises();
-		expect(wrapper.text()).toContain('There is no competition going on today. Come back later!');
+		FetchMock.builder().get('/api/v1/mySecretSanta', {}).run(async () => {
+			const wrapper = mount(TinsSecretSanta);
+			await flushPromises();
+			expect(wrapper.text()).toContain('There is no competition going on today. Come back later!');	
+		});
 	});
 
 	test('Error when competition not joined, but can join', async () => {
-		fetchMock.mockGlobal().getOnce('/api/v1/mySecretSanta', {
+		FetchMock.builder().get('/api/v1/mySecretSanta', {
 			...API_DEFAULTS,
 			competition: {
 				...COMPETITION_DEFAULTS,
 				canJoin: true
 			},
 			joinedCompetition: false
+		}).run(async () => {
+			const wrapper = mount(TinsSecretSanta);
+			await flushPromises();
+			expect(wrapper.text()).toContain('You can still sign up');	
 		});
-		const wrapper = mount(TinsSecretSanta);
-		await flushPromises();
-		expect(wrapper.text()).toContain('You can still sign up');
 	});
 
 	test('Error when competition cannot be joined', async () => {
-		fetchMock.mockGlobal().getOnce('/api/v1/mySecretSanta', {
+		FetchMock.builder().get('/api/v1/mySecretSanta', {
 			...API_DEFAULTS,
 			competition: {
 				...COMPETITION_DEFAULTS, 
 				"canJoin": false, 
 			}, 
 			joinedCompetition: false
+		}).run(async () => {
+			const wrapper = mount(TinsSecretSanta);
+			await flushPromises();
+			expect(wrapper.text()).toContain('Unfortunately, registration is closed...');	
 		});
-		const wrapper = mount(TinsSecretSanta);
-		await flushPromises();
-		expect(wrapper.text()).toContain('Unfortunately, registration is closed...');
 	});
 
 	test('Error when competition not yet started', async () => {
-		fetchMock.mockGlobal().getOnce('/api/v1/mySecretSanta', {
+		FetchMock.builder().get('/api/v1/mySecretSanta', {
 			...API_DEFAULTS,
 			competitionStarted: false, 
 			joinedCompetition: true
+		}).run(async () => {
+			const wrapper = mount(TinsSecretSanta);
+			await flushPromises();
+			expect(wrapper.text()).toContain('Your secret santa will be revealed in');
 		});
-		const wrapper = mount(TinsSecretSanta);
-		await flushPromises();
-		expect(wrapper.text()).toContain('Your secret santa will be revealed in');
 	});
 
 	test('Error when not a secret santa competition', async () => {
-		fetchMock.mockGlobal().getOnce('/api/v1/mySecretSanta', {
+		FetchMock.builder().get('/api/v1/mySecretSanta', {
 			...API_DEFAULTS,
 			competitionStarted: true,
 			joinedCompetition: true
+		}).run(async () => {
+			const wrapper = mount(TinsSecretSanta);
+			await flushPromises();
+			expect(wrapper.text()).toContain('There is no secret santa information available for the current competition.');	
 		});
-		const wrapper = mount(TinsSecretSanta);
-		await flushPromises();
-		expect(wrapper.text()).toContain('There is no secret santa information available for the current competition.');
 	});
 	
 	test('Letter when competition started', async () => {
-		fetchMock.mockGlobal().getOnce('/api/v1/mySecretSanta', {
+		FetchMock.builder().get('/api/v1/mySecretSanta', {
 			...API_DEFAULTS,
 			...SECRET_SANTA_DATA,
 			joinedCompetition: true,
 			competitionStarted: true, 
 			competitionEnded: false, 
+		}).run(async () => {
+			const wrapper = mount(TinsSecretSanta);
+			await flushPromises();
+			expect(wrapper.text()).toContain('I have decided that you will give a gift to Receiver');	
 		});
-		const wrapper = mount(TinsSecretSanta);
-		await flushPromises();
-		expect(wrapper.text()).toContain('I have decided that you will give a gift to Receiver');
 	});
 
 	test('Both letters when competition ended', async () => {
-		fetchMock.mockGlobal().getOnce('/api/v1/mySecretSanta', {
+		FetchMock.builder().get('/api/v1/mySecretSanta', {
 			...API_DEFAULTS,
 			...SECRET_SANTA_DATA,
 			...REVERSE_GIVER_DATA,
 			joinedCompetition: true,
 			competitionStarted: true, 
 			competitionEnded: true, 
-		});
+		}).run(async () => {});
 		const wrapper = mount(TinsSecretSanta);
 		await flushPromises();
 		expect(wrapper.text()).toContain('I have decided that you will give a gift to Receiver');
