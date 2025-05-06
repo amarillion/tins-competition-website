@@ -26,7 +26,7 @@ import { defineEmits } from 'vue';
  */
 
 
-const emit = defineEmits('changed');
+const emit = defineEmits(['changed']);
 defineProps({
 	labels: { type: Array, default: () => ['1', '2', '3', '4', '5'] },
 	/** Range between 1 and 5. Starts with null value. Must be non-null to be valid. */

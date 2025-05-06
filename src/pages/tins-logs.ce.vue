@@ -11,7 +11,13 @@ const page = Number(m.groups.page) || 1;
 const url = entrantId ? `/${compoId}/log/entrant/${entrantId}` : `/${compoId}/log`;
 
 const canPost = computed(() => currentEventStore.canPost(compoId));
-const data = usePromise();
+type PostType = { id: number }
+type CompetitionType = { title: string };
+const data = usePromise<{
+	posts: PostType[],
+	competition: CompetitionType,
+	numPages: number
+}>();
 
 onMounted(() => {
 	currentEventStore.refreshCurrentEvent();
@@ -48,7 +54,7 @@ const breadcrumbs = [
 
 const loggedIn = computed(() => Boolean(currentUserStore.username));
 const posts = computed(() => data.result.value?.posts || []);
-const competition = computed(() => data.result.value?.competition || {});
+const competition = computed(() => data.result.value?.competition || {} as CompetitionType);
 const numPages = computed(() => data.result.value?.numPages || -1);
 </script>
 <template>
@@ -59,7 +65,7 @@ const numPages = computed(() => data.result.value?.numPages || -1);
 		<template v-if="loggedIn && competition && canPost">
 			<p>Add a message to your log <a :href="`${compoId}/log/edit`">(click here to edit your previous post)</a>
 			</p><p>
-			<tins-log-form :submitCallback="(formData) => submit(formData)"></tins-log-form>
+			<tins-log-form :submitCallback="(formData: FormData) => submit(formData)"></tins-log-form>
 			</p>
 			<hr>
 		</template>

@@ -6,12 +6,18 @@ import { onMounted, computed } from 'vue';
 const m = window.location.pathname.match(`/(?<compoId>[^/]+)/log/edit/?$`);
 const { compoId } = m.groups;
 
-const data = usePromise();
+type MyLatestType = {
+	post: { text: string, image: unknown, spoiler: unknown },
+	competition: unknown,
+	canPostAndAuthenticated: unknown
+};
+
+const data = usePromise<MyLatestType>();
 onMounted(() => {
 	data.doAsync(async() => (await fetchJSONOrThrow(`/api/v1/log/event/${compoId}/myLatest`)));
 });
 
-async function submit(formData) {
+async function submit(formData: FormData) {
 	data.doAsync(async() => {
 		const raw = await postOrThrow(`/api/v1/log/event/${compoId}/myLatest`, formData);
 		return await raw.json();
@@ -33,7 +39,7 @@ const canPostAndAuthenticated = computed(() => data.result.value?.canPostAndAuth
 					:text="post.text"
 					:image="post.image"
 					:spoiler="post.spoiler"
-					:submitCallback="(formData) => submit(formData)"
+					:submitCallback="(formData: FormData) => submit(formData)"
 				></tins-log-form>
 				<hr>
 			</template>

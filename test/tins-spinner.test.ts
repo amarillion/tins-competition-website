@@ -18,7 +18,6 @@ test('custom elements in JSDOM', async () => {
 	const { document } = window;
 	const element = document.createElement("tins-spinner");
 	document.body.appendChild(element);
-	await element.updateComplete;
 
 	const renderedText = document.body.querySelector("tins-spinner").shadowRoot.innerHTML;
 

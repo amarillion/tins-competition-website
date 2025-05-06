@@ -9,7 +9,7 @@ describe('Log Form test', () => {
 		const wrapper = mount(TinsLogForm);
 
 		expect(wrapper.find(`textarea`).text()).toBeFalsy();
-		expect(wrapper.find(`input[name='spoiler']`).element.checked).toBe(false);
+		expect((wrapper.find(`input[name='spoiler']`).element as HTMLInputElement).checked).toBe(false);
 		expect(wrapper.find(`div.screenshot`).isVisible()).toBe(true);
 	});
 
@@ -26,7 +26,7 @@ describe('Log Form test', () => {
 			props: { spoiler: true }
 		});
 
-		expect(wrapper.find(`input[name='spoiler']`).element.checked).toBe(true);
+		expect((wrapper.find(`input[name='spoiler']`).element as HTMLInputElement).checked).toBe(true);
 	});
 
 	test('prefill image applied to form', () => {

@@ -28,7 +28,7 @@ onMounted(async () => {
 });
 </script>
 <template>
-	<tins-status-helper :error="data.result.error" :loading="data.result.loading"></tins-status-helper>
+	<tins-status-helper :error="data.error.value" :loading="data.loading.value"></tins-status-helper>
 </template>
 <style>
 </style>

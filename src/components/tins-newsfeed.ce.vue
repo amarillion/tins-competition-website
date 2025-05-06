@@ -7,7 +7,13 @@ const props = defineProps({
 	newsId: { type: Number, required: false }
 });
 
-const data = usePromise();
+type PostType = {
+	id: number,
+	date: number,
+	img: unknown,
+	text: string
+};
+const data = usePromise<{ posts: PostType[] }>();
 onMounted(() => {
 	data.doAsync(async() => {
 		const url  = props.newsId ? `/api/v1/news/${props.newsId}` : '/api/v1/news';
@@ -28,7 +34,7 @@ function formatPostDate(date: number) {
 <template>
 	<h1>News 123</h1>
 
-	<div v-for="p of posts" :key="p">
+	<div v-for="p of posts" :key="p.id">
 		<br />
 		<div class="header">
 			{{ formatPostDate(p.date) }}

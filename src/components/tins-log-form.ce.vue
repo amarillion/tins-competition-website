@@ -3,17 +3,19 @@ import infoIcon from '@fortawesome/fontawesome-free/svgs/solid/circle-info.svg';
 import { formatBytes, IMAGE_UPLOAD_SIZE_LIMIT, markupMessage, spoilerExplanation } from '../util';
 import { ref } from 'vue';
 
-const props = defineProps({
-	hidden: { type: Boolean, default: false },
-
-	text: { type: String, default: '' },
-
-	image: { type: Object, default: undefined },
-
-	spoiler: { type: Boolean, default: false },
-	
+const props = withDefaults(defineProps<{
+	hidden?: boolean,
+	text?: string,
+	image?: {},
+	spoiler?: boolean,
 	// TODO: use event
-	submitCallback: { type: Function, default: () => { console.log("WARN: submitCallback not set"); } }
+	submitCallback?: Function
+}>(), {
+	hidden: false,
+	text: '',
+	image: undefined,
+	spoiler: false,
+	submitCallback: () => { console.log("WARN: submitCallback not set"); }
 });
 
 const textRef = ref(props.text);
@@ -30,7 +32,7 @@ function submit(e) {
 	// validate form
 	const screenshot = formData.get('screenshot');
 
-	if (screenshot && screenshot.size > IMAGE_UPLOAD_SIZE_LIMIT) {
+	if (screenshot && screenshot instanceof File && screenshot.size > IMAGE_UPLOAD_SIZE_LIMIT) {
 		screenShotErrorMessage.value = `File is too large. Maximum size allowed is ${formatBytes(IMAGE_UPLOAD_SIZE_LIMIT)}.`;
 	}
 	else {
