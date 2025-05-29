@@ -32,7 +32,7 @@ function formatPostDate(date: number) {
 
 </script>
 <template>
-	<h1>News 123</h1>
+	<h1>News</h1>
 
 	<div v-for="p of posts" :key="p.id">
 		<br />
