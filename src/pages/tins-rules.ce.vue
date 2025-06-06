@@ -27,6 +27,9 @@ onMounted(() => data.doAsync(async() => (await fetchJSONOrThrow(`/api/v1/compo/$
 	:host {
 		display: block; /* solves text selection issues */
 	}
+	img {
+		max-width: 100%;
+	}
 	pre {
 		white-space: pre-wrap;
 	}
