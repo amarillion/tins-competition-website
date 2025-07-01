@@ -19,6 +19,7 @@ import TinsSecretSanta from './pages/tins-my-secret-santa.ce.vue';
 import TinsSupport from './pages/tins-support.ce.vue';
 import TinsTeamManagement from './pages/tins-team-management.ce.vue';
 import TinsUser from './pages/tins-user.ce.vue';
+import TinsReviews from './pages/tins-reviews.ce.vue';
 
 import TinsBreadcrumbs from './components/tins-breadcrumbs.ce.vue';
 import TinsCountDown from './components/tins-count-down.ce.vue';
@@ -64,6 +65,7 @@ customElements.define('tins-rules', defineCustomElement(TinsRules));
 customElements.define('tins-support', defineCustomElement(TinsSupport));
 customElements.define('tins-team-management', defineCustomElement(TinsTeamManagement));
 customElements.define('tins-user', defineCustomElement(TinsUser));
+customElements.define('tins-reviews', defineCustomElement(TinsReviews));
 
 // components
 customElements.define('tins-breadcrumbs', defineCustomElement(TinsBreadcrumbs));
@@ -93,16 +95,6 @@ router.setRoutes([{
 	component: 'tins-frame',
 	children: [ 
 
-		// special exclusion - these routes are served by original multi-page django application
-		// special exclusion added because results pages link to these reviews
-		{
-			path: '/:compoId/reviews/entry/(.*)',
-			action: (ctx, /* commands */) => {
-				console.log("Explicitly ignored by vaadin configuration");
-				window.location.pathname = ctx.pathname;
-			}
-		},
-
 		{ path: '/', redirect: '/news/' },
 		{ path: '/news', component: 'tins-newspage' },
 		{ path: '/news/:newsId', component: 'tins-newspage' },
@@ -126,6 +118,11 @@ router.setRoutes([{
 		{ path: '/:compoId/rules', component: 'tins-rules' },
 		{ path: '/:compoId/results', component: 'tins-results' },
 		{ path: '/:compoId/entrants', component: 'tins-entrants' },
+
+		{ path: '/:compoId/reviews', component: 'tins-reviews' },
+		{ path: '/:compoId/reviews/entry/:entryId', component: 'tins-reviews' },
+		{ path: '/:compoId/reviews/entrant/:entrantId', component: 'tins-reviews' },
+		{ path: '/:compoId/reviews/:reviewId', component: 'tins-reviews' },
 
 		{ path: '/:compoId/myEntry', component: 'tins-my-entry' },
 		{ path: '/:compoId/team', component: 'tins-team-management' },
