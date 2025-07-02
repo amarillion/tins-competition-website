@@ -44,14 +44,14 @@ export async function formatErrorResponse(response: Response) {
 	}
 }
 
-export async function fetchJSONOrThrow(url: string) {
+export async function fetchJSONOrThrow<T>(url: string) {
 	const response = await fetch(url, {
 		credentials: 'same-origin'
 	});
 	if (response.ok) {
 		// parse json only if response is OK. Error state may contain invalid json.
 		const data = await response.json(); 
-		return data;
+		return data as T;
 	}
 	else {
 		if (response.status === 401) {

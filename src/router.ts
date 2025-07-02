@@ -20,6 +20,7 @@ import TinsSupport from './pages/tins-support.ce.vue';
 import TinsTeamManagement from './pages/tins-team-management.ce.vue';
 import TinsUser from './pages/tins-user.ce.vue';
 import TinsReviews from './pages/tins-reviews.ce.vue';
+import TinsAdminCalculateResults from './pages/tins-admin-calculate-results.ce.vue';
 
 import TinsBreadcrumbs from './components/tins-breadcrumbs.ce.vue';
 import TinsCountDown from './components/tins-count-down.ce.vue';
@@ -66,6 +67,7 @@ customElements.define('tins-support', defineCustomElement(TinsSupport));
 customElements.define('tins-team-management', defineCustomElement(TinsTeamManagement));
 customElements.define('tins-user', defineCustomElement(TinsUser));
 customElements.define('tins-reviews', defineCustomElement(TinsReviews));
+customElements.define('tins-admin-calculate-results', defineCustomElement(TinsAdminCalculateResults));
 
 // components
 customElements.define('tins-breadcrumbs', defineCustomElement(TinsBreadcrumbs));
@@ -135,6 +137,8 @@ router.setRoutes([{
 
 		{ path: '/:compoId/log/page/:page', component: 'tins-logs' }, 
 		{ path: '/:compoId/log/entrant/:entrantId/page/:page', component: 'tins-logs' },
-		
+
+		{ path: '/:compoId/results/calculate', component: 'tins-admin-calculate-results' }, 
+
 	]}
 ]);
