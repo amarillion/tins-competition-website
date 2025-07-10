@@ -11,7 +11,7 @@ const groupBy = ref<'byUser'|'byEvent'>('byUser');
 
 const data = usePromise<EntryType[]>();
 onMounted(() => {
-	data.doAsync(async() => (await fetchJSONOrThrow(`/api/v1/entries/all`)).result);
+	data.doAsync(async() => (await fetchJSONOrThrow<{ result: EntryType[] }>(`/api/v1/entries/all`)).result);
 });
 
 function _byCompo() {

@@ -22,7 +22,7 @@ async function refreshLogs() {
 	
 	const { short } = currentEvent.value;
 	posts.doAsync(async () => {
-		const data = await fetchJSONOrThrow(`/api/v1/log/event/${short}`);
+		const data = await fetchJSONOrThrow<{ posts: PostType[] }>(`/api/v1/log/event/${short}`);
 		if (data) {
 			return data.posts;
 		}

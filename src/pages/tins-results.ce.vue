@@ -11,8 +11,8 @@ const breadcrumbs = [
 	{ title: 'Results' }
 ];
 
-const data = usePromise();
-onMounted(() => data.doAsync(async() => (await fetchJSONOrThrow(`/api/v1/compo/${compoId}/results`)).result));
+const data = usePromise<string>();
+onMounted(() => data.doAsync(async() => (await fetchJSONOrThrow<{ result: string }>(`/api/v1/compo/${compoId}/results`)).result));
 </script>
 
 <template>

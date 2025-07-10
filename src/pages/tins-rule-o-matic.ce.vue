@@ -71,7 +71,7 @@ watch(isLoggedIn, () => {
 async function fetchNewRule() {
 	if (data.loading.value) return; // prevent double parallel requests
 	data.doAsync(async () => {
-		const result = await fetchJSONOrThrow(`/rule-o-matic/ratings`);
+		const result = await fetchJSONOrThrow<RatingType>(`/rule-o-matic/ratings`);
 		resetForm();
 		return result;
 	});

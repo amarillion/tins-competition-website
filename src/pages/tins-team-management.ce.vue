@@ -36,11 +36,11 @@ async function refresh() {
 	data.doAsync(
 		async () => {
 			try {
-				const invitations = await fetchJSONOrThrow(`/api/v1/invitation/byCompo/${compoId}`);
+				const invitations: InvitationsType = await fetchJSONOrThrow(`/api/v1/invitation/byCompo/${compoId}`);
 				const response = await postOrThrow(`/api/v1/compo/${compoId}/myEntry`, '');
 				const myEntry = await response.json();
 				const { entryId } = myEntry;
-				const entry = await fetchJSONOrThrow(`/api/v1/entry/${entryId}/`);
+				const entry: MyEntryType = await fetchJSONOrThrow(`/api/v1/entry/${entryId}/`);
 				
 				return { invitations, entry };
 			}
@@ -94,7 +94,7 @@ async function resolve(invitation: { id: number }, isAccept: boolean) {
 async function leaveTeam() {
 	if (window.confirm("Are you sure you want to leave this team and go by yourself?")) {
 		try {
-			const data = await fetchJSONOrThrow(`/api/v1/compo/${compoId}/currentEntrant`);
+			const data = await fetchJSONOrThrow<{ entrantId: string }>(`/api/v1/compo/${compoId}/currentEntrant`);
 			await postOrThrow(`/api/v1/removeTeamMember/${data.entrantId}`, '');
 			refresh();
 		}

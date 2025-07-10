@@ -29,7 +29,7 @@ const entrants = usePromise<EntrantType[]>();
 
 onMounted(() => {
 	entrants.doAsync(async() => {
-		const data = await fetchJSONOrThrow(`/api/v1/compo/${compoId}/entrants`);
+		const data = await fetchJSONOrThrow<{ result: EntrantType[] }>(`/api/v1/compo/${compoId}/entrants`);
 		return data.result;
 	});
 });
