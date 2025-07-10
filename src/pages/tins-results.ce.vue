@@ -24,4 +24,11 @@ onMounted(() => data.doAsync(async() => (await fetchJSONOrThrow<{ result: string
 </template>
 
 <style>
+a 			{ font-weight: bold; text-decoration: none; }
+a:link 		{ color: #600; }
+a:hover 	{ text-decoration: underline; }
+a:active 	{ text-decoration: underline; }
+
+table { border-collapse:collapse; border-spacing:0; empty-cells:show }
+table * { margin:0; }
 </style>
