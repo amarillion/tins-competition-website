@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import mastodonIcon from '@fortawesome/fontawesome-free/svgs/brands/mastodon.svg';
+import calendarIcon from '@fortawesome/fontawesome-free/svgs/solid/calendar.svg';
 import discordIcon from '@fortawesome/fontawesome-free/svgs/brands/discord.svg';
 import type { UpcomingType } from '../store/currentEvent';
 
@@ -11,9 +11,10 @@ defineProps<{ upcoming: UpcomingType[] }>();
 		<p><i>Mark these events in your calendar!</i></p>
 			<div v-for="u of upcoming" :key="u.title"><b>{{u.dateStr}}</b> <span>{{u.title}}</span><br></div>
 		<hr>
-		Stay informed! <a href="https://groups.google.com/d/forum/tinscompetition">join our google group</a><br> 
-		<tins-fa-icon :src="discordIcon" size="1rem"></tins-fa-icon> <a href="https://discord.gg/7uK6jNtNX9">our Discord server</a><br>
-		<tins-fa-icon :src="mastodonIcon" size="1rem"></tins-fa-icon> <small><a href="https://mastodon.gamedev.place/@amarillion">@amarillion@mastodon.gamedev.place</a></small>
+		Stay informed! <br>
+		<a href="https://groups.google.com/d/forum/tinscompetition">Join the Google Group</a><br> 
+		<tins-fa-icon class="icon" :src="calendarIcon" size="1rem"></tins-fa-icon> <a href="/calendar.ics" router-ignore>Import Calendar.ics</a><br>
+		<tins-fa-icon :src="discordIcon" size="1rem"></tins-fa-icon> <a href="https://discord.gg/7uK6jNtNX9">Chat on Discord</a><br>
 	</div>
 </template>
 <style>
