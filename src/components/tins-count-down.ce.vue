@@ -31,17 +31,17 @@ function update() {
 
 	if (days > 0) {
 		numbers.value = [ days, hours ];
-		labels.value = [ "days", "hours" ];
+		labels.value = [ 'days', 'hours' ];
 		setTimeout(() => update(), 60*60*1000);
 	}
 	else if (hours > 0) {
 		numbers.value = [ hours, min ];
-		labels.value = [ "hours", "min" ];
+		labels.value = [ 'hours', 'min' ];
 		setTimeout(() => update(), 60*1000);
 	}
 	else {
 		numbers.value = [ min, sec ];
-		labels.value = [ "min", "sec" ];
+		labels.value = [ 'min', 'sec' ];
 		setTimeout(() => update(), 1000);
 	}
 }
@@ -93,5 +93,5 @@ onMounted(update);
 	.labels {
 		color: grey;
 		text-align: center;
-	}	
+	}
 </style>

@@ -3,7 +3,7 @@ import { computed, ref } from 'vue';
 
 export type UserType = {
 	login: string, isStaff: boolean
-}
+};
 
 export const useCurrentUserStore = defineStore('currentUser', () => {
 	

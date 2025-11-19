@@ -8,9 +8,9 @@ describe('Log Form test', () => {
 	test('without prefill, component is empty', () => {
 		const wrapper = mount(TinsLogForm);
 
-		expect(wrapper.find(`textarea`).text()).toBeFalsy();
-		expect((wrapper.find(`input[name='spoiler']`).element as HTMLInputElement).checked).toBe(false);
-		expect(wrapper.find(`div.screenshot`).isVisible()).toBe(true);
+		expect(wrapper.find('textarea').text()).toBeFalsy();
+		expect((wrapper.find('input[name=\'spoiler\']').element as HTMLInputElement).checked).toBe(false);
+		expect(wrapper.find('div.screenshot').isVisible()).toBe(true);
 	});
 
 	test('prefill text is applied to text area', () => {
@@ -18,7 +18,7 @@ describe('Log Form test', () => {
 			props: { text: 'Prefilled text' }
 		});
 
-		expect(wrapper.find(`textarea`).element.value).toBe('Prefilled text');
+		expect(wrapper.find('textarea').element.value).toBe('Prefilled text');
 	});
 
 	test('prefill spoiler flag is applied to form', () => {
@@ -26,7 +26,7 @@ describe('Log Form test', () => {
 			props: { spoiler: true }
 		});
 
-		expect((wrapper.find(`input[name='spoiler']`).element as HTMLInputElement).checked).toBe(true);
+		expect((wrapper.find('input[name=\'spoiler\']').element as HTMLInputElement).checked).toBe(true);
 	});
 
 	test('prefill image applied to form', () => {
@@ -35,11 +35,11 @@ describe('Log Form test', () => {
 		});
 
 		// screenshot invisible, because by default the option keep-as-is is enabled.
-		expect(wrapper.find(`div.screenshot`).isVisible()).toBe(false);
+		expect(wrapper.find('div.screenshot').isVisible()).toBe(false);
 	});
 
 	test('after submitting, form is cleared', async () => {
-		const wrapper = mount(TinsLogForm, { props: { 
+		const wrapper = mount(TinsLogForm, { props: {
 			text: 'This is my post 123',
 			spoiler: true,
 			screenshot: 'dummy'

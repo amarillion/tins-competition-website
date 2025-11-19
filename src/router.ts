@@ -92,10 +92,10 @@ customElements.define('tins-spinner', defineCustomElement(TinsSpinner));
 customElements.define('tins-status-helper', defineCustomElement(TinsStatusHelper));
 customElements.define('tins-upcoming', defineCustomElement(TinsUpcoming));
 
-router.setRoutes([{ 
+router.setRoutes([{
 	path: '/',
 	component: 'tins-frame',
-	children: [ 
+	children: [
 
 		{ path: '/', redirect: '/news/' },
 		{ path: '/news', component: 'tins-newspage' },
@@ -108,7 +108,7 @@ router.setRoutes([{
 		{ path: '/all/entries', component: 'tins-all-entries' },
 		{ path: '/user/:userId', component: 'tins-user' },
 
-		// { path: '(.*)', action: ( { pathname }) => { 
+		// { path: '(.*)', action: ( { pathname }) => {
 		// 	//TODO: 404 page
 		// }},
 		//TODO: possibly add game name at end of url
@@ -132,13 +132,13 @@ router.setRoutes([{
 		{ path: '/:compoId/log/edit', component: 'tins-log-edit' },
 		{ path: '/:compoId/log/id/:postId', component: 'tins-logs' },
 
-		{ path: '/:compoId/log', component: 'tins-logs' }, 
+		{ path: '/:compoId/log', component: 'tins-logs' },
 		{ path: '/:compoId/log/entrant/:entrantId', component: 'tins-logs' },
 
-		{ path: '/:compoId/log/page/:page', component: 'tins-logs' }, 
+		{ path: '/:compoId/log/page/:page', component: 'tins-logs' },
 		{ path: '/:compoId/log/entrant/:entrantId/page/:page', component: 'tins-logs' },
 
-		{ path: '/:compoId/results/calculate', component: 'tins-admin-calculate-results' }, 
+		{ path: '/:compoId/results/calculate', component: 'tins-admin-calculate-results' },
 
 	]}
 ]);

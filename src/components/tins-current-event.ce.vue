@@ -5,7 +5,7 @@ import { watch, onMounted, computed } from 'vue';
 import { currentEventStore } from '../store/index';
 import { storeToRefs } from 'pinia';
 
-onMounted(() => {	
+onMounted(() => {
 	refreshLogs();
 });
 
@@ -13,7 +13,7 @@ type PostType = {
 	text: string,
 	date: number,
 	entrant: { name: string }
-}
+};
 const posts = usePromise<PostType[]>();
 
 async function refreshLogs() {
@@ -36,21 +36,21 @@ watch(currentEvent, () => { refreshLogs(); });
 
 function formatRelativeTime(millis: number) {
 	try {
-		const rtf = new Intl.RelativeTimeFormat("en", {
-			style: "long", // other values: "long", "short" or "narrow"
+		const rtf = new Intl.RelativeTimeFormat('en', {
+			style: 'long', // other values: "long", "short" or "narrow"
 		});
 		const deltaMillis = new Date(millis).valueOf() - Date.now().valueOf();
 		const deltaMinutes = Math.round(deltaMillis / 60000);
 		if (Math.abs(deltaMinutes) < 60) {
-			return rtf.format(deltaMinutes, "minute");
+			return rtf.format(deltaMinutes, 'minute');
 		}
 		else if (Math.abs(deltaMinutes) < 60*24) {
 			const deltaHours = Math.round(deltaMinutes / 60);
-			return rtf.format(deltaHours, "hour");
+			return rtf.format(deltaHours, 'hour');
 		}
 		else {
 			const deltaDays = Math.round(deltaMinutes / (60*24));
-			return rtf.format(deltaDays, "day");
+			return rtf.format(deltaDays, 'day');
 		}
 	}
 	catch (e) {
@@ -59,9 +59,9 @@ function formatRelativeTime(millis: number) {
 	}
 }
 
-const slug = (post: PostType) => {	
+const slug = (post: PostType) => {
 	const stripped = new DOMParser().parseFromString(post.text, 'text/html').body.textContent;
-	const fragment = stripped.split(" ").slice(0, 15).join(" ") + "...";
+	const fragment = stripped.split(' ').slice(0, 15).join(' ') + '...';
 	return fragment;
 };
 

@@ -3,15 +3,15 @@ import { usePromise } from '../usePromise.js';
 import { ref, computed, onMounted } from 'vue';
 import { fetchJSONOrThrow } from '../util';
 
-type CompoType = { short: string, title: string, competitionStart: number }
-type EntrantType = { id: number, name: string }
+type CompoType = { short: string, title: string, competitionStart: number };
+type EntrantType = { id: number, name: string };
 type EntryType = { id: number, team: string, competition: CompoType, entrants: EntrantType[] };
 
 const groupBy = ref<'byUser'|'byEvent'>('byUser');
 
 const data = usePromise<EntryType[]>();
 onMounted(() => {
-	data.doAsync(async() => (await fetchJSONOrThrow<{ result: EntryType[] }>(`/api/v1/entries/all`)).result);
+	data.doAsync(async() => (await fetchJSONOrThrow<{ result: EntryType[] }>('/api/v1/entries/all')).result);
 });
 
 function _byCompo() {
@@ -69,7 +69,7 @@ const byUser = computed(_byUser);
 					<h2>{{i.competition.title}}</h2>
 					<div class="entry-list">
 						<a v-for="e of i.entries" :key="e.id" :href="`/entry/${e.id}`">
-							<tins-entry-thumbnail 
+							<tins-entry-thumbnail
 								.entry="e"
 								:footer="e.team"
 								></tins-entry-thumbnail>
@@ -82,7 +82,7 @@ const byUser = computed(_byUser);
 					<h2>{{i.user.name}}</h2>
 					<div class="entry-list">
 						<a v-for="e of i.entries" :key="e.id" :href="`/entry/${e.id}`">
-							<tins-entry-thumbnail 
+							<tins-entry-thumbnail
 								.entry="e"
 								:footer="e.competition.title"
 								></tins-entry-thumbnail>

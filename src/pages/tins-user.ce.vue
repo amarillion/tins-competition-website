@@ -5,7 +5,7 @@ import globeIcon from '@fortawesome/fontawesome-free/svgs/solid/earth-europe.svg
 import { onMounted, computed } from 'vue';
 import { usePromise } from '../usePromise.js';
 
-const m = window.location.pathname.match(`/user/(?<userId>[^/]+)/?$`);
+const m = window.location.pathname.match('/user/(?<userId>[^/]+)/?$');
 const { userId } = m.groups;
 
 const data = usePromise();

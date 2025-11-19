@@ -5,14 +5,14 @@ const props = withDefaults(defineProps<{
 	readOnly?: boolean,
 	placeholder?: string,
 	text?: string,
-	submitCallback?: Function,
+	submitCallback?: (text: string) => void,
 }>(), {
 	readOnly: false,
 	placeholder: '(no description)',
 
 	text: '',
 	// TODO: replace with event
-	submitCallback: () => { console.log("WARN: submitCallback not set"); },
+	submitCallback: () => { console.log('WARN: submitCallback not set'); },
 });
 
 const loading = ref(false);
@@ -32,7 +32,7 @@ async function clickSave() {
 		loading.value = true;
 		error.value = '';
 		
-		// text processed on server side before it's considered safe 
+		// text processed on server side before it's considered safe
 		safeText.value = await props.submitCallback(unsafeText.value);
 		loading.value = false;
 		editMode.value = false;

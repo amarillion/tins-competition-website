@@ -5,7 +5,7 @@ import { currentUserStore } from '../store';
 import { usePromise } from '../usePromise';
 import { fetchJSONOrThrow } from '../util';
 
-const m = window.location.pathname.match(`/(?<compoId>[^/]+)/results/calculate/?$`);
+const m = window.location.pathname.match('/(?<compoId>[^/]+)/results/calculate/?$');
 const { compoId } = m.groups;
 
 const {
@@ -25,13 +25,13 @@ onMounted(() => {
 	data.doAsync(async () => (await fetchJSONOrThrow<{ scores: ScoreType[] }>(`/api/v1/scores/byCompo/${compoId}`)).scores);
 });
 
-function ranked(data: number[]) {
+function ranked(values: number[]) {
 	const result: number[] = [];
 	let rank = 1;
 	let idx = 1;
 	let prev = NaN;
 
-	for (const i of data) {
+	for (const i of values) {
 		if (i !== prev) {
 			rank = idx;
 		}
@@ -95,14 +95,14 @@ const rankedData = computed(() => {
 });
 
 function colorForRank(rank: number) {
-	if (rank === 1) { 
-		return "#00ff00";
-	} 
+	if (rank === 1) {
+		return '#00ff00';
+	}
 	else if (rank === 2) {
-		return "#00ffff";
+		return '#00ffff';
 	}
 	else if (rank === 3) {
-		return "#00ffff";
+		return '#00ffff';
 	}
 	else return undefined;
 }

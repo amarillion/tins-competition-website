@@ -3,7 +3,7 @@ import { postOrThrow, fetchJSONOrThrow } from '../util';
 import { usePromise } from '../usePromise.js';
 import { onMounted, computed } from 'vue';
 
-const m = window.location.pathname.match(`/(?<compoId>[^/]+)/log/edit/?$`);
+const m = window.location.pathname.match('/(?<compoId>[^/]+)/log/edit/?$');
 const { compoId } = m.groups;
 
 type MyLatestType = {
@@ -32,10 +32,10 @@ const canPostAndAuthenticated = computed(() => data.result.value?.canPostAndAuth
 	<tins-status-helper :error="data.error.value" :loading="data.loading.value">
 		<template v-if="post && competition">
 			<template v-if="canPostAndAuthenticated">
-				<p>You are now editing your most recent post. 
+				<p>You are now editing your most recent post.
 					<a :href="`/${compoId}/log/`">Click here to add a new post instead</a>
 				</p>
-				<tins-log-form 
+				<tins-log-form
 					:text="post.text"
 					:image="post.image"
 					:spoiler="post.spoiler"

@@ -16,7 +16,7 @@
 
 	<h3>Donations</h3>
 
-	<p>Do you enjoy TINS or KrampusHack? Do you want to see more events in the future, and help me make them extra cool and shiny? 
+	<p>Do you enjoy TINS or KrampusHack? Do you want to see more events in the future, and help me make them extra cool and shiny?
 	Then why not donate and support the event financially?
 	</p>
 

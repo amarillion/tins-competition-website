@@ -13,7 +13,7 @@ type MySecretSantaType = {
 	joinedCompetition: boolean,
 	secretSanta: { giver: { name: string }, receiver: { name: string, entrantId: number } },
 	reverse: { name?: string, entryId?: number, entrantId?: number }
-}
+};
 
 const data = usePromise<MySecretSantaType>();
 function refresh() {
@@ -48,8 +48,8 @@ const reverse = computed(() => data.result.value?.reverse || { });
 			</p>
 		</template>
 		<template v-else-if="!competitionStarted">
-			Please be patient! 
-			Your secret santa will be revealed in 
+			Please be patient!
+			Your secret santa will be revealed in
 			<tins-inline-count-down :epochMillis="competition.competitionStart" @countDownZero="countDownFinished"></tins-inline-count-down>
 		</template>
 		<template v-else-if="!secretSanta">
@@ -68,7 +68,7 @@ const reverse = computed(() => data.result.value?.reverse || { });
 				Did you already receive your gift from {{reverse.name}}?
 				</p>
 				<p>
-				Check 
+				Check
 				<span v-if="reverse.entryId"> <a :href="`/entry/${reverse.entryId}/`">their entry page</a> and </span>
 				<a :href="`/${competition.short}/log/entrant/${reverse.entrantId}/`">their log</a>
 				to see if they uploaded something for you!
@@ -88,7 +88,7 @@ const reverse = computed(() => data.result.value?.reverse || { });
 				I have decided that you will give a gift to {{secretSanta.receiver.name}}!
 				</p>
 				<p>
-				You can find their wishlist on 
+				You can find their wishlist on
 				<a :href="`/${competition.short}/log/entrant/${secretSanta.receiver.entrantId}/`">their log</a>
 				</p>
 				<br>

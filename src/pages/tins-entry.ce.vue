@@ -6,12 +6,12 @@ import { usePromise } from '../usePromise.js';
 
 type UploadType = {
 	id: 396,
-	url: string, 
-	time: string, 
-	size: number, 
-	postCompo: boolean, 
+	url: string,
+	time: string,
+	size: number,
+	postCompo: boolean,
 	tags?: string[]
-}
+};
 type CompetitionType = {
 	short: string,
 	title: string,
@@ -19,27 +19,27 @@ type CompetitionType = {
 	competitionEnd: number,
 	afterStart: boolean,
 	afterEnd: boolean
-}
+};
 type EntryType = {
 	id: number,
-	competition: CompetitionType, 
-	title: string, 
+	competition: CompetitionType,
+	title: string,
 	team: string,
 	imagefile: string,
 	thumbnail: string,
 	entrants: { id: number, name: string }[]
-	logCounts: Record<string, number>, 
-	text: string, 
-	tags: { icon: string, desc: string }[], 
-	editable: boolean, 
+	logCounts: Record<string, number>,
+	text: string,
+	tags: { icon: string, desc: string }[],
+	editable: boolean,
 	lastSubmission: UploadType,
-	uploads: UploadType[], 
+	uploads: UploadType[],
 	reviewCount: 3
-}
+};
 
 const data = usePromise<EntryType>();
 
-const m = window.location.pathname.match(`/entry/(?<entryId>[^/]+)/?$`);
+const m = window.location.pathname.match('/entry/(?<entryId>[^/]+)/?$');
 const { entryId } = m.groups;
 
 onMounted(() => data.doAsync(async () => fetchJSONOrThrow(`/api/v1/entry/${entryId}/`)));
@@ -48,7 +48,7 @@ async function submitImage(value) {
 	data.doAsync(async () => {
 		// https://medium.com/@adamking0126/asynchronous-file-uploads-with-django-forms-b741720dc952
 		let formData = new FormData();
-		formData.append("image", value);
+		formData.append('image', value);
 		
 		const response = await postOrThrow(`/api/v1/entry/${entryId}/image`, formData);
 		return response.json();
@@ -57,11 +57,11 @@ async function submitImage(value) {
 
 async function submitText(unsafeText: string) {
 	const response = await postOrThrow(
-		`/api/v1/entry/${entryId}/text`, 
+		`/api/v1/entry/${entryId}/text`,
 		JSON.stringify({ text: unsafeText })
 	);
-	const data = await response.json(); 
-	return data.text;
+	const responseJson = await response.json();
+	return responseJson.text;
 }
 
 const entry = computed(() => data.result.value || {} as EntryType);
@@ -98,14 +98,14 @@ const competition = computed(() => data.result.value?.competition || {} as Compe
 			<hr v-else>
 
 			<tins-image-upload v-if="entry.editable"
-				:submitCallback="submitImage" 
+				:submitCallback="submitImage"
 				:size-limit="IMAGE_UPLOAD_SIZE_LIMIT">
 			</tins-image-upload>
 
 			<p>
-				<tins-richtext class="richtext" 
-					:submitCallback="submitText" 
-					:readOnly="!entry.editable" 
+				<tins-richtext class="richtext"
+					:submitCallback="submitText"
+					:readOnly="!entry.editable"
 					:text="text">
 				</tins-richtext>
 			</p>

@@ -7,7 +7,7 @@ import TinsReviews from '../src/pages/tins-reviews.ce.vue';
 const MOCK_COMPO_ID = '2025';
 const MOCK_ZERO_REVIEWS = { result: [] };
 const MOCK_REVIEW1 = {
-	id: 1, text: "Lorem ipsum", date: new Date(), competition: { short: MOCK_COMPO_ID },
+	id: 1, text: 'Lorem ipsum', date: new Date(), competition: { short: MOCK_COMPO_ID },
 	entrant: { id: 1, name: 'entrant 1' },
 	entry: { id: 1, team: 'Team 1', title: 'Entry 1', imagefile: '/mock-image.png', tags: [] },
 	score: { all: 3, genre: 3, art: 3, tech: 3 }

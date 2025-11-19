@@ -16,7 +16,7 @@ window.onunhandledrejection = async (event) => {
 	try {
 		const { message, columnNumber, lineNumber, fileName } = event.reason;
 		const body = {
-			message, columnNumber, lineNumber, fileName, 
+			message, columnNumber, lineNumber, fileName,
 			path: window.location.pathname
 		};
 		await postOrThrow('/api/v1/error', JSON.stringify(body));

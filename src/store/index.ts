@@ -1,6 +1,6 @@
-import { createPinia } from "pinia";
-import { useCurrentUserStore } from "./currentUser.js";
-import { useCurrentEventStore } from "./currentEvent.js";
+import { createPinia } from 'pinia';
+import { useCurrentUserStore } from './currentUser.js';
+import { useCurrentEventStore } from './currentEvent.js';
 
 export const pinia = createPinia();
 

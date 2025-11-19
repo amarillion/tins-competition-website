@@ -14,15 +14,15 @@ const MOCK_NO_RULES = {
 
 describe('Tins Rule-o-matic', () => {
 	
-	it("Show error when not logged in", () => {
+	it('Show error when not logged in', () => {
 		const wrapper = mount(TinsRuleOMatic);
-		expect(wrapper.text()).toEqual('You must be logged in.');	
+		expect(wrapper.text()).toEqual('You must be logged in.');
 	});
 
 	
-	it("When logged in but there are no rules", async () => {
+	it('When logged in but there are no rules', async () => {
 		FetchMock.builder()
-			.get(`/rule-o-matic/ratings`, MOCK_NO_RULES)
+			.get('/rule-o-matic/ratings', MOCK_NO_RULES)
 			.run(async () => {
 
 				currentUserStore.$patch({ currentUser: { login: 'amarillion', isStaff: false }});
@@ -31,7 +31,7 @@ describe('Tins Rule-o-matic', () => {
 				const wrapper = mount(TinsRuleOMatic);
 				
 				await flushPromises();
-				expect(wrapper.text()).toContain(`So far you've rated 528 out of 545 rules. You're the #3 contributor`);	
+				expect(wrapper.text()).toContain('So far you\'ve rated 528 out of 545 rules. You\'re the #3 contributor');
 			});
 	});
 

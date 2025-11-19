@@ -2,7 +2,7 @@
 let instanceCounter = 0;
 export default {
 	data() {
-		return { 
+		return {
 			uniqueId: undefined
 		};
 	},
@@ -39,13 +39,13 @@ function dispatchNewValue(newValue) {
 </script>
 
 <template>
-	<input 
-		v-for="i of [0,1,2,3,4]" 
+	<input
+		v-for="i of [0,1,2,3,4]"
 		:key="i"
-		:title="`${[labels[i]]}`" 
-		@click="() => dispatchNewValue(i+1)" 
-		:value="i+1" 
-		type="radio" 
+		:title="`${[labels[i]]}`"
+		@click="() => dispatchNewValue(i+1)"
+		:value="i+1"
+		type="radio"
 		:name="`range-group-${uniqueId}`"
 		:checked="value === i+1"
 	/>

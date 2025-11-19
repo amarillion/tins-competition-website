@@ -25,7 +25,7 @@ async function submitRating() {
 	const rule = data.result.value?.needsRating[0];
 	data.doAsync(async () => {
 		if (!valid.value) { throw Error('Trying to submit invalid values'); }
-		const response = await postOrThrow(`/rule-o-matic/ratings`, JSON.stringify({
+		const response = await postOrThrow('/rule-o-matic/ratings', JSON.stringify({
 			ruleId: rule?.id,
 			challenge: challenge.value,
 			interest: interest.value
@@ -50,7 +50,7 @@ type RuleType = {
 	number: unknown,
 	text: unknown,
 	id: number,
-}
+};
 
 type RatingType = {
 	needsRating: RuleType[],
@@ -58,7 +58,7 @@ type RatingType = {
 	toBeat: { author: string, count: number },
 	totalRules: number,
 	rank: number
-}
+};
 const data = usePromise<RatingType>();
 
 const INTEREST_LABELS = ['Why would you want that!?', 'Meh', 'Ok, I guess', 'Nice one!', 'Ooh! I love it!'];
@@ -71,7 +71,7 @@ watch(isLoggedIn, () => {
 async function fetchNewRule() {
 	if (data.loading.value) return; // prevent double parallel requests
 	data.doAsync(async () => {
-		const result = await fetchJSONOrThrow<RatingType>(`/rule-o-matic/ratings`);
+		const result = await fetchJSONOrThrow<RatingType>('/rule-o-matic/ratings');
 		resetForm();
 		return result;
 	});
@@ -110,11 +110,11 @@ const result = computed(() => data.result.value );
 	Give a rating for how good, fun, or interesting a rule is. In other words: would you <i>like</i> this rule to be in the next competition?
 	</p>
 	<p>
-	What makes good rules? A rule must be fun, stimulate creativity, and be open to a variety of interesting interpretations. 
-	Rules that are boring, cliche, confusing, or limiting your creativity, should get a low rating. 
+	What makes good rules? A rule must be fun, stimulate creativity, and be open to a variety of interesting interpretations.
+	Rules that are boring, cliche, confusing, or limiting your creativity, should get a low rating.
 	</p>
 	<p>
-	The rating scale ranges from 'Why would you want <i>that</i>?' to 'Ooh! I love it!'. Hover over the radio buttons to see the meaning of each level. 
+	The rating scale ranges from 'Why would you want <i>that</i>?' to 'Ooh! I love it!'. Hover over the radio buttons to see the meaning of each level.
 	Rules with a rating of 3 or higher will have a chance to be included in competitions. Ratings below that will be excluded.
 	</p>
 </blockquote>
@@ -133,7 +133,7 @@ const result = computed(() => data.result.value );
 <blockquote>
 <p>
 <tins-fa-icon :src="infoIcon" color="navy" size="1rem"></tins-fa-icon>
-How hard do you think this rule is to implement? Keep in mind that challenging rules are <i>neither good nor bad</i>. Each competition will always include one challenging rule (between 3 and 4.5 on average) and several non-challenging rules (below 3 on average). 
+How hard do you think this rule is to implement? Keep in mind that challenging rules are <i>neither good nor bad</i>. Each competition will always include one challenging rule (between 3 and 4.5 on average) and several non-challenging rules (below 3 on average).
 </p>
 <p>
 Impossible rules (above 4.5 on average) will be excluded from the roll.
@@ -158,7 +158,7 @@ The rating scale ranges from 'I can do this in my sleep' to 'No way, this is imp
 				<p v-else>Zarroo rules remain!</p>
 
 				<p><i>
-					Thanks for helping to improve TINS! So far you've rated {{ result.yourRatings }} out of {{ result.totalRules }} rules. 
+					Thanks for helping to improve TINS! So far you've rated {{ result.yourRatings }} out of {{ result.totalRules }} rules.
 					You're the #{{ result.rank }} contributor <span v-if="result.toBeat"> (behind {{ result.toBeat.author }} who rated {{ result.toBeat.count }})</span>
 				</i></p>
 				

@@ -35,12 +35,12 @@ export function formatBytes(bytes: number) {
 }
 
 export async function formatErrorResponse(response: Response) {
-	const message = (await response.text()).split("\n")[0];
+	const message = (await response.text()).split('\n')[0];
 	switch(response.status) {
-	case 401: return `Access denied: ${message}`;
-	case 403: return `Unauthorized: ${message}`;
-	case 404: return `Not found: ${message}`;
-	default: return `Error: ${message}`;
+		case 401: return `Access denied: ${message}`;
+		case 403: return `Unauthorized: ${message}`;
+		case 404: return `Not found: ${message}`;
+		default: return `Error: ${message}`;
 	}
 }
 
@@ -50,7 +50,7 @@ export async function fetchJSONOrThrow<T>(url: string) {
 	});
 	if (response.ok) {
 		// parse json only if response is OK. Error state may contain invalid json.
-		const data = await response.json(); 
+		const data = await response.json();
 		return data as T;
 	}
 	else {
@@ -66,9 +66,9 @@ export async function postOrThrow(url: string, body: string | FormData) {
 	const csrftoken = Cookies.get('csrftoken');
 
 	const response = await fetch(url, {
-		method: 'POST', 
+		method: 'POST',
 		credentials: 'same-origin',
-		headers: { 'X-CSRFToken': csrftoken }, 
+		headers: { 'X-CSRFToken': csrftoken },
 		body
 	});
 
@@ -109,7 +109,7 @@ export function renderRichText(text: string) {
 	});
 
 	// replace double newlines with paragraph breaks
-	text = `<p>${text.replaceAll("\n\n", "</p><p>")}</p>`;
+	text = `<p>${text.replaceAll('\n\n', '</p><p>')}</p>`;
 	// insert line breaks
-	return text.replaceAll("\n", "<br>");
+	return text.replaceAll('\n', '<br>');
 }

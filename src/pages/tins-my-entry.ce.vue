@@ -4,11 +4,11 @@ import { usePromise } from '../usePromise.js';
 import { postOrThrow } from '../util';
 
 /**
- * 
+ *
  * The function of this page is to fetch the entry id for the given entrant (Creating it if it doesn't exist)
  * and redirect to that.
  */
-const m = window.location.pathname.match(`/(?<compoId>[^/]+)/myEntry/?$`);
+const m = window.location.pathname.match('/(?<compoId>[^/]+)/myEntry/?$');
 const { compoId } = m.groups;
 
 const data = usePromise();
@@ -16,9 +16,9 @@ onMounted(async () => {
 	data.doAsync(async () => {
 		try {
 			const response = await postOrThrow(`/api/v1/compo/${compoId}/myEntry`, '');
-			const data = await response.json();
-			window.location.href = `/entry/${data.entryId}/`; //TODO: use Vue router...
-			return data;
+			const myEntryData = await response.json();
+			window.location.href = `/entry/${myEntryData.entryId}/`; //TODO: use Vue router...
+			return myEntryData;
 		}
 		catch(e) {
 			throw new Error('Could not get or create your entry' );

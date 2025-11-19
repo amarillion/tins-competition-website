@@ -13,7 +13,7 @@ const cssProps = computed(() => {
 	return {
 		'--size': size,
 		'--color': color,
-		'--src': `url("${src.startsWith("data:image") ? src : "invalid src property, must be image data"}")`,
+		'--src': `url("${src.startsWith('data:image') ? src : 'invalid src property, must be image data'}")`,
 	};
 });
 

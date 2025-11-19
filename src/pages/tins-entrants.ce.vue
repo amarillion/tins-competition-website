@@ -6,7 +6,7 @@ import { fetchJSONOrThrow, renderRichText } from '../util';
 import { onMounted } from 'vue';
 import { usePromise } from '../usePromise.js';
 
-const m = window.location.pathname.match(`/(?<compoId>[^/]+)/entrants/?$`);
+const m = window.location.pathname.match('/(?<compoId>[^/]+)/entrants/?$');
 const { compoId } = m.groups;
 
 const breadcrumbs = [

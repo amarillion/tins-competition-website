@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const FAQ = [
 	{
-		question: "Q: What communication channels are there for TINS?",
+		question: 'Q: What communication channels are there for TINS?',
 		answer: `<p>
 	To stay up-to-date with the latest news, or get to know the other participants, use one of the following communication channels:
 	</p>
@@ -32,7 +32,7 @@ const FAQ = [
 		The only problem is that you don't know what the rules are going to be, and possibly your plan won't fit with the rules. Therefore you need to have a bunch of ideas laying around. It is probably good to work out maybe three very different types of games on a sheet of paper. Then as soon as the additional rules are announced you can select the idea that fits the best (possibly modifying it slightly to fit even better).
 	</p>`
 	}, {
-		question: "Q: Can I reuse code for TINS?",
+		question: 'Q: Can I reuse code for TINS?',
 		answer: `<p>
 	Sure. Code reuse is an essential hacking skill. You can use any code that you are legally able to do so (your own, GPLed, giftware, public domain or any other Free Software licence). But, to ensure a level playing field and help newbies, we have an additional requirement:
 	</p>
@@ -64,14 +64,14 @@ const FAQ = [
 		That should give you all the files you need to recover the project (with minimal junk), 
 		assuming that one has the correct version of the Unity editor installed.`
 	}, {
-		question: "Q: How do I review games if I only get the source code? Am I expected to compile all entries from scratch?",
+		question: 'Q: How do I review games if I only get the source code? Am I expected to compile all entries from scratch?',
 		answer: `
 	<p>
 	Most entrants do provide binaries. It's in their own interest to make the game easy to play! Even if not, the community shares the load. 
 	We usually put together a "binary pack", so you can install &amp; play all the games from a single convenient zip file.
 	</p>`
 	}, {
-		question: "Q: Can the competition start at a different time for me since I live many hours away from GMT?",
+		question: 'Q: Can the competition start at a different time for me since I live many hours away from GMT?',
 		answer: `<p>
 	It is just a deception that living in the GMT timezone is an advantage. 
 	Everyone will get some sleep at some point, so it all works itself out. 
@@ -84,7 +84,7 @@ const FAQ = [
 	In any case, 72 hours is a long time, and you should be able to get at least *some* time to code.
 	</p>`
 	}, {
-		question: "Q: Can I use other programs like utilities for graphics and sound in my entry?",
+		question: 'Q: Can I use other programs like utilities for graphics and sound in my entry?',
 		answer: `<p>
 	Of course. You can use any package that you like to develop data, sound and graphics for your entry. You might like to point out 
 	what you used as part of your entry documentation, but it isn't necessary to do so. 
@@ -99,7 +99,7 @@ const FAQ = [
 	Yes! We've settled on a schedule for TINS and KrampusHack: TINS will be hosted somewhere in the summer each year, and KrampusHack each December.
 	</p>`
 	}, {
-		question: "Q: One weekend is way too short!",
+		question: 'Q: One weekend is way too short!',
 		answer: `
 	<p>
 	Not true. Take a look at earlier speedhack entries and you will see that a lot of them are really complete games which are fun to play. 
@@ -107,7 +107,7 @@ const FAQ = [
 	in just a weekend. On the other hand, most people are not able to write such a game anyway.
 	</p>`
 	}, {
-		question: "Q: Are teams allowed?",
+		question: 'Q: Are teams allowed?',
 		answer: `<p>
 	Yes! I recommend that all team members register and join the competition.
 	Once the competition start, you can find a team management button on your entry page.
@@ -121,7 +121,7 @@ const FAQ = [
 	through them and if you've got a good set of ideas, there is bound to be one that suits 
 	the additional rules without too much modification.
 	</p>`
-	}, 
+	},
 ].map((val, idx) => ({ idx, ...val }));
 </script>
 

@@ -5,13 +5,13 @@ import { usePromise } from '../usePromise.js';
 import { currentUserStore } from '../store/index';
 import { currentEventStore } from '../store/index';
 
-const m = window.location.pathname.match(`/(?<compoId>\\w+)/log(/entrant/(?<entrantId>\\d+)|/page/(?<page>\\d+)|/id/(?<postId>\\d+))?/?$`);
+const m = window.location.pathname.match('/(?<compoId>\\w+)/log(/entrant/(?<entrantId>\\d+)|/page/(?<page>\\d+)|/id/(?<postId>\\d+))?/?$');
 const { compoId, postId, entrantId } = m.groups;
 const page = Number(m.groups.page) || 1;
 const url = entrantId ? `/${compoId}/log/entrant/${entrantId}` : `/${compoId}/log`;
 
 const canPost = computed(() => currentEventStore.canPost(compoId));
-type PostType = { id: number }
+type PostType = { id: number };
 type CompetitionType = { title: string };
 const data = usePromise<{
 	posts: PostType[],
@@ -32,7 +32,7 @@ async function refreshData() {
 	else if (entrantId) {
 		response = await fetchJSONOrThrow(`/api/v1/log/entrant/${entrantId}?page=${page}`);
 	}
-	else if (compoId) { 
+	else if (compoId) {
 		response = await fetchJSONOrThrow(`/api/v1/log/event/${compoId}?page=${page}`);
 	}
 	

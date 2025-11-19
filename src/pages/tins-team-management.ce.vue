@@ -9,18 +9,18 @@ type InvitationType = {
 	entryId: number,
 	recipientEntrantId: number,
 	recipientName: string,
-}
-type InvitationsType = { toMe: InvitationType[], fromMe: InvitationType[] }
+};
+type InvitationsType = { toMe: InvitationType[], fromMe: InvitationType[] };
 type MyEntryType = {
 	id?: string,
 	entrants?: { id: number, name: string }[],
-}
+};
 
 const data = usePromise<{
 	entry: MyEntryType,
 	invitations: InvitationsType,
 }>();
-const m = window.location.pathname.match(`/(?<compoId>[^/]+)/team/?$`);
+const m = window.location.pathname.match('/(?<compoId>[^/]+)/team/?$');
 const { compoId } = m.groups;
 
 const breadcrumbs = [
@@ -71,8 +71,8 @@ async function openInvitationSelect() {
 async function sendInvitation() {
 	const selectedRecipient = inviteeSelectElt.value.value;
 	try {
-		await postOrThrow(`/api/v1/invitation/create`,
-			JSON.stringify({ 
+		await postOrThrow('/api/v1/invitation/create',
+			JSON.stringify({
 				'entryId': entry.value.id,
 				'recipientEntrantId': selectedRecipient
 			})
@@ -92,10 +92,10 @@ async function resolve(invitation: { id: number }, isAccept: boolean) {
 }
 
 async function leaveTeam() {
-	if (window.confirm("Are you sure you want to leave this team and go by yourself?")) {
+	if (window.confirm('Are you sure you want to leave this team and go by yourself?')) {
 		try {
-			const data = await fetchJSONOrThrow<{ entrantId: string }>(`/api/v1/compo/${compoId}/currentEntrant`);
-			await postOrThrow(`/api/v1/removeTeamMember/${data.entrantId}`, '');
+			const currentEntrantResponse = await fetchJSONOrThrow<{ entrantId: string }>(`/api/v1/compo/${compoId}/currentEntrant`);
+			await postOrThrow(`/api/v1/removeTeamMember/${currentEntrantResponse.entrantId}`, '');
 			refresh();
 		}
 		catch(e) {
@@ -116,8 +116,8 @@ async function leaveTeam() {
 		</p>
 
 		<template v-if="invitations">
-			<p v-for="e of invitations" :key="e.id">You've been invited to join the team of {{e.senderName}}. 
-				Do you <button @click="() => resolve(e, true)">Accept</button> 
+			<p v-for="e of invitations" :key="e.id">You've been invited to join the team of {{e.senderName}}.
+				Do you <button @click="() => resolve(e, true)">Accept</button>
 				or <button @click="() => resolve(e, false)">Reject</button>?
 			</p>
 		</template>

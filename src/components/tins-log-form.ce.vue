@@ -6,16 +6,16 @@ import { ref } from 'vue';
 const props = withDefaults(defineProps<{
 	hidden?: boolean,
 	text?: string,
-	image?: {},
+	image?: unknown,
 	spoiler?: boolean,
 	// TODO: use event
-	submitCallback?: Function
+	submitCallback?: () => void
 }>(), {
 	hidden: false,
 	text: '',
 	image: undefined,
 	spoiler: false,
-	submitCallback: () => { console.log("WARN: submitCallback not set"); }
+	submitCallback: () => { console.log('WARN: submitCallback not set'); }
 });
 
 const textRef = ref(props.text);
@@ -78,11 +78,11 @@ const fileInputChanged = () => {
 
 		<!-- screenshot selector -->
 		<div v-if="image">
-			<label><input @input="disableImage" 
+			<label><input @input="disableImage"
 				type="radio" name="img_option" value="as_is" checked>Leave image as is</label><br>
-			<label><input @input="disableImage" 
+			<label><input @input="disableImage"
 				type="radio" name="img_option" value="remove">Remove current image</label><br>
-			<label><input @input="enableImage" 
+			<label><input @input="enableImage"
 				type="radio" name="img_option" value="add_or_replace">Replace image</label><br>
 		</div>
 		<input v-else type="hidden" name="img_option" value="add_or_replace">

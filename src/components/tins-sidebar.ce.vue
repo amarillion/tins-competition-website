@@ -4,7 +4,7 @@ import { currentUserStore } from '../store/index';
 import { currentEventStore } from '../store/index';
 import { storeToRefs } from 'pinia';
 
-const { 
+const {
 	currentEvent,
 	events,
 	// loading: currentEventLoading,
@@ -68,7 +68,7 @@ const title = computed(() => currentEvent.value?.title);
 
 	</nav>
 </template>
-<style>	
+<style>
 	a 			{ font-weight: bold; text-decoration: none; }
 	a:link 		{ color: #600; }
 	a:hover 	{ text-decoration: underline; }

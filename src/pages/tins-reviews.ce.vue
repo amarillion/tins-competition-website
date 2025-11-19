@@ -2,7 +2,7 @@
 import { fetchJSONOrThrow, renderRichText } from '../util';
 import { onMounted, computed } from 'vue';
 import { usePromise } from '../usePromise.js';
-const m = window.location.pathname.match(`/(?<compoId>\\w+)/reviews(/entrant/(?<entrantId>\\d+)|/entry/(?<entryId>\\d+)|/(?<reviewId>\\d+))?/?$`);
+const m = window.location.pathname.match('/(?<compoId>\\w+)/reviews(/entrant/(?<entrantId>\\d+)|/entry/(?<entryId>\\d+)|/(?<reviewId>\\d+))?/?$');
 const { compoId, entrantId, entryId, reviewId } = m.groups;
 
 type ReviewEntryType = { id: number, team: string, title: string, imagefile: string, tags: { desc: string, icon: string }[] };
@@ -14,7 +14,7 @@ type ReviewType = {
 	entrant: { id: number, name: string },
 	entry: ReviewEntryType,
 	score: { all: number, genre: number, art: number, tech: number },
-}
+};
 
 const data = usePromise<{
 	result: ReviewType[],
@@ -35,10 +35,10 @@ const reviewsByEntry = computed(() => {
 	}
 
 	const result: { reviews: ReviewType[], entry: ReviewEntryType }[] = [];
-	for (const entryId in groupedReviews) {
+	for (const eId in groupedReviews) {
 		result.push({
-			reviews: groupedReviews[entryId],
-			entry: entries[entryId],
+			reviews: groupedReviews[eId],
+			entry: entries[eId],
 		});
 	}
 	return result;
@@ -46,7 +46,7 @@ const reviewsByEntry = computed(() => {
 
 const entry = computed(() => (entryId && reviews.value.length > 0) ? reviews.value[0].entry.title : undefined);
 const entrant = computed(() => (entrantId && reviews.value.length > 0) ? reviews.value[0].entrant.name : undefined);
-const review_num = computed(() => reviews.value?.length ?? NaN);
+const reviewNum = computed(() => reviews.value?.length ?? NaN);
 
 onMounted(() => {
 	data.doAsync(refreshData);
@@ -63,7 +63,7 @@ async function refreshData() {
 	else if (entryId) {
 		response = await fetchJSONOrThrow(`/api/v1/reviews/forEntry/${entryId}`);
 	}
-	else if (compoId) { 
+	else if (compoId) {
 		response = await fetchJSONOrThrow(`/api/v1/reviews/event/${compoId}`);
 	}
 	return response;
@@ -75,12 +75,12 @@ const breadcrumbs = [
 ];
 
 </script>
-<template>	
+<template>
 	<tins-breadcrumbs :data="breadcrumbs"></tins-breadcrumbs>
 	<tins-status-helper :error="data.error.value" :loading="data.loading.value">
 		<h1>Reviews</h1>
 
-		<p>Showing {{ review_num }} reviews
+		<p>Showing {{ reviewNum }} reviews
 			<template v-if="entry">
 				for {{ entry }}.
 				<a :href="`/${ compoId }/reviews/`">all reviews</a>
@@ -160,6 +160,6 @@ const breadcrumbs = [
 
 	img {
 		max-width: 100%;
-		height: auto; 
+		height: auto;
 	}
 </style>

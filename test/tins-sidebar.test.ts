@@ -8,7 +8,7 @@ import { currentEventStore, currentUserStore  } from '../src/store';
 const COMPO_ID='krampu24';
 const DEFAULT_CURRENT_EVENT = {
 	short: COMPO_ID,
-	title: "KrampusHack 2024",
+	title: 'KrampusHack 2024',
 	canJoin: true,
 	canPost: true,
 	canVote: false,
@@ -21,17 +21,17 @@ const DEFAULT_CURRENT_EVENT = {
 };
 const DEFAULT_EVENT = {
 	short: COMPO_ID,
-	title: "KrampusHack 2024",
+	title: 'KrampusHack 2024',
 	afterStart: false,
 	afterEnd: false,
 	canPost: true
 };
 const DEFAULT_RESPONSE = {
-	currentEvent: DEFAULT_CURRENT_EVENT, 
+	currentEvent: DEFAULT_CURRENT_EVENT,
 	events: [ DEFAULT_EVENT ],
 	upcoming: [{
-		title: "TINS",
-		dateStr: "May-Jun 2025"
+		title: 'TINS',
+		dateStr: 'May-Jun 2025'
 	}]
 };
 
@@ -47,7 +47,7 @@ describe('Side Bar Test', () => {
 			.run(async () => {
 				const wrapper = mount(TinsSidebar);
 				await flushPromises();
-				expect(wrapper.find(`a[href='/news']`).exists()).toBe(true);
+				expect(wrapper.find('a[href=\'/news\']').exists()).toBe(true);
 			});
 	});
 
@@ -69,7 +69,7 @@ describe('Side Bar Test', () => {
 				currentUserStore.$patch({ currentUser: { login: 'amarillion', isStaff: true }});
 				const wrapper = mount(TinsSidebar);
 				await flushPromises();
-				expect(wrapper.find(`a[href='/admin/']`).exists()).toBe(true);
+				expect(wrapper.find('a[href=\'/admin/\']').exists()).toBe(true);
 			});
 	});
 

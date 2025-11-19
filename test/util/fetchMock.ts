@@ -3,7 +3,7 @@ type HttpMethod = 'GET' | 'POST';
 interface MockResponse {
 	status?: number;
 	headers?: Record<string, string>;
-	body: any;
+	body: unknown;
 }
 
 function routeKey(method: HttpMethod, url: string): string {
@@ -20,12 +20,12 @@ class FetchMockBuilder {
 	private routes: Map<string, MockResponse> = new Map();
 	private originalFetch?: typeof fetch;
 
-	get(url: string, body: any, status = 200, headers: Record<string, string> = { 'Content-Type': 'application/json' }) {
+	get(url: string, body: unknown, status = 200, headers: Record<string, string> = { 'Content-Type': 'application/json' }) {
 		this.routes.set(routeKey('GET', url), { status, headers, body });
 		return this;
 	}
 
-	post(url: string, body: any, status = 200, headers: Record<string, string> = { 'Content-Type': 'application/json' }) {
+	post(url: string, body: unknown, status = 200, headers: Record<string, string> = { 'Content-Type': 'application/json' }) {
 		this.routes.set(routeKey('POST', url), { status, headers, body });
 		return this;
 	}

@@ -8,7 +8,7 @@ import { FetchMock } from './util/fetchMock.js';
 const COMPO_ID='krampu24';
 const DEFAULT_CURRENT_EVENT = {
 	short: COMPO_ID,
-	title: "KrampusHack 2024",
+	title: 'KrampusHack 2024',
 	canJoin: true,
 	canPost: true,
 	canVote: false,
@@ -21,17 +21,17 @@ const DEFAULT_CURRENT_EVENT = {
 };
 const DEFAULT_EVENT = {
 	short: COMPO_ID,
-	title: "KrampusHack 2024",
+	title: 'KrampusHack 2024',
 	afterStart: false,
 	afterEnd: false,
 	canPost: true
 };
 const DEFAULT_RESPONSE = {
-	currentEvent: DEFAULT_CURRENT_EVENT, 
+	currentEvent: DEFAULT_CURRENT_EVENT,
 	events: [ DEFAULT_EVENT ],
 	upcoming: [{
-		title: "TINS",
-		dateStr: "May-Jun 2025"
+		title: 'TINS',
+		dateStr: 'May-Jun 2025'
 	}]
 };
 
@@ -48,7 +48,7 @@ describe('Current event component', () => {
 				currentEventStore.refreshCurrentEvent(); // TODO: design flaw: tins-current-event relies on another component to trigger refreshCurrentEvent...
 				await flushPromises();
 				console.log(wrapper.html());
-				expect(wrapper.findAll("tins-count-down").length).toBe(3);
+				expect(wrapper.findAll('tins-count-down').length).toBe(3);
 			});
 	});
 

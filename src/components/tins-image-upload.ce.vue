@@ -7,14 +7,14 @@ const props = defineProps({
 	label: { type: String, default: 'Upload image' },
 
 	//TODO: use event
-	submitCallback: { type: Function, default: () => { console.log("WARN: submitCallback not set"); } },
+	submitCallback: { type: Function, default: () => { console.log('WARN: submitCallback not set'); } },
 });
 
 const error = ref('');
 const imageUploadElt = ref(null);
 async function upload() {
 	const fileNum = imageUploadElt.value.files.length;
-	if (fileNum != 1) {
+	if (fileNum !== 1) {
 		error.value = `Internal error. Expected 1 file, but got ${fileNum}`;
 		return;
 	}
@@ -26,7 +26,7 @@ async function upload() {
 	}
 	
 	try {
-		error.value = "";
+		error.value = '';
 		await props.submitCallback(myImage);
 	}
 	catch (e) {
@@ -37,7 +37,7 @@ async function upload() {
 <template>
 	<label>{{ label }}
 		<input ref="imageUploadElt"
-			type="file" 
+			type="file"
 			accept="image/*,video/webm"
 			@change="upload"/>
 		<div v-if="error" class="error">{{ error }}</div>

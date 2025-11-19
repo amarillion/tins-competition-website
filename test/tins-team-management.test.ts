@@ -3,33 +3,33 @@ import TinsTeamManagement from '../src/pages/tins-team-management.ce.vue';
 
 import { FetchMock } from './util/fetchMock.js';
 import { beforeAll, beforeEach, describe, expect, test } from 'vitest';
-import { currentEventStore } from '../src/store/index';
+import { currentEventStore } from '../src/store/index.js';
 
 const COMPO_ID='2024';
 const ENTRY_ID='99';
 const DEFAULT_INVITATION_DATA = {
-	"toMe": [], 
-	"fromMe": [
-		{"id": 9, "recipientName": "InvitationRecipient", "recipientEntrantId": 4397, "entryId": 323, "senderEntrantId": 4404, "senderName": "Yourself"}, 
+	'toMe': [],
+	'fromMe': [
+		{'id': 9, 'recipientName': 'InvitationRecipient', 'recipientEntrantId': 4397, 'entryId': 323, 'senderEntrantId': 4404, 'senderName': 'Yourself'},
 	]
 };
 const DEFAULT_ENTRY_DATA = {
-	"id": ENTRY_ID, 
-	"competition": {
-		"short": COMPO_ID, 
-		"title": "TINS 2024", 
-		"competitionStart": 0, "competitionEnd": 0, 
-		"afterStart": true, "afterEnd": false
-	}, 
-	"title": "Dummy Title", 
-	"team": "Dummy Team", 
-	"entrants": [{"id": 4404, "name": "Yourself"}], 
-	"logCounts": {"4404": 1}, 
-	"text": "This is my entry!\n\nTEST 123", 
-	"tags": [], 
-	"editable": true, 
-	"lastSubmission": {}, 
-	"reviewCount": 0
+	'id': ENTRY_ID,
+	'competition': {
+		'short': COMPO_ID,
+		'title': 'TINS 2024',
+		'competitionStart': 0, 'competitionEnd': 0,
+		'afterStart': true, 'afterEnd': false
+	},
+	'title': 'Dummy Title',
+	'team': 'Dummy Team',
+	'entrants': [{'id': 4404, 'name': 'Yourself'}],
+	'logCounts': {'4404': 1},
+	'text': 'This is my entry!\n\nTEST 123',
+	'tags': [],
+	'editable': true,
+	'lastSubmission': {},
+	'reviewCount': 0
 };
 describe('Team Management Test', () => {
 

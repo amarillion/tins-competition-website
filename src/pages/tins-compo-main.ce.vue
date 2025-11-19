@@ -28,11 +28,11 @@ type CompoType = {
 	numLogs: number,
 	serverTime: number,
 	joinedCompetition: boolean
-}
+};
 
 const compo = usePromise<CompoType>();
 
-const m = window.location.pathname.match(`/(?<compoId>[^/]+)/?$`);
+const m = window.location.pathname.match('/(?<compoId>[^/]+)/?$');
 const { compoId } = m.groups;
 
 onMounted(() => {

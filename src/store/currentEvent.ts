@@ -11,7 +11,7 @@ export type EventType = {
 export type UpcomingType = {
 	title: string,
 	dateStr: string
-}
+};
 export type CurrentEventType = {
 	short: string,
 	title: string,
@@ -24,7 +24,7 @@ export type CurrentEventType = {
 	joinedCompetition: boolean,
 	hasSecretSanta: boolean,
 	numEntrants: number,
-}
+};
 
 export const useCurrentEventStore = defineStore('currentEvent', () => {
 	
@@ -35,9 +35,9 @@ export const useCurrentEventStore = defineStore('currentEvent', () => {
 	const loading = ref(false);
 	const error = ref(null);
 
-	function byShortMapper(events: EventType[]) {
+	function byShortMapper(evt: EventType[]) {
 		const byShort: Record<string, EventType> = {};
-		for (const e of events) {
+		for (const e of evt) {
 			byShort[e.short] = e;
 		}
 		return byShort;

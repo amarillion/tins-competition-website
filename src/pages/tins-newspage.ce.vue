@@ -12,7 +12,7 @@ onMounted(() => currentEventStore.refreshCurrentEvent());
 </script>
 <template>
 	<div class="twocol">
-		<tins-newsfeed class="tins-newsfeed" :newsId="newsId"></tins-newsfeed>	
+		<tins-newsfeed class="tins-newsfeed" :newsId="newsId"></tins-newsfeed>
 		<div class="rightcol">
 			<tins-current-event class="tins-current-event"></tins-current-event>
 			<tins-status-helper :error="error" :loading="loading">
@@ -22,8 +22,8 @@ onMounted(() => currentEventStore.refreshCurrentEvent());
 	</div>
 </template>
 <style>
-	/* 
-		NOTE: advantage of flex over grid: 
+	/*
+		NOTE: advantage of flex over grid:
 		flex can deal with tins-upcoming setting itself hidden.
 		With grid, you'd always have an empty column there.
 		With flex, the remaining space goes to the newsfeed.

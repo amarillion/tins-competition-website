@@ -4,7 +4,7 @@
 
 import { expect, test } from 'vitest';
 // import { TinsSecretSanta } from "../src/pages/tins-my-secret-santa.js";
-import TinsSpinner from "../src/components/tins-spinner.ce.vue";
+import TinsSpinner from '../src/components/tins-spinner.ce.vue';
 import { defineCustomElement } from 'vue';
 
 test('custom elements in JSDOM', async () => {
@@ -16,10 +16,10 @@ test('custom elements in JSDOM', async () => {
 	customElements.define('tins-spinner', defineCustomElement(TinsSpinner));
 
 	const { document } = window;
-	const element = document.createElement("tins-spinner");
+	const element = document.createElement('tins-spinner');
 	document.body.appendChild(element);
 
-	const renderedText = document.body.querySelector("tins-spinner").shadowRoot.innerHTML;
+	const renderedText = document.body.querySelector('tins-spinner').shadowRoot.innerHTML;
 
 	expect(renderedText).toContain('svg');
 });

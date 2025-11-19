@@ -55,9 +55,9 @@
 			flex: 1 1 auto;
 			
 			z-index: 2; /* to make sure shadow is cast over bottom */
-			box-shadow: 0px 20px 40px black;	
+			box-shadow: 0px 20px 40px black;
 			border-top: 4px dashed #000;
-			border-bottom: 4px dashed #000;	
+			border-bottom: 4px dashed #000;
 		}
 	
 		#rightcontent {
@@ -69,7 +69,7 @@
 	
 	img {
 		max-width: 100%;
-		height: auto; 
+		height: auto;
 	}
 	
 	#leftcontent {

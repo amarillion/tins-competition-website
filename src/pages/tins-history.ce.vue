@@ -10,7 +10,7 @@ onMounted(() => currentEventStore.refreshCurrentEvent());
 <template>
 	<h2>TINS event history</h2>
 	
-	There have been game programming competitions on this site all the way back since 2003. 
+	There have been game programming competitions on this site all the way back since 2003.
 
 	<tins-status-helper  :error="currentEventError" :loading="currentEventLoading">
 		<div class="two-col">
