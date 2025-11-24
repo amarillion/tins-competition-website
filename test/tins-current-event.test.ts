@@ -1,7 +1,7 @@
 import { flushPromises, mount } from '@vue/test-utils';
 
 import { beforeEach, describe, expect, test } from 'vitest';
-import { currentEventStore } from '../src/store';
+import { currentEventStore } from '../src/store/index.js';
 import TinsCurrentEvent from '../src/components/tins-current-event.ce.vue';
 import { FetchMock } from './util/fetchMock.js';
 

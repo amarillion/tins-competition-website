@@ -31,7 +31,7 @@ const MOCK_RESULT = {
 describe('Entry Page Test', () => {
 	beforeAll(() => {
 		// mock window location
-		window.location = { pathname: `https://www.example.com/entry/${ENTRY_ID}` } as Location;
+		window.location = { pathname: `https://www.example.com/entry/${ENTRY_ID}` } as Location & string;
 	});
 
 	test('Component mounts without errors and renders game title', async () => {

@@ -35,7 +35,7 @@ describe('Team Management Test', () => {
 
 	beforeAll(() => {
 		// window location used to extract compo id
-		window.location = { pathname: `https://www.example.com/${COMPO_ID}/team` } as Location;
+		window.location = { pathname: `https://www.example.com/${COMPO_ID}/team` } as Location & string;
 	});
 
 	beforeEach(() => {

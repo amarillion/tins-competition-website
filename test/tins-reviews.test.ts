@@ -17,7 +17,7 @@ const MOCK_ONE_REVIEW = { result: [ MOCK_REVIEW1 ] };
 describe('Review Page Test', () => {
 
 	test('By compo, zero reviews found', async () => {
-		window.location = { pathname: `https://www.example.com/${MOCK_COMPO_ID}/reviews` } as Location;
+		window.location = { pathname: `https://www.example.com/${MOCK_COMPO_ID}/reviews` } as Location & string;
 		FetchMock.builder()
 			.get(`/api/v1/reviews/event/${MOCK_COMPO_ID}`, MOCK_ZERO_REVIEWS)
 			.run(async () => {
@@ -28,7 +28,7 @@ describe('Review Page Test', () => {
 	});
 
 	test('By compo, one review found', async () => {
-		window.location = { pathname: `https://www.example.com/${MOCK_COMPO_ID}/reviews` } as Location;
+		window.location = { pathname: `https://www.example.com/${MOCK_COMPO_ID}/reviews` } as Location & string;
 		FetchMock.builder()
 			.get(`/api/v1/reviews/event/${MOCK_COMPO_ID}`, MOCK_ONE_REVIEW)
 			.run(async () => {

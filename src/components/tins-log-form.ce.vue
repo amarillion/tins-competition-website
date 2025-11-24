@@ -9,7 +9,7 @@ const props = withDefaults(defineProps<{
 	image?: unknown,
 	spoiler?: boolean,
 	// TODO: use event
-	submitCallback?: () => void
+	submitCallback?: (formData: unknown) => void
 }>(), {
 	hidden: false,
 	text: '',

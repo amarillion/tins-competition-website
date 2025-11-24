@@ -5,14 +5,14 @@ const props = withDefaults(defineProps<{
 	readOnly?: boolean,
 	placeholder?: string,
 	text?: string,
-	submitCallback?: (text: string) => void,
+	submitCallback?: (text: string) => Promise<string>,
 }>(), {
 	readOnly: false,
 	placeholder: '(no description)',
 
 	text: '',
 	// TODO: replace with event
-	submitCallback: () => { console.log('WARN: submitCallback not set'); },
+	submitCallback: async() => { console.log('WARN: submitCallback not set'); return ''; },
 });
 
 const loading = ref(false);

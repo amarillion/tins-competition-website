@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest';
-import { renderRichText } from '../src/util';
+import { renderRichText } from '../src/util.js';
 
 test('test linkification and youtube videos', () => {
 	expect(

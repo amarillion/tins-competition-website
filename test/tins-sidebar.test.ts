@@ -3,7 +3,7 @@ import TinsSidebar from '../src/components/tins-sidebar.ce.vue';
 
 import { FetchMock } from './util/fetchMock.js';
 import { beforeEach, describe, expect, test } from 'vitest';
-import { currentEventStore, currentUserStore  } from '../src/store';
+import { currentEventStore, currentUserStore  } from '../src/store/index.js';
 
 const COMPO_ID='krampu24';
 const DEFAULT_CURRENT_EVENT = {
