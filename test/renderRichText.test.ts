@@ -36,7 +36,7 @@ test('test linkification and youtube videos', () => {
 	expect(
 		renderRichText('\nhttps://www.youtube.com/watch?v=T-YczcgExS0\n')
 	).toBe(
-		'<p><br><div class="video-container"><iframe class="video" src="https://www.youtube.com/embed/T-YczcgExS0" allowfullscreen=""></iframe><br /></div><br></p>'
+		'<p><br><div class="video-container"><iframe class="video" src="https://www.youtube.com/embed/T-YczcgExS0" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe><br /></div><br></p>'
 	);
 
 	// youtube video as a link will remain a link

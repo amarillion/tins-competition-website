@@ -88,7 +88,16 @@ function transformYoutubeLinks(text: string) {
 	if (!text) return text;
 	const youtubeLink = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([^& \n<]+)(?:[^ \n<]+)?$/gm;
 	// trick for responsive aspect ratio in iframe: https://www.ankursheel.com/blog/full-width-you-tube-video-embed
-	const replacement = '<div class="video-container"><iframe class="video" src="https://www.youtube.com/embed/$1" allowfullscreen></iframe><br/></div>';
+	const replacement = `\
+<div class="video-container">
+	<iframe class="video"
+		src="https://www.youtube.com/embed/$1"
+		referrerpolicy="strict-origin-when-cross-origin"
+		allowfullscreen>
+	</iframe>
+	<br/>
+</div>`.replaceAll(/[\t\n]/g, '');
+	
 	return text.replaceAll(youtubeLink, replacement);
 }
 

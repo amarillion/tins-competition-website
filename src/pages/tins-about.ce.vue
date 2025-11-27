@@ -24,7 +24,11 @@ import emailIcon from '@fortawesome/fontawesome-free/svgs/solid/envelope.svg';
 	</p>
 	<iframe width="560" height="315"
 		src="https://www.youtube.com/embed/3yR10fjSDtU"
-		title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+		title="YouTube video player"
+		frameborder="0"
+		allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+		referrerpolicy="strict-origin-when-cross-origin"
+		allowfullscreen>
 	</iframe>
 	<p>
 	There are some other <b>important rules</b>, such as the requirement to publish source. See the rules page for each competition for details. TINS is held every year in the summer.

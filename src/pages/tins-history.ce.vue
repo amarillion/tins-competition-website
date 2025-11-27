@@ -21,7 +21,7 @@ onMounted(() => currentEventStore.refreshCurrentEvent());
 	</tins-status-helper>
 
 	<p>Browse <a href="/all/entries">all games</a> ever submitted!</p>
-	<iframe width="560" height="315" src="https://www.youtube.com/embed/LbHNcPQeTCk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	<iframe width="560" height="315" src="https://www.youtube.com/embed/LbHNcPQeTCk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 	<p>There are more video's, watch the <a href="https://www.youtube.com/playlist?list=PLmBvSmxxEM36slHhzQrIF3tjh-iX52M1F">complete playlist</a></p>
 	<h2>Other community events</h2>
 	<p>
