@@ -14,7 +14,7 @@ describe('Tins current user component', () => {
 		await FetchMock.builder().get('/api/v1/currentUser', { login: 'player1', isStaff: false }).run(async () => {
 			const wrapper = mount(TinsCurrentUser);
 			await flushPromises();
-			expect(wrapper.text()).toEqual('You are logged in as: player1 log out');
+			expect(wrapper.text()).toEqual('You are logged in as: player1Log out');
 		});
 	});
 
