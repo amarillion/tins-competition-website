@@ -4,7 +4,7 @@ import windowsIcon from '@fortawesome/fontawesome-free/svgs/brands/windows.svg';
 import linuxIcon from '@fortawesome/fontawesome-free/svgs/brands/linux.svg';
 import macIcon from '@fortawesome/fontawesome-free/svgs/brands/apple.svg';
 import downloadIcon from '@fortawesome/fontawesome-free/svgs/solid/paperclip.svg';
-import { formatBytes } from '../util';
+import { formatBytes } from '../util.js';
 import { computed } from 'vue';
 
 type UploadType = {
@@ -53,7 +53,7 @@ const postDeadline = computed(() => uploads.filter(u => u.postCompo).slice(0, 4)
 				<td><a :href="`/upload/${upload.url}`" router-ignore>{{getFileName(upload.url)}}</a></td>
 				<td>{{formatBytes(upload.size)}}</td>
 				<td>{{formatUploadTime(upload.time)}}</td>
-				<td><tins-fa-icon v-for="t of upload.tags.sort()" :key="t" :src="icons[t]" :title="titles[t]"></tins-fa-icon></td>
+				<td><tins-fa-icon v-for="t of upload.tags?.sort()" :key="t" :src="icons[t]" :title="titles[t]"></tins-fa-icon></td>
 			</tr>
 
 			<tr v-if="postDeadline.length > 0"><td colspan="5" style="background: white;"><h4>Post competition additions:</h4></td></tr>
