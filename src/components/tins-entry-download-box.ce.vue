@@ -63,7 +63,7 @@ const postDeadline = computed(() => uploads.filter(u => u.postCompo).slice(0, 4)
 				<td><a :href="`/upload/${upload.url}`" router-ignore>{{getFileName(upload.url)}}</a></td>
 				<td>{{formatBytes(upload.size)}}</td>
 				<td>{{formatUploadTime(upload.time)}}</td>
-				<td><tins-fa-icon v-for="t of upload.tags.sort()" :key="t" :src="icons[t]" :title="titles[t]"></tins-fa-icon></td>
+				<td><tins-fa-icon v-for="t of upload.tags?.sort()" :key="t" :src="icons[t]" :title="titles[t]"></tins-fa-icon></td>
 			</tr>
 
 		</table>
