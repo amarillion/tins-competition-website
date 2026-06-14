@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { fetchJSONOrThrow } from '../util';
+import { fetchJSONOrThrow } from '../util.js';
 import { usePromise } from '../usePromise.js';
 import { watch, onMounted, computed } from 'vue';
-import { currentEventStore } from '../store/index';
+import { currentEventStore } from '../store/index.js';
 import { storeToRefs } from 'pinia';
 
 onMounted(() => {

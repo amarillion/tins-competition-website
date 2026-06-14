@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { usePromise } from '../usePromise.js';
 import { computed, ref, watch } from 'vue';
-import { fetchJSONOrThrow, postOrThrow } from '../util';
+import { fetchJSONOrThrow, postOrThrow } from '../util.js';
 
 import infoIcon from '@fortawesome/fontawesome-free/svgs/solid/circle-info.svg';
 import thumbsUpIcon from '@fortawesome/fontawesome-free/svgs/solid/thumbs-up.svg';
@@ -9,7 +9,7 @@ import thumbsDownIcon from '@fortawesome/fontawesome-free/svgs/solid/thumbs-down
 import easyIcon from '@fortawesome/fontawesome-free/svgs/solid/bicycle.svg';
 import hardIcon from '@fortawesome/fontawesome-free/svgs/solid/shuttle-space.svg';
 
-import { currentUserStore } from '../store/index';
+import { currentUserStore } from '../store/index.js';
 import { storeToRefs } from 'pinia';
 
 const { isLoggedIn } = storeToRefs(currentUserStore);

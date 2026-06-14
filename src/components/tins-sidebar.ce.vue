@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted } from 'vue';
-import { currentUserStore } from '../store/index';
-import { currentEventStore } from '../store/index';
+import { currentUserStore } from '../store/index.js';
+import { currentEventStore } from '../store/index.js';
 import { storeToRefs } from 'pinia';
 
 const {

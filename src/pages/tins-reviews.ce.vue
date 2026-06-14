@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { fetchJSONOrThrow, renderRichText } from '../util';
+import { fetchJSONOrThrow, renderRichText } from '../util.js';
 import { onMounted, computed } from 'vue';
 import { usePromise } from '../usePromise.js';
 const m = window.location.pathname.match('/(?<compoId>\\w+)/reviews(/entrant/(?<entrantId>\\d+)|/entry/(?<entryId>\\d+)|/(?<reviewId>\\d+))?/?$');

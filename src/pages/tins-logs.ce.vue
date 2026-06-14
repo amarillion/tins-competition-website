@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { fetchJSONOrThrow, postOrThrow } from '../util';
+import { fetchJSONOrThrow, postOrThrow } from '../util.js';
 import { onMounted, computed } from 'vue';
 import { usePromise } from '../usePromise.js';
-import { currentUserStore } from '../store/index';
-import { currentEventStore } from '../store/index';
+import { currentUserStore } from '../store/index.js';
+import { currentEventStore } from '../store/index.js';
 
 const m = window.location.pathname.match('/(?<compoId>\\w+)/log(/entrant/(?<entrantId>\\d+)|/page/(?<page>\\d+)|/id/(?<postId>\\d+))?/?$');
 const { compoId, postId, entrantId } = m.groups;

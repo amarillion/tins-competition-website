@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { fetchJSONOrThrow, IMAGE_UPLOAD_SIZE_LIMIT, postOrThrow } from '../util';
+import { fetchJSONOrThrow, IMAGE_UPLOAD_SIZE_LIMIT, postOrThrow } from '../util.js';
 import gamepadIcon from '@fortawesome/fontawesome-free/svgs/solid/gamepad.svg';
 import { computed, onMounted } from 'vue';
 import { usePromise } from '../usePromise.js';

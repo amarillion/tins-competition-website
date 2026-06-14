@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import infoIcon from '@fortawesome/fontawesome-free/svgs/solid/circle-info.svg';
-import { formatBytes, IMAGE_UPLOAD_SIZE_LIMIT, markupMessage, spoilerExplanation } from '../util';
+import { formatBytes, IMAGE_UPLOAD_SIZE_LIMIT, markupMessage, spoilerExplanation } from '../util.js';
 import { ref } from 'vue';
 
 const props = withDefaults(defineProps<{

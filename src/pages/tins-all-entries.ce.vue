@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { usePromise } from '../usePromise.js';
 import { ref, computed, onMounted } from 'vue';
-import { fetchJSONOrThrow } from '../util';
+import { fetchJSONOrThrow } from '../util.js';
 
 type CompoType = { short: string, title: string, competitionStart: number };
 type EntrantType = { id: number, name: string };

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import { computed, onMounted, ref } from 'vue';
-import { currentUserStore } from '../store';
-import { usePromise } from '../usePromise';
-import { fetchJSONOrThrow } from '../util';
+import { currentUserStore } from '../store/index.js';
+import { usePromise } from '../usePromise.js';
+import { fetchJSONOrThrow } from '../util.js';
 
 const m = window.location.pathname.match('/(?<compoId>[^/]+)/results/calculate/?$');
 const { compoId } = m.groups;

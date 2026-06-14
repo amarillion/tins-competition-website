@@ -10,7 +10,7 @@ import liveIcon from '@fortawesome/fontawesome-free/svgs/solid/heart-pulse.svg';
 
 import { usePromise } from '../usePromise.js';
 import { onMounted } from 'vue';
-import { fetchJSONOrThrow } from '../util';
+import { fetchJSONOrThrow } from '../util.js';
 
 type CompoType = {
 	short: string,

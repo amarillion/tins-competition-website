@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import calendarIcon from '@fortawesome/fontawesome-free/svgs/solid/calendar.svg';
 import discordIcon from '@fortawesome/fontawesome-free/svgs/brands/discord.svg';
-import type { UpcomingType } from '../store/currentEvent';
+import type { UpcomingType } from '../store/currentEvent.js';
 
 defineProps<{ upcoming: UpcomingType[] }>();
 </script>

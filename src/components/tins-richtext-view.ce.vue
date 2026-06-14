@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import { renderRichText } from '../util';
+import { renderRichText } from '../util.js';
 
 defineProps({
 	text: { type: String, required: true }
