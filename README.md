@@ -17,6 +17,22 @@ npm run dev
 
 Then browse to http://localhost:8080/static/
 
+
+## Playwright tests
+
+First time setup:
+
+```
+npm install
+npx playwright install --with-deps chromium
+```
+
+Run tests:
+
+```
+npm run test:pw
+```
+
 ## License
 
 This code is open source according to the MIT License. See: [LICENSE](./LICENSE)
