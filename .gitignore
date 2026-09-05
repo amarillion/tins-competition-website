@@ -3,3 +3,5 @@ node_modules/
 __pycache__
 .vscode
 /coverage/
+/playwright-report/
+/test-results/

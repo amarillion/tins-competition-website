@@ -14,7 +14,8 @@ export default defineConfig(({ mode }) => {
 		},
 		base: '/static/',
 		test: {
-			environment: 'jsdom'
+			environment: 'jsdom',
+			include: ['test/**/*.test.ts']
 		}
 	};
 });
