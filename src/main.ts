@@ -1,8 +1,8 @@
-import { createApp, h } from 'vue';
-import { RouterView } from 'vue-router';
+import { createApp } from 'vue';
 import { postOrThrow } from './util.js';
 import { installInternalLinkHandler } from './linkHandler.js';
 import { router } from './router.js';
+import App from './App.vue';
 
 window.onerror = async (event, fileName, lineNumber, columnNumber, error) => {
 	try {
@@ -27,9 +27,7 @@ window.onunhandledrejection = async (event) => {
 	catch (e) { /* ignore cascade */ }
 };
 
-const app = createApp({
-	render: () => h(RouterView),
-});
+const app = createApp(App);
 
 app.use(router);
 app.mount('#outlet');
