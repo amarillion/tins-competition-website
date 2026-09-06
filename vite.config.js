@@ -6,7 +6,13 @@ export default defineConfig(({ mode }) => {
 	return {
 		plugins: [
 			compression(),
-			vue(),
+			vue({
+				template: {
+					compilerOptions: {
+						isCustomElement: (tag) => tag.startsWith('tins-'),
+					},
+				},
+			}),
 		],
 		build: {
 			outDir: './static', // <- this is where django expects the static assets when running in local dev mode...
