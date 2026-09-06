@@ -24,16 +24,16 @@ import TinsEntrants from './pages/tins-entrants.vue';
 import TinsResults from './pages/tins-results.vue';
 import TinsRules from './pages/tins-rules.vue';
 
+import TinsAdminCalculateResults from './pages/tins-admin-calculate-results.vue';
+import TinsLogEdit from './pages/tins-log-edit.vue';
+import TinsLogs from './pages/tins-logs.vue';
+import TinsMyEntry from './pages/tins-my-entry.vue';
+import TinsReviews from './pages/tins-reviews.vue';
+import TinsTeamManagement from './pages/tins-team-management.vue';
+
 import { registerCustomElements } from './customElements.js';
 
 registerCustomElements();
-
-function ceRoute(tag: string) {
-	return defineComponent({
-		name: `CeRoute-${tag}`,
-		render: () => h(tag),
-	});
-}
 
 /**
  * Renders the matched page component inside the current route level.
@@ -94,22 +94,22 @@ export const routes: RouteRecordRaw[] = [
 			{ path: ':compoId/results', component: TinsResults, props: true },
 			{ path: ':compoId/entrants', component: TinsEntrants, props: true },
 
-			{ path: ':compoId/reviews', component: ceRoute('tins-reviews') },
-			{ path: ':compoId/reviews/entry/:entryId', component: ceRoute('tins-reviews') },
-			{ path: ':compoId/reviews/entrant/:entrantId', component: ceRoute('tins-reviews') },
-			{ path: ':compoId/reviews/:reviewId', component: ceRoute('tins-reviews') },
+			{ path: ':compoId/reviews', component: TinsReviews, props: true },
+			{ path: ':compoId/reviews/entry/:entryId', component: TinsReviews, props: true },
+			{ path: ':compoId/reviews/entrant/:entrantId', component: TinsReviews, props: true },
+			{ path: ':compoId/reviews/:reviewId', component: TinsReviews, props: true },
 
-			{ path: ':compoId/myEntry', component: ceRoute('tins-my-entry') },
-			{ path: ':compoId/team', component: ceRoute('tins-team-management') },
+			{ path: ':compoId/myEntry', component: TinsMyEntry, props: true },
+			{ path: ':compoId/team', component: TinsTeamManagement, props: true },
 
-			{ path: ':compoId/log/edit', component: ceRoute('tins-log-edit') },
-			{ path: ':compoId/log/id/:postId', component: ceRoute('tins-logs') },
-			{ path: ':compoId/log', component: ceRoute('tins-logs') },
-			{ path: ':compoId/log/entrant/:entrantId', component: ceRoute('tins-logs') },
-			{ path: ':compoId/log/page/:page', component: ceRoute('tins-logs') },
-			{ path: ':compoId/log/entrant/:entrantId/page/:page', component: ceRoute('tins-logs') },
+			{ path: ':compoId/log/edit', component: TinsLogEdit, props: true },
+			{ path: ':compoId/log/id/:postId', component: TinsLogs, props: true },
+			{ path: ':compoId/log', component: TinsLogs, props: true },
+			{ path: ':compoId/log/entrant/:entrantId', component: TinsLogs, props: true },
+			{ path: ':compoId/log/page/:page', component: TinsLogs, props: true },
+			{ path: ':compoId/log/entrant/:entrantId/page/:page', component: TinsLogs, props: true },
 
-			{ path: ':compoId/results/calculate', component: ceRoute('tins-admin-calculate-results') },
+			{ path: ':compoId/results/calculate', component: TinsAdminCalculateResults, props: true },
 		],
 	},
 ];

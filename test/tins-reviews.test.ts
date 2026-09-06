@@ -2,7 +2,7 @@ import { flushPromises, mount } from '@vue/test-utils';
 
 import { FetchMock } from './util/fetchMock.js';
 import { describe, expect, test } from 'vitest';
-import TinsReviews from '../src/pages/tins-reviews.ce.vue';
+import TinsReviews from '../src/pages/tins-reviews.vue';
 
 const MOCK_COMPO_ID = '2025';
 const MOCK_ZERO_REVIEWS = { result: [] };
@@ -17,22 +17,20 @@ const MOCK_ONE_REVIEW = { result: [ MOCK_REVIEW1 ] };
 describe('Review Page Test', () => {
 
 	test('By compo, zero reviews found', async () => {
-		window.location = { pathname: `https://www.example.com/${MOCK_COMPO_ID}/reviews` } as Location & string;
 		FetchMock.builder()
 			.get(`/api/v1/reviews/event/${MOCK_COMPO_ID}`, MOCK_ZERO_REVIEWS)
 			.run(async () => {
-				const wrapper = mount(TinsReviews);
+				const wrapper = mount(TinsReviews, { props: { compoId: MOCK_COMPO_ID } });
 				await flushPromises();
 				expect(wrapper.text()).toContain('Showing 0 reviews');
 			});
 	});
 
 	test('By compo, one review found', async () => {
-		window.location = { pathname: `https://www.example.com/${MOCK_COMPO_ID}/reviews` } as Location & string;
 		FetchMock.builder()
 			.get(`/api/v1/reviews/event/${MOCK_COMPO_ID}`, MOCK_ONE_REVIEW)
 			.run(async () => {
-				const wrapper = mount(TinsReviews);
+				const wrapper = mount(TinsReviews, { props: { compoId: MOCK_COMPO_ID } });
 				await flushPromises();
 				expect(wrapper.text()).toContain('Showing 1 reviews');
 				expect(wrapper.text()).toContain('Review by entrant 1');

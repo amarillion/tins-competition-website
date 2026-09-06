@@ -1,8 +1,8 @@
 import { flushPromises, mount } from '@vue/test-utils';
-import TinsTeamManagement from '../src/pages/tins-team-management.ce.vue';
+import TinsTeamManagement from '../src/pages/tins-team-management.vue';
 
 import { FetchMock } from './util/fetchMock.js';
-import { beforeAll, beforeEach, describe, expect, test } from 'vitest';
+import { beforeEach, describe, expect, test } from 'vitest';
 import { currentEventStore } from '../src/store/index.js';
 
 const COMPO_ID='2024';
@@ -33,11 +33,6 @@ const DEFAULT_ENTRY_DATA = {
 };
 describe('Team Management Test', () => {
 
-	beforeAll(() => {
-		// window location used to extract compo id
-		window.location = { pathname: `https://www.example.com/${COMPO_ID}/team` } as Location & string;
-	});
-
 	beforeEach(() => {
 		currentEventStore.testResetTimestamp(); // make sure store is in clean state, because getCurrentEvent is cached...
 	});
@@ -48,7 +43,7 @@ describe('Team Management Test', () => {
 			.post(`/api/v1/compo/${COMPO_ID}/myEntry`, { entryId: ENTRY_ID })
 			.get(`/api/v1/entry/${ENTRY_ID}/`, DEFAULT_ENTRY_DATA)
 			.run(async () => {
-				const wrapper = mount(TinsTeamManagement);
+				const wrapper = mount(TinsTeamManagement, { props: { compoId: COMPO_ID } });
 				await flushPromises();
 				expect(wrapper.text()).toContain('Your current team:');
 				expect(wrapper.text()).toContain('Yourself');

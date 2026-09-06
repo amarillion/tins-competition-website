@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
-import { computed, onMounted, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { currentUserStore } from '../store/index.js';
 import { usePromise } from '../usePromise.js';
 import { fetchJSONOrThrow } from '../util.js';
 
-const m = window.location.pathname.match('/(?<compoId>[^/]+)/results/calculate/?$');
-const { compoId } = m.groups;
+const props = defineProps<{ compoId: string }>();
+const compoId = computed(() => props.compoId);
 
 const {
 	isStaff
@@ -21,9 +21,9 @@ type ScoreType = {
 
 const data = usePromise<ScoreType[]>();
 
-onMounted(() => {
-	data.doAsync(async () => (await fetchJSONOrThrow<{ scores: ScoreType[] }>(`/api/v1/scores/byCompo/${compoId}`)).scores);
-});
+watch(compoId, () => {
+	data.doAsync(async () => (await fetchJSONOrThrow<{ scores: ScoreType[] }>(`/api/v1/scores/byCompo/${compoId.value}`)).scores);
+}, { immediate: true });
 
 function ranked(values: number[]) {
 	const result: number[] = [];
@@ -59,7 +59,7 @@ const excludedEntries = ref(new Set<number>());
 
 const rankedData = computed(() => {
 	const scores = data.result.value;
-	
+
 	let maxLength = 0;
 	let minLength = Number.MAX_SAFE_INTEGER;
 
@@ -82,7 +82,7 @@ const rankedData = computed(() => {
 	if (maxLength !== minLength) {
 		throw new Error(`Inconsistent lengths: maxLength=${maxLength}, minLength=${minLength}`);
 	}
-	
+
 	const combined = new Array(maxLength).fill(0).map((elt, idx) => ({
 		all: result.all[idx],
 		art: result.art[idx],
@@ -108,48 +108,50 @@ function colorForRank(rank: number) {
 }
 </script>
 <template>
-	<template v-if="isStaff">
+	<div class="tins-admin-calculate-results">
+		<template v-if="isStaff">
 
-	<tins-status-helper :error="data.error.value" :loading="data.loading.value">
-	
-	<h1>Generated Results</h1>
+			<tins-status-helper :error="data.error.value" :loading="data.loading.value">
 
-	<table CELLSPACING=0 CELLPADDING=5 style="word-break: normal">
-	<tr bgcolor="#ffff00">
-	<td colspan="3">Overall</td>
-	<td colspan="3">Art</td>
-	<td colspan="3">Tech</td>
-	<td colspan="3">Genre</td>
-	</tr>
-	
-	<tr v-for="row of rankedData" :key="row.idx" :bgcolor="colorForRank(row.all.rank)">
-		<template v-for="category of ['all', 'art', 'tech', 'genre']" :key="category">
-			<td>{{row[category].rank}}</td>
-			<td><a :href="`/${compoId}/entry/${row[category].entryId}`">{{row[category].team}}</a></td>
-			<td>{{row[category].score.toFixed(2)}}</td>
+				<h1>Generated Results</h1>
+
+				<table CELLSPACING=0 CELLPADDING=5 style="word-break: normal">
+					<tr bgcolor="#ffff00">
+						<td colspan="3">Overall</td>
+						<td colspan="3">Art</td>
+						<td colspan="3">Tech</td>
+						<td colspan="3">Genre</td>
+					</tr>
+
+					<tr v-for="row of rankedData" :key="row.idx" :bgcolor="colorForRank(row.all.rank)">
+						<template v-for="category of ['all', 'art', 'tech', 'genre']" :key="category">
+							<td>{{row[category].rank}}</td>
+							<td><a :href="`/${compoId}/entry/${row[category].entryId}`">{{row[category].team}}</a></td>
+							<td>{{row[category].score.toFixed(2)}}</td>
+						</template>
+					</tr>
+
+				</table>
+
+				<h2>Exclude entries from ranking</h2>
+				<div>
+					<template v-for="entry of entries" :key="entry.entryId">
+						<label>
+							<input type="checkbox" v-model="excludedEntries" :value="entry.entryId" />
+							{{entry.team}} ({{entry.entryId}})
+						</label>
+						<br>
+					</template>
+				</div>
+
+			</tins-status-helper>
+
 		</template>
-	</tr>
-
-	</table>
-
-	<h2>Exclude entries from ranking</h2>
-	<div>
-		<template v-for="entry of entries" :key="entry.entryId">
-			<label>
-				<input type="checkbox" v-model="excludedEntries" :value="entry.entryId" />
-				{{entry.team}} ({{entry.entryId}})
-			</label>
-			<br>
+		<template v-else>
+			You need to be logged in with admin rights.
 		</template>
 	</div>
-
-	</tins-status-helper>
-
-	</template>
-	<template v-else>
-		You need to be logged in with admin rights.
-	</template>
 </template>
-<style>
+<style scoped>
 
 </style>

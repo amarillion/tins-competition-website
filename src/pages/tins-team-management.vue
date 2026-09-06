@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { fetchJSONOrThrow, postOrThrow } from '../util.js';
 import { usePromise } from '../usePromise.js';
-import { computed, onMounted, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 type InvitationType = {
 	id: number,
@@ -16,32 +16,33 @@ type MyEntryType = {
 	entrants?: { id: number, name: string }[],
 };
 
+const props = defineProps<{ compoId: string }>();
+const compoId = computed(() => props.compoId);
+
 const data = usePromise<{
 	entry: MyEntryType,
 	invitations: InvitationsType,
 }>();
-const m = window.location.pathname.match('/(?<compoId>[^/]+)/team/?$');
-const { compoId } = m.groups;
 
-const breadcrumbs = [
-	{ url: `/${compoId}/`, title: compoId },
+const breadcrumbs = computed(() => [
+	{ url: `/${compoId.value}/`, title: compoId.value },
 	{ title: 'Team Management' }
-];
+]);
 
-onMounted(() => {
+watch(compoId, () => {
 	refresh();
-});
+}, { immediate: true });
 
 async function refresh() {
 	data.doAsync(
 		async () => {
 			try {
-				const invitations: InvitationsType = await fetchJSONOrThrow(`/api/v1/invitation/byCompo/${compoId}`);
-				const response = await postOrThrow(`/api/v1/compo/${compoId}/myEntry`, '');
+				const invitations: InvitationsType = await fetchJSONOrThrow(`/api/v1/invitation/byCompo/${compoId.value}`);
+				const response = await postOrThrow(`/api/v1/compo/${compoId.value}/myEntry`, '');
 				const myEntry = await response.json();
 				const { entryId } = myEntry;
 				const entry: MyEntryType = await fetchJSONOrThrow(`/api/v1/entry/${entryId}/`);
-				
+
 				return { invitations, entry };
 			}
 			catch(e) {
@@ -60,7 +61,7 @@ const inviteeSelectElt = ref(null);
 
 async function openInvitationSelect() {
 	allEntrants.doAsync(async () => {
-		const response = await fetch(`/api/v1/compo/${compoId}/entrants?simple=true`);
+		const response = await fetch(`/api/v1/compo/${compoId.value}/entrants?simple=true`);
 		const { result } = await response.json();
 		// TODO: filter self, filter invitees, filter team members
 		invitationOpen.value = true;
@@ -94,7 +95,7 @@ async function resolve(invitation: { id: number }, isAccept: boolean) {
 async function leaveTeam() {
 	if (window.confirm('Are you sure you want to leave this team and go by yourself?')) {
 		try {
-			const currentEntrantResponse = await fetchJSONOrThrow<{ entrantId: string }>(`/api/v1/compo/${compoId}/currentEntrant`);
+			const currentEntrantResponse = await fetchJSONOrThrow<{ entrantId: string }>(`/api/v1/compo/${compoId.value}/currentEntrant`);
 			await postOrThrow(`/api/v1/removeTeamMember/${currentEntrantResponse.entrantId}`, '');
 			refresh();
 		}
@@ -105,46 +106,48 @@ async function leaveTeam() {
 }
 </script>
 <template>
-	<tins-breadcrumbs :data="breadcrumbs"></tins-breadcrumbs>
-	<tins-status-helper :error="data.error.value" :loading="data.loading.value">
-		<p v-if="entry.entrants">Your current team:
-			<ol>
-				<li v-for="e of entry.entrants" :key="e.id">{{e.name}}</li>
-			</ol>
-			<span v-if="entry.entrants.length === 1">(You're all by yourself)</span>
-			<button v-else @click="leaveTeam">Leave team</button>
-		</p>
-
-		<template v-if="invitations">
-			<p v-for="e of invitations" :key="e.id">You've been invited to join the team of {{e.senderName}}.
-				Do you <button @click="() => resolve(e, true)">Accept</button>
-				or <button @click="() => resolve(e, false)">Reject</button>?
+	<div class="tins-team-management">
+		<tins-breadcrumbs :data="breadcrumbs"></tins-breadcrumbs>
+		<tins-status-helper :error="data.error.value" :loading="data.loading.value">
+			<p v-if="entry.entrants">Your current team:
+				<ol>
+					<li v-for="e of entry.entrants" :key="e.id">{{e.name}}</li>
+				</ol>
+				<span v-if="entry.entrants.length === 1">(You're all by yourself)</span>
+				<button v-else @click="leaveTeam">Leave team</button>
 			</p>
-		</template>
 
-		<div v-if="invitationOpen">
-			<select name="invitees" ref="inviteeSelectElt">
-				<option value="">--Please choose an option--</option>
-				<option v-for="e of allEntrants.result.value" :key="e.entrantId" :value="e.entrantId">{{e.username}}</option>
-			</select>
-			<button @click="sendInvitation">Send Invitation</button>
-		</div>
-		<div v-else>
-			<button @click="openInvitationSelect">Invite somebody else</button>
-		</div>
+			<template v-if="invitations">
+				<p v-for="e of invitations" :key="e.id">You've been invited to join the team of {{e.senderName}}.
+					Do you <button @click="() => resolve(e, true)">Accept</button>
+					or <button @click="() => resolve(e, false)">Reject</button>?
+				</p>
+			</template>
 
-		
-		<p v-if="(pendingInvitations && pendingInvitations.length > 0)">Pending invitations (waiting to be accepted):
-			<ul>
-				<li v-for="e of pendingInvitations" :key="e.recipientEntrantId">{{e.recipientName}}</li>
-			</ul>
-		</p>
+			<div v-if="invitationOpen">
+				<select name="invitees" ref="inviteeSelectElt">
+					<option value="">--Please choose an option--</option>
+					<option v-for="e of allEntrants.result.value" :key="e.entrantId" :value="e.entrantId">{{e.username}}</option>
+				</select>
+				<button @click="sendInvitation">Send Invitation</button>
+			</div>
+			<div v-else>
+				<button @click="openInvitationSelect">Invite somebody else</button>
+			</div>
 
-	</tins-status-helper>
+
+			<p v-if="(pendingInvitations && pendingInvitations.length > 0)">Pending invitations (waiting to be accepted):
+				<ul>
+					<li v-for="e of pendingInvitations" :key="e.recipientEntrantId">{{e.recipientName}}</li>
+				</ul>
+			</p>
+
+		</tins-status-helper>
+	</div>
 </template>
-<style>
-.error {
-	width: 100%;
-	color: red;
-}
+<style scoped>
+	.tins-team-management .error {
+		width: 100%;
+		color: red;
+	}
 </style>

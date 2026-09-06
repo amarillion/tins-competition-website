@@ -1,12 +1,5 @@
 import { defineCustomElement } from 'vue';
 
-import TinsLogEdit from './pages/tins-log-edit.ce.vue';
-import TinsLogs from './pages/tins-logs.ce.vue';
-import TinsMyEntry from './pages/tins-my-entry.ce.vue';
-import TinsTeamManagement from './pages/tins-team-management.ce.vue';
-import TinsReviews from './pages/tins-reviews.ce.vue';
-import TinsAdminCalculateResults from './pages/tins-admin-calculate-results.ce.vue';
-
 import TinsBreadcrumbs from './components/tins-breadcrumbs.ce.vue';
 import TinsCountDown from './components/tins-count-down.ce.vue';
 import TinsCurrentEvent from './components/tins-current-event.ce.vue';
@@ -30,14 +23,6 @@ import TinsStatusHelper from './components/tins-status-helper.ce.vue';
 import TinsUpcoming from './components/tins-upcoming.ce.vue';
 
 export function registerCustomElements() {
-	// pages
-	customElements.define('tins-log-edit', defineCustomElement(TinsLogEdit));
-	customElements.define('tins-logs', defineCustomElement(TinsLogs));
-	customElements.define('tins-my-entry', defineCustomElement(TinsMyEntry));
-	customElements.define('tins-team-management', defineCustomElement(TinsTeamManagement));
-	customElements.define('tins-reviews', defineCustomElement(TinsReviews));
-	customElements.define('tins-admin-calculate-results', defineCustomElement(TinsAdminCalculateResults));
-
 	// components
 	customElements.define('tins-breadcrumbs', defineCustomElement(TinsBreadcrumbs));
 	customElements.define('tins-count-down', defineCustomElement(TinsCountDown));
