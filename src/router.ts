@@ -19,6 +19,11 @@ import TinsEntry from './pages/tins-entry.vue';
 import TinsNewsPage from './pages/tins-newspage.vue';
 import TinsUser from './pages/tins-user.vue';
 
+import TinsCompoMain from './pages/tins-compo-main.vue';
+import TinsEntrants from './pages/tins-entrants.vue';
+import TinsResults from './pages/tins-results.vue';
+import TinsRules from './pages/tins-rules.vue';
+
 import { registerCustomElements } from './customElements.js';
 
 registerCustomElements();
@@ -84,10 +89,10 @@ export const routes: RouteRecordRaw[] = [
 
 			{ path: 'rule-o-matic', component: TinsRuleOMatic },
 
-			{ path: ':compoId', component: ceRoute('tins-compo-main') },
-			{ path: ':compoId/rules', component: ceRoute('tins-rules') },
-			{ path: ':compoId/results', component: ceRoute('tins-results') },
-			{ path: ':compoId/entrants', component: ceRoute('tins-entrants') },
+			{ path: ':compoId', component: TinsCompoMain, props: true },
+			{ path: ':compoId/rules', component: TinsRules, props: true },
+			{ path: ':compoId/results', component: TinsResults, props: true },
+			{ path: ':compoId/entrants', component: TinsEntrants, props: true },
 
 			{ path: ':compoId/reviews', component: ceRoute('tins-reviews') },
 			{ path: ':compoId/reviews/entry/:entryId', component: ceRoute('tins-reviews') },
