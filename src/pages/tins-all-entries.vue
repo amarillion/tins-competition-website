@@ -57,44 +57,46 @@ const byUser = computed(_byUser);
 </script>
 
 <template>
-	<tins-status-helper  :error="data.error.value" :loading="data.loading.value">
-		<div v-if="data.result.value">
-			<div class="buttons">
-				<button @click="groupBy = 'byEvent'">by&nbsp;event</button>&nbsp;
-				<button @click="groupBy = 'byUser'">by&nbsp;user</button>
-			</div>
+	<div class="tins-all-entries">
+		<tins-status-helper  :error="data.error.value" :loading="data.loading.value">
+			<div v-if="data.result.value">
+				<div class="buttons">
+					<button @click="groupBy = 'byEvent'">by&nbsp;event</button>&nbsp;
+					<button @click="groupBy = 'byUser'">by&nbsp;user</button>
+				</div>
 
-			<div v-if="groupBy === 'byEvent'">
-				<div v-for="i of byCompo" :key="i.competition.short">
-					<h2>{{i.competition.title}}</h2>
-					<div class="entry-list">
-						<a v-for="e of i.entries" :key="e.id" :href="`/entry/${e.id}`">
-							<tins-entry-thumbnail
-								.entry="e"
-								:footer="e.team"
-								></tins-entry-thumbnail>
-						</a>
+				<div v-if="groupBy === 'byEvent'">
+					<div v-for="i of byCompo" :key="i.competition.short">
+						<h2>{{i.competition.title}}</h2>
+						<div class="entry-list">
+							<a v-for="e of i.entries" :key="e.id" :href="`/entry/${e.id}`">
+								<tins-entry-thumbnail
+									.entry="e"
+									:footer="e.team"
+									></tins-entry-thumbnail>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div v-else>
+					<div v-for="i of byUser" :key="i.user.id">
+						<h2>{{i.user.name}}</h2>
+						<div class="entry-list">
+							<a v-for="e of i.entries" :key="e.id" :href="`/entry/${e.id}`">
+								<tins-entry-thumbnail
+									.entry="e"
+									:footer="e.competition.title"
+									></tins-entry-thumbnail>
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div v-else>
-				<div v-for="i of byUser" :key="i.user.id">
-					<h2>{{i.user.name}}</h2>
-					<div class="entry-list">
-						<a v-for="e of i.entries" :key="e.id" :href="`/entry/${e.id}`">
-							<tins-entry-thumbnail
-								.entry="e"
-								:footer="e.competition.title"
-								></tins-entry-thumbnail>
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</tins-status-helper>
+		</tins-status-helper>
+	</div>
 </template>
 
-<style>
+<style scoped>
 .entry-list {
 	display: flex;
 	flex-flow: row wrap;

@@ -172,7 +172,7 @@ The rating scale ranges from 'I can do this in my sleep' to 'No way, this is imp
 	</template>
 </template>
 
-<style>
+<style scoped>
 	@keyframes slide {
 		0% {
 			opacity: 0;

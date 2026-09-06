@@ -126,17 +126,15 @@ const FAQ = [
 </script>
 
 <template>
-	<h1>Frequently Asked Questions</h1>
-	<div v-for="f of FAQ" :key="f.idx"><h3>{{f.question}}</h3><div v-html="f.answer"></div></div>
+	<div class="tins-faq">
+		<h1>Frequently Asked Questions</h1>
+		<div v-for="f of FAQ" :key="f.idx"><h3>{{f.question}}</h3><div v-html="f.answer"></div></div>
+	</div>
 </template>
 
-<style>
-	:host {
-		display: block; /* solves text selection issues */
-	}
-
-	a 			{ font-weight: bold; text-decoration: none; }
-	a:link 		{ color: #600; }
-	a:hover 	{ text-decoration: underline; }
-	a:active 	{ text-decoration: underline; }
+<style scoped>
+	.tins-faq :deep(a) 			{ font-weight: bold; text-decoration: none; }
+	.tins-faq :deep(a:link) 		{ color: #600; }
+	.tins-faq :deep(a:hover) 	{ text-decoration: underline; }
+	.tins-faq :deep(a:active) 	{ text-decoration: underline; }
 </style>

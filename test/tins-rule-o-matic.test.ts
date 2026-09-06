@@ -1,5 +1,5 @@
 import { flushPromises, mount } from '@vue/test-utils';
-import TinsRuleOMatic from '../src/pages/tins-rule-o-matic.ce.vue';
+import TinsRuleOMatic from '../src/pages/tins-rule-o-matic.vue';
 import { describe, expect, it } from 'vitest';
 import { currentUserStore } from '../src/store/index.js';
 import { FetchMock } from './util/fetchMock.js';

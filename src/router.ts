@@ -7,6 +7,14 @@ import {
 } from 'vue-router';
 import { defineComponent, h, type Component } from 'vue';
 
+import TinsAbout from './pages/tins-about.vue';
+import TinsAllEntries from './pages/tins-all-entries.vue';
+import TinsFaq from './pages/tins-faq.vue';
+import TinsHistory from './pages/tins-history.vue';
+import TinsMySecretSanta from './pages/tins-my-secret-santa.vue';
+import TinsRuleOMatic from './pages/tins-rule-o-matic.vue';
+import TinsSupport from './pages/tins-support.vue';
+
 import { registerCustomElements } from './customElements.js';
 
 registerCustomElements();
@@ -58,19 +66,19 @@ export const routes: RouteRecordRaw[] = [
 			{ path: '', redirect: '/news/' },
 			{ path: 'news', component: ceRoute('tins-newspage') },
 			{ path: 'news/:newsId', component: ceRoute('tins-newspage') },
-			{ path: 'faq', component: ceRoute('tins-faq') },
-			{ path: 'about', component: ceRoute('tins-about') },
-			{ path: 'history', component: ceRoute('tins-history') },
-			{ path: 'secretSanta', component: ceRoute('tins-my-secret-santa') },
-			{ path: 'support', component: ceRoute('tins-support') },
-			{ path: 'all/entries', component: ceRoute('tins-all-entries') },
+			{ path: 'faq', component: TinsFaq },
+			{ path: 'about', component: TinsAbout },
+			{ path: 'history', component: TinsHistory },
+			{ path: 'secretSanta', component: TinsMySecretSanta },
+			{ path: 'support', component: TinsSupport },
+			{ path: 'all/entries', component: TinsAllEntries },
 			{ path: 'user/:userId', component: ceRoute('tins-user') },
 
 			// TODO: add a 404 page.
 			// TODO: possibly add game name at end of url.
 			{ path: 'entry/:entryId', component: ceRoute('tins-entry') },
 
-			{ path: 'rule-o-matic', component: ceRoute('tins-rule-o-matic') },
+			{ path: 'rule-o-matic', component: TinsRuleOMatic },
 
 			{ path: ':compoId', component: ceRoute('tins-compo-main') },
 			{ path: ':compoId/rules', component: ceRoute('tins-rules') },

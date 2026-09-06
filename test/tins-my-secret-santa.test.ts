@@ -1,5 +1,5 @@
 import { flushPromises, mount } from '@vue/test-utils';
-import TinsSecretSanta from '../src/pages/tins-my-secret-santa.ce.vue';
+import TinsSecretSanta from '../src/pages/tins-my-secret-santa.vue';
 
 import { FetchMock } from './util/fetchMock.js';
 import { describe, expect, test } from 'vitest';
