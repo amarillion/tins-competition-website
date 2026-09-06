@@ -1,8 +1,8 @@
 import { flushPromises, mount } from '@vue/test-utils';
 
 import { FetchMock } from './util/fetchMock.js';
-import { beforeAll, describe, expect, test } from 'vitest';
-import TinsEntry from '../src/pages/tins-entry.ce.vue';
+import { describe, expect, test } from 'vitest';
+import TinsEntry from '../src/pages/tins-entry.vue';
 
 const ENTRY_ID = 148;
 const ENTRY_TITLE = 'EntryTitle';
@@ -29,16 +29,11 @@ const MOCK_RESULT = {
 };
 
 describe('Entry Page Test', () => {
-	beforeAll(() => {
-		// mock window location
-		window.location = { pathname: `https://www.example.com/entry/${ENTRY_ID}` } as Location & string;
-	});
-
 	test('Component mounts without errors and renders game title', async () => {
 		FetchMock.builder()
 			.get(`/api/v1/entry/${ENTRY_ID}/`, MOCK_RESULT)
 			.run(async () => {
-				const wrapper = mount(TinsEntry);
+				const wrapper = mount(TinsEntry, { props: { entryId: String(ENTRY_ID) } });
 				await flushPromises();
 				expect(wrapper.text()).toContain(ENTRY_TITLE);
 			});
@@ -48,7 +43,7 @@ describe('Entry Page Test', () => {
 		FetchMock.builder()
 			.get(`/api/v1/entry/${ENTRY_ID}/`, MOCK_RESULT)
 			.run(async () => {
-				const wrapper = mount(TinsEntry);
+				const wrapper = mount(TinsEntry, { props: { entryId: String(ENTRY_ID) } });
 				await flushPromises();
 				expect(wrapper.find('img[src=\'/upload/images/400k.png\']').exists()).toBe(true);
 			});

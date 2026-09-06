@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { currentEventStore } from '../store/index.js';
-const params = new URLSearchParams(window.location.search);
-const newsId = params.get('newsId');
+
+const props = defineProps<{ newsId?: string }>();
+
+const newsId = computed(() => props.newsId ? Number(props.newsId) : undefined);
+const newsKey = computed(() => props.newsId || 'latest');
 
 const { upcoming, error, loading } = storeToRefs(currentEventStore);
 
@@ -12,7 +15,7 @@ onMounted(() => currentEventStore.refreshCurrentEvent());
 </script>
 <template>
 	<div class="twocol">
-		<tins-newsfeed class="tins-newsfeed" :newsId="newsId"></tins-newsfeed>
+		<tins-newsfeed class="tins-newsfeed" :key="newsKey" :newsId="newsId"></tins-newsfeed>
 		<div class="rightcol">
 			<tins-current-event class="tins-current-event"></tins-current-event>
 			<tins-status-helper :error="error" :loading="loading">
@@ -21,7 +24,7 @@ onMounted(() => currentEventStore.refreshCurrentEvent());
 		</div>
 	</div>
 </template>
-<style>
+<style scoped>
 	/*
 		NOTE: advantage of flex over grid:
 		flex can deal with tins-upcoming setting itself hidden.

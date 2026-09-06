@@ -2,15 +2,12 @@ import { defineCustomElement } from 'vue';
 
 import TinsCompoMain from './pages/tins-compo-main.ce.vue';
 import TinsEntrants from './pages/tins-entrants.ce.vue';
-import TinsEntry from './pages/tins-entry.ce.vue';
 import TinsLogEdit from './pages/tins-log-edit.ce.vue';
 import TinsLogs from './pages/tins-logs.ce.vue';
 import TinsMyEntry from './pages/tins-my-entry.ce.vue';
-import TinsNewsPage from './pages/tins-newspage.ce.vue';
 import TinsResults from './pages/tins-results.ce.vue';
 import TinsRules from './pages/tins-rules.ce.vue';
 import TinsTeamManagement from './pages/tins-team-management.ce.vue';
-import TinsUser from './pages/tins-user.ce.vue';
 import TinsReviews from './pages/tins-reviews.ce.vue';
 import TinsAdminCalculateResults from './pages/tins-admin-calculate-results.ce.vue';
 
@@ -40,15 +37,12 @@ export function registerCustomElements() {
 	// pages
 	customElements.define('tins-compo-main', defineCustomElement(TinsCompoMain));
 	customElements.define('tins-entrants', defineCustomElement(TinsEntrants));
-	customElements.define('tins-entry', defineCustomElement(TinsEntry));
 	customElements.define('tins-log-edit', defineCustomElement(TinsLogEdit));
 	customElements.define('tins-logs', defineCustomElement(TinsLogs));
 	customElements.define('tins-my-entry', defineCustomElement(TinsMyEntry));
-	customElements.define('tins-newspage', defineCustomElement(TinsNewsPage));
 	customElements.define('tins-results', defineCustomElement(TinsResults));
 	customElements.define('tins-rules', defineCustomElement(TinsRules));
 	customElements.define('tins-team-management', defineCustomElement(TinsTeamManagement));
-	customElements.define('tins-user', defineCustomElement(TinsUser));
 	customElements.define('tins-reviews', defineCustomElement(TinsReviews));
 	customElements.define('tins-admin-calculate-results', defineCustomElement(TinsAdminCalculateResults));
 

@@ -15,6 +15,10 @@ import TinsMySecretSanta from './pages/tins-my-secret-santa.vue';
 import TinsRuleOMatic from './pages/tins-rule-o-matic.vue';
 import TinsSupport from './pages/tins-support.vue';
 
+import TinsEntry from './pages/tins-entry.vue';
+import TinsNewsPage from './pages/tins-newspage.vue';
+import TinsUser from './pages/tins-user.vue';
+
 import { registerCustomElements } from './customElements.js';
 
 registerCustomElements();
@@ -64,19 +68,19 @@ export const routes: RouteRecordRaw[] = [
 		component: FrameRoute,
 		children: [
 			{ path: '', redirect: '/news/' },
-			{ path: 'news', component: ceRoute('tins-newspage') },
-			{ path: 'news/:newsId', component: ceRoute('tins-newspage') },
+			{ path: 'news', component: TinsNewsPage, props: true },
+			{ path: 'news/:newsId', component: TinsNewsPage, props: true },
 			{ path: 'faq', component: TinsFaq },
 			{ path: 'about', component: TinsAbout },
 			{ path: 'history', component: TinsHistory },
 			{ path: 'secretSanta', component: TinsMySecretSanta },
 			{ path: 'support', component: TinsSupport },
 			{ path: 'all/entries', component: TinsAllEntries },
-			{ path: 'user/:userId', component: ceRoute('tins-user') },
+			{ path: 'user/:userId', component: TinsUser, props: true },
 
 			// TODO: add a 404 page.
 			// TODO: possibly add game name at end of url.
-			{ path: 'entry/:entryId', component: ceRoute('tins-entry') },
+			{ path: 'entry/:entryId', component: TinsEntry, props: true },
 
 			{ path: 'rule-o-matic', component: TinsRuleOMatic },
 
