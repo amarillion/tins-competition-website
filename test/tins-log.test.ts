@@ -9,13 +9,6 @@ import { FetchMock } from './util/fetchMock.js';
 const MOCK_COMPO_ID = '2026';
 const MOCK_POST_TEXT = "I've been hacking furiously!";
 
-const MOCK_CURRENT_EVENT = {
-	events: [],
-	upcoming: [],
-	currentEvent: { short: MOCK_COMPO_ID, title: 'TINS 2026', canPost: true },
-	serverTime: 1790076091277,
-};
-
 const MOCK_LOG = {
 	posts: [{
 		id: 999,
@@ -36,7 +29,6 @@ describe('Log Page Test', () => {
 		window.history.pushState({}, '', `/${MOCK_COMPO_ID}/log`);
 
 		await FetchMock.builder()
-			.get('/api/v1/currentEvent', MOCK_CURRENT_EVENT)
 			.get(`/api/v1/log/event/${MOCK_COMPO_ID}?page=1`, MOCK_LOG)
 			.run(async () => {
 				const wrapper = mount(TinsLogs, {

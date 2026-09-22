@@ -28,7 +28,6 @@ const data = usePromise<{
 }>();
 
 watch(() => [compoId.value, entrantId.value, page.value, postId.value], () => {
-	currentEventStore.refreshCurrentEvent();
 	data.doAsync(refreshData);
 }, { immediate: true });
 
